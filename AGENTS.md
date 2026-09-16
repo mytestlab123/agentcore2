@@ -1,6 +1,8 @@
 # AGENTS.md
 
-## Read Order
+## Bootstrap / Recovery Order
+
+Use this order only for cold start, recovery, materially changed governing context, or stale/incomplete/contradictory state. There is currently no active task to continue.
 
 1. `AGENTS.md`
 2. `CONTEXT.md`
@@ -22,6 +24,7 @@
 - Update `CONTEXT.md` when current truth or the next action changes.
 - Keep `SPEC.md` small. A worker proceeds inside an approved SPEC and stops on
   a safety, scope, authorization, or evidence failure.
+- When a future objective is named, use its owning Issue/PR, latest relevant authorized delta, and current HEAD for warm continuation; do not invent a task from repository history.
 
 ## Global Guidance
 
