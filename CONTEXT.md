@@ -46,9 +46,15 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
   previews import), so validation is green from a clean checkout regardless of
   entry point. All three previews confirmed to depend only on the shared
   `ComplianceBackend` seam via `MockComplianceBackend`.
-- Next: M1/M2 Amplify preview deploy (>=3 stable URLs), then M3 real Harness
-  agent. Unattended Home Crew execution still waits on the repo-access
-  Task Runner smoke test.
+- Preview URL verification (task 6/15) run 2026-10-01: BLOCKED. Authoritative
+  `aws amplify list-apps --profile amit --region ap-southeast-1` = `[]` — no
+  Amplify apps exist, so no stable URLs, no deployed revision, and no live
+  badge to verify. Upstream deploy (task 5) did not perform the AWS write.
+  Locally, Preview A/B/C bundles are built from revision `765479d` and each
+  emits a truthful MOCK badge (badge enum also carries RECORDED/LIVE). No
+  winning UI declared. Evidence: `docs/preview-verification.md`.
+- Next: re-run M1/M2 Amplify preview deploy (>=3 stable URLs), then re-verify
+  served revision + badge against live URLs, then M3 real Harness agent.
 - Independent mock-first work available while gated: M3/M4 backend adapter
   scaffolding (a `LiveAgentCoreBackend` seam implementation + recorded-mode
   fixtures) can be written and unit-tested without cloud.
