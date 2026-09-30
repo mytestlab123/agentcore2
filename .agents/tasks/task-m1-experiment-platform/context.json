@@ -1,0 +1,27 @@
+{
+  "project_type": "TypeScript pnpm monorepo — AWS Cloudscape + Amplify compliance-remediation experiment lab (Issue #3, agentcore2)",
+  "language": "TypeScript",
+  "build_system": "pnpm workspaces (pnpm-workspace.yaml). Vite for the React/Cloudscape preview apps. tsc for the shared contracts package. Node v22.",
+  "test_framework": "Vitest across packages (fast, native ESM/TS, integrates with Vite). Shared-contracts package uses Vitest unit tests on the mock dataset and adapter.",
+  "build_command": "pnpm -r build (builds shared packages first, then preview apps)",
+  "test_command": "pnpm -r test (runs Vitest in every package)",
+  "verification_instructions": "1) pnpm install at repo root. 2) pnpm -r build must succeed. 3) pnpm -r test must pass. 4) pnpm --filter @agentcore2/preview-a dev must start the Vite dev server and serve the Config-style dashboard locally. 5) Manually confirm the dashboard renders a findings table, filters, finding detail, mock Preview Fix / Remediate actions, evidence timeline, and a visible MOCK badge — all without AWS credentials.",
+  "snapshot_or_generated_files": null,
+  "setup_instructions": "Node 22 (pre-installed, also via nvm). pnpm pre-installed (11.x). From repo root: `pnpm install`. No AWS credentials required for M1.",
+  "environment_constraints": "Network mode OPEN_INTERNET — npm registry, package installs available. NO AWS credentials configured and NONE needed for M1 (entirely mock/synthetic). Do NOT make AWS API calls or deployments during M1. Amplify cloud deploys are the orchestrator's/owner's concern; M1 only provides the config files and documents conventions. Amplify build config is provided as files (amplify.yml) but is NOT executed against Amplify cloud in the sandbox.",
+  "contribution_requirements": "AGENTS.md: KISS (one problem, one happy path, one command, one proof, one result); preserve existing work; keep durable code/decisions in Git; NO secrets/credentials/large deps in temp paths; update CONTEXT.md when current truth or next action changes; keep SPEC.md small. SPEC.md MUST: one shared finding/remediation/evidence contract across previews; visibly label MOCK/RECORDED/LIVE LAB; deterministic remediation behind policy/approval gates; separate provider readback from Config convergence. Public repo: no secrets, no account allowlist hard-coded.",
+  "key_patterns": "Monorepo seam: one shared TS contracts package (@agentcore2/contracts) holds domain types (Finding, Remediation, Evidence, AgentDefinition, ExecutionState) + a BackendAdapter interface + a MockBackendAdapter + a shared synthetic dataset generator (thousands of findings, deterministic seed). Preview apps live under apps/* and depend on the shared package only — never copy it. New previews = new folder under apps/ that imports @agentcore2/contracts and the shared adapter. Cloudscape components (@cloudscape-design/components + global-styles) for Preview A. A visible LabModeBadge component renders MOCK/RECORDED/LIVE LAB from adapter mode.",
+  "relevant_files": [
+    "pnpm-workspace.yaml",
+    "package.json (root)",
+    "packages/contracts/src/index.ts (domain types + adapter interface)",
+    "packages/contracts/src/mock/dataset.ts (synthetic findings/evidence generator)",
+    "packages/contracts/src/mock/adapter.ts (MockBackendAdapter)",
+    "packages/contracts/src/agents/catalogue.ts (5-8 planned agents registry)",
+    "apps/preview-a/ (Vite + React + Cloudscape Config-style dashboard)",
+    "amplify.yml (build conventions)",
+    "docs/ARCHITECTURE.md",
+    "AGENTS.md, CONTEXT.md, SPEC.md, ROADMAP.md (governing docs)"
+  ],
+  "directory_structure": "Repo root holds governing markdown (AGENTS/CONTEXT/SPEC/ROADMAP/README) + monorepo config (package.json, pnpm-workspace.yaml, tsconfig.base.json, amplify.yml). packages/contracts = shared domain contracts, mock dataset, adapter seam, agent catalogue. apps/preview-a = first Cloudscape preview. docs/ = ARCHITECTURE.md and Amplify/preview strategy."
+}

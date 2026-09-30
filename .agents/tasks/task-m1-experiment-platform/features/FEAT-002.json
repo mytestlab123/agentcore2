@@ -1,0 +1,32 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Build Preview A: the AWS Config / Security Hub-style Cloudscape dashboard app, the first working preview that proves the preview mechanism and consumes the shared @agentcore2/contracts seam. It uses ONLY the shared contract + MockBackendAdapter (no copied domain logic), demonstrating that new experiments attach to the seam. Little or no AI. Depends on FEAT-001.",
+  "status": "pending",
+  "steps": [
+    "Create apps/preview-a as a Vite + React + TypeScript app (@agentcore2/preview-a): package.json with dev (`vite`), build (`tsc -b && vite build` or `vite build`), preview, test (`vitest run`) scripts; depend on @agentcore2/contracts (workspace:*), react, react-dom, @cloudscape-design/components, @cloudscape-design/global-styles, and Vite/React plugin + vitest devDeps. Add tsconfig.json extending base, vite.config.ts, and index.html.",
+    "Wire the app to obtain a BackendAdapter from the shared package (instantiate MockBackendAdapter). Centralize this in apps/preview-a/src/backend.ts so swapping the adapter later touches one file only.",
+    "Implement a LabModeBadge React component that reads adapter.mode() and renders a visible MOCK / RECORDED / LIVE LAB badge (Cloudscape Badge/Flashbar style) prominently in the app header. At M1 it shows MOCK.",
+    "Build the findings dashboard page using Cloudscape: AppLayout + top navigation header (with LabModeBadge), a Cloudscape Table listing findings from adapter.listFindings with columns (severity, compliance status, title, service, resource, region, last observed), server-style pagination wired to the adapter's Paginated result, and column sorting.",
+    "Add filtering controls (Cloudscape PropertyFilter or Select group) for compliance status, severity, resource type/service, and free-text search, all driven through the adapter's FindingQuery so filtering thousands of mock findings stays responsive.",
+    "Implement a finding detail view (Cloudscape SplitPanel or a detail page/drawer) showing full finding fields, the proposed remediation from adapter.getRemediationForFinding/previewFix, and Preview Fix / Remediate action buttons. Remediate opens an approval confirmation (Approve Once / Reject) and calls adapter.requestRemediation; show the resulting ExecutionState and executionId. All mock.",
+    "Implement an evidence timeline component that renders adapter.getEvidenceTimeline(findingId) as an ordered Cloudscape timeline/list, clearly showing the DETECTED -> ... -> PROVIDER_READBACK -> CONFIG_CONVERGENCE -> VERIFIED progression after a mock remediation.",
+    "Import @cloudscape-design/global-styles in the app entry so Cloudscape theming renders correctly. Ensure the app builds and runs with zero AWS credentials.",
+    "Add a small Vitest + React Testing Library smoke test in apps/preview-a: renders the dashboard with the MockBackendAdapter, asserts the MOCK badge is visible and that findings rows render; and a test that clicking Remediate with Approve produces an execution with an executionId and the evidence timeline gains a CONFIG_CONVERGENCE event. Configure vitest jsdom environment."
+  ],
+  "acceptance_criteria": [
+    "`pnpm --filter @agentcore2/preview-a build` succeeds.",
+    "`pnpm --filter @agentcore2/preview-a dev` starts a local Vite server serving the dashboard without AWS credentials.",
+    "The dashboard shows a findings table, working compliance/severity/resource filters, finding detail, mock Preview Fix / Remediate (Approve Once / Reject) actions, and an evidence timeline.",
+    "A visible MOCK badge is present in the UI.",
+    "The app imports domain types and the adapter from @agentcore2/contracts and does not redefine or copy them.",
+    "`pnpm --filter @agentcore2/preview-a test` passes the smoke and remediation-flow tests."
+  ],
+  "verification": [
+    "Run `pnpm --filter @agentcore2/preview-a build` and confirm success.",
+    "Run `pnpm --filter @agentcore2/preview-a test` and confirm all tests pass.",
+    "Run `pnpm --filter @agentcore2/preview-a dev` (briefly, background) and confirm the dev server starts and serves without error."
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

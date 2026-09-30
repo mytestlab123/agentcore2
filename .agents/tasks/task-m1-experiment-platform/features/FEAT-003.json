@@ -1,0 +1,29 @@
+{
+  "id": "FEAT-003",
+  "type": "docs",
+  "description": "Document the M1 platform: Amplify build/deployment conventions + branch/preview strategy (config files provided, not deployed), a concise architecture doc explaining the replaceable-GUI vs durable-backend seam, exact working startup/build/test/run commands, and how to add a new preview without copying the app. Update root README, CONTEXT.md, and ROADMAP.md to reflect M1 completion and the exact next action (M2: Preview B + Preview C). Depends on FEAT-001 and FEAT-002 being in place.",
+  "status": "pending",
+  "steps": [
+    "Create amplify.yml at repo root with Amplify Gen 2/monorepo build conventions: install with pnpm, build the shared contracts package before the preview app, appRoot/artifacts pointing at apps/preview-a build output. Include comments noting each preview branch maps to its own Amplify app/branch. Do NOT run it against Amplify cloud (sandbox has no AWS creds).",
+    "Create docs/ARCHITECTURE.md: concise description of the monorepo (packages/contracts as the one shared finding/remediation/evidence contract + BackendAdapter seam; apps/* as disposable UI experiments), a diagram-in-prose of finding -> adapter -> (mock now / real AgentCore later) -> evidence, the MOCK/RECORDED/LIVE LAB labeling, the agent catalogue, and how provider readback stays separate from Config convergence.",
+    "Create docs/PREVIEW_STRATEGY.md: Amplify branch/preview strategy — each Preview (A/B/C/D) is its own app under apps/ and can deploy from its own branch; conventions for naming, the shared backend seam, and that every preview must visibly show MOCK/RECORDED/LIVE LAB. Include a short 'How to add a new preview' recipe (copy apps/preview-a scaffold shell, depend on @agentcore2/contracts, reuse the shared adapter — never copy the contracts).",
+    "Update root README.md replacing the template placeholder with: project one-liner, the exact commands that actually work (pnpm install; pnpm -r build; pnpm -r test; pnpm --filter @agentcore2/preview-a dev), a link to docs/ARCHITECTURE.md and docs/PREVIEW_STRATEGY.md, and the MOCK-first / no-credentials-needed statement. Keep it short per AGENTS.md.",
+    "Update CONTEXT.md: set current truth to M1 delivered (monorepo + shared contracts + mock dataset + adapter seam + agent catalogue + Preview A + Amplify conventions), keep the safety boundary, and set the next action explicitly to 'Start M2: build Preview B (contextual Copilot) and Preview C (agent action / generative UI) on the same shared seam.' Keep it concise.",
+    "Update ROADMAP.md: mark M1 as delivered/checkpoint reached (keep it short, do not restructure the file), leaving M2-M5 as the remaining milestones."
+  ],
+  "acceptance_criteria": [
+    "amplify.yml exists at repo root with pnpm monorepo build steps that build contracts before the preview app.",
+    "docs/ARCHITECTURE.md and docs/PREVIEW_STRATEGY.md exist and describe the shared seam, badges, agent catalogue, and how to add a preview without copying the app.",
+    "README.md lists the exact commands that work locally and links the docs.",
+    "CONTEXT.md reflects M1 completion and names the exact next action (M2 Preview B + Preview C).",
+    "ROADMAP.md reflects the M1 checkpoint.",
+    "All documented commands (pnpm install, pnpm -r build, pnpm -r test) actually succeed."
+  ],
+  "verification": [
+    "Run `pnpm -r build` from repo root and confirm the whole workspace builds.",
+    "Run `pnpm -r test` from repo root and confirm all package tests pass.",
+    "Confirm the commands printed in README.md match commands that were actually run successfully."
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

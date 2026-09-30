@@ -1,0 +1,10 @@
+packages:
+  - "packages/*"
+  - "apps/*"
+
+# Allow esbuild (pulled in transitively by Vitest) to run its install script so
+# `pnpm install` does not fail on ERR_PNPM_IGNORED_BUILDS.
+onlyBuiltDependencies:
+  - esbuild
+allowBuilds:
+  esbuild: set this to true or false

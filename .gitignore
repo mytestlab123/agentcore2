@@ -4,6 +4,8 @@
 !.env.example
 *.log
 node_modules/
+dist/
+*.tsbuildinfo
 __pycache__/
 .pytest_cache/
 .terraform/

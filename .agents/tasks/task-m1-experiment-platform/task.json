@@ -1,0 +1,7 @@
+{
+  "task_id": "task-m1-experiment-platform",
+  "task_description": "Milestone 1 (Issue #3): build the mock-first AgentCore compliance-lab experiment platform. Deliver a pnpm/TypeScript monorepo, one shared finding/remediation/evidence domain contract with a BackendAdapter seam and a MockBackendAdapter, a large deterministic synthetic finding/evidence dataset, a basic agent catalogue (5-8 planned agents), visible MOCK/RECORDED/LIVE LAB badges, Amplify build/deploy + branch/preview conventions, a concise architecture doc, exact working build/test/run commands, and Preview A (AWS Config/Security Hub-style Cloudscape dashboard) implemented first. Entirely mock/synthetic — no AWS credentials required or used. Later milestones M2-M5 are out of scope for this delegation.",
+  "status": "in_progress",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null
+}

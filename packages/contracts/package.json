@@ -1,0 +1,28 @@
+{
+  "name": "@agentcore2/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared finding/remediation/evidence domain contract, backend adapter seam, deterministic mock dataset, and planned agent catalogue for the AgentCore compliance-remediation lab.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "vitest": "^2.1.9"
+  }
+}
