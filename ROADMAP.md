@@ -3,9 +3,9 @@
 Owner: Issue #3
 Status: ACTIVE
 
-## M1 — Experiment platform + shared contracts
+## M1 — Experiment platform + shared contracts ✅ delivered
 
-Shared domain/backend contract, mock dataset, Amplify conventions, visible state badges, agent catalogue, and Preview A.
+Shared domain/backend contract, mock dataset, Amplify conventions, visible state badges, agent catalogue, and Preview A. Checkpoint reached.
 
 ## M2 — Multiple UI experiments
 

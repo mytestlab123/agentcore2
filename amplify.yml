@@ -1,0 +1,37 @@
+# Amplify build conventions for this pnpm monorepo.
+#
+# Config file only. M1 does NOT deploy this to Amplify cloud (the sandbox has no
+# AWS credentials). Amplify cloud deploys are the owner's / orchestrator's concern.
+#
+# Preview strategy: each preview (A/B/C/...) is its own Amplify app, and each
+# preview branch maps to its own Amplify app + branch. This file targets
+# Preview A (apps/preview-a); a new preview copies this shape and points appRoot
+# and artifacts at its own apps/<preview> folder. See docs/PREVIEW_STRATEGY.md.
+#
+# No secrets and no hard-coded AWS account allowlist live in this file (public repo).
+version: 1
+applications:
+  # Preview A — Cloudscape compliance dashboard.
+  - appRoot: apps/preview-a
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            # Install once from the repo root so the workspace + shared package link.
+            - corepack enable
+            - pnpm install --frozen-lockfile
+            # Build the shared contract package BEFORE the preview app so its
+            # dist/ + type declarations exist when the app compiles.
+            - pnpm --filter @agentcore2/contracts build
+        build:
+          commands:
+            - pnpm --filter @agentcore2/preview-a build
+      artifacts:
+        # Vite build output for Preview A.
+        baseDirectory: apps/preview-a/dist
+        files:
+          - "**/*"
+      cache:
+        paths:
+          - node_modules/**/*
+          - apps/preview-a/node_modules/**/*

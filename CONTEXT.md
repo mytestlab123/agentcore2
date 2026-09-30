@@ -10,6 +10,8 @@ Updated: 2026-09-30
 - Execution mode: M1-M5 continuously without repeated `go`.
 - Preferred delivery: one large long-lived implementation PR with milestone checkpoints.
 - Development order: mock-first -> 3+ Amplify previews -> real AgentCore Harness -> one bounded LAB remediation -> closeout/harvest.
+- M1 delivered: pnpm monorepo + shared `@agentcore2/contracts` (domain contract, deterministic 5000-finding mock dataset, `BackendAdapter` seam, 7-agent catalogue) + Preview A Cloudscape dashboard + Amplify build conventions (`amplify.yml`, config only, not deployed). All MOCK, no AWS credentials.
+- Next action: Start M2 — build Preview B (contextual Copilot) and Preview C (agent action / generative UI) on the same shared seam.
 - Crew is not currently an execution dependency. Use local Crew only after durable evidence says exactly `CREW_READY=YES`.
 - Until then, Kiro Web may execute independently. System-level Crew/Kiro/Codex/MCP configuration belongs in `amitkarpe/dotfiles`.
 
