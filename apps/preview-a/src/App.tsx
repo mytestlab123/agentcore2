@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
-  MockComplianceBackend,
+  wireLiveOrFallbackToMock,
   type ComplianceBackend,
   type Finding,
   type RemediationProposal,
@@ -9,10 +9,24 @@ import {
   type ComplianceStatus,
 } from "@agentcore2/contracts";
 
-// Preview A depends only on the shared ComplianceBackend seam. Swapping this
-// one line for a live adapter is all it takes to point the same UI at real
-// AgentCore execution — the mode badge then flips MOCK -> LIVE_LAB.
-const backend: ComplianceBackend = new MockComplianceBackend();
+// Preview A depends only on the shared ComplianceBackend seam. The seam selector
+// returns a LIVE AgentCore adapter ONLY when complete, verified runtime evidence
+// (runtime ARN + model + session + tool) is injected at build/runtime; otherwise
+// it falls back to the MOCK backend with a truthful MOCK badge. There is no
+// Issue #3 runtime deployed yet, so this resolves to MOCK — synthetic data can
+// never be shown as LIVE_LAB.
+//
+// Env is read through a narrow cast so no ambient Vite client types are required
+// (keeps the contracts-first typecheck deterministic). Vite statically replaces
+// import.meta.env.VITE_* at build time; unset vars are undefined -> MOCK.
+const env = (import.meta as unknown as { env?: Record<string, string | undefined> }).env ?? {};
+const backend: ComplianceBackend = wireLiveOrFallbackToMock({
+  runtimeArn: env.VITE_AGENTCORE_RUNTIME_ARN,
+  modelId: env.VITE_AGENTCORE_MODEL_ID,
+  sessionId: env.VITE_AGENTCORE_SESSION_ID,
+  toolId: env.VITE_AGENTCORE_TOOL_ID,
+  region: env.VITE_AWS_REGION,
+});
 
 const SEVERITIES: Severity[] = ["CRITICAL", "HIGH", "MEDIUM", "LOW", "INFORMATIONAL"];
 const STATUSES: ComplianceStatus[] = ["NON_COMPLIANT", "COMPLIANT", "NOT_APPLICABLE", "INSUFFICIENT_DATA"];

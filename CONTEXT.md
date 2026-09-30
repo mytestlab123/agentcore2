@@ -67,6 +67,19 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
   served revision + badge against live URLs, then M3 real Harness agent
   (requires authoring + pushing an Issue #3-owned harness container to a new
   ECR repo before any runtime deploy can occur).
+- Wire preview to real agent (task 8/15) run 2026-10-01: PARTIAL. Durable LIVE
+  wiring seam delivered — `LiveAgentCoreBackend` + `wireLiveOrFallbackToMock()`
+  in `@agentcore2/contracts`; Preview A (`apps/preview-a/src/App.tsx`) now
+  selects its backend via the seam, reading `VITE_AGENTCORE_*` env. A LIVE_LAB
+  badge is emitted ONLY when all of runtimeArn+modelId+sessionId+toolId are
+  present and non-blank; partial/blank evidence is discarded and an unwired
+  adapter reports MOCK with every op failing closed (`RuntimeNotWiredError`), so
+  synthetic success can never be shown as live. 13/13 tests pass (7 new
+  invariant tests + 6 governance), build + typecheck green. Bounded LIVE
+  invocation BLOCKED: no Issue #3-owned runtime exists (task 7 blocked; the 5
+  account runtimes are pre-existing, OFF-LIMITS). Identity re-verified
+  (`user/amit`, `ap-southeast-1`). No AWS write; no new infra; $0. Evidence:
+  `docs/wire-and-verify-live-agent.md`.
 - Independent mock-first work available while gated: M3/M4 backend adapter
   scaffolding (a `LiveAgentCoreBackend` seam implementation + recorded-mode
   fixtures) can be written and unit-tested without cloud.
