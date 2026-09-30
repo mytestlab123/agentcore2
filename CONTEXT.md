@@ -53,8 +53,20 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
   Locally, Preview A/B/C bundles are built from revision `765479d` and each
   emits a truthful MOCK badge (badge enum also carries RECORDED/LIVE). No
   winning UI declared. Evidence: `docs/preview-verification.md`.
+- AgentCore S3 specialist deploy (task 7/15) run 2026-10-01: BLOCKED. Identity
+  re-verified (`user/amit`, `ap-southeast-1`); 5 pre-existing runtimes and 3
+  pre-existing ECR repos inventoried read-only and treated OFF-LIMITS. No
+  deployable Issue #3-owned harness artifact exists: the worktree builds only
+  static preview UIs + `@agentcore2/contracts`, with no agent container /
+  Dockerfile / ECR image. `create-agent-runtime` needs a `containerUri`, so the
+  bounded write cannot proceed without first authoring+publishing an Issue
+  #3-owned harness image. Stopped rather than fabricate a runtime, reuse an
+  off-limits image/role, or expand IAM. No AWS write; $0. Evidence:
+  `docs/agentcore-s3-specialist-deploy.md`.
 - Next: re-run M1/M2 Amplify preview deploy (>=3 stable URLs), then re-verify
-  served revision + badge against live URLs, then M3 real Harness agent.
+  served revision + badge against live URLs, then M3 real Harness agent
+  (requires authoring + pushing an Issue #3-owned harness container to a new
+  ECR repo before any runtime deploy can occur).
 - Independent mock-first work available while gated: M3/M4 backend adapter
   scaffolding (a `LiveAgentCoreBackend` seam implementation + recorded-mode
   fixtures) can be written and unit-tested without cloud.
