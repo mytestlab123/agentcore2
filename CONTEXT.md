@@ -83,6 +83,17 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
 - Independent mock-first work available while gated: M3/M4 backend adapter
   scaffolding (a `LiveAgentCoreBackend` seam implementation + recorded-mode
   fixtures) can be written and unit-tested without cloud.
+- Disposable S3 canary (task 9/15) run 2026-10-01: BLOCKED (safe progress
+  stop). Identity + region re-verified (`user/amit`, `ap-southeast-1`).
+  Read-only inventory: 18 pre-existing buckets, none Issue #3-owned (all
+  OFF-LIMITS). A collision-free canary name was selected
+  (`issue3-canary-disposable-20260930193359-333438771545-ap-southeast-1`,
+  `head-bucket` → 404) with full disposable/ownership tags planned and a single
+  deliberate non-compliant control (S3 Public Access Block disabled). The
+  bounded `create-bucket` call was DENIED at the interactive approval gate;
+  respected as a policy decision, not rewritten to dodge the check. No AWS
+  resource created (post-deny `head-bucket` → still 404); $0. Exact replay
+  commands recorded. Evidence: `docs/provision-disposable-s3-canary.md`.
 
 ## Evidence
 
