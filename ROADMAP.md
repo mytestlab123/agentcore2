@@ -2,6 +2,14 @@
 
 ## Now
 
+- **Disposable-resource cleanup (task 13/15): COMPLETE — confirm-and-noop.**
+  Deletion allowlist built from durable evidence is EMPTY (every bounded AWS
+  write in tasks 5/7/9/10 was BLOCKED, $0 footprint). Provider readback under
+  `amit`/`ap-southeast-1`: disposable canary `head-bucket` ⇒ HTTP 404, run-tagged
+  `list-buckets` ⇒ `[]`, `amplify list-apps` ⇒ `[]`, run-created AgentCore
+  runtimes ⇒ `[]`. **Zero deletions; no pre-existing AgentCore runtime / S3
+  bucket / IAM identity / unrelated resource touched.** Evidence:
+  `docs/cleanup-issue3-disposables.md`.
 - **M5 closeout assembled (task 12/15): PASS (in-scope deliverable).** Full
   build + 22/22 tests + typecheck green from the Task Runner worktree.
   Read-only inventory re-confirms $0 footprint (Amplify apps `[]`, 5 pre-existing

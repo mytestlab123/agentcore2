@@ -35,6 +35,15 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
 
 ## Next Action
 
+- Cleanup (task 13/15) run 2026-10-01: **CONFIRM-AND-NOOP**. Identity re-verified
+  (`user/amit`, `ap-southeast-1`). Deletion allowlist built from durable evidence
+  is EMPTY — every bounded AWS write (tasks 5/7/9/10) was BLOCKED, $0 footprint.
+  Provider readback: canary `head-bucket` ⇒ HTTP 404, `list-buckets` filtered on
+  the run tag ⇒ `[]`, `amplify list-apps` ⇒ `[]`, run-created AgentCore runtimes
+  ⇒ `[]`. Zero deletions; no pre-existing resource touched. Evidence:
+  `docs/cleanup-issue3-disposables.md`.
+- Next: task 14/15 fast-forward all final Crew commits to PR #5 (git-only), then
+  task 15/15 publish the final M1–M5 PASS/BLOCKED handback.
 - Permission gate RESOLVED by owner decision (use `amit`). Read-only probes
   under `amit` in `ap-southeast-1` pass: Amplify `ListApps`, AgentCore
   `ListAgentRuntimes`, Bedrock `ListFoundationModels`, S3 `ListBuckets`.
