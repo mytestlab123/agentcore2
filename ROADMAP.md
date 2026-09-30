@@ -2,6 +2,14 @@
 
 ## Now
 
+- **M5 closeout assembled (task 12/15): PASS (in-scope deliverable).** Full
+  build + 22/22 tests + typecheck green from the Task Runner worktree.
+  Read-only inventory re-confirms $0 footprint (Amplify apps `[]`, 5 pre-existing
+  off-limits runtimes, canary `head-bucket` ⇒ 404). Evidence, 5-minute demo
+  script, truthful agent catalogue, lessons, cost, cleanup/retention and harvest
+  recommendations packaged in `docs/m5-closeout.md`. Live-cloud deliverables
+  (stable URLs, runtime, canary, screenshots, winning-UI) remain BLOCKED exactly
+  as recorded in tasks 5–11. PR #5 NOT merged; no AWS deletion.
 - **Wire preview to real agent (task 8/15): PARTIAL.** The durable LIVE wiring
   seam is delivered — `LiveAgentCoreBackend` + `wireLiveOrFallbackToMock()` in
   `@agentcore2/contracts`, Preview A wired to it, 13/13 tests pass. A LIVE_LAB

@@ -125,6 +125,23 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
   secret-free audit line. Truthful `MOCK` mode (never synthesized `LIVE_LAB`).
   Suite 22/22 green; root build + typecheck + test green. LIVE half remains
   BLOCKED (no canary). Evidence: `docs/prove-non-gui-channel.md`.
+- M5 closeout (task 12/15) run 2026-10-01: ASSEMBLED — PASS for the in-scope
+  deliverable; no PR #5 merge; no AWS deletion. Repository/GitHub work + read-
+  only inventory only. Full build (contracts + Preview A/B/C bundles), `npm
+  test` 22/22, `npm run typecheck` all green from the Task Runner worktree.
+  Read-only cost/resource inventory re-confirms a $0 footprint: identity
+  `user/amit` @ `ap-southeast-1`; `amplify list-apps` = `[]` (no stable URLs,
+  hence no live screenshots/winning-UI possible); 5 pre-existing OFF-LIMITS
+  AgentCore runtimes; Issue #3 canary `head-bucket` ⇒ 404 (none created).
+  Total AWS spend for the whole run = $0.00 (every bounded write BLOCKED
+  upstream or denied at the approval gate). Packaged in `docs/m5-closeout.md`:
+  five-minute demo script (local MOCK, honest to state), truthful agent
+  catalogue, architecture, preview comparison, Ops/developer lessons, cost/usage
+  summary, cleanup/retention plan (nothing to delete — task 13 will
+  confirm-and-noop), and harvest recommendations with replay-ready unblock
+  steps. Live-cloud deliverables (stable URLs, deployed runtime, canary,
+  screenshots, winning-UI decision) remain BLOCKED exactly as recorded in tasks
+  5–11.
 
 ## Evidence
 
