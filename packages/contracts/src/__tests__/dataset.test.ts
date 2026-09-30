@@ -71,7 +71,21 @@ describe("generateDataset", () => {
       expect(remediation?.targetResourceId).toBe(finding.resourceId);
       const evidence = dataset.evidenceByFindingId.get(finding.id);
       expect(evidence?.[0]?.kind).toBe("DETECTED");
+      // Non-compliant findings advertise a proposed fix in their initial
+      // timeline so FIX_PROPOSED is actually produced, not just typed.
+      if (finding.complianceStatus === "NON_COMPLIANT") {
+        const kinds = evidence!.map((e) => e.kind);
+        expect(kinds).toEqual(["DETECTED", "EXPLAINED", "FIX_PROPOSED"]);
+      }
     }
+  });
+
+  it("emits FIX_PROPOSED for non-compliant findings", () => {
+    const dataset = generateDataset({ size: 300, seed: 99 });
+    const emitted = [...dataset.evidenceByFindingId.values()].some((events) =>
+      events.some((e) => e.kind === "FIX_PROPOSED"),
+    );
+    expect(emitted).toBe(true);
   });
 
   it("spans multiple services, severities, statuses, regions and accounts", () => {

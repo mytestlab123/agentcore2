@@ -49,12 +49,16 @@ No agent is `LIVE` at M1.
 The evidence timeline keeps `PROVIDER_READBACK` and `CONFIG_CONVERGENCE` as two
 DISTINCT event kinds. Provider readback confirms the target service applied the
 change; Config/compliance convergence confirms the compliance state re-evaluated
-to compliant. A full approved remediation produces:
+to compliant. A non-compliant finding starts pre-remediation with
+`DETECTED -> EXPLAINED -> FIX_PROPOSED` (seeded by the dataset), and a full
+approved remediation then appends:
 
 ```
-DETECTED -> EXPLAINED -> FIX_PROPOSED -> APPROVED -> EXECUTED
-  -> PROVIDER_READBACK -> CONFIG_CONVERGENCE -> VERIFIED
+DETECTED -> EXPLAINED -> FIX_PROPOSED   (initial timeline)
+  -> APPROVED -> EXECUTED -> PROVIDER_READBACK -> CONFIG_CONVERGENCE -> VERIFIED
 ```
 
 A rejected remediation (`approve: false`) mutates nothing and appends a single
-`REJECTED` event.
+`REJECTED` event. Remediation is idempotent: once a finding has a SUCCEEDED
+execution it is terminal, so re-approving returns the original execution and
+appends a single no-op event rather than replaying the chain.

@@ -9,6 +9,11 @@
  *   executionId and the full evidence chain
  *   EXECUTED -> PROVIDER_READBACK -> CONFIG_CONVERGENCE -> VERIFIED, keeping
  *   provider readback and Config convergence as SEPARATE events.
+ *
+ * Remediation is idempotent: once a finding has a SUCCEEDED execution it is in a
+ * terminal state. Re-approving returns the original execution and appends a
+ * single explicit no-op event instead of replaying the chain, so evidence never
+ * accumulates duplicate mutation events for one finding.
  */
 import type {
   BackendAdapter,
@@ -42,6 +47,8 @@ export class MockBackendAdapter implements BackendAdapter {
   private readonly dataset: MockDataset;
   private readonly findingsById: Map<string, Finding>;
   private readonly executionsById = new Map<string, ExecutionState>();
+  /** Terminal state: the SUCCEEDED execution id per already-remediated finding. */
+  private readonly succeededExecutionByFindingId = new Map<string, string>();
   /** Deterministic counter feeding generated execution ids. */
   private executionCounter = 0;
 
@@ -92,7 +99,10 @@ export class MockBackendAdapter implements BackendAdapter {
   async getRemediationForFinding(
     findingId: string,
   ): Promise<Remediation | null> {
-    return this.dataset.remediationsByFindingId.get(findingId) ?? null;
+    const remediation = this.dataset.remediationsByFindingId.get(findingId);
+    // Return a copy so callers cannot mutate internal dataset state (parity
+    // with getEvidenceTimeline).
+    return remediation ? { ...remediation } : null;
   }
 
   async previewFix(findingId: string): Promise<Remediation> {
@@ -101,7 +111,8 @@ export class MockBackendAdapter implements BackendAdapter {
       throw new Error(`No remediation available for finding ${findingId}`);
     }
     // Deterministic: previewing is read-only and returns the same proposal.
-    return remediation;
+    // Return a copy so callers cannot mutate internal dataset state.
+    return { ...remediation };
   }
 
   async requestRemediation(
@@ -117,13 +128,50 @@ export class MockBackendAdapter implements BackendAdapter {
       throw new Error(`No remediation available for finding ${findingId}`);
     }
 
+    // Idempotency guard: a finding with a SUCCEEDED execution is terminal.
+    // Re-approving returns the original execution and appends a single
+    // explicit NO_OP-style event instead of replaying the mutation chain.
+    const existingSucceededId =
+      this.succeededExecutionByFindingId.get(findingId);
+    if (existingSucceededId !== undefined) {
+      const existing = this.executionsById.get(existingSucceededId)!;
+      if (request.approve) {
+        const noopTs = new Date(
+          Date.UTC(2024, 5, 1, 0, 0, 0) + this.executionCounter * 1000,
+        ).toISOString();
+        // Rebuild the timeline (never mutate the stored array in place) with a
+        // single explicit no-op event referencing the original execution.
+        const current = this.dataset.evidenceByFindingId.get(findingId) ?? [];
+        const withNoop = [
+          ...current,
+          {
+            id: `${findingId}-ev-${current.length}`,
+            findingId,
+            remediationId: remediation.id,
+            timestamp: noopTs,
+            kind: "VERIFIED" as EvidenceEvent["kind"],
+            actor: "agent-evidence-report",
+            summary:
+              "Finding already remediated; re-approval is a no-op. Existing execution stands.",
+            executionId: existing.executionId,
+          },
+        ];
+        this.dataset.evidenceByFindingId.set(findingId, withNoop);
+      }
+      // approve:false on an already-remediated finding also stays terminal:
+      // return the standing SUCCEEDED execution with zero mutation.
+      return existing;
+    }
+
     const executionId = this.nextExecutionId();
     // Deterministic timestamp derived from finding + counter, no Date.now().
     const now = new Date(
       Date.UTC(2024, 5, 1, 0, 0, 0) + this.executionCounter * 1000,
     ).toISOString();
 
-    const timeline = this.dataset.evidenceByFindingId.get(findingId) ?? [];
+    // Work on a copy; never mutate the stored array in place so read methods
+    // that return copies stay authoritative.
+    const timeline = [...(this.dataset.evidenceByFindingId.get(findingId) ?? [])];
 
     if (!request.approve) {
       // Approval gate: rejected. Zero mutation. Only a REJECTED event.
@@ -211,6 +259,8 @@ export class MockBackendAdapter implements BackendAdapter {
       });
     });
     this.dataset.evidenceByFindingId.set(findingId, timeline);
+    // Mark the finding terminal so a later approve is idempotent.
+    this.succeededExecutionByFindingId.set(findingId, executionId);
 
     return execution;
   }

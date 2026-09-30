@@ -95,3 +95,87 @@ describe("requestRemediation approval gate", () => {
     expect(e1.executionId).not.toBe(e2.executionId);
   });
 });
+
+describe("requestRemediation idempotency (terminal state)", () => {
+  it("re-approving an already-remediated finding is a no-op: same execution, no duplicate chain", async () => {
+    const adapter = makeAdapter();
+    const findingId = await firstFindingId(adapter);
+
+    const first = await adapter.requestRemediation(findingId, {
+      approve: true,
+    });
+    expect(first.status).toBe("SUCCEEDED");
+    const afterFirst = await adapter.getEvidenceTimeline(findingId);
+
+    const second = await adapter.requestRemediation(findingId, {
+      approve: true,
+    });
+
+    // Same execution is returned; no new SUCCEEDED execution is created.
+    expect(second.executionId).toBe(first.executionId);
+    expect(second.status).toBe("SUCCEEDED");
+
+    const afterSecond = await adapter.getEvidenceTimeline(findingId);
+
+    // The full mutation chain is NOT replayed — at most one explicit no-op
+    // event is appended, never a second EXECUTED/READBACK/CONVERGENCE trio.
+    expect(afterSecond.length).toBe(afterFirst.length + 1);
+    const kindCount = (kind: EvidenceKind) =>
+      afterSecond.filter((e) => e.kind === kind).length;
+    expect(kindCount("EXECUTED")).toBe(1);
+    expect(kindCount("PROVIDER_READBACK")).toBe(1);
+    expect(kindCount("CONFIG_CONVERGENCE")).toBe(1);
+    expect(kindCount("APPROVED")).toBe(1);
+
+    // Exactly one SUCCEEDED execution exists for this finding.
+    const succeededEvents = afterSecond.filter(
+      (e) => e.executionId === first.executionId && e.kind === "EXECUTED",
+    );
+    expect(succeededEvents).toHaveLength(1);
+  });
+
+  it("rejecting an already-remediated finding returns the standing execution with zero mutation", async () => {
+    const adapter = makeAdapter();
+    const findingId = await firstFindingId(adapter);
+
+    const first = await adapter.requestRemediation(findingId, {
+      approve: true,
+    });
+    const afterFirst = await adapter.getEvidenceTimeline(findingId);
+
+    const rejected = await adapter.requestRemediation(findingId, {
+      approve: false,
+    });
+
+    // Terminal finding: the standing SUCCEEDED execution is returned, no
+    // REJECTED execution or event is produced.
+    expect(rejected.executionId).toBe(first.executionId);
+    expect(rejected.status).toBe("SUCCEEDED");
+
+    const afterReject = await adapter.getEvidenceTimeline(findingId);
+    expect(afterReject.length).toBe(afterFirst.length);
+    expect(afterReject.some((e) => e.kind === "REJECTED")).toBe(false);
+  });
+});
+
+describe("read methods return copies (no leaked internal references)", () => {
+  it("getRemediationForFinding / previewFix return copies", async () => {
+    const adapter = makeAdapter();
+    const findingId = await firstFindingId(adapter);
+
+    const a = await adapter.getRemediationForFinding(findingId);
+    const b = await adapter.getRemediationForFinding(findingId);
+    expect(a).not.toBe(b);
+    expect(a).toEqual(b);
+
+    // Mutating a returned copy does not corrupt later reads.
+    a!.title = "MUTATED";
+    const c = await adapter.getRemediationForFinding(findingId);
+    expect(c!.title).not.toBe("MUTATED");
+
+    const p = await adapter.previewFix(findingId);
+    const q = await adapter.previewFix(findingId);
+    expect(p).not.toBe(q);
+    expect(p).toEqual(q);
+  });
+});

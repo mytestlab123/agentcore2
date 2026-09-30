@@ -72,5 +72,13 @@ describe("Preview A dashboard", () => {
         screen.getByTestId("evidence-CONFIG_CONVERGENCE"),
       ).toBeInTheDocument();
     });
+
+    // Post-execution lockout: the Remediate action is disabled and relabeled so
+    // the non-idempotent replay can no longer be triggered from the UI.
+    await waitFor(() => {
+      const remediateAfter = screen.getByTestId("remediate-button");
+      expect(remediateAfter).toBeDisabled();
+      expect(remediateAfter).toHaveTextContent("Remediation recorded");
+    });
   });
 });

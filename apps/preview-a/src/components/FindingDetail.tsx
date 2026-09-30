@@ -112,10 +112,10 @@ export function FindingDetail({
                 <Button
                   data-testid="remediate-button"
                   variant="primary"
-                  disabled={busy || remediation === null}
+                  disabled={busy || remediation === null || execution !== null}
                   onClick={() => setConfirmVisible(true)}
                 >
-                  Remediate
+                  {execution === null ? "Remediate" : "Remediation recorded"}
                 </Button>
               </SpaceBetween>
             }

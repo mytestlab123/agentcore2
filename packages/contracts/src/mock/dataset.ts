@@ -244,6 +244,20 @@ export function generateDataset(
         summary: `Explained ${severity} finding and proposed remediation.`,
         executionId: null,
       });
+      // A fix has been proposed once a remediation exists for the finding. This
+      // makes the initial timeline match the documented pre-approval chain
+      // DETECTED -> EXPLAINED -> FIX_PROPOSED (see docs/ARCHITECTURE.md) so the
+      // FIX_PROPOSED kind is actually produced, not just typed.
+      timeline.push({
+        id: `${findingId}-ev-2`,
+        findingId,
+        remediationId: remediation.id,
+        timestamp: lastObservedAt,
+        kind: "FIX_PROPOSED",
+        actor: "agent-finding-triage",
+        summary: `Proposed remediation: ${remediation.title}.`,
+        executionId: null,
+      });
     }
     evidenceByFindingId.set(findingId, timeline);
   }
