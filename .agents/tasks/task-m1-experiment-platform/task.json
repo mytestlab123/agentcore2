@@ -9,6 +9,7 @@
     "tests": "pass",
     "test_quality": "pass",
     "docker_build": "skipped",
+    "review": "Semantic review v1 (2026-09-30-143740-review.md) = NEEDS_CHANGES (4 issues); fixes applied. Semantic review v2 (2026-09-30-144601-review.md) = APPROVED. One non-blocking minor issue remains: Preview A disables the Remediate button on ANY execution including REJECTED while the adapter treats only SUCCEEDED as terminal (UI/adapter disagree on whether reject is terminal). No correctness or safety impact; deferred as a minor UX polish item.",
     "summary": "REVIEW FIX pass (2026-09-30-143740-review.md): all four NEEDS_CHANGES issues addressed. (1) Idempotent remediation — terminal SUCCEEDED state per finding; re-approve returns the original execution + single no-op event, no chain replay. (2) FIX_PROPOSED now emitted by the dataset for NON_COMPLIANT findings and reconciled in docs/ARCHITECTURE.md. (3) getRemediationForFinding/previewFix return copies and requestRemediation no longer mutates the stored timeline in place. (4) preview-a FindingDetail disables + relabels the Remediate button once an execution exists. pnpm -r build succeeds. pnpm -r test passes 22/22 (contracts 20, preview-a 2), up from 18: added double-approve no-op, reject-after-success no-op, read-copy isolation, and FIX_PROPOSED emission tests, plus a post-execution UI-lockout assertion. SPEC MUSTs intact: one shared contract, MOCK badge, approval gate, PROVIDER_READBACK/CONFIG_CONVERGENCE stay separate, all mock/no AWS. No Dockerfile in repo, so docker build skipped."
   }
 }
