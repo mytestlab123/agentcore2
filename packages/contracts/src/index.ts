@@ -8,3 +8,4 @@ export * from "./backend.js";
 export * from "./mock-data.js";
 export * from "./mock-backend.js";
 export * from "./live-backend.js";
+export * from "./cli-channel.js";

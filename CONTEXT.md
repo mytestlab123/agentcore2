@@ -111,6 +111,20 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
     ("Stop if the target cannot be proven Issue #3-owned") fires. Read-only AWS
     re-verification this turn was also denied at the approval gate. No AWS
     write; $0. Evidence: `docs/prove-governed-canary-remediation.md`.
+- Non-GUI channel (task 11/15) run 2026-10-01: PROVEN (no new infra, no new
+  canary, no cloud; $0). Added a headless CLI/SDK channel
+  (`packages/contracts/src/cli-channel.ts`: `invokeViaCli` + `formatCliResult` +
+  `NoMatchingFindingError`) and a runnable entrypoint
+  (`packages/contracts/src/run-cli.ts`, `node dist/run-cli.js [--reject]`) that
+  drive the SAME `ComplianceBackend` seam the GUI previews use, through the SAME
+  governed flow and the SAME evidence model. 5 new proof tests
+  (`cli-channel.test.ts`) show the headless caller is governed identically to
+  the GUI: authorized-target convergence with provider readback kept SEPARATE
+  from compliance convergence, REJECT⇒zero-writes, unauthorized-target⇒zero-
+  writes (reusing task 10's canary guard), refuse-to-invent-a-target, and a
+  secret-free audit line. Truthful `MOCK` mode (never synthesized `LIVE_LAB`).
+  Suite 22/22 green; root build + typecheck + test green. LIVE half remains
+  BLOCKED (no canary). Evidence: `docs/prove-non-gui-channel.md`.
 
 ## Evidence
 
