@@ -18,16 +18,29 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
   `apps/preview-c` (generative action cards) build on the same seam — three
   distinct interaction models; `docs/preview-comparison.md` written; `amplify.yml`
   covers all three. Stable preview URLs remain BLOCKED on Amplify permission.
-- No AWS resources created yet. LAB identity confirmed: account 672172129528,
-  role `u-tf-role/dev`, region `ap-southeast-1`. Spend so far: $0.
+- No AWS resources created yet. Spend so far: $0.
+- Runtime AWS identity (owner decision, 2026-10-01): IAM user `amit` via the
+  local `amit` profile on the Home Crew host, region `ap-southeast-1`.
+  `u-tf-role/dev` is no longer used. The account ID lives in host runtime
+  config, not in this public repo.
+- Owner-approved exception: `amit` has `AdministratorAccess`. Agent guardrails
+  still apply: verify caller account + region before every write; never modify
+  its own or any existing principal's permissions; issue-owned least-privilege
+  execution roles only; no cross-account role assumption; touch only
+  issue-owned, tagged, disposable resources; stop before material spend.
+- Pre-existing resources in the account (e.g. 5 AgentCore runtimes, 18 S3
+  buckets as of 2026-10-01) are not issue-owned: read-only, never modify.
 - `.kiro/` remains untracked local state and is excluded from commits; only
   JS build-output ignores were added to `.gitignore`.
 
 ## Next Action
 
-- BLOCKED on Amit's decision (hard gate): grant the LAB role scoped Amplify
-  permissions, or approve an alternative static host (S3/CloudFront). This gates
-  stable preview URLs (M1/M2 acceptance) and the live M3/M4 milestones.
+- Permission gate RESOLVED by owner decision (use `amit`). Read-only probes
+  under `amit` in `ap-southeast-1` pass: Amplify `ListApps`, AgentCore
+  `ListAgentRuntimes`, Bedrock `ListFoundationModels`, S3 `ListBuckets`.
+- Next: M1/M2 Amplify preview deploy (>=3 stable URLs), then M3 real Harness
+  agent. Unattended Home Crew execution still waits on the repo-access
+  Task Runner smoke test.
 - Independent mock-first work available while gated: M3/M4 backend adapter
   scaffolding (a `LiveAgentCoreBackend` seam implementation + recorded-mode
   fixtures) can be written and unit-tested without cloud.

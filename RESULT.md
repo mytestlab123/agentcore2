@@ -58,7 +58,7 @@ Primary PR: https://github.com/mytestlab123/agentcore2/pull/5 (draft — do not 
 
 **All live paths for stable previews + M3/M4 are permission-gated on the LAB
 role; mock-first M1/M2 is complete.** Verified 2026-09-30 in `ap-southeast-1`
-for `arn:aws:sts::672172129528:assumed-role/u-tf-role/dev`:
+for the former LAB role `u-tf-role/dev` (superseded, see Resolution):
 
 | Capability | Probe | Result | Blocks |
 |-----------|-------|--------|--------|
@@ -87,6 +87,23 @@ will not self-grant.** Existing GitHub CodeConnections reusable for Amplify:
 3. **Keep it mock-only** for now — M1/M2 stand as a complete mock-first proof;
    M3/M4 remain BLOCKED and documented.
 
+### Resolution (2026-10-01)
+
+Owner decision: use IAM user `amit` (local `amit` profile on the Home Crew
+host, `ap-southeast-1`); do not use `u-tf-role/dev`. Read-only re-probe under
+`amit`:
+
+| Capability | Probe | Result |
+|-----------|-------|--------|
+| Amplify | `amplify list-apps` | OK (0 apps) |
+| AgentCore | `bedrock-agentcore-control list-agent-runtimes` | OK (5 pre-existing, not issue-owned) |
+| Bedrock models | `bedrock list-foundation-models` | OK (40 models) |
+| S3 | `s3api list-buckets` | OK (18 pre-existing) |
+
+`amit` has `AdministratorAccess`, an explicit owner-approved exception to the
+Issue boundary, with the guardrails recorded in `CONTEXT.md`. No IAM changes
+were made.
+
 
 ## Evidence gaps / follow-ups
 
@@ -99,8 +116,8 @@ will not self-grant.** Existing GitHub CodeConnections reusable for Amplify:
 
 ## AWS resources
 
-None created. LAB identity: account `672172129528`, role `u-tf-role/dev`,
-region `ap-southeast-1`. All future resources will carry the `~/.agent/AWS.md`
+None created. Runtime identity: IAM user `amit` (owner decision 2026-10-01),
+region `ap-southeast-1`; account ID held in host runtime config. All future resources will carry the `~/.agent/AWS.md`
 tag/name/TTL schema and be recorded here with exact IDs + cleanup state.
 
 ## Spend
