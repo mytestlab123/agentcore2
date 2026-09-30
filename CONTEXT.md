@@ -42,8 +42,18 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
   the run tag ⇒ `[]`, `amplify list-apps` ⇒ `[]`, run-created AgentCore runtimes
   ⇒ `[]`. Zero deletions; no pre-existing resource touched. Evidence:
   `docs/cleanup-issue3-disposables.md`.
-- Next: task 14/15 fast-forward all final Crew commits to PR #5 (git-only), then
-  task 15/15 publish the final M1–M5 PASS/BLOCKED handback.
+- Final handback (task 15/15) run 2026-10-01: DONE. Final repo validation from
+  the Task Runner worktree — `npm run build` PASS (contracts + Preview A/B/C
+  bundles), `npm test` **22/22**, `npm run typecheck` PASS. Assembled and
+  published the concise M1–M5 PASS/BLOCKED handback to Issue #3 and PR #5:
+  M1/M2 (code) + M5 PASS; non-GUI + reject-zero-write governance PROVEN; M3
+  (real runtime), live invocation, canary, live remediation, stable preview
+  URLs, screenshots and winning-UI remain BLOCKED exactly as recorded (tasks
+  5–11). Total AWS spend $0.00; cleanup confirm-and-noop (zero deletions);
+  retention = repo + PR #5 + `docs/*.md` in Git. PR #5 left OPEN/draft and
+  **unmerged** (no automatic merge). Final Crew commits fast-forwarded
+  (non-force) to the `issue-3/agentcore-lab` head. Evidence:
+  `docs/final-handback.md`.
 - Permission gate RESOLVED by owner decision (use `amit`). Read-only probes
   under `amit` in `ap-southeast-1` pass: Amplify `ListApps`, AgentCore
   `ListAgentRuntimes`, Bedrock `ListFoundationModels`, S3 `ListBuckets`.
