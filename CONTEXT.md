@@ -94,6 +94,23 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
   respected as a policy decision, not rewritten to dodge the check. No AWS
   resource created (post-deny `head-bucket` → still 404); $0. Exact replay
   commands recorded. Evidence: `docs/provision-disposable-s3-canary.md`.
+- Governed canary remediation (task 10/15) run 2026-10-01: SPLIT result.
+  * Reject-zero-write half PROVEN deterministically in-code: added an optional
+    `isAuthorizedTarget(target, proposal)` guard to `MockComplianceBackend`;
+    `execute()` now refuses an unauthorized/unproven-ownership target BEFORE any
+    write even under a valid `APPROVE_ONCE`, recording a zero-write `REJECTED`
+    run (no `providerExecutionId`, no execution/readback/convergence evidence).
+    New proof tests (`packages/contracts/src/target-authorization.test.ts`):
+    unauthorized-target⇒zero-writes, REJECT⇒zero-writes, authorized-target
+    convergence with provider readback kept SEPARATE from compliance
+    convergence, and runId resumability. Suite 17/17 green; root build +
+    typecheck + test green.
+  * Approved live-remediation half BLOCKED (safe progress stop): task 9 never
+    created the canary (create-bucket denied at gate; $0), so there is no Issue
+    #3-owned target to prove ownership of and the explicit stop condition
+    ("Stop if the target cannot be proven Issue #3-owned") fires. Read-only AWS
+    re-verification this turn was also denied at the approval gate. No AWS
+    write; $0. Evidence: `docs/prove-governed-canary-remediation.md`.
 
 ## Evidence
 

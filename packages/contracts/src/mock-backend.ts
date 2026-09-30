@@ -26,6 +26,18 @@ export interface MockBackendOptions {
   findingCount?: number;
   /** Fixed clock for deterministic tests. */
   clock?: () => string;
+  /**
+   * Target-authorization guard (Issue #3, task 10 — reject-zero-write).
+   *
+   * A remediation may only touch a resource the run is proven to OWN. This
+   * predicate is the seam that answers "is this exact target authorized for
+   * this run?" (e.g. an Issue #3-owned, tagged, disposable canary). When it
+   * returns false for a proposal's target, `execute()` refuses BEFORE any
+   * write — even with a valid APPROVE_ONCE — and records a zero-write run. When
+   * omitted, all targets are authorized (back-compat: existing previews/tests
+   * that never scope ownership keep working unchanged).
+   */
+  isAuthorizedTarget?: (target: import("./finding.js").ResourceRef, proposal: RemediationProposal) => boolean;
 }
 
 export class MockComplianceBackend implements ComplianceBackend {
@@ -35,11 +47,15 @@ export class MockComplianceBackend implements ComplianceBackend {
   private readonly approvals = new Map<string, ApprovalRecord>();
   private readonly runs = new Map<string, RemediationRun>();
   private readonly clock: () => string;
+  private readonly isAuthorizedTarget: (target: import("./finding.js").ResourceRef, proposal: RemediationProposal) => boolean;
   private seq = 0;
 
   constructor(opts: MockBackendOptions = {}) {
     this.findings = generateFindings(opts.findingCount);
     this.clock = opts.clock ?? nowIso;
+    // Default-allow when no guard is supplied (back-compat). A supplied guard
+    // scopes writes to proven-owned targets only.
+    this.isAuthorizedTarget = opts.isAuthorizedTarget ?? (() => true);
   }
 
   async listFindings(query: FindingQuery = {}): Promise<Finding[]> {
@@ -114,6 +130,31 @@ export class MockComplianceBackend implements ComplianceBackend {
       };
       this.runs.set(runId, rejected);
       return rejected;
+    }
+
+    // Governance: unauthorized / unproven-ownership target -> zero writes,
+    // even under a valid APPROVE_ONCE. The exact target must be authorized for
+    // this run BEFORE any mutation is attempted (Issue #3 task 10).
+    if (!this.isAuthorizedTarget(proposal.target, proposal)) {
+      const runId = `run-${++this.seq}`;
+      const refused: RemediationRun = {
+        runId,
+        proposalId,
+        findingId: proposal.findingId,
+        state: "REJECTED",
+        mode: this.mode,
+        evidence: [
+          {
+            kind: "NOTE",
+            at: this.clock(),
+            mode: this.mode,
+            summary: `Execution refused: target ${proposal.target.id} is not authorized for this run (unproven ownership). Zero writes performed.`,
+            detail: { target: proposal.target, reason: "unauthorized-target" },
+          },
+        ],
+      };
+      this.runs.set(runId, refused);
+      return refused;
     }
 
     const runId = `run-${++this.seq}`;
