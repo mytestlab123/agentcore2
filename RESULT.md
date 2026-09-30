@@ -56,22 +56,37 @@ Primary PR: https://github.com/mytestlab123/agentcore2/pull/5 (draft — do not 
 
 ## Blockers
 
-- **Amplify not permitted for the LAB role (live-preview gate).** Verified
-  2026-09-30 in `ap-southeast-1`: `arn:aws:sts::672172129528:assumed-role/u-tf-role/dev`
-  is denied `amplify:ListApps` AND `amplify:CreateApp` ("no identity-based policy
-  allows the ... action"). The role does have EC2/SSM/Route53/SecretsManager and
-  IAM-read; S3 read works. So general AWS access is fine — only Amplify is
-  ungranted. Granting it is an IAM change, which is a hard stop gate: not
-  self-performed. Existing GitHub CodeConnections in the account: `cloudos`,
-  `nextflow`, `ami-factory-github-codebuild-dev`, `af-cloudos-cli-gh-dev`
-  (available) — reusable for an Amplify GitHub app once permission exists.
-- **Impact:** M1's "one working Amplify preview" and the M2 "≥3 Amplify preview
-  URLs" acceptance are blocked on this permission. Mock-first work (M2 Preview
-  B/C build, contracts) is NOT blocked and continues.
-- **Options pending Amit's decision:** (a) grant the LAB role scoped Amplify
-  permissions for this experiment; or (b) approve an alternative static host the
-  role can already use (e.g. S3 website / CloudFront) as the preview surface,
-  which is a deviation from the Issue's explicit "Amplify previews."
+**All live paths for stable previews + M3/M4 are permission-gated on the LAB
+role; mock-first M1/M2 is complete.** Verified 2026-09-30 in `ap-southeast-1`
+for `arn:aws:sts::672172129528:assumed-role/u-tf-role/dev`:
+
+| Capability | Probe | Result | Blocks |
+|-----------|-------|--------|--------|
+| Amplify | `amplify:ListApps`, `amplify:CreateApp` | DENIED | stable preview URLs (M1/M2 acceptance) |
+| AgentCore | `bedrock-agentcore:ListAgentRuntimes` | DENIED | M3 real Harness agent |
+| Bedrock models | `bedrock:ListFoundationModels` | DENIED | M3 model invocation |
+| S3 | `s3api list-buckets` | OK (16 buckets) | — (M4 canary substrate reachable, but M4 agentic path needs M3) |
+
+The role does have EC2/SSM/Route53/SecretsManager + IAM-read. General AWS access
+is fine — the experiment-specific services (Amplify, AgentCore, Bedrock) are
+simply ungranted. **Granting them is an IAM change = Issue #3 hard stop gate; I
+will not self-grant.** Existing GitHub CodeConnections reusable for Amplify:
+`cloudos`, `nextflow`, `ami-factory-github-codebuild-dev`, `af-cloudos-cli-gh-dev`.
+
+### Decision needed from Amit (one of)
+
+1. **Grant the LAB role scoped permissions** for this experiment — `amplify:*`
+   (or a preview-scoped subset), `bedrock-agentcore:*`, and `bedrock:InvokeModel`
+   + `bedrock:ListFoundationModels` (with model access enabled) — keeping the
+   Issue's Amplify + real-AgentCore path. Then M1 preview deploy, M2 URLs, and
+   M3/M4 proceed.
+2. **Approve an alternative static host** the role already has (S3 website /
+   CloudFront) for the preview surface — unblocks preview URLs only; still needs
+   AgentCore+Bedrock for M3/M4. This deviates from the Issue's explicit "Amplify
+   previews," so it needs your OK.
+3. **Keep it mock-only** for now — M1/M2 stand as a complete mock-first proof;
+   M3/M4 remain BLOCKED and documented.
+
 
 ## Evidence gaps / follow-ups
 
