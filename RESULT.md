@@ -3,7 +3,7 @@
 Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
 Owner: Kiro (execution) · Codex (controller/acceptance review)
 Branch: `issue-3/agentcore-lab` (off `main` @ f70102e0)
-Primary PR: _pending push_
+Primary PR: https://github.com/mytestlab123/agentcore2/pull/5 (draft — do not merge until roadmap closeout)
 
 ## Milestone status
 
@@ -36,6 +36,25 @@ Primary PR: _pending push_
 - one shared contract powers UI and mock backend — **YES** (`@agentcore2/contracts`)
 - no AWS credentials needed for normal development — **YES** (mock bundled)
 - new experiments added without copying the whole app — **YES** (workspace + seam)
+
+## Blockers
+
+- **Amplify not permitted for the LAB role (live-preview gate).** Verified
+  2026-09-30 in `ap-southeast-1`: `arn:aws:sts::672172129528:assumed-role/u-tf-role/dev`
+  is denied `amplify:ListApps` AND `amplify:CreateApp` ("no identity-based policy
+  allows the ... action"). The role does have EC2/SSM/Route53/SecretsManager and
+  IAM-read; S3 read works. So general AWS access is fine — only Amplify is
+  ungranted. Granting it is an IAM change, which is a hard stop gate: not
+  self-performed. Existing GitHub CodeConnections in the account: `cloudos`,
+  `nextflow`, `ami-factory-github-codebuild-dev`, `af-cloudos-cli-gh-dev`
+  (available) — reusable for an Amplify GitHub app once permission exists.
+- **Impact:** M1's "one working Amplify preview" and the M2 "≥3 Amplify preview
+  URLs" acceptance are blocked on this permission. Mock-first work (M2 Preview
+  B/C build, contracts) is NOT blocked and continues.
+- **Options pending Amit's decision:** (a) grant the LAB role scoped Amplify
+  permissions for this experiment; or (b) approve an alternative static host the
+  role can already use (e.g. S3 website / CloudFront) as the preview surface,
+  which is a deviation from the Issue's explicit "Amplify previews."
 
 ## Evidence gaps / follow-ups
 

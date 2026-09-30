@@ -6,8 +6,9 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
 
 ## Current Truth
 
-- Branch `issue-3/agentcore-lab` off `main` (f70102e0). One primary PR planned;
-  do not merge it, and do not write to `cloudscape-remediation`.
+- Branch `issue-3/agentcore-lab` off `main` (f70102e0). Primary PR (draft):
+  https://github.com/mytestlab123/agentcore2/pull/5 — do not merge; do not
+  write to `cloudscape-remediation`.
 - M1 delivered: npm-workspaces monorepo; `@agentcore2/contracts` shared domain
   + `ComplianceBackend` seam + synthetic dataset + `MockComplianceBackend`
   (governed flow, 6 passing tests); `apps/preview-a` Config-style baseline
@@ -20,10 +21,10 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
 
 ## Next Action
 
-- Push branch, open the primary implementation PR (draft), and record the
-  Amplify preview deployment for Preview A (M1 acceptance: one working preview).
-- Then M2: Preview B (contextual copilot) and Preview C (generative action
-  cards) on the same seam → ≥3 stable preview URLs with comparison notes.
+- Deploy Preview A to Amplify to satisfy M1's "one working preview" (needs
+  Amplify app wiring; branch pushed and PR open).
+- M2: Preview B (contextual copilot) and Preview C (generative action cards) on
+  the same seam → ≥3 stable preview URLs with comparison notes.
 
 ## Evidence
 
