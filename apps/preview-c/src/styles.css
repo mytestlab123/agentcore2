@@ -1,0 +1,39 @@
+:root {
+  --bg: #0f1420; --panel: #1a2130; --ink: #e7ecf3; --muted: #8a97a8;
+  --line: #2a3346; --blue: #4a9eff; --crit: #ff6b52; --high: #ff9d42;
+  --med: #ffd166; --low: #8a97a8; --ok: #4ade80;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--ink); }
+.topbar { display: flex; align-items: center; gap: 12px; padding: 12px 24px; background: #060911; border-bottom: 1px solid var(--line); }
+.topbar h1 { font-size: 16px; margin: 0; font-weight: 600; }
+.badge { font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.5px; }
+.badge.MOCK { background: #ffd79a; color: #6b4e00; }
+.badge.RECORDED { background: #b8e7ff; color: #003a56; }
+.badge.LIVE_LAB { background: #ffb3ab; color: #5a0d00; }
+.wrap { padding: 24px; max-width: 1100px; margin: 0 auto; }
+.lead { color: var(--muted); font-size: 13px; margin-bottom: 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display:flex; flex-direction:column; gap: 10px; }
+.card .head { display:flex; justify-content:space-between; align-items:center; }
+.sev { font-weight: 700; font-size: 12px; }
+.sev.CRITICAL { color: var(--crit); } .sev.HIGH { color: var(--high); }
+.sev.MEDIUM { color: var(--med); } .sev.LOW { color: var(--low); } .sev.INFORMATIONAL { color: var(--muted); }
+.title { font-weight: 600; font-size: 14px; }
+.row { display:flex; justify-content:space-between; font-size: 12px; color: var(--muted); }
+.row .v { color: var(--ink); font-family: monospace; }
+.state { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
+.state.PROPOSED { background:#2a3346; color: var(--muted); }
+.state.APPROVED, .state.RUNNING { background:#123a52; color: var(--blue); }
+.state.VERIFIED, .state.SUCCEEDED { background:#123a26; color: var(--ok); }
+.state.REJECTED, .state.FAILED { background:#3a1616; color: var(--crit); }
+.tool { font-size: 11px; color: var(--muted); }
+.tool b { color: var(--blue); }
+.card .acts { display:flex; gap: 8px; margin-top: 4px; }
+button { font-size: 13px; padding: 7px 12px; border-radius: 6px; border: 1px solid var(--blue); background: var(--blue); color: #041018; cursor: pointer; font-weight: 600; }
+button.secondary { background: transparent; color: var(--blue); }
+button.danger { background: transparent; border-color: var(--crit); color: var(--crit); }
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+.evid { border-top: 1px solid var(--line); padding-top: 8px; font-size: 11px; }
+.evid li { list-style: none; margin-bottom: 4px; color: var(--muted); }
+.evid .k { color: var(--blue); font-weight: 700; margin-right: 6px; }

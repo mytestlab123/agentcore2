@@ -28,3 +28,37 @@ applications:
       cache:
         paths:
           - node_modules/**/*
+  - appRoot: apps/preview-b
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm ci --workspaces --include-workspace-root
+            - npm run build -w @agentcore2/contracts
+        build:
+          commands:
+            - npm run build -w @agentcore2/preview-b
+      artifacts:
+        baseDirectory: apps/preview-b/dist
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+  - appRoot: apps/preview-c
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm ci --workspaces --include-workspace-root
+            - npm run build -w @agentcore2/contracts
+        build:
+          commands:
+            - npm run build -w @agentcore2/preview-c
+      artifacts:
+        baseDirectory: apps/preview-c/dist
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*

@@ -14,6 +14,10 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
   (governed flow, 6 passing tests); `apps/preview-a` Config-style baseline
   builds to a static bundle with a truthful MOCK badge. `amplify.yml` +
   `ARCHITECTURE.md` establish the build/preview convention.
+- M2 delivered (code/build): `apps/preview-b` (contextual copilot) and
+  `apps/preview-c` (generative action cards) build on the same seam — three
+  distinct interaction models; `docs/preview-comparison.md` written; `amplify.yml`
+  covers all three. Stable preview URLs remain BLOCKED on Amplify permission.
 - No AWS resources created yet. LAB identity confirmed: account 672172129528,
   role `u-tf-role/dev`, region `ap-southeast-1`. Spend so far: $0.
 - `.kiro/` remains untracked local state and is excluded from commits; only
@@ -21,10 +25,12 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
 
 ## Next Action
 
-- Deploy Preview A to Amplify to satisfy M1's "one working preview" (needs
-  Amplify app wiring; branch pushed and PR open).
-- M2: Preview B (contextual copilot) and Preview C (generative action cards) on
-  the same seam → ≥3 stable preview URLs with comparison notes.
+- BLOCKED on Amit's decision (hard gate): grant the LAB role scoped Amplify
+  permissions, or approve an alternative static host (S3/CloudFront). This gates
+  stable preview URLs (M1/M2 acceptance) and the live M3/M4 milestones.
+- Independent mock-first work available while gated: M3/M4 backend adapter
+  scaffolding (a `LiveAgentCoreBackend` seam implementation + recorded-mode
+  fixtures) can be written and unit-tested without cloud.
 
 ## Evidence
 

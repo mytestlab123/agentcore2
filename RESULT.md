@@ -10,7 +10,7 @@ Primary PR: https://github.com/mytestlab123/agentcore2/pull/5 (draft — do not 
 | Milestone | Status | Notes |
 |-----------|--------|-------|
 | M1 — platform + shared contracts + Preview A | **PASS (code/build)**; Amplify preview PENDING | monorepo, contracts, mock backend, Preview A build all green; live Amplify URL still to be deployed |
-| M2 — ≥3 UI previews | NOT STARTED | |
+| M2 — ≥3 UI previews | **PASS (code/build)**; stable preview URLs BLOCKED (Amplify) | Preview A/B/C all build on the same seam — 3 distinct interaction models; `docs/preview-comparison.md` written; deploy gated on Amplify permission |
 | M3 — real AgentCore Harness S3 specialist | NOT STARTED | |
 | M4 — governed disposable-S3-canary remediation | NOT STARTED | |
 | M5 — demo closeout + harvest | NOT STARTED | |
@@ -36,6 +36,23 @@ Primary PR: https://github.com/mytestlab123/agentcore2/pull/5 (draft — do not 
 - one shared contract powers UI and mock backend — **YES** (`@agentcore2/contracts`)
 - no AWS credentials needed for normal development — **YES** (mock bundled)
 - new experiments added without copying the whole app — **YES** (workspace + seam)
+
+## M2 evidence
+
+- **Three distinct previews, one seam.** All consume `@agentcore2/contracts`:
+  - Preview A — Config-style table + detail drawer (baseline, little/no AI).
+  - Preview B — Cloudscape + right-side contextual copilot; selected finding is
+    bounded context (Explain / Investigate / Preview Fix / Approve Once / Reject);
+    cannot become a generic chatbot.
+  - Preview C — generative action cards (impacted resource / tool selected /
+    approval state / run state / evidence); no chat page.
+- **Build:** `npm run build` → all four packages build (A ~156 kB, B ~155 kB,
+  C ~152 kB JS). `npm test` → 6/6.
+- **Comparison notes:** `docs/preview-comparison.md` — operator observations per
+  preview, no premature winner (Issue M2 deliverable).
+- **M2 acceptance:** meaningfully different interaction models ✅ · same
+  mock/backend seam ✅ · comparison without declaring a winner ✅ · **≥3 stable
+  Amplify preview URLs — BLOCKED on Amplify permission** (see Blockers).
 
 ## Blockers
 
