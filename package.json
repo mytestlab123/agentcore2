@@ -8,9 +8,10 @@
     "apps/*"
   ],
   "scripts": {
+    "contracts:build": "npm run build -w @agentcore2/contracts",
     "build": "npm run build --workspaces --if-present",
-    "test": "npm run test --workspaces --if-present",
-    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run contracts:build && npm run test --workspaces --if-present",
+    "typecheck": "npm run contracts:build && npm run typecheck --workspaces --if-present",
     "contracts:test": "npm run test -w @agentcore2/contracts"
   },
   "engines": {

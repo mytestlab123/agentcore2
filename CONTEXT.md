@@ -38,6 +38,14 @@ Source of truth: https://github.com/mytestlab123/agentcore2/issues/3
 - Permission gate RESOLVED by owner decision (use `amit`). Read-only probes
   under `amit` in `ap-southeast-1` pass: Amplify `ListApps`, AgentCore
   `ListAgentRuntimes`, Bedrock `ListFoundationModels`, S3 `ListBuckets`.
+- Repo state validated from the Task Runner worktree (2026-10-01): `npm install`
+  (74 pkgs), `npm run build` (contracts + Preview A/B/C static bundles),
+  `npm test` (6/6 contract regression), `npm run typecheck` (all workspaces, 0
+  errors) all PASS. Fixed non-deterministic ordering: root `test`/`typecheck`
+  now build `@agentcore2/contracts` first (its `dist/` provides the types the
+  previews import), so validation is green from a clean checkout regardless of
+  entry point. All three previews confirmed to depend only on the shared
+  `ComplianceBackend` seam via `MockComplianceBackend`.
 - Next: M1/M2 Amplify preview deploy (>=3 stable URLs), then M3 real Harness
   agent. Unattended Home Crew execution still waits on the repo-access
   Task Runner smoke test.
