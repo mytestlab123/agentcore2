@@ -80,3 +80,8 @@ cover unreachable, 401, 403 and server/preflight errors without real requests.
 
 The real lifecycle evidence is in `demo-readiness-evidence.json`. Only the
 existing Preview B app is updated; A/C remain at their earlier deployments.
+
+Final gate PASS: native Windows Python/OpenSSH/Chrome, zero unexpected console
+errors and only `[readiness]`. Source `58a7600`, existing B deployment job 4.
+The first strict gate exposed a missing favicon 404; a bundled data favicon
+fixes it without ignoring console failures. Model attempts stayed 17/18.

@@ -52,14 +52,21 @@ is not used for this follow-up and its security rules remain unchanged.
 
 ## Next action
 
-Demo Readiness E2E is approved by Issue #3 comment 5929211062. X/core2 is adding
-runtime preflight, one helper lifecycle, authenticated no-model readiness,
-friendly connection diagnostics and a real deployed-B browser gate. Build,
-23 contract + 12 Python tests and typecheck pass. No new model invocation is
-authorized: attempts remain 17/18. Complete the real lifecycle proof and update
-only existing Preview B. See docs/demo-readiness.md.
+Demo Readiness E2E PASS under Issue #3 comment 5929211062. Full runtime preflight,
+one operator lifecycle, authenticated local readiness and sanitized diagnostics
+are implemented. Native Windows Python/OpenSSH/Chrome proves deployed B HTTP200,
+MOCK → LIVE LAB, theme/fixability/contextual shell and zero unexpected browser
+errors, with only the readiness method. No AWS client/model is used by readiness;
+attempts remain 17/18. Missing harness.json in clean Dell scratch fails before
+bridge/browser. Full build, 23 contract + 12 Python tests and typecheck pass.
+Existing B job4 serves source58a7600; A/C are not redeployed. Bridge PID2350309
+remains loopback-only and ready; existing token retained, test-owned tunnel
+closed. G/Amit can review docs/demo-readiness.md and its sanitized evidence.
+Readiness is not a new provider-compliance claim; deleted canary yields explicit
+NO_LIVE_FINDINGS. Model smoke needs separate approval; no new canary/resources.
 
-Preview B v1.1 PASS under Issue #3 comment 5928077026; it is the primary demo
+Prior Preview B v1.1 handback (deployment superseded by the gate above): PASS
+under Issue #3 comment 5928077026; it is the primary demo
 direction. Existing B deployment job 2 SUCCEED serves source e50e78d (HTTP 200).
 Theme, truthful fixability, contextual summary and actual-run evidence timeline
 pass deployed Chromium checks. Full build, 23 contract + 9 Python tests and

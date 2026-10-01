@@ -21,6 +21,12 @@ Only existing B was redeployed (job 2, source e50e78d); A/C remain unchanged.
 Next: G/Amit reviews v1.1 and retained resources; lifecycle review 2026-10-02.
 No automatic merge or new cloud work is implied.
 
+Demo Readiness E2E PASS: [runbook](docs/demo-readiness.md) and
+[evidence](docs/demo-readiness-evidence.json). Complete runtime preflight catches
+missing config before browser use; one native Windows operator lifecycle proves
+real deployed B MOCK → authenticated LIVE LAB with zero model invocations.
+Existing B job4, source58a7600. Current model attempt count remains 17/18.
+
 ## Historical v4.2 Crew run
 
 ## Now
