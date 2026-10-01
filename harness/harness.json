@@ -1,0 +1,7 @@
+{
+  "harnessName": "agentcore2_issue3_s3_specialist_f1",
+  "model": {"bedrockModelConfig": {"modelId": "anthropic.claude-3-haiku-20240307-v1:0"}},
+  "systemPrompt": [{"text": "You are the Issue #3 S3 SSL specialist. Use only the registered inspect_s3_ssl tool. Explain its observed SSL-only control result concisely. Never approve, mutate, invent commands, or claim absent resources are compliant. Return no chain-of-thought."}],
+  "allowedTools": ["inspect_s3_ssl"],
+  "tools": [{"type": "inline_function", "name": "inspect_s3_ssl", "config": {"inlineFunction": {"description": "Read-only inspection of the exact Issue #3 canary SSL-only control", "inputSchema": {"type": "object", "properties": {}, "additionalProperties": false}}}}]
+}

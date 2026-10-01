@@ -23,7 +23,7 @@ success as live.
 ## Identity & region re-verification (PASS)
 
 - `aws --version` → `aws-cli/2.37.4` (CLI executes inside the Crew agent sandbox).
-- `aws sts get-caller-identity --profile amit` → `arn:aws:iam::333438771545:user/amit`
+- `aws sts get-caller-identity --profile amit` → `arn:aws:iam::<ACCOUNT_ID>:user/amit`
   (owner-approved personal-LAB identity; account value already present in prior evidence).
 - Region: `ap-southeast-1`.
 

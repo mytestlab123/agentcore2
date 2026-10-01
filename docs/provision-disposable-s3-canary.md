@@ -21,8 +21,8 @@ No AWS resource was created. Spend for this task: **$0**.
   — a Kiro Crew task worktree, NOT `/home/dev/git/agentcore2`. No `cd` to the
   source repo occurred.
 - Branch: `kirocrew/task/plan_1790794585945378650`.
-- Identity re-verified (read-only STS): `arn:aws:iam::333438771545:user/amit`,
-  account `333438771545`.
+- Identity re-verified (read-only STS): `arn:aws:iam::<ACCOUNT_ID>:user/amit`,
+  account `<ACCOUNT_ID>`.
 - Region re-verified: `ap-southeast-1` (profile `amit` default region).
 
 ## Read-only collision avoidance (satisfied)
@@ -37,7 +37,7 @@ No AWS resource was created. Spend for this task: **$0**.
 
 | Property | Value |
 | --- | --- |
-| Bucket name | `issue3-canary-disposable-20260930193359-333438771545-ap-southeast-1` |
+| Bucket name | `issue3-canary-disposable-20260930193359-<ACCOUNT_ID>-ap-southeast-1` |
 | Name length | 67 chars (valid S3 bucket name) |
 | Region | `ap-southeast-1` (`LocationConstraint`) |
 | Ownership/disposable tags | `Project=issue-3`, `Owner=kirocrew-agent`, `Disposable=true`, `Purpose=compliance-canary`, `NonCompliantControl=s3-public-access-block-disabled`, `CreatedBy=provision-disposable-s3-canary`, `Run=plan_1790794585945378650` |
@@ -50,7 +50,7 @@ is deliberately deferred to task 10 and NOT performed here.
 ## Exact planned commands (recorded for deterministic replay once approved)
 
 ```sh
-CANARY=issue3-canary-disposable-20260930193359-333438771545-ap-southeast-1
+CANARY=issue3-canary-disposable-20260930193359-<ACCOUNT_ID>-ap-southeast-1
 PROFILE=amit; REGION=ap-southeast-1
 
 # 1. Create exactly one bucket

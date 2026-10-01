@@ -20,7 +20,7 @@ with only the new least-privilege execution role(s) it requires.
 
 - `aws --version` → `aws-cli/2.37.4` (CLI executes inside the Crew agent sandbox).
 - `aws sts get-caller-identity --profile amit` →
-  `arn:aws:iam::333438771545:user/amit` (matches the owner-approved personal-LAB
+  `arn:aws:iam::<ACCOUNT_ID>:user/amit` (matches the owner-approved personal-LAB
   identity in `CONTEXT.md`; account ID not published beyond the value already
   present in host runtime config / prior evidence).
 - Region: `ap-southeast-1` (`aws configure get region --profile amit`).
@@ -40,7 +40,7 @@ returned 5 pre-existing runtimes (none Issue #3-owned; read-only, never modify):
 
 Pre-existing ECR repositories (read-only): `aws-platform-hosted-mcp-proxy`,
 `seccop-ecr-operator-mvp`,
-`cdk-hnb659fds-container-assets-333438771545-ap-southeast-1`. None is an
+`cdk-hnb659fds-container-assets-<ACCOUNT_ID>-ap-southeast-1`. None is an
 Issue #3-owned harness image.
 
 ## Why this write is BLOCKED (not fabricated)

@@ -64,7 +64,8 @@ test("blank-string evidence fields do not satisfy the live invariant", () => {
 
 test("LIVE_LAB is reported ONLY with complete verified evidence", () => {
   assert.equal(isLiveEvidenceComplete(FULL_EVIDENCE), true);
-  const be = new LiveAgentCoreBackend(FULL_EVIDENCE);
+  assert.equal(new LiveAgentCoreBackend(FULL_EVIDENCE).mode, "MOCK", "provider IDs alone are not a working transport");
+  const be = new LiveAgentCoreBackend(FULL_EVIDENCE, async () => []);
   assert.equal(be.isWired, true);
   assert.equal(be.mode, "LIVE_LAB");
   assert.deepEqual(be.runtimeEvidence, FULL_EVIDENCE);
@@ -81,7 +82,17 @@ test("wireLiveOrFallbackToMock defaults to MOCK when no/partial evidence", () =>
 });
 
 test("wireLiveOrFallbackToMock returns a LIVE adapter only with full evidence", () => {
-  const live = wireLiveOrFallbackToMock(FULL_EVIDENCE);
+  const live = wireLiveOrFallbackToMock(FULL_EVIDENCE, async () => []);
   assert.equal(live.mode, "LIVE_LAB");
   assert.ok(live instanceof LiveAgentCoreBackend);
+});
+
+test("live adapter sends exact approval decisions through the shared transport", async () => {
+  const calls: unknown[] = [];
+  const live = new LiveAgentCoreBackend(FULL_EVIDENCE, async (method, args) => {
+    calls.push([method, args]);
+    return { proposalId: args[0], decision: args[1], actorClass: args[2], decidedAt: "test" };
+  });
+  assert.equal((await live.decide("exact-proposal", "REJECT", "lab-operator")).decision, "REJECT");
+  assert.deepEqual(calls, [["decide", ["exact-proposal", "REJECT", "lab-operator"]]]);
 });
