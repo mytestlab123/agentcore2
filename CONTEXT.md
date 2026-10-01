@@ -25,13 +25,25 @@ is not used for this follow-up and its security rules remain unchanged.
   Exactly Nova Micro APAC, Nova Lite APAC (default) and Nova 2 Lite global are
   allowed. Synthetic model inference may cross Regions; resources stay Singapore.
   No Anthropic subscription or agreement is authorized or used.
-- F2 in progress: one new ECR repo agentcore2-issue3-f1-20261001-490ceb and
-  one new runtime role of that name plus -runtime created. Provider response IDs
-  are in the private Home journal. No runtime, previews or canary created yet.
-  An IAM duplicate-case TTL tag rejection was reconciled with GetRole absence
-  before retry. Lowercase lifecycle tags are now used.
-- The ARM64 build is still running on Home (buildx and emulated pip observed);
-  an SSH transport loss did not authorize a second build.
+- F2–F5 PASS: one ARM64 ECR image, one new narrow role, one managed Harness
+  and one runtime (READY). All three Nova models made a real registered-tool
+  call. Managed memory is disabled; its service-created child is retained for
+  lifecycle review, with ownership verified. No pre-existing resource changed.
+- Three Amplify previews are SUCCEED, revision 87f468b, with Economy/Default/
+  Enhanced and relative input-price labels. Real Chromium validation connected
+  each to the private operator bridge; Preview A invoked Nova Lite and observed
+  the actual compliant canary. Bridge is stopped; ephemeral token removed.
+- F4: CLI REJECT and unauthorized target proved zero writes. APPROVE_ONCE
+  produced VERIFIED with native PutBucketPolicy ID, separate provider and SSL
+  compliance reads. This is a custom evaluator, not AWS Config convergence.
+  CLI getRun resumed the saved result after SSH loss without another mutation.
+- The exact tagged disposable canary was deleted after proof; provider HeadBucket
+  returned absent. All four Block Public Access settings stayed true during proof.
+- Remaining new resources have cleanup=review and lifecycle date 2026-10-02.
+  Private execution journal and scratch build/browser artifacts are retained.
+  Resource ownership/retention is in docs/resource-record.csv. No automatic TTL
+  deletion is authorized. Actual total billing is not yet reconciled; recorded
+  model usage provides only a partial cost estimate, within the ~USD 10 experiment.
 - Home Docker buildx and qemu-user-static were installed under the explicit
   tooling approval; ARM64 binfmt registration is verified. SDK 1.43.104 is
   isolated in private task state. Crew security/configuration is unchanged.
@@ -40,9 +52,9 @@ is not used for this follow-up and its security rules remain unchanged.
 
 ## Next action
 
-Complete the existing ARM64 build, then F2 deployment and model/tool proof,
-F3 previews, F4 SSL-only canary remediation, and F5 non-GUI proof/closeout. Keep
-S3 Block Public Access enabled. Stop on the Issue #3 identity, ownership, IAM,
-public-exposure, budget, evidence or non-fast-forward hard gates.
+G/Amit reviews the final evidence and the three interaction designs; no UI winner
+or PR merge is implied. Review retained resources on 2026-10-02. Do not create
+another canary or resume cloud writes without a new bounded task. The portable
+learning harvest is docs/learning-harvest.md; no cross-repository KB write occurred.
 
 Validation: npm run build; npm test; npm run typecheck. Evidence: docs/focused-followup.md.

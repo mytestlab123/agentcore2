@@ -15,6 +15,13 @@ def safe(value):
     return re.sub(r"\b\d{12}\b", "<ACCOUNT_ID>", json.dumps(value, default=str))
 
 
+def explanation_text(text):
+    # Some models emit tagged deliberation in ordinary text instead of the
+    # dedicated reasoningContent field. Do not retain or surface either form.
+    text = re.sub(r"(?is)<(thinking|analysis)>.*?</\1>", "", text)
+    return re.split(r"(?is)<(?:thinking|analysis)>", text, maxsplit=1)[0].strip()
+
+
 class Client:
     def __init__(self, path):
         import boto3
@@ -53,7 +60,7 @@ class Client:
         body = base64.b64encode(json.dumps({"method": method, "args": args or []}).encode()).decode()
         response = self.api.invoke_agent_runtime_command(
             agentRuntimeArn=self.state["harnessArn"], runtimeSessionId=self.state["commandSessionId"],
-            body={"command": "python /app/rpc.py " + body})
+            body={"command": "env AWS_MAX_ATTEMPTS=1 AWS_RETRY_MODE=standard python /app/rpc.py " + body})
         self.journal("runtime-command-request", {"method": method, "requestId": response["ResponseMetadata"]["RequestId"]})
         output, errors, exit_code = "", "", None
         for event in response["stream"]:
@@ -104,6 +111,7 @@ class Client:
                 if "toolUse" in delta.get("delta", {}):
                     tools[delta["contentBlockIndex"]]["inputText"] += delta["delta"]["toolUse"].get("input", "")
                 usage.update(event.get("metadata", {}))
+            text = explanation_text(text)
             self.journal("model-output", {"modelId": selected, "text": text, "usage": usage, "latencyMs": round((time.monotonic()-started)*1000)})
             if not tools:
                 if not used:

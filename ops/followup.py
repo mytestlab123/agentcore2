@@ -288,10 +288,22 @@ class Run:
         self.save()
         return self.role()
 
+    def new_intent(self):
+        if self.state.get("inflight"):
+            raise ValueError("Unresolved mutation; cannot create another intent")
+        old = self.state["intentId"]
+        self.state["intentId"] = str(uuid.uuid4())
+        self.state["journal"].append({"operation": "operator.new_intent", "previous": old, "intentId": self.state["intentId"]})
+        self.save()
+        return {"intentId": self.state["intentId"]}
+
     def wait(self):
         c = self.session.client("bedrock-agentcore-control")
         r = c.get_harness(harnessId=self.state["harnessId"])
         self.state["harnessReadback"] = r
+        self.state["harnessVersion"] = r["harness"]["harnessVersion"]
+        self.state["runtimeEvidence"] = r["harness"]["environment"]
+        self.state["memoryStatus"] = r["harness"].get("memory")
         self.save()
         return {"id": self.state["harnessId"], "status": r["harness"].get("status"), "failureReason": r["harness"].get("failureReason")}
 
@@ -381,7 +393,7 @@ class Run:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("stage", choices=["init", "ecr", "image", "role", "refresh_role_policy", "disable_memory", "reconcile_local_validation", "reconcile_role_rejection", "reconcile_harness_rejection", "runtime", "wait", "preview", "canary", "cleanup", "summary"])
+    parser.add_argument("stage", choices=["init", "ecr", "image", "role", "new_intent", "refresh_role_policy", "disable_memory", "reconcile_local_validation", "reconcile_role_rejection", "reconcile_harness_rejection", "runtime", "wait", "preview", "canary", "cleanup", "summary"])
     parser.add_argument("--state", required=True)
     parser.add_argument("--source-sha")
     parser.add_argument("--source", default="harness/harness.json")

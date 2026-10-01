@@ -1,0 +1,34 @@
+[
+  {
+    "preview": "a",
+    "options": [
+      "Nova Micro — Economy — 1.0x · APAC",
+      "Nova Lite — Default — 1.7x · APAC",
+      "Nova 2 Lite — Enhanced — 8.7x · Global"
+    ],
+    "modelId": "apac.amazon.nova-lite-v1:0",
+    "sessionId": "b36a5af2-a0cd-45ff-9d6f-9212d2d64c8a",
+    "traceId": "e04d936d8a044a94a6854da6e11b164b",
+    "status": "PASS"
+  },
+  {
+    "preview": "b",
+    "options": [
+      "Nova Micro — Economy — 1.0x · APAC",
+      "Nova Lite — Default — 1.7x · APAC",
+      "Nova 2 Lite — Enhanced — 8.7x · Global"
+    ],
+    "authenticatedBackend": true,
+    "status": "PASS"
+  },
+  {
+    "preview": "c",
+    "options": [
+      "Nova Micro — Economy — 1.0x · APAC",
+      "Nova Lite — Default — 1.7x · APAC",
+      "Nova 2 Lite — Enhanced — 8.7x · Global"
+    ],
+    "authenticatedBackend": true,
+    "status": "PASS"
+  }
+]

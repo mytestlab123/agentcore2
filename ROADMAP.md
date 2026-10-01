@@ -1,4 +1,22 @@
-# Roadmap
+# Roadmap — current focused follow-up
+
+F1–F5 PASS. The prior Crew roadmap state below is historical and superseded by
+[focused proof and closeout](docs/focused-followup.md),
+[live evidence](docs/focused-live-evidence.json) and [GUI proof](docs/focused-gui-proof.json).
+
+- F1: Harness/container/governance source and current-tree account scrub.
+- F2: one ARM64 image, narrow role and Harness/runtime; three real Nova/tool calls.
+- F3: three stable Amplify previews with a model picker and input cost index;
+  real-browser MOCK → authenticated LIVE LAB verification.
+- F4: exact SSL-only canary; reject/unauthorized zero-write proof; approve once,
+  native mutation ID, provider readback and distinct compliance evaluation.
+- F5: same CLI/backend proof and resumable result, full validation, canary deletion,
+  resource retention record and sanitized learning harvest. PR #5 stays draft/open.
+
+Next: G/Amit reviews designs/evidence and retained resources; lifecycle review
+2026-10-02. No automatic merge, UI winner or new cloud work is implied.
+
+## Historical v4.2 Crew run
 
 ## Now
 

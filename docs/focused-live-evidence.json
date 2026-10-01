@@ -5,7 +5,7 @@
   "imageDigest": "sha256:a5d075a55fcfea1ef0f939b5a87b3f06b56f6af4450ae4ab2dc35ceb27fc09f9",
   "roleName": "agentcore2-issue3-f1-20261001-490ceb-runtime",
   "harnessId": "agentcore2_issue3_f1_20261001_490ceb-H5P1GwA0Dz",
-  "harnessVersion": "1",
+  "harnessVersion": "2",
   "runtimeEvidence": {
     "agentCoreRuntimeEnvironment": {
       "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-southeast-1:<ACCOUNT_ID>:runtime/harness_agentcore2_issue3_f1_20261001_490ceb-BweAvqCRWl",
@@ -27,15 +27,43 @@
       ]
     }
   },
+  "memoryStatus": {
+    "disabled": {}
+  },
   "commandSessionId": "4028ea5d-031e-436c-836b-2eac5cd92676",
   "canaryName": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary",
-  "canaryDeleted": null,
+  "canaryDeleted": true,
   "incidentalMemory": {
     "arn": "arn:aws:bedrock-agentcore:ap-southeast-1:<ACCOUNT_ID>:memory/agentcore2_issue3_f1_20261001_490ceb-88yDOqCjlK",
     "reason": "Service-created default memory; disabling before first invocation",
     "cleanup": "review"
   },
-  "apps": {},
+  "apps": {
+    "a": {
+      "name": "agentcore2-issue3-f1-20261001-490ceb-preview-a",
+      "appId": "d2g5d0gm32evnh",
+      "url": "https://main.d2g5d0gm32evnh.amplifyapp.com",
+      "jobId": "1",
+      "status": "SUCCEED",
+      "bundleSha256": "bcc520fc3661d90cb8102af402aa45a94700e26f15ea210326b6cea79752b779"
+    },
+    "b": {
+      "name": "agentcore2-issue3-f1-20261001-490ceb-preview-b",
+      "appId": "d2rar4n3w1jdwz",
+      "url": "https://main.d2rar4n3w1jdwz.amplifyapp.com",
+      "jobId": "1",
+      "status": "SUCCEED",
+      "bundleSha256": "7b8e774b0096ec7bef819cfd9ec08abd8e3cc5c50dd8198c70b2bcf4aa328cc4"
+    },
+    "c": {
+      "name": "agentcore2-issue3-f1-20261001-490ceb-preview-c",
+      "appId": "d3j9c8b14om01m",
+      "url": "https://main.d3j9c8b14om01m.amplifyapp.com",
+      "jobId": "1",
+      "status": "SUCCEED",
+      "bundleSha256": "4fb25d8edcb27698e74c3f927aaed2575d3d7673a36591d5224939674f902207"
+    }
+  },
   "providerRequests": [
     {
       "operation": "ecr.create_repository",
@@ -86,9 +114,109 @@
       "operation": "agentcore.update_harness",
       "requestId": "0819a93c-281f-40d0-beb6-cfea2baecefb",
       "reconciliation": null
+    },
+    {
+      "operation": "amplify.create_app",
+      "requestId": "0140792a-9165-442f-b9d5-804c4e2cafff",
+      "reconciliation": null
+    },
+    {
+      "operation": "amplify.create_branch",
+      "requestId": "f2308186-dbdd-4f55-80f9-d3ec3a77b9e5",
+      "reconciliation": null
+    },
+    {
+      "operation": "amplify.create_deployment",
+      "requestId": "cfd6e4e1-a13a-41b2-a5d9-1dde7b591a78",
+      "reconciliation": null
+    },
+    {
+      "operation": "amplify.zip_upload",
+      "requestId": "3R8G0VMRGEFWZX6B",
+      "reconciliation": null
+    },
+    {
+      "operation": "amplify.start_deployment",
+      "requestId": "9895509f-0bb4-49d2-bd96-9caa249992b5",
+      "reconciliation": null
+    },
+    {
+      "operation": "amplify.create_app",
+      "requestId": "b11aefe0-7f5e-4010-844f-4377bb0cc6d4",
+      "reconciliation": null
+    },
+    {
+      "operation": "amplify.create_branch",
+      "requestId": "9348198b-1c53-479e-80cd-2f08d7982942",
+      "reconciliation": null
+    },
+    {
+      "operation": "amplify.create_deployment",
+      "requestId": "3ab3efa3-34d6-4f34-a723-cd73176856b4",
+      "reconciliation": null
+    },
+    {
+      "operation": "amplify.zip_upload",
+      "requestId": "DWJFP6WM9X16SMAK",
+      "reconciliation": null
+    },
+    {
+      "operation": "amplify.start_deployment",
+      "requestId": "d4ff4b07-4464-4422-848a-981fda14e993",
+      "reconciliation": null
+    },
+    {
+      "operation": "amplify.create_app",
+      "requestId": "b0410529-89ae-4362-92bd-dfd54e0a4907",
+      "reconciliation": null
+    },
+    {
+      "operation": "amplify.create_branch",
+      "requestId": "d4aeb9eb-9c94-41e8-bddd-9e7e229ea8c1",
+      "reconciliation": null
+    },
+    {
+      "operation": "amplify.create_deployment",
+      "requestId": "3fa076e0-9ed9-4999-9236-614e81f1416b",
+      "reconciliation": null
+    },
+    {
+      "operation": "amplify.zip_upload",
+      "requestId": "1GN9CWK1F6GZV03S",
+      "reconciliation": null
+    },
+    {
+      "operation": "amplify.start_deployment",
+      "requestId": "dfd6ca39-5023-49d3-9173-5be13861326b",
+      "reconciliation": null
+    },
+    {
+      "operation": "s3.create_bucket",
+      "requestId": "59GEVW07EJ5QWT2T",
+      "reconciliation": null
+    },
+    {
+      "operation": "s3.put_bucket_tagging",
+      "requestId": "X2PFC6M0ACKJSK49",
+      "reconciliation": null
+    },
+    {
+      "operation": "s3.put_public_access_block",
+      "requestId": "GDPS5MYGKJVYZNMX",
+      "reconciliation": null
+    },
+    {
+      "operation": "operator.new_intent",
+      "requestId": null,
+      "reconciliation": null
+    },
+    {
+      "operation": "s3.delete_bucket",
+      "requestId": "BY47GDKXHY3S68R7",
+      "reconciliation": null
     }
   ],
-  "modelAttempts": 13,
+  "modelAttempts": 15,
   "evidence": [
     {
       "kind": "harness-invocation",
@@ -130,7 +258,7 @@
       "kind": "model-output",
       "value": {
         "modelId": "apac.amazon.nova-lite-v1:0",
-        "text": "<thinking>I need to call the inspect_s3_ssl tool to check if the allowlisted Issue #3 canary bucket exists and to inspect its SSL-only control result.</thinking>\n",
+        "text": "",
         "usage": {},
         "latencyMs": 1095
       }
@@ -182,7 +310,7 @@
       "kind": "model-output",
       "value": {
         "modelId": "apac.amazon.nova-lite-v1:0",
-        "text": "<thinking> To inspect the allowlisted Issue #3 canary for SSL-only compliance, I will use the `inspect_s3_ssl` tool to retrieve the required information. </thinking>\n",
+        "text": "",
         "usage": {},
         "latencyMs": 3702
       }
@@ -234,7 +362,7 @@
       "kind": "model-output",
       "value": {
         "modelId": "apac.amazon.nova-lite-v1:0",
-        "text": "<thinking> I need to inspect the allowlisted Issue #3 canary using the inspect_s3_ssl tool. If the canary is not created, I will report NOT_CREATED. If it is created, I will explain the SSL-only compliance based on the tool's output. </thinking>\n",
+        "text": "",
         "usage": {},
         "latencyMs": 3825
       }
@@ -293,7 +421,7 @@
       "kind": "model-output",
       "value": {
         "modelId": "apac.amazon.nova-lite-v1:0",
-        "text": "<thinking>I need to call the inspect_s3_ssl tool to check the allowlisted Issue #3 canary. Based on the tool's result, I will report if it is NOT_CREATED or explain the SSL-only compliance.</thinking>\n",
+        "text": "",
         "usage": {},
         "latencyMs": 4949
       }
@@ -370,7 +498,7 @@
       "kind": "model-output",
       "value": {
         "modelId": "apac.amazon.nova-micro-v1:0",
-        "text": "<thinking> I need to inspect the allowlisted Issue #3 canary using the inspect_s3_ssl tool. If it's absent, I'll report NOT_CREATED. Then I will explain the SSL-only compliance briefly based on the tool's result.</thinking>\n",
+        "text": "",
         "usage": {},
         "latencyMs": 4597
       }
@@ -503,6 +631,680 @@
         },
         "latencyMs": 1353
       }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "getFinding",
+        "requestId": "becd1a4f-e901-4a46-98ca-7fc12825f677"
+      }
+    },
+    {
+      "kind": "runtime-command-result",
+      "value": {
+        "method": "getFinding",
+        "result": {
+          "id": "issue3-ssl-canary",
+          "ruleId": "s3-bucket-ssl-requests-only",
+          "title": "Require TLS for the Issue #3 canary",
+          "description": "Deny non-TLS S3 requests",
+          "severity": "HIGH",
+          "status": "NON_COMPLIANT",
+          "resource": {
+            "id": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary",
+            "type": "AWS::S3::Bucket",
+            "region": "ap-southeast-1",
+            "accountId": "<ACCOUNT_ID>",
+            "name": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary"
+          },
+          "firstObservedAt": "2026-10-01T04:58:40.416681+00:00",
+          "lastObservedAt": "2026-10-01T04:58:40.416695+00:00",
+          "remediationCapabilityId": "s3-ssl-enforce"
+        }
+      }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "proposeRemediation",
+        "requestId": "b2fbff44-77fc-40d1-8871-174cc59e2b85"
+      }
+    },
+    {
+      "kind": "runtime-command-result",
+      "value": {
+        "method": "proposeRemediation",
+        "result": {
+          "proposalId": "fe512d74-79ea-504b-9ba6-66c882b3098f",
+          "findingId": "issue3-ssl-canary",
+          "capabilityId": "s3-ssl-enforce",
+          "target": {
+            "id": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary",
+            "type": "AWS::S3::Bucket",
+            "region": "ap-southeast-1",
+            "accountId": "<ACCOUNT_ID>",
+            "name": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary"
+          },
+          "summary": "Deny non-TLS requests to this exact disposable canary",
+          "expectedChange": {
+            "policy": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "Issue3DenyInsecureTransport",
+                  "Effect": "Deny",
+                  "Principal": "*",
+                  "Action": "s3:*",
+                  "Resource": [
+                    "arn:aws:s3:::agentcore2-issue3-f1-20261001-490ceb-ssl-canary",
+                    "arn:aws:s3:::agentcore2-issue3-f1-20261001-490ceb-ssl-canary/*"
+                  ],
+                  "Condition": {
+                    "Bool": {
+                      "aws:SecureTransport": "false"
+                    }
+                  }
+                }
+              ]
+            },
+            "beforeSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+          },
+          "requiresApproval": true,
+          "createdAt": "2026-10-01T04:58:42.596542+00:00"
+        }
+      }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "decide",
+        "requestId": "5eb0818f-5197-4b22-a884-9bcd914b3608"
+      }
+    },
+    {
+      "kind": "runtime-command-result",
+      "value": {
+        "method": "decide",
+        "result": {
+          "proposalId": "fe512d74-79ea-504b-9ba6-66c882b3098f",
+          "decision": "REJECT",
+          "actorClass": "lab-operator-cli",
+          "decidedAt": "2026-10-01T04:58:44.752803+00:00"
+        }
+      }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "execute",
+        "requestId": "db035a6c-af6d-4821-a1ce-01ddb3faa2fa"
+      }
+    },
+    {
+      "kind": "runtime-command-result",
+      "value": {
+        "method": "execute",
+        "result": {
+          "runId": "3197e2f9-9bae-4588-aaa6-7641a746c797",
+          "proposalId": "fe512d74-79ea-504b-9ba6-66c882b3098f",
+          "findingId": "issue3-ssl-canary",
+          "state": "REJECTED",
+          "mode": "LIVE_LAB",
+          "startedAt": "2026-10-01T04:58:46.858170+00:00",
+          "evidence": [
+            {
+              "kind": "PROPOSAL",
+              "at": "2026-10-01T04:58:46.858183+00:00",
+              "mode": "LIVE_LAB",
+              "summary": "Deny non-TLS requests to this exact disposable canary"
+            },
+            {
+              "kind": "APPROVAL",
+              "at": "2026-10-01T04:58:46.858186+00:00",
+              "mode": "LIVE_LAB",
+              "summary": "REJECT"
+            }
+          ],
+          "finishedAt": "2026-10-01T04:58:46.858190+00:00"
+        }
+      }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "inspect_s3_ssl",
+        "requestId": "07a86f43-9cbe-4ba7-a79c-2bb0f9d7276b"
+      }
+    },
+    {
+      "kind": "runtime-command-result",
+      "value": {
+        "method": "inspect_s3_ssl",
+        "result": {
+          "id": "issue3-ssl-canary",
+          "ruleId": "s3-bucket-ssl-requests-only",
+          "title": "Require TLS for the Issue #3 canary",
+          "description": "Deny non-TLS S3 requests",
+          "severity": "HIGH",
+          "status": "NON_COMPLIANT",
+          "resource": {
+            "id": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary",
+            "type": "AWS::S3::Bucket",
+            "region": "ap-southeast-1",
+            "accountId": "<ACCOUNT_ID>",
+            "name": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary"
+          },
+          "firstObservedAt": "2026-10-01T05:00:05.652624+00:00",
+          "lastObservedAt": "2026-10-01T05:00:05.652637+00:00",
+          "remediationCapabilityId": "s3-ssl-enforce"
+        }
+      }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "proposeRemediation",
+        "requestId": "cc14c39e-b6bf-4f08-8fa4-53c2123ed856"
+      }
+    },
+    {
+      "kind": "guard-proof",
+      "value": {
+        "initial": {
+          "id": "issue3-ssl-canary",
+          "ruleId": "s3-bucket-ssl-requests-only",
+          "title": "Require TLS for the Issue #3 canary",
+          "description": "Deny non-TLS S3 requests",
+          "severity": "HIGH",
+          "status": "NON_COMPLIANT",
+          "resource": {
+            "id": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary",
+            "type": "AWS::S3::Bucket",
+            "region": "ap-southeast-1",
+            "accountId": "<ACCOUNT_ID>",
+            "name": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary"
+          },
+          "firstObservedAt": "2026-10-01T05:00:05.652624+00:00",
+          "lastObservedAt": "2026-10-01T05:00:05.652637+00:00",
+          "remediationCapabilityId": "s3-ssl-enforce"
+        },
+        "rejectRuns": [
+          "3197e2f9-9bae-4588-aaa6-7641a746c797"
+        ],
+        "unauthorizedTarget": "REJECTED",
+        "writes": 0,
+        "before": {
+          "status": "POLICY_ABSENT",
+          "requestId": "KMWGD6YFGMYEGXGE"
+        },
+        "after": {
+          "status": "POLICY_ABSENT",
+          "requestId": "J8GC34MTP63PPAWB"
+        }
+      }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "getFinding",
+        "requestId": "3a652943-99fc-4880-975d-f296d613c740"
+      }
+    },
+    {
+      "kind": "runtime-command-result",
+      "value": {
+        "method": "getFinding",
+        "result": {
+          "id": "issue3-ssl-canary",
+          "ruleId": "s3-bucket-ssl-requests-only",
+          "title": "Require TLS for the Issue #3 canary",
+          "description": "Deny non-TLS S3 requests",
+          "severity": "HIGH",
+          "status": "NON_COMPLIANT",
+          "resource": {
+            "id": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary",
+            "type": "AWS::S3::Bucket",
+            "region": "ap-southeast-1",
+            "accountId": "<ACCOUNT_ID>",
+            "name": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary"
+          },
+          "firstObservedAt": "2026-10-01T05:00:15.711975+00:00",
+          "lastObservedAt": "2026-10-01T05:00:15.711986+00:00",
+          "remediationCapabilityId": "s3-ssl-enforce"
+        }
+      }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "proposeRemediation",
+        "requestId": "21e1284a-393a-40ac-a397-7f9c384b7713"
+      }
+    },
+    {
+      "kind": "runtime-command-result",
+      "value": {
+        "method": "proposeRemediation",
+        "result": {
+          "proposalId": "2794dad6-5460-5fce-9585-741d051ee3ed",
+          "findingId": "issue3-ssl-canary",
+          "capabilityId": "s3-ssl-enforce",
+          "target": {
+            "id": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary",
+            "type": "AWS::S3::Bucket",
+            "region": "ap-southeast-1",
+            "accountId": "<ACCOUNT_ID>",
+            "name": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary"
+          },
+          "summary": "Deny non-TLS requests to this exact disposable canary",
+          "expectedChange": {
+            "policy": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "Issue3DenyInsecureTransport",
+                  "Effect": "Deny",
+                  "Principal": "*",
+                  "Action": "s3:*",
+                  "Resource": [
+                    "arn:aws:s3:::agentcore2-issue3-f1-20261001-490ceb-ssl-canary",
+                    "arn:aws:s3:::agentcore2-issue3-f1-20261001-490ceb-ssl-canary/*"
+                  ],
+                  "Condition": {
+                    "Bool": {
+                      "aws:SecureTransport": "false"
+                    }
+                  }
+                }
+              ]
+            },
+            "beforeSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+          },
+          "requiresApproval": true,
+          "createdAt": "2026-10-01T05:00:17.891744+00:00"
+        }
+      }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "decide",
+        "requestId": "0c7aa6f6-a9ee-428a-a0fd-0a93134e6b8d"
+      }
+    },
+    {
+      "kind": "runtime-command-result",
+      "value": {
+        "method": "decide",
+        "result": {
+          "proposalId": "2794dad6-5460-5fce-9585-741d051ee3ed",
+          "decision": "APPROVE_ONCE",
+          "actorClass": "lab-operator-cli",
+          "decidedAt": "2026-10-01T05:00:19.974810+00:00"
+        }
+      }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "execute",
+        "requestId": "c029f96e-a22d-42fd-8b0e-bf1fb2353977"
+      }
+    },
+    {
+      "kind": "runtime-command-result",
+      "value": {
+        "method": "execute",
+        "result": {
+          "runId": "ed87bc82-f0ea-4515-b1dd-d9a94625e531",
+          "proposalId": "2794dad6-5460-5fce-9585-741d051ee3ed",
+          "findingId": "issue3-ssl-canary",
+          "state": "VERIFIED",
+          "mode": "LIVE_LAB",
+          "startedAt": "2026-10-01T05:00:22.025049+00:00",
+          "evidence": [
+            {
+              "kind": "PROPOSAL",
+              "at": "2026-10-01T05:00:22.025062+00:00",
+              "mode": "LIVE_LAB",
+              "summary": "Deny non-TLS requests to this exact disposable canary"
+            },
+            {
+              "kind": "APPROVAL",
+              "at": "2026-10-01T05:00:22.025065+00:00",
+              "mode": "LIVE_LAB",
+              "summary": "APPROVE_ONCE"
+            },
+            {
+              "kind": "EXECUTION",
+              "at": "2026-10-01T05:00:22.468243+00:00",
+              "mode": "LIVE_LAB",
+              "summary": "PutBucketPolicy",
+              "detail": {
+                "requestId": "FKE53EXSGC00QSP0"
+              }
+            },
+            {
+              "kind": "PROVIDER_READBACK",
+              "at": "2026-10-01T05:00:22.484577+00:00",
+              "mode": "LIVE_LAB",
+              "summary": "GetBucketPolicy",
+              "detail": {
+                "requestId": "FKECXCNGM35S8JEX",
+                "policySha256": "0802790f5353657ec667458c828d57f95673d8586993ac0fca55df70286da5be"
+              }
+            },
+            {
+              "kind": "COMPLIANCE_READBACK",
+              "at": "2026-10-01T05:00:22.494325+00:00",
+              "mode": "LIVE_LAB",
+              "summary": "Independent SSL-only evaluator; AWS Config is not provisioned",
+              "detail": {
+                "requestId": "FKEDW83Z7PAP275N",
+                "status": "COMPLIANT"
+              }
+            }
+          ],
+          "providerExecutionId": "FKE53EXSGC00QSP0",
+          "finishedAt": "2026-10-01T05:00:22.494334+00:00"
+        }
+      }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "getRun",
+        "requestId": "59efdf65-8581-4331-826d-4d5819bc59e6"
+      }
+    },
+    {
+      "kind": "runtime-command-result",
+      "value": {
+        "method": "getRun",
+        "result": {
+          "runId": "ed87bc82-f0ea-4515-b1dd-d9a94625e531",
+          "proposalId": "2794dad6-5460-5fce-9585-741d051ee3ed",
+          "findingId": "issue3-ssl-canary",
+          "state": "VERIFIED",
+          "mode": "LIVE_LAB",
+          "startedAt": "2026-10-01T05:00:22.025049+00:00",
+          "evidence": [
+            {
+              "kind": "PROPOSAL",
+              "at": "2026-10-01T05:00:22.025062+00:00",
+              "mode": "LIVE_LAB",
+              "summary": "Deny non-TLS requests to this exact disposable canary"
+            },
+            {
+              "kind": "APPROVAL",
+              "at": "2026-10-01T05:00:22.025065+00:00",
+              "mode": "LIVE_LAB",
+              "summary": "APPROVE_ONCE"
+            },
+            {
+              "kind": "EXECUTION",
+              "at": "2026-10-01T05:00:22.468243+00:00",
+              "mode": "LIVE_LAB",
+              "summary": "PutBucketPolicy",
+              "detail": {
+                "requestId": "FKE53EXSGC00QSP0"
+              }
+            },
+            {
+              "kind": "PROVIDER_READBACK",
+              "at": "2026-10-01T05:00:22.484577+00:00",
+              "mode": "LIVE_LAB",
+              "summary": "GetBucketPolicy",
+              "detail": {
+                "requestId": "FKECXCNGM35S8JEX",
+                "policySha256": "0802790f5353657ec667458c828d57f95673d8586993ac0fca55df70286da5be"
+              }
+            },
+            {
+              "kind": "COMPLIANCE_READBACK",
+              "at": "2026-10-01T05:00:22.494325+00:00",
+              "mode": "LIVE_LAB",
+              "summary": "Independent SSL-only evaluator; AWS Config is not provisioned",
+              "detail": {
+                "requestId": "FKEDW83Z7PAP275N",
+                "status": "COMPLIANT"
+              }
+            }
+          ],
+          "providerExecutionId": "FKE53EXSGC00QSP0",
+          "finishedAt": "2026-10-01T05:00:22.494334+00:00"
+        }
+      }
+    },
+    {
+      "kind": "guard-proof",
+      "value": {
+        "afterApprovalBlockPublicAccess": {
+          "BlockPublicAcls": true,
+          "IgnorePublicAcls": true,
+          "BlockPublicPolicy": true,
+          "RestrictPublicBuckets": true
+        },
+        "requestId": "06NY2ES17EFWQGCF"
+      }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "listFindings",
+        "requestId": "3fda90d9-4e76-4ea7-af37-c9cabc3d54ff"
+      }
+    },
+    {
+      "kind": "runtime-command-result",
+      "value": {
+        "method": "listFindings",
+        "result": [
+          {
+            "id": "issue3-ssl-canary",
+            "ruleId": "s3-bucket-ssl-requests-only",
+            "title": "Require TLS for the Issue #3 canary",
+            "description": "Deny non-TLS S3 requests",
+            "severity": "HIGH",
+            "status": "COMPLIANT",
+            "resource": {
+              "id": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary",
+              "type": "AWS::S3::Bucket",
+              "region": "ap-southeast-1",
+              "accountId": "<ACCOUNT_ID>",
+              "name": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary"
+            },
+            "firstObservedAt": "2026-10-01T05:08:06.802177+00:00",
+            "lastObservedAt": "2026-10-01T05:08:06.802187+00:00",
+            "remediationCapabilityId": "s3-ssl-enforce"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "model-session",
+      "value": {
+        "modelId": "apac.amazon.nova-lite-v1:0",
+        "sessionId": "b36a5af2-a0cd-45ff-9d6f-9212d2d64c8a"
+      }
+    },
+    {
+      "kind": "harness-invocation",
+      "value": {
+        "requestId": "137aded4-6400-4b37-84d7-dbc02f7abdb2",
+        "modelId": "apac.amazon.nova-lite-v1:0",
+        "sessionId": "b36a5af2-a0cd-45ff-9d6f-9212d2d64c8a",
+        "traceId": "0e2745d0e5a24a478037da3c193ad0e2"
+      }
+    },
+    {
+      "kind": "model-output",
+      "value": {
+        "modelId": "apac.amazon.nova-lite-v1:0",
+        "text": "",
+        "usage": {},
+        "latencyMs": 3979
+      }
+    },
+    {
+      "kind": "inline-tool-handoff",
+      "value": {
+        "toolUseId": "tooluse_ooBcNY4RcE0tJuVxUty54i",
+        "name": "inspect_s3_ssl"
+      }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "inspect_s3_ssl",
+        "requestId": "f232b379-336b-493b-a123-687086a9d13b"
+      }
+    },
+    {
+      "kind": "runtime-command-result",
+      "value": {
+        "method": "inspect_s3_ssl",
+        "result": {
+          "id": "issue3-ssl-canary",
+          "ruleId": "s3-bucket-ssl-requests-only",
+          "title": "Require TLS for the Issue #3 canary",
+          "description": "Deny non-TLS S3 requests",
+          "severity": "HIGH",
+          "status": "COMPLIANT",
+          "resource": {
+            "id": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary",
+            "type": "AWS::S3::Bucket",
+            "region": "ap-southeast-1",
+            "accountId": "<ACCOUNT_ID>",
+            "name": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary"
+          },
+          "firstObservedAt": "2026-10-01T05:08:12.276946+00:00",
+          "lastObservedAt": "2026-10-01T05:08:12.276956+00:00",
+          "remediationCapabilityId": "s3-ssl-enforce"
+        }
+      }
+    },
+    {
+      "kind": "harness-invocation",
+      "value": {
+        "requestId": "6959cd7c-2a2e-4fe8-a7d7-9d090203bebc",
+        "modelId": "apac.amazon.nova-lite-v1:0",
+        "sessionId": "b36a5af2-a0cd-45ff-9d6f-9212d2d64c8a",
+        "traceId": "e04d936d8a044a94a6854da6e11b164b"
+      }
+    },
+    {
+      "kind": "model-output",
+      "value": {
+        "modelId": "apac.amazon.nova-lite-v1:0",
+        "text": "The SSL-only compliance for the Issue #3 canary has been inspected and is compliant, as shown by the \"COMPLIANT\" status in the inspection result.",
+        "usage": {
+          "usage": {
+            "inputTokens": 876,
+            "outputTokens": 35,
+            "totalTokens": 911
+          },
+          "metrics": {
+            "latencyMs": 515
+          }
+        },
+        "latencyMs": 916
+      }
+    },
+    {
+      "kind": "model-proof",
+      "value": {
+        "modelId": "apac.amazon.nova-lite-v1:0",
+        "sessionId": "b36a5af2-a0cd-45ff-9d6f-9212d2d64c8a",
+        "tools": [
+          {
+            "toolId": "inspect_s3_ssl",
+            "toolUseId": "tooluse_ooBcNY4RcE0tJuVxUty54i",
+            "result": {
+              "id": "issue3-ssl-canary",
+              "ruleId": "s3-bucket-ssl-requests-only",
+              "title": "Require TLS for the Issue #3 canary",
+              "description": "Deny non-TLS S3 requests",
+              "severity": "HIGH",
+              "status": "COMPLIANT",
+              "resource": {
+                "id": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary",
+                "type": "AWS::S3::Bucket",
+                "region": "ap-southeast-1",
+                "accountId": "<ACCOUNT_ID>",
+                "name": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary"
+              },
+              "firstObservedAt": "2026-10-01T05:08:12.276946+00:00",
+              "lastObservedAt": "2026-10-01T05:08:12.276956+00:00",
+              "remediationCapabilityId": "s3-ssl-enforce"
+            }
+          }
+        ],
+        "text": "The SSL-only compliance for the Issue #3 canary has been inspected and is compliant, as shown by the \"COMPLIANT\" status in the inspection result.",
+        "usage": {
+          "usage": {
+            "inputTokens": 876,
+            "outputTokens": 35,
+            "totalTokens": 911
+          },
+          "metrics": {
+            "latencyMs": 515
+          }
+        },
+        "traceId": "e04d936d8a044a94a6854da6e11b164b",
+        "mode": "LIVE_LAB"
+      }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "listFindings",
+        "requestId": "9d562732-706b-46d6-b1dd-6b45c95cac57"
+      }
+    },
+    {
+      "kind": "runtime-command-result",
+      "value": {
+        "method": "listFindings",
+        "result": [
+          {
+            "id": "issue3-ssl-canary",
+            "ruleId": "s3-bucket-ssl-requests-only",
+            "title": "Require TLS for the Issue #3 canary",
+            "description": "Deny non-TLS S3 requests",
+            "severity": "HIGH",
+            "status": "COMPLIANT",
+            "resource": {
+              "id": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary",
+              "type": "AWS::S3::Bucket",
+              "region": "ap-southeast-1",
+              "accountId": "<ACCOUNT_ID>",
+              "name": "agentcore2-issue3-f1-20261001-490ceb-ssl-canary"
+            },
+            "firstObservedAt": "2026-10-01T05:08:21.667744+00:00",
+            "lastObservedAt": "2026-10-01T05:08:21.667755+00:00",
+            "remediationCapabilityId": "s3-ssl-enforce"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "runtime-command-request",
+      "value": {
+        "method": "listFindings",
+        "requestId": "0282e9a1-e1f7-46bc-98e4-92287e07e0ec"
+      }
+    },
+    {
+      "kind": "runtime-command-result",
+      "value": {
+        "method": "listFindings",
+        "result": []
+      }
     }
-  ]
+  ],
+  "cleanupReadback": {
+    "status": "ABSENT",
+    "requestId": "ES5KG63YA6A768F9"
+  }
 }

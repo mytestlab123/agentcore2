@@ -119,3 +119,69 @@ model invocation; the resulting Harness version is 2. Its exact incidental ID
 is recorded with cleanup=review, not silently deleted. No memory permissions or
 events were used. [Kiro review](https://github.com/mytestlab123/agentcore2/pull/5#issuecomment-5924952642)
 found no blocking code defect. F3 deployment and F4/F5 live acceptance still remain.
+
+## F3–F5 final closeout — PASS
+
+| Preview | Stable URL | Deployment |
+| --- | --- | --- |
+| A | https://main.d2g5d0gm32evnh.amplifyapp.com | job 1 SUCCEED |
+| B | https://main.d2rar4n3w1jdwz.amplifyapp.com | job 1 SUCCEED |
+| C | https://main.d3j9c8b14om01m.amplifyapp.com | job 1 SUCCEED |
+
+All serve revision 87f468b9eedba18dc039cab269661badccc71d66 via revision.json.
+Each starts MOCK and offers Economy 1.0x, Default 1.7x and Enhanced 8.7x relative
+input cost. Rates and their owner-provided source/date are in one small config;
+output rates differ and the index is not total-request cost.
+
+[Real Chromium proof](focused-gui-proof.json) verified all three model options,
+initial MOCK badge, authenticated LIVE LAB connection in all previews, and Nova
+Lite's actual registered-tool COMPLIANT result from Preview A. The temporary
+loopback bridge was stopped and its ephemeral token removed. The browser used
+the local-network permission without disabling web security. Credentials stayed
+on Home; no anonymous mutation endpoint was created. [Negative bridge proof](focused-bridge-guard-proof.json):
+anonymous mutation 401, unregistered origin 403, unregistered model 400.
+
+One exact tagged canary started NON_COMPLIANT because its SSL-only policy was
+missing. REJECT run 3197e2f9-9bae-4588-aaa6-7641a746c797 had no provider execution.
+An unauthorized synthetic target was rejected. Separate before/after provider
+reads both found no policy. APPROVE_ONCE run ed87bc82-f0ea-4515-b1dd-d9a94625e531
+was VERIFIED: PutBucketPolicy FKE53EXSGC00QSP0, provider read FKECXCNGM35S8JEX,
+distinct compliance read FKEDW83Z7PAP275N COMPLIANT. The evaluator is not AWS Config.
+All Block Public Access settings were true afterward. One execute result carried
+the mutation ID; subsequent getRun only read the saved result after SSH loss.
+The existing CLI channel drove the exact same ComplianceBackend as the GUI.
+
+Canary cleanup: exact owner/disposable tags and empty-bucket check, then native
+DeleteBucket and HeadBucket ABSENT. IDs are exported in the live evidence.
+No pre-existing resource was changed. [Resource record](resource-record.csv)
+identifies the new retained ECR image, narrow role, Harness/runtime, three previews
+and disabled incidental memory child. Cleanup=review, lifecycle date 2026-10-02;
+this is a review deadline, not deletion authority. Private native-ID journal and
+scratch tooling/artifacts are retained. No live operator bridge remains running.
+
+Budget: 15 model API attempts including diagnostics and the GUI proof. The
+available final-turn token metadata implies about USD 0.000846 at the dated
+owner-provided prices; missing handoff metadata and infrastructure charges mean
+this is **not total spend or a billing reconciliation**. Sessions are bounded,
+model calls capped at 18, output capped at 256, no automatic client/S3 retries.
+The expected low-volume test footprint remains within the ~USD 10 envelope;
+retained resources require lifecycle review and no unattended invocation loop.
+
+Validation: full build PASS, 23 TypeScript plus 7 Python tests PASS, typecheck PASS,
+syntax/diff checks PASS, provider ownership and deletion readbacks PASS. Kiro
+[F4 review](https://github.com/mytestlab123/agentcore2/issues/3#issuecomment-5925147800)
+found no blocking defect. Its durable-ID/URL feedback is now in committed evidence.
+Tagged deliberation in ordinary model text is stripped before journal/display/export;
+provider reasoningContent is never collected. Historical snapshots are preserved
+by normal commits; no history rewrite or force push.
+
+Reproducible commands: ops/followup.py for deployment/state/cleanup, ops/bundles.py
+for revisioned bundles, harness/client.py for model/tool and RPC, harness/live-cli.mjs
+for the existing CLI seam, ops/gui-proof.cjs for browser/bridge guards, and
+ops/inventory.py plus ops/evidence.py for private-ledger readback/sanitized export.
+Use private state on Home; never commit it or credentials. After canary cleanup,
+the retained runtime's canary inspection should report NOT_CREATED; do not claim
+the deleted bucket remains compliant or recreate it automatically.
+
+Learning harvest: [portable concepts for G](learning-harvest.md). No KB repository
+write, UI winner, competing PR or merge. PR #5 remains draft/open/unmerged.

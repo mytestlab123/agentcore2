@@ -1,5 +1,11 @@
 # Final M1–M5 Handback — Issue #3 (`agentcore2`)
 
+**Historical v4.2 Crew handback.** Live gaps were subsequently closed by X under
+the focused F1–F5 authority. Current results and retention:
+[focused follow-up](focused-followup.md), [live evidence](focused-live-evidence.json),
+[GUI proof](focused-gui-proof.json). The BLOCKED/$0 claims below describe only
+that earlier run, not current provider state.
+
 Task 15/15 (`final-handback`). **No AWS mutation. PR #5 NOT merged.**
 
 - Run date: 2026-10-01 (UTC 2026-09-30 20:xx)
