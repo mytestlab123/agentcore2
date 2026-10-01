@@ -74,6 +74,8 @@ class Client:
         messages = [{"role": "user", "content": [{"text": "Call inspect_s3_ssl once to inspect the allowlisted Issue #3 canary. If absent, report NOT_CREATED. Then explain SSL-only compliance briefly."}]}]
         used = []
         for _ in range(3):
+            if sum(e["kind"] == "harness-intent" for e in self.state.get("evidence", [])) >= 12:
+                raise ValueError("Bounded LAB model-invocation allowance exhausted; review budget before more calls")
             trace = uuid.uuid4().hex
             self.journal("harness-intent", {"modelId": selected, "sessionId": self.state["sessionId"], "traceId": trace})
             started = time.monotonic()
