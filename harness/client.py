@@ -5,7 +5,10 @@ import json
 import os
 import re
 import tempfile
+import time
+import uuid
 from pathlib import Path
+from models import model_config
 
 
 def safe(value):
@@ -64,12 +67,17 @@ class Client:
         self.journal("runtime-command-result", {"method": method, "result": result})
         return result
 
-    def model_tool(self):
+    def model_tool(self, model_id=None):
+        config = model_config(model_id)
+        selected = config["bedrockModelConfig"]["modelId"]
         messages = [{"role": "user", "content": [{"text": "Call inspect_s3_ssl once to inspect the allowlisted Issue #3 canary. If absent, report NOT_CREATED. Then explain SSL-only compliance briefly."}]}]
         used = []
         for _ in range(3):
-            response = self.api.invoke_harness(harnessArn=self.state["harnessArn"], runtimeSessionId=self.state["sessionId"], messages=messages)
-            self.journal("harness-invocation", {"requestId": response["ResponseMetadata"]["RequestId"], "modelId": self.state["modelId"], "sessionId": self.state["sessionId"]})
+            trace = uuid.uuid4().hex
+            self.journal("harness-intent", {"modelId": selected, "sessionId": self.state["sessionId"], "traceId": trace})
+            started = time.monotonic()
+            response = self.api.invoke_harness(harnessArn=self.state["harnessArn"], runtimeSessionId=self.state["sessionId"], messages=messages, model=config, traceId=trace)
+            self.journal("harness-invocation", {"requestId": response["ResponseMetadata"]["RequestId"], "modelId": selected, "sessionId": self.state["sessionId"], "traceId": trace})
             text, tools, usage = "", {}, {}
             for event in response["stream"]:
                 if "runtimeClientError" in event:
@@ -82,11 +90,11 @@ class Client:
                 if "toolUse" in delta.get("delta", {}):
                     tools[delta["contentBlockIndex"]]["inputText"] += delta["delta"]["toolUse"].get("input", "")
                 usage.update(event.get("metadata", {}))
-            self.journal("model-output", {"text": text, "usage": usage})
+            self.journal("model-output", {"modelId": selected, "text": text, "usage": usage, "latencyMs": round((time.monotonic()-started)*1000)})
             if not tools:
                 if not used:
                     raise RuntimeError("Model returned no registered tool invocation; proof incomplete")
-                return {"modelId": self.state["modelId"], "sessionId": self.state["sessionId"], "tools": used, "text": text, "mode": "LIVE_LAB"}
+                return {"modelId": selected, "sessionId": self.state["sessionId"], "tools": used, "text": text, "usage": usage, "traceId": trace, "mode": "LIVE_LAB"}
             results = []
             for t in tools.values():
                 if t["name"] != "inspect_s3_ssl" or json.loads(t["inputText"] or "{}") != {}:
@@ -102,11 +110,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--state", required=True)
     parser.add_argument("--model-tool", action="store_true")
+    parser.add_argument("--model")
     parser.add_argument("--request")
     args = parser.parse_args()
     c = Client(args.state)
     if args.model_tool:
-        result = c.model_tool()
+        result = c.model_tool(args.model)
     else:
         request = json.loads(args.request or "{}")
         result = c.rpc(request["method"], request.get("args"))

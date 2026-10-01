@@ -15,10 +15,13 @@ import time
 import urllib.request
 import uuid
 import zipfile
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "harness"))
+from models import MODELS, DEFAULT_MODEL
 
 REGION = "ap-southeast-1"
-MODEL = "anthropic.claude-3-haiku-20240307-v1:0"
+MODEL = DEFAULT_MODEL
 
 
 def sanitize(value):
@@ -69,6 +72,7 @@ class Run:
                 "tools": "cdx", "environment": "dev", "owner": "amit", "Name": name,
                 "version": (self.state["sourceSha"] or "f1")[:12],
                 "TTL": (today + datetime.timedelta(days=1)).strftime("%d-%m-%y"),
+                "ttl": (today + datetime.timedelta(days=1)).isoformat(), "cleanup": "delete" if disposable else "review",
                 "purpose": "Issue 3 focused live SSL proof", "phase": "F1-F5", "issue": "3",
                 "followup": self.state["followupId"], "disposable": str(disposable).lower()}
 
@@ -109,15 +113,21 @@ class Run:
         return r["repository"]
 
     def model_preflight(self):
-        availability = self.session.client("bedrock").get_foundation_model_availability(modelId=MODEL)
-        self.state["modelAvailability"] = {k: v for k, v in availability.items() if k != "ResponseMetadata"}
-        self.save()
-        if (availability.get("agreementAvailability", {}).get("status") != "AVAILABLE"
+        c = self.session.client("bedrock")
+        results = {}
+        for model in MODELS:
+            availability = c.get_foundation_model_availability(modelId=model.split(".", 1)[1])
+            profile = c.get_inference_profile(inferenceProfileIdentifier=model)
+            results[model] = {"availability": {k: v for k, v in availability.items() if k != "ResponseMetadata"},
+                              "profileArn": profile["inferenceProfileArn"], "models": profile["models"]}
+            if (availability.get("agreementAvailability", {}).get("status") != "AVAILABLE"
                 or availability.get("authorizationStatus") != "AUTHORIZED"
                 or availability.get("entitlementAvailability") != "AVAILABLE"
-                or availability.get("regionAvailability") != "AVAILABLE"):
-            raise ValueError("Model access preflight failed; no implicit subscription, agreement or identity permission changes authorized")
-        return self.state["modelAvailability"]
+                or availability.get("regionAvailability") != "AVAILABLE" or profile["status"] != "ACTIVE"):
+                raise ValueError("Approved Nova access preflight failed; no agreement or identity permission changes authorized")
+        self.state["modelAvailability"] = results
+        self.save()
+        return results
 
     def image(self):
         c = self.session.client("ecr")
@@ -160,6 +170,7 @@ class Run:
                 auth_file.unlink()
 
     def role(self):
+        profiles = self.model_preflight()
         c = self.session.client("iam")
         name = self.state["roleName"]
         account = self.state["account"]
@@ -186,7 +197,8 @@ class Run:
         policy = {"Version": "2012-10-17", "Statement": [
             {"Effect": "Allow", "Action": ["ecr:BatchGetImage", "ecr:GetDownloadUrlForLayer"], "Resource": self.state["repository"]["repositoryArn"]},
             {"Effect": "Allow", "Action": "ecr:GetAuthorizationToken", "Resource": "*"},
-            {"Effect": "Allow", "Action": ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"], "Resource": f"arn:aws:bedrock:{REGION}::foundation-model/{MODEL}"},
+            {"Effect": "Allow", "Action": ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"], "Resource": [p["profileArn"] for p in profiles.values()]},
+            {"Effect": "Allow", "Action": ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"], "Resource": sorted({m["modelArn"] for p in profiles.values() for m in p["models"]}), "Condition": {"StringEquals": {"bedrock:InferenceProfileArn": [p["profileArn"] for p in profiles.values()]}}},
             {"Effect": "Allow", "Action": ["s3:GetBucketPolicy", "s3:GetBucketTagging", "s3:PutBucketPolicy", "s3:GetBucketPublicAccessBlock"], "Resource": "arn:aws:s3:::" + self.state["canaryName"]},
             {"Effect": "Allow", "Action": ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents", "logs:DescribeLogStreams"], "Resource": [log, log + ":*"]},
         ]}
@@ -206,7 +218,7 @@ class Run:
         params = json.loads(Path(source).read_text())
         params.update(harnessName=self.state["runtimeName"], executionRoleArn=self.state["role"]["Arn"],
                       clientToken=self.state["clientToken"], environmentArtifact={"containerConfiguration": {"containerUri": self.state["imageUri"]}},
-                      environment={"agentCoreRuntimeEnvironment": {"lifecycleConfiguration": {"idleRuntimeSessionTimeout": 60, "maxLifetime": 300},
+                      environment={"agentCoreRuntimeEnvironment": {"lifecycleConfiguration": {"idleRuntimeSessionTimeout": 60, "maxLifetime": 1800},
                          "networkConfiguration": {"networkMode": "PUBLIC"}, "filesystemConfigurations": [{"sessionStorage": {"mountPath": "/mnt/state"}}]}},
                       environmentVariables={"CANARY_BUCKET": self.state["canaryName"], "FOLLOWUP_ID": self.state["followupId"], "AWS_REGION": REGION, "STATE_PATH": "/mnt/state/backend.json"},
                       maxIterations=3, maxTokens=1000, timeoutSeconds=60, tags=self.tags(self.state["runtimeName"]))
