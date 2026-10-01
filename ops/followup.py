@@ -278,6 +278,8 @@ class Run:
             return {"memory": "disabled"}
         if r["status"] != "READY":
             return {"memory": "pending readiness; do not invoke", "status": r["status"]}
+        self.state["incidentalMemory"] = {"arn": r.get("memory", {}).get("managedMemoryConfiguration", {}).get("arn"), "reason": "Service-created default memory; disabling before first invocation", "cleanup": "review"}
+        self.save()
         self.mutate("agentcore.update_harness", c.update_harness, harnessId=self.state["harnessId"], memory={"optionalValue": {"disabled": {}}})
         return {"memory": "disable requested on this follow-up Harness"}
 
