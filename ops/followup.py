@@ -80,6 +80,10 @@ class Run:
         self.identity()
         if self.state.get("inflight"):
             raise ValueError("Uncertain previous mutation: reconcile saved intent before retry")
+        from botocore.validate import validate_parameters
+        client = call.__self__
+        api_name = client.meta.method_to_api_mapping[call.__name__]
+        validate_parameters(parameters, client.meta.service_model.operation_model(api_name).input_shape)
         self.state["inflight"] = {"operation": operation, "parameters": parameters,
                                   "at": datetime.datetime.now(datetime.timezone.utc).isoformat()}
         self.save()
@@ -107,6 +111,27 @@ class Run:
             self.save()
             return {"role": "absent", "safeRetry": True}
         raise ValueError("Role exists; manual reconciliation required")
+
+    def reconcile_harness_rejection(self):
+        pending = self.state.get("inflight", {})
+        if pending.get("operation") != "agentcore.create_harness" or "are reserved and cannot be set" not in self.state.get("lastError", ""):
+            raise ValueError("No matching definitive Harness validation rejection")
+        c = self.session.client("bedrock-agentcore-control")
+        for page in c.get_paginator("list_harnesses").paginate():
+            if any(h["harnessName"] == self.state["runtimeName"] for h in page.get("harnesses", [])):
+                raise ValueError("Harness exists; reconcile instead of creating again")
+        self.state["journal"].append({**self.state.pop("inflight"), "reconciliation": "Reserved-variable ValidationException; list proves exact name absent"})
+        self.state.pop("lastError", None)
+        self.save()
+        return {"harness": "absent", "safeRetry": True}
+
+    def reconcile_local_validation(self):
+        if "Parameter validation failed" not in self.state.get("lastError", "") or not self.state.get("inflight"):
+            raise ValueError("No matching SDK-local validation rejection")
+        self.state["journal"].append({**self.state.pop("inflight"), "reconciliation": "SDK parameter validation; no provider request dispatched"})
+        self.state.pop("lastError", None)
+        self.save()
+        return {"dispatch": "not admitted; local parameter rejection retired"}
 
     def ecr(self):
         self.model_preflight()
@@ -208,7 +233,7 @@ class Run:
             raise ValueError("New role ownership mismatch")
         if self.state.get("rolePolicyCreated"):
             return self.state["role"]
-        log = f"arn:aws:logs:{REGION}:{account}:log-group:/aws/bedrock-agentcore/runtimes/{self.state['runtimeName']}*"
+        log = f"arn:aws:logs:{REGION}:{account}:log-group:/aws/bedrock-agentcore/runtimes/harness_{self.state['runtimeName']}*"
         policy = {"Version": "2012-10-17", "Statement": [
             {"Effect": "Allow", "Action": ["ecr:BatchGetImage", "ecr:GetDownloadUrlForLayer"], "Resource": self.state["repository"]["repositoryArn"]},
             {"Effect": "Allow", "Action": "ecr:GetAuthorizationToken", "Resource": "*"},
@@ -235,13 +260,31 @@ class Run:
                       clientToken=self.state["clientToken"], environmentArtifact={"containerConfiguration": {"containerUri": self.state["imageUri"]}},
                       environment={"agentCoreRuntimeEnvironment": {"lifecycleConfiguration": {"idleRuntimeSessionTimeout": 60, "maxLifetime": 1800},
                          "networkConfiguration": {"networkMode": "PUBLIC"}, "filesystemConfigurations": [{"sessionStorage": {"mountPath": "/mnt/state"}}]}},
-                      environmentVariables={"CANARY_BUCKET": self.state["canaryName"], "FOLLOWUP_ID": self.state["followupId"], "AWS_REGION": REGION, "STATE_PATH": "/mnt/state/backend.json"},
+                      environmentVariables={"CANARY_BUCKET": self.state["canaryName"], "FOLLOWUP_ID": self.state["followupId"], "STATE_PATH": "/mnt/state/backend.json"},
                       maxIterations=3, maxTokens=1000, timeoutSeconds=60, tags=self.tags(self.state["runtimeName"]))
+        params["memory"] = {"disabled": {}}
         r = self.mutate("agentcore.create_harness", c.create_harness, **params)
         self.state["harnessId"] = r["harness"]["harnessId"]
         self.state["harnessArn"] = r["harness"]["arn"]
         self.save()
         return r
+
+    def disable_memory(self):
+        c = self.session.client("bedrock-agentcore-control")
+        r = c.get_harness(harnessId=self.state["harnessId"])["harness"]
+        if r["harnessName"] != self.state["runtimeName"]:
+            raise ValueError("Follow-up Harness ownership mismatch")
+        if "disabled" in r.get("memory", {}):
+            return {"memory": "disabled"}
+        if r["status"] != "READY":
+            return {"memory": "pending readiness; do not invoke", "status": r["status"]}
+        self.mutate("agentcore.update_harness", c.update_harness, harnessId=self.state["harnessId"], memory={"optionalValue": {"disabled": {}}})
+        return {"memory": "disable requested on this follow-up Harness"}
+
+    def refresh_role_policy(self):
+        self.state["rolePolicyCreated"] = False
+        self.save()
+        return self.role()
 
     def wait(self):
         c = self.session.client("bedrock-agentcore-control")
@@ -336,7 +379,7 @@ class Run:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("stage", choices=["init", "ecr", "image", "role", "reconcile_role_rejection", "runtime", "wait", "preview", "canary", "cleanup", "summary"])
+    parser.add_argument("stage", choices=["init", "ecr", "image", "role", "refresh_role_policy", "disable_memory", "reconcile_local_validation", "reconcile_role_rejection", "reconcile_harness_rejection", "runtime", "wait", "preview", "canary", "cleanup", "summary"])
     parser.add_argument("--state", required=True)
     parser.add_argument("--source-sha")
     parser.add_argument("--source", default="harness/harness.json")
