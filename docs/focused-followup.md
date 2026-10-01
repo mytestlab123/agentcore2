@@ -185,3 +185,8 @@ the deleted bucket remains compliant or recreate it automatically.
 
 Learning harvest: [portable concepts for G](learning-harvest.md). No KB repository
 write, UI winner, competing PR or merge. PR #5 remains draft/open/unmerged.
+
+[Kiro final read-only acceptance](https://github.com/mytestlab123/agentcore2/issues/3#issuecomment-5925315475)
+reviewed faebf14 and marked F1–F5 PASS with no blockers. Retained resources require
+the scheduled lifecycle review; this acceptance does not authorize automatic
+deletion, another canary, or further unattended model calls.
