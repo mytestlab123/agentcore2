@@ -26,7 +26,7 @@ Model scope: exactly Nova Micro APAC (Economy), Nova Lite APAC (Default) and
 Nova 2 Lite global (Enhanced), per Issue #3 comment 5924722893. The Python
 operator client owns the allowlist and forwards only a model ID, fixed Converse
 format and 256-token cap. Prompt, tools and remediation authority stay unchanged.
-The private journal limits this experiment to 12 model API attempts; no automatic
+The private journal limits this experiment to 18 model API attempts; no automatic
 SDK retries. Token usage and latency are recorded, not invented dollar prices.
 
 The three static previews start in MOCK. To connect live, run `bridge.py` on Home

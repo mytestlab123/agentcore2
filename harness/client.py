@@ -28,6 +28,9 @@ class Client:
         if identity["Account"] != self.state["account"] or not identity["Arn"].endswith(":user/amit"):
             raise ValueError("Approved personal LAB identity mismatch")
         self.api = session.client("bedrock-agentcore")
+        if "commandSessionId" not in self.state:
+            self.state["commandSessionId"] = str(uuid.uuid4())
+            self.journal("command-session", {"sessionId": self.state["commandSessionId"]})
 
     def journal(self, kind, value):
         self.state.setdefault("evidence", []).append({"kind": kind, "value": value})
@@ -49,7 +52,7 @@ class Client:
             args = [*args, self.state["intentId"]]
         body = base64.b64encode(json.dumps({"method": method, "args": args or []}).encode()).decode()
         response = self.api.invoke_agent_runtime_command(
-            agentRuntimeArn=self.state["harnessArn"], runtimeSessionId=self.state["sessionId"],
+            agentRuntimeArn=self.state["harnessArn"], runtimeSessionId=self.state["commandSessionId"],
             body={"command": "python /app/rpc.py " + body})
         self.journal("runtime-command-request", {"method": method, "requestId": response["ResponseMetadata"]["RequestId"]})
         output, errors, exit_code = "", "", None
@@ -71,15 +74,21 @@ class Client:
     def model_tool(self, model_id=None):
         config = model_config(model_id)
         selected = config["bedrockModelConfig"]["modelId"]
+        # Keep pending inline-tool handoffs separate from direct command state.
+        # Every bounded comparison has its own model conversation; all commands
+        # retain one stable governance session on this same runtime/role.
+        self.state["sessionId"] = str(uuid.uuid4())
+        self.journal("model-session", {"modelId": selected, "sessionId": self.state["sessionId"]})
+        tool_config = json.loads(Path(__file__).with_name("harness.json").read_text())
         messages = [{"role": "user", "content": [{"text": "Call inspect_s3_ssl once to inspect the allowlisted Issue #3 canary. If absent, report NOT_CREATED. Then explain SSL-only compliance briefly."}]}]
         used = []
         for _ in range(3):
-            if sum(e["kind"] == "harness-intent" for e in self.state.get("evidence", [])) >= 12:
+            if sum(e["kind"] == "harness-intent" for e in self.state.get("evidence", [])) >= 18:
                 raise ValueError("Bounded LAB model-invocation allowance exhausted; review budget before more calls")
             trace = uuid.uuid4().hex
             self.journal("harness-intent", {"modelId": selected, "sessionId": self.state["sessionId"], "traceId": trace})
             started = time.monotonic()
-            response = self.api.invoke_harness(harnessArn=self.state["harnessArn"], runtimeSessionId=self.state["sessionId"], messages=messages, model=config, traceId=trace)
+            response = self.api.invoke_harness(harnessArn=self.state["harnessArn"], runtimeSessionId=self.state["sessionId"], messages=messages, model=config, traceId=trace, tools=tool_config["tools"], allowedTools=tool_config["allowedTools"])
             self.journal("harness-invocation", {"requestId": response["ResponseMetadata"]["RequestId"], "modelId": selected, "sessionId": self.state["sessionId"], "traceId": trace})
             text, tools, usage = "", {}, {}
             for event in response["stream"]:
@@ -101,13 +110,16 @@ class Client:
                     raise RuntimeError("Model returned no registered tool invocation; proof incomplete")
                 return {"modelId": selected, "sessionId": self.state["sessionId"], "tools": used, "text": text, "usage": usage, "traceId": trace, "mode": "LIVE_LAB"}
             results = []
+            assistant_tools = []
             for t in tools.values():
                 if t["name"] != "inspect_s3_ssl" or json.loads(t["inputText"] or "{}") != {}:
                     raise ValueError("Unregistered model capability/arguments")
+                self.journal("inline-tool-handoff", {k: v for k, v in t.items() if k != "inputText"})
                 result = self.rpc("inspect_s3_ssl")
                 used.append({"toolId": t["name"], "toolUseId": t["toolUseId"], "result": result})
-                results.append({"toolResult": {"toolUseId": t["toolUseId"], "content": [{"json": result}], "status": "success"}})
-            messages = [{"role": "user", "content": results}]
+                assistant_tools.append({"toolUse": {**{k: v for k, v in t.items() if k != "inputText"}, "input": {}}})
+                results.append({"toolResult": {"toolUseId": t["toolUseId"], "content": [{"text": json.dumps(result)}], "status": "success"}})
+            messages = [{"role": "assistant", "content": assistant_tools}, {"role": "user", "content": results}]
         raise RuntimeError("Bounded model loop exceeded")
 
 
@@ -118,10 +130,16 @@ if __name__ == "__main__":
     parser.add_argument("--model")
     parser.add_argument("--request")
     args = parser.parse_args()
-    c = Client(args.state)
-    if args.model_tool:
-        result = c.model_tool(args.model)
-    else:
-        request = json.loads(args.request or "{}")
-        result = c.rpc(request["method"], request.get("args"))
-    print(safe(result))
+    try:
+        c = Client(args.state)
+        if args.model_tool:
+            result = c.model_tool(args.model)
+        else:
+            request = json.loads(args.request or "{}")
+            result = c.rpc(request["method"], request.get("args"))
+        print(safe(result))
+    except Exception as e:
+        if "c" in locals():
+            c.journal("client-error", {"error": str(e)})
+        print(safe({"BLOCKED": str(e)}))
+        raise SystemExit(1)

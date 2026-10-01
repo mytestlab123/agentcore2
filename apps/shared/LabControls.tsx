@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { LiveAgentCoreBackend, MockComplianceBackend, type ComplianceBackend, type LiveRuntimeEvidence } from "@agentcore2/contracts";
+import pricing from "./model-pricing.json";
 
-export const models = [
-  { id: "apac.amazon.nova-micro-v1:0", label: "Nova Micro — Economy", route: "APAC" },
-  { id: "apac.amazon.nova-lite-v1:0", label: "Nova Lite — Default", route: "APAC" },
-  { id: "global.amazon.nova-2-lite-v1:0", label: "Nova 2 Lite — Enhanced", route: "Global" },
-];
+export const models = pricing.models;
 let active: ComplianceBackend = new MockComplianceBackend();
 let token = "";
 const endpoint = "http://127.0.0.1:8703";
@@ -45,9 +42,10 @@ export function LabControls(): React.ReactElement {
   }
   return <section className="panel" style={{ margin: 16, padding: 12 }}>
     <label>Explanation model <select aria-label="Explanation model" value={model} onChange={e => setModel(e.target.value)}>
-      {models.map(m => <option key={m.id} value={m.id}>{m.label} · {m.route}</option>)}
+      {models.map(m => <option key={m.id} value={m.id}>{m.label} — {(m.input / 0.047).toFixed(1)}x · {m.route}</option>)}
     </select></label>
     <span style={{ marginLeft: 12 }}>Same tools, permissions and approval flow for every model.</span>
+    <p title={`${pricing.source}; checked ${pricing.date}`}>Input cost index, not total request cost. {models.filter(m => m.id === model).map(m => <span key={m.id}>${m.input}/M input · ${m.output}/M output</span>)} · rates recorded {pricing.date}</p>
     <p>{connected ? "LIVE LAB connection active. Synthetic data only; inference may cross Regions." : "MOCK until connected. Model choice does not invoke AWS in mock mode."}</p>
     {!connected && <><input type="password" autoComplete="off" placeholder="Private operator bridge session token" value={entry} onChange={e => setEntry(e.target.value)} /> <button disabled={busy || !entry} onClick={connect}>Connect LAB</button></>}
     <button disabled={!connected || busy} onClick={explain}>Inspect and explain SSL control</button>
