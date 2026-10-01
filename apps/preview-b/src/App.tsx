@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { backend, LabControls } from "../../shared/LabControls";
 import {
-  MockComplianceBackend,
-  type ComplianceBackend,
   type Finding,
   type RemediationProposal,
   type RemediationRun,
@@ -9,7 +8,6 @@ import {
 } from "@agentcore2/contracts";
 
 // Same seam as Preview A. The ONLY difference is the interaction model.
-const backend: ComplianceBackend = new MockComplianceBackend();
 const PAGE = 25;
 
 interface ChatMsg { who: "user" | "agent"; text: string; }
@@ -21,7 +19,11 @@ export function App(): React.ReactElement {
   const [page, setPage] = useState(0);
   const [selected, setSelected] = useState<Finding | undefined>();
 
-  useEffect(() => { backend.listFindings().then(setAll); }, []);
+  useEffect(() => {
+    const load = () => { backend.listFindings().then(setAll).catch(() => setAll([])); };
+    load(); window.addEventListener("lab-backend-changed", load);
+    return () => window.removeEventListener("lab-backend-changed", load);
+  }, []);
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -41,6 +43,7 @@ export function App(): React.ReactElement {
         <span className={`badge ${backend.mode}`}>{backend.mode.replace("_", " ")}</span>
         <span style={{ fontSize: 12, opacity: 0.8 }}>finding stays bounded context — not a generic chatbot</span>
       </header>
+      <LabControls />
       <div className="layout">
         <div className="main">
           <div className="panel">

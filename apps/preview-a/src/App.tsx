@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { backend, LabControls } from "../../shared/LabControls";
 import {
-  wireLiveOrFallbackToMock,
-  type ComplianceBackend,
   type Finding,
   type RemediationProposal,
   type RemediationRun,
@@ -9,24 +8,7 @@ import {
   type ComplianceStatus,
 } from "@agentcore2/contracts";
 
-// Preview A depends only on the shared ComplianceBackend seam. The seam selector
-// returns a LIVE AgentCore adapter ONLY when complete, verified runtime evidence
-// (runtime ARN + model + session + tool) is injected at build/runtime; otherwise
-// it falls back to the MOCK backend with a truthful MOCK badge. There is no
-// Issue #3 runtime deployed yet, so this resolves to MOCK — synthetic data can
-// never be shown as LIVE_LAB.
-//
-// Env is read through a narrow cast so no ambient Vite client types are required
-// (keeps the contracts-first typecheck deterministic). Vite statically replaces
-// import.meta.env.VITE_* at build time; unset vars are undefined -> MOCK.
-const env = (import.meta as unknown as { env?: Record<string, string | undefined> }).env ?? {};
-const backend: ComplianceBackend = wireLiveOrFallbackToMock({
-  runtimeArn: env.VITE_AGENTCORE_RUNTIME_ARN,
-  modelId: env.VITE_AGENTCORE_MODEL_ID,
-  sessionId: env.VITE_AGENTCORE_SESSION_ID,
-  toolId: env.VITE_AGENTCORE_TOOL_ID,
-  region: env.VITE_AWS_REGION,
-});
+// The shared adapter remains MOCK until an authenticated operator connects.
 
 const SEVERITIES: Severity[] = ["CRITICAL", "HIGH", "MEDIUM", "LOW", "INFORMATIONAL"];
 const STATUSES: ComplianceStatus[] = ["NON_COMPLIANT", "COMPLIANT", "NOT_APPLICABLE", "INSUFFICIENT_DATA"];
@@ -41,7 +23,9 @@ export function App(): React.ReactElement {
   const [selected, setSelected] = useState<Finding | undefined>();
 
   useEffect(() => {
-    backend.listFindings().then(setAll);
+    const load = () => { backend.listFindings().then(setAll).catch(() => setAll([])); };
+    load(); window.addEventListener("lab-backend-changed", load);
+    return () => window.removeEventListener("lab-backend-changed", load);
   }, []);
 
   const filtered = useMemo(() => {
@@ -65,6 +49,8 @@ export function App(): React.ReactElement {
         <span style={{ fontSize: 12, opacity: 0.8 }}>operator baseline · little/no AI</span>
       </header>
 
+      <LabControls />
+
       <div className="layout">
         <div className="main">
           <div className="panel" style={{ marginBottom: 16 }}>
@@ -78,7 +64,7 @@ export function App(): React.ReactElement {
           <div className="panel">
             <div className="panel-h">
               <span>Findings</span>
-              <span style={{ fontWeight: 400, fontSize: 12, color: "#5f6b7a" }}>synthetic dataset — no AWS resources created</span>
+              <span style={{ fontWeight: 400, fontSize: 12, color: "#5f6b7a" }}>{backend.mode === "MOCK" ? "synthetic dataset" : "allowlisted LAB canary"}</span>
             </div>
             <div className="filters">
               <select value={status} onChange={(e) => { setStatus(e.target.value as ComplianceStatus | ""); setPage(0); }}>

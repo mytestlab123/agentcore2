@@ -71,7 +71,6 @@ class Run:
         return {"dev": "amit", "project": "agentcore2", "created": today.isoformat(),
                 "tools": "cdx", "environment": "dev", "owner": "amit", "Name": name,
                 "version": (self.state["sourceSha"] or "f1")[:12],
-                "TTL": (today + datetime.timedelta(days=1)).strftime("%d-%m-%y"),
                 "ttl": (today + datetime.timedelta(days=1)).isoformat(), "cleanup": "delete" if disposable else "review",
                 "purpose": "Issue 3 focused live SSL proof", "phase": "F1-F5", "issue": "3",
                 "followup": self.state["followupId"], "disposable": str(disposable).lower()}
@@ -92,6 +91,21 @@ class Run:
         self.state["journal"].append({**self.state.pop("inflight"), "response": response})
         self.save()
         return response
+
+    def reconcile_role_rejection(self):
+        """Retire only a known provider validation rejection after absence proof."""
+        pending = self.state.get("inflight", {})
+        if pending.get("operation") != "iam.create_role" or "Duplicate tag keys" not in self.state.get("lastError", ""):
+            raise ValueError("No matching definitive role validation rejection")
+        c = self.session.client("iam")
+        try:
+            c.get_role(RoleName=self.state["roleName"])
+        except c.exceptions.NoSuchEntityException as e:
+            self.state["journal"].append({**self.state.pop("inflight"), "reconciliation": "InvalidInput; GetRole proves absent", "requestId": e.response["ResponseMetadata"]["RequestId"]})
+            self.state.pop("lastError", None)
+            self.save()
+            return {"role": "absent", "safeRetry": True}
+        raise ValueError("Role exists; manual reconciliation required")
 
     def ecr(self):
         self.model_preflight()
@@ -321,7 +335,7 @@ class Run:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("stage", choices=["init", "ecr", "image", "role", "runtime", "wait", "preview", "canary", "cleanup", "summary"])
+    parser.add_argument("stage", choices=["init", "ecr", "image", "role", "reconcile_role_rejection", "runtime", "wait", "preview", "canary", "cleanup", "summary"])
     parser.add_argument("--state", required=True)
     parser.add_argument("--source-sha")
     parser.add_argument("--source", default="harness/harness.json")

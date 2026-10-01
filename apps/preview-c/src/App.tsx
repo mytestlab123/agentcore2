@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { backend, LabControls } from "../../shared/LabControls";
 import {
-  MockComplianceBackend,
-  type ComplianceBackend,
   type Finding,
   type RemediationCapability,
   type RemediationProposal,
@@ -10,15 +9,18 @@ import {
 
 // Same seam as Previews A/B. This UI renders structured ACTION CARDS rather
 // than a table or a chat page — testing whether generative UI reads clearer.
-const backend: ComplianceBackend = new MockComplianceBackend();
 
 export function App(): React.ReactElement {
   const [findings, setFindings] = useState<Finding[]>([]);
   const [caps, setCaps] = useState<RemediationCapability[]>([]);
 
   useEffect(() => {
-    backend.listFindings({ status: "NON_COMPLIANT" }).then((f) => setFindings(f.slice(0, 24)));
-    backend.listCapabilities().then(setCaps);
+    const load = () => {
+      backend.listFindings({ status: "NON_COMPLIANT" }).then((f) => setFindings(f.slice(0, 24))).catch(() => setFindings([]));
+      backend.listCapabilities().then(setCaps);
+    };
+    load(); window.addEventListener("lab-backend-changed", load);
+    return () => window.removeEventListener("lab-backend-changed", load);
   }, []);
 
   return (
@@ -27,6 +29,7 @@ export function App(): React.ReactElement {
         <h1>AgentCore Lab · Preview C — Agent action cards</h1>
         <span className={`badge ${backend.mode}`}>{backend.mode.replace("_", " ")}</span>
       </header>
+      <LabControls />
       <div className="wrap">
         <p className="lead">
           Each card is a structured, agent-proposed remediation for one finding: the impacted resource,
