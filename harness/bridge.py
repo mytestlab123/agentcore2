@@ -8,7 +8,7 @@ from pathlib import Path
 from client import Client, safe
 
 
-def serve(state_path, token_path):
+def build_server(state_path, token_path, client_factory=Client, port=8703):
     state = json.loads(Path(state_path).read_text())
     origins = {a["url"] for a in state["apps"].values()}
     p = Path(token_path)
@@ -34,7 +34,7 @@ def serve(state_path, token_path):
             self.wfile.write(safe(data).encode())
 
         def do_OPTIONS(self):
-            if self.headers.get("Origin") not in origins:
+            if self.headers.get("Host") not in {"127.0.0.1:8703", "127.0.0.1:8443"} or self.headers.get("Origin") not in origins:
                 return self.reply(403, {"error": "Unregistered preview origin"})
             self.send_response(204)
             self.send_header("Access-Control-Allow-Origin", self.headers["Origin"])
@@ -44,7 +44,9 @@ def serve(state_path, token_path):
             self.end_headers()
 
         def do_POST(self):
-            if self.headers.get("Host") != "127.0.0.1:8703" or self.headers.get("Origin") not in origins:
+            # SSH forwards bytes unchanged: the Windows URL sends Host :8443.
+            # Accept exactly the direct Dell and forwarded loopback authorities.
+            if self.headers.get("Host") not in {"127.0.0.1:8703", "127.0.0.1:8443"} or self.headers.get("Origin") not in origins:
                 return self.reply(403, {"error": "Unregistered host/origin"})
             if not hmac.compare_digest(self.headers.get("Authorization", ""), "Bearer " + token):
                 return self.reply(401, {"error": "Private operator authentication required"})
@@ -53,7 +55,7 @@ def serve(state_path, token_path):
                 if not 0 < length <= 16384:
                     raise ValueError("Bounded JSON request required")
                 r = json.loads(self.rfile.read(length))
-                c = Client(state_path)
+                c = client_factory(state_path)
                 if r["method"] == "evidence":
                     result = {"runtimeArn": c.state["harnessArn"], "modelId": c.state["modelId"], "sessionId": c.state["sessionId"], "toolId": "inspect_s3_ssl", "region": c.state["region"]}
                 elif r["method"] == "model_tool":
@@ -63,7 +65,11 @@ def serve(state_path, token_path):
                 self.reply(200, result)
             except Exception as e:
                 self.reply(400, {"error": str(e)})
-    HTTPServer(("127.0.0.1", 8703), Handler).serve_forever()
+    return HTTPServer(("127.0.0.1", port), Handler)
+
+
+def serve(state_path, token_path):
+    build_server(state_path, token_path).serve_forever()
 
 
 if __name__ == "__main__":

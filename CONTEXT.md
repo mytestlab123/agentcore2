@@ -52,9 +52,14 @@ is not used for this follow-up and its security rules remain unchanged.
 
 ## Next action
 
-G/Amit reviews the final evidence and the three interaction designs; no UI winner
-or PR merge is implied. Review retained resources on 2026-10-02. Do not create
-another canary or resume cloud writes without a new bounded task. The portable
-learning harvest is docs/learning-harvest.md; no cross-repository KB write occurred.
+Preview B v1.1 is approved by Issue #3 comment 5928077026 and is the primary
+demo direction. X/core2 is implementing theme, truthful fixability, contextual
+summary, actual-run evidence timeline and a private Windows SSH bridge helper.
+Build, 23 contract + 9 Python tests and typecheck pass; pre-deployment Chromium
+MOCK proof passes. Deploy only the existing Preview B static bundle and verify
+the served revision, browser and tunnel guards. Do not redo F1–F5 or recreate
+the deleted canary. See docs/preview-b-v1.1.md. PR #5 stays draft/open/unmerged.
+Retained resource review remains due 2026-10-02; no automatic deletion is
+authorized. The portable learning harvest is docs/learning-harvest.md.
 
 Validation: npm run build; npm test; npm run typecheck. Evidence: docs/focused-followup.md.
