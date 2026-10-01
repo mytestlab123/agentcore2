@@ -65,6 +65,12 @@ def main():
                 input=json.dumps(data), text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=90)
             data["token"] = ""
             if proof.returncode:
+                try:
+                    detail = json.loads(proof.stdout)
+                    print(json.dumps({"status":"FAIL", "stage":detail.get("stage"),
+                        "unexpectedBrowserErrors":detail.get("unexpectedBrowserErrors"), "errorKinds":detail.get("errorKinds"), "bridgeMethods":detail.get("bridgeMethods")}))
+                except ValueError:
+                    pass
                 raise SystemExit("DEMO_E2E_FAILED: browser readiness or UI gate failed; no token diagnostics exported.")
             print(proof.stdout.strip())
         elif tunnel:
