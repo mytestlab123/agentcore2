@@ -108,7 +108,9 @@ class Client:
             if not tools:
                 if not used:
                     raise RuntimeError("Model returned no registered tool invocation; proof incomplete")
-                return {"modelId": selected, "sessionId": self.state["sessionId"], "tools": used, "text": text, "usage": usage, "traceId": trace, "mode": "LIVE_LAB"}
+                proof = {"modelId": selected, "sessionId": self.state["sessionId"], "tools": used, "text": text, "usage": usage, "traceId": trace, "mode": "LIVE_LAB"}
+                self.journal("model-proof", proof)
+                return proof
             results = []
             assistant_tools = []
             for t in tools.values():

@@ -27,7 +27,7 @@ used and its security policy remains enabled. PR #5 remains draft/open/unmerged.
 Validation: 23 TypeScript tests plus 7 deterministic harness tests; full preview
 build and typecheck. No cloud resource created at this checkpoint.
 
-## F2 preflight — blocked before resource creation
+## Historical F2 preflight — resolved by the Nova decision
 
 Home Dell tooling: distro docker-buildx 0.30.1 and qemu-user-static 8.2.2
 installed as explicitly approved; ARM64 binfmt enabled. Private SDK pinned to
@@ -75,3 +75,47 @@ F5: live CLI/SDK proof and closeout. Persist native IDs before retry. Derive a
 testing TTL of 02-10-26 for resources, with canary removed during closeout and
 remaining resources retained only within the ~USD 10 boundary. TTL is a review
 deadline, not automatic deletion authority.
+
+## F2 live checkpoint — PASS
+
+[Nova decision](https://github.com/mytestlab123/agentcore2/issues/3#issuecomment-5924722893)
+authorizes cross-Region synthetic inference with exactly three Amazon profiles.
+Resources remain Singapore. One new ECR repo/image and one narrow role support
+one Harness and its one managed runtime; no Anthropic subscription or self-grant.
+Native IDs, image digest, sessions, traces, tools and provider responses are in
+[sanitized evidence](focused-live-evidence.json). The resource naming prefix is
+agentcore2-issue3-f1-20261001-490ceb; lifecycle review is 2026-10-02.
+
+All three models made an actual registered inspect_s3_ssl call; the exact planned
+canary correctly returned NOT_CREATED and writes=0. Final response metadata:
+
+| Model | Final input/output tokens | Provider latency |
+| --- | --- | --- |
+| Nova Lite default | 647 / 28 | 439 ms |
+| Nova Micro | 653 / 40 | 494 ms |
+| Nova 2 Lite global | 1064 / 59 | 944 ms |
+
+These are final-turn metrics, not full-request billing. Tool-handoff streams did
+not always provide usage metadata. There were 13 model API attempts including
+diagnosis; failed attempts are retained as evidence, not presented as successful.
+The bounded cap was reviewed and increased from 12 to 18 after SDK integration
+failures, with 256 output tokens per call. No automatic SDK retry. The roughly
+USD 10 budget remains; usage-derived costs do not substitute for billing data.
+For illustration, 2 vCPU + 8 GB for one hour costs under USD 0.40 at the checked
+[AgentCore rates](https://aws.amazon.com/bedrock/agentcore/pricing/), before models,
+storage, logs and hosting. Sessions idle out after 60 seconds, max lifetime 1800.
+
+Integration fixes: scope inline tools with @*/inspect_s3_ssl; return both assistant
+toolUse and user toolResult messages; use text JSON for tool results (the service
+rejected json_ content); keep direct-command governance session separate from
+model handoff sessions. Standard installed SDK streaming now works; a diagnostic
+private-parser fallback was removed after fixing the unsupported result format.
+Native dependency staging avoided expensive emulated pip bytecode work while
+the final execution image remains ARM64. Provenance disabled for a single image
+manifest. Reserved AWS_REGION is injected by Runtime, not set by the caller.
+
+The service default-created a managed memory child. It was disabled before any
+model invocation; the resulting Harness version is 2. Its exact incidental ID
+is recorded with cleanup=review, not silently deleted. No memory permissions or
+events were used. [Kiro review](https://github.com/mytestlab123/agentcore2/pull/5#issuecomment-5924952642)
+found no blocking code defect. F3 deployment and F4/F5 live acceptance still remain.
