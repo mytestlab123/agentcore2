@@ -90,6 +90,7 @@ class Run:
         return response
 
     def ecr(self):
+        self.model_preflight()
         c = self.session.client("ecr")
         name = self.state["ecrName"]
         if "repository" in self.state:
@@ -106,6 +107,17 @@ class Run:
         self.state["repository"] = r["repository"]
         self.save()
         return r["repository"]
+
+    def model_preflight(self):
+        availability = self.session.client("bedrock").get_foundation_model_availability(modelId=MODEL)
+        self.state["modelAvailability"] = {k: v for k, v in availability.items() if k != "ResponseMetadata"}
+        self.save()
+        if (availability.get("agreementAvailability", {}).get("status") != "AVAILABLE"
+                or availability.get("authorizationStatus") != "AUTHORIZED"
+                or availability.get("entitlementAvailability") != "AVAILABLE"
+                or availability.get("regionAvailability") != "AVAILABLE"):
+            raise ValueError("Model access preflight failed; no implicit subscription, agreement or identity permission changes authorized")
+        return self.state["modelAvailability"]
 
     def image(self):
         c = self.session.client("ecr")
@@ -184,11 +196,12 @@ class Run:
         return self.state["role"]
 
     def runtime(self, source):
+        self.model_preflight()
         c = self.session.client("bedrock-agentcore-control")
         if self.state.get("harnessId"):
             return c.get_harness(harnessId=self.state["harnessId"])
         for page in c.get_paginator("list_harnesses").paginate():
-            if any(h.get("name") == self.state["runtimeName"] for h in page.get("harnesses", [])):
+            if any(h.get("harnessName") == self.state["runtimeName"] for h in page.get("harnesses", [])):
                 raise ValueError("Harness name collision; pre-existing runtimes are off limits")
         params = json.loads(Path(source).read_text())
         params.update(harnessName=self.state["runtimeName"], executionRoleArn=self.state["role"]["Arn"],
@@ -198,8 +211,8 @@ class Run:
                       environmentVariables={"CANARY_BUCKET": self.state["canaryName"], "FOLLOWUP_ID": self.state["followupId"], "AWS_REGION": REGION, "STATE_PATH": "/mnt/state/backend.json"},
                       maxIterations=3, maxTokens=1000, timeoutSeconds=60, tags=self.tags(self.state["runtimeName"]))
         r = self.mutate("agentcore.create_harness", c.create_harness, **params)
-        self.state["harnessId"] = r["id"]
-        self.state["harnessArn"] = r["arn"]
+        self.state["harnessId"] = r["harness"]["harnessId"]
+        self.state["harnessArn"] = r["harness"]["arn"]
         self.save()
         return r
 
@@ -208,7 +221,7 @@ class Run:
         r = c.get_harness(harnessId=self.state["harnessId"])
         self.state["harnessReadback"] = r
         self.save()
-        return {"id": self.state["harnessId"], "status": r.get("status"), "failureReason": r.get("failureReason")}
+        return {"id": self.state["harnessId"], "status": r["harness"].get("status"), "failureReason": r["harness"].get("failureReason")}
 
     def preview(self, label, bundle):
         if label not in ("a", "b", "c"):
