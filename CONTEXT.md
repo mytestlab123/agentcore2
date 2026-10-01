@@ -52,13 +52,17 @@ is not used for this follow-up and its security rules remain unchanged.
 
 ## Next action
 
-Preview B v1.1 is approved by Issue #3 comment 5928077026 and is the primary
-demo direction. X/core2 is implementing theme, truthful fixability, contextual
-summary, actual-run evidence timeline and a private Windows SSH bridge helper.
-Build, 23 contract + 9 Python tests and typecheck pass; pre-deployment Chromium
-MOCK proof passes. Deploy only the existing Preview B static bundle and verify
-the served revision, browser and tunnel guards. Do not redo F1–F5 or recreate
-the deleted canary. See docs/preview-b-v1.1.md. PR #5 stays draft/open/unmerged.
+Preview B v1.1 PASS under Issue #3 comment 5928077026; it is the primary demo
+direction. Existing B deployment job 2 SUCCEED serves source e50e78d (HTTP 200).
+Theme, truthful fixability, contextual summary and actual-run evidence timeline
+pass deployed Chromium checks. Full build, 23 contract + 9 Python tests and
+typecheck pass. Native Windows Chrome authenticated through Windows OpenSSH
+127.0.0.1:8443 → Dell 127.0.0.1:8703 (HTTP 200), with no model or remediation
+call. The owned bridge/tunnel stopped and exact ephemeral token was removed.
+Only theme preference is stored in the browser. A/C deployments are unchanged.
+See docs/preview-b-v1.1.md and docs/preview-b-v1.1-evidence.json. G/Amit can now
+review v1.1. Do not redo F1–F5 or recreate the deleted canary. PR #5 stays
+draft/open/unmerged. Kiro remains review-only.
 Retained resource review remains due 2026-10-02; no automatic deletion is
 authorized. The portable learning harvest is docs/learning-harvest.md.
 

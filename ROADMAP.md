@@ -13,8 +13,13 @@ F1–F5 PASS. The prior Crew roadmap state below is historical and superseded by
 - F5: same CLI/backend proof and resumable result, full validation, canary deletion,
   resource retention record and sanitized learning harvest. PR #5 stays draft/open.
 
-Next: G/Amit reviews designs/evidence and retained resources; lifecycle review
-2026-10-02. No automatic merge, UI winner or new cloud work is implied.
+Preview B v1.1 PASS under Issue #3 comment 5928077026; Contextual Copilot is now
+the primary demo direction. Theme, fixability, remediation summary, evidence
+timeline and private Windows tunnel proof are in
+[v1.1 runbook](docs/preview-b-v1.1.md) and [evidence](docs/preview-b-v1.1-evidence.json).
+Only existing B was redeployed (job 2, source e50e78d); A/C remain unchanged.
+Next: G/Amit reviews v1.1 and retained resources; lifecycle review 2026-10-02.
+No automatic merge or new cloud work is implied.
 
 ## Historical v4.2 Crew run
 

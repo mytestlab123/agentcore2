@@ -99,4 +99,10 @@ the [Amplify manual deployment API](https://docs.aws.amazon.com/amplify/latest/A
 and [StartDeployment](https://docs.aws.amazon.com/amplify/latest/APIReference/API_StartDeployment.html).
 
 Execution results and served revision are recorded in `preview-b-v1.1-evidence.json`.
+Preview B job 2 SUCCEED serves source `e50e78d`; HTTP/revision and deployed
+Chromium proof pass. Native Windows Chrome authenticated through the actual
+Windows OpenSSH forward and Dell bridge (HTTP 200); no model/remediation call
+was made. The proof uses `ops/bridge-browser-proof.cjs`, passing the ephemeral
+token only over stdin. It records no screenshots, traces or token artifacts.
+The test-owned bridge/tunnel stopped and exact token file was removed.
 Preview A/C keep their existing deployed bundles.
