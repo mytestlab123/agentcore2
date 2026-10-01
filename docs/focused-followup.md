@@ -41,6 +41,15 @@ entitlementAvailability=AVAILABLE, regionAvailability=AVAILABLE. Amazon Nova
 models in this listing required inference profiles; no cross-region substitute
 was attempted. This is availability evidence, not an invocation test.
 
+Read-only Nova profile follow-up confirmed micro/lite/pro APAC profiles route to
+Tokyo, Seoul, Osaka, Mumbai, Singapore and Sydney. Nova 2 Lite uses a global
+profile. These do not establish a Singapore-only alternative.
+
+Kiro [read-only scope review](https://github.com/mytestlab123/agentcore2/issues/3#issuecomment-5923921317)
+confirms this gate. Model agreement creation is distinct from an IAM self-grant,
+but still outside the enumerated resource authority. The review's Nova suggestion
+was checked as described above; no profile invocation or policy change followed.
+
 [AWS model-access documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html)
 explains that first invocation can initiate a subscription and accept applicable
 third-party license terms. The bounded resource grant does not enumerate an
