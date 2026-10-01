@@ -1,0 +1,22 @@
+{
+  "release": "v1.2.0",
+  "guiTitle": "Preview B · Contextual Copilot v1.2",
+  "gitTagCreated": false,
+  "authoringSurface": "ChatGPT Work / Sites",
+  "siteUrl": "https://contextual-copilot-mock.amit-6719.chatgpt.site/",
+  "siteAccessObserved": "public",
+  "accessObservationDate": "2026-10-01",
+  "savedSiteVersion": 3,
+  "acceptedSiteSourceCommit": "4dca2e145032a3dcd4fba77998c86ffc42a73a7d",
+  "htmlSha256": "73226d07abe928d2d77062f6b462f0b55e89458c0b12475f79537177d6ed6429",
+  "guiSourceFingerprint": "b6a8a3910176b63a74e038078ce131ee6abb9e3117bbd7642e082ee0f2a51dcc",
+  "fingerprintAlgorithm": "sha256(index.html with the BUILD_FINGERPRINT value replaced by __FINGERPRINT__)",
+  "baselineRepositoryCommit": "68aa168f764531697ef34c472f87468ad738e36a",
+  "sourceSyncBaseBranch": "issue-3/agentcore-lab",
+  "sourceSyncBranch": "issue-9/sites-v1.2-source-sync",
+  "rollbackSavedSiteVersion": 2,
+  "rollbackSiteSourceCommit": "68c6a19df90a5be7a5a423d4be817c8fb78df50d",
+  "rollbackInstruction": "Redeploy saved version 2 on the existing Site; preserve current owner-selected audience; do not reset Git history.",
+  "scope": "MOCK / synthetic only; no live integration",
+  "authority": "https://github.com/mytestlab123/agentcore2/issues/9"
+}

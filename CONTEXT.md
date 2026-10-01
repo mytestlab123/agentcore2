@@ -52,18 +52,28 @@ is not used for this follow-up and its security rules remain unchanged.
 
 ## Next action
 
-ChatGPT Sites MOCK showcase PASS under Issue #3 comment 5931467199.
-The self-contained showcases/chatgpt-sites-preview-b/index.html opens offline,
-with synthetic findings, truthful fixability, bounded contextual actions,
-consumed approve/reject proposals, five separate simulated evidence steps,
-unchanged three-model labels/input cost indices, themes and architecture.
-One offline Chromium smoke proves desktop/mobile rendering and all interactions,
-zero network requests/browser errors/model calls/real writes. Package scans pass.
-README.md and site-prompt.md give Amit the source handoff for @Sites; no Site
-was created or published and import availability remains workspace-dependent.
-Live Preview B, bridge, AWS, resources and existing assignments are unchanged.
-PR #5 stays draft/open/unmerged. Next: G/Amit reviews the portable package and
-manually imports/previews it in Sites if available. No automatic publication.
+Issue #9: Amit accepted the actual Work / @Sites Contextual Copilot v1.2
+and requested final source sync, reusable learning documentation and one PR.
+The owner made the Site public; native Sites confirmed public on 2026-10-01.
+Source authoring remains Work / @Sites. The exported package index.html exactly
+matches accepted Site source 4dca2e145032a3dcd4fba77998c86ffc42a73a7d,
+saved version 3; RELEASE.json records hashes and saved-version rollback.
+58 invented accounts / 49,476 baseline records, compatible multi-selection,
+commands, frozen bulk proposals, consumed decisions, partial outcomes and
+separate evidence remain MOCK-only with no provider/model/backend integration.
+State/safety checks PASS; focused public desktop Chrome interactions PASS,
+including 1,000-target approve/reject, replay, manual refusal and filters/context.
+Desktop light-theme screenshot inspected. Offline/mobile E2E is NOT VERIFIED:
+local Chromium is absent and its official installer returned an invalid ZIP.
+Cloud Blob download completion timed out. See package proof.json for exact
+limits; do not transfer the historical five-fixture PASS to v1.2.
+PR #5 stays draft/open/unmerged at 68aa168f764531697ef34c472f87468ad738e36a.
+Safe base decision is recorded in Issue #9 comment 5939902220: the single
+issue-9/sites-v1.2-source-sync PR targets issue-3/agentcore-lab, preserving the
+baseline without duplicating it. Retarget that same PR to main after #5 merges.
+Live engineering source/deployment, bridge, AWS and assignments are unchanged.
+Next: run the offline desktop/mobile smoke with installed Chromium, verify
+JSON downloads and complete review in the same PR. No merge without Amit approval.
 
 Demo Readiness E2E PASS under Issue #3 comment 5929211062. Full runtime preflight,
 one operator lifecycle, authenticated local readiness and sanitized diagnostics
