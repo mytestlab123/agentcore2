@@ -52,6 +52,19 @@ is not used for this follow-up and its security rules remain unchanged.
 
 ## Next action
 
+ChatGPT Sites MOCK showcase PASS under Issue #3 comment 5931467199.
+The self-contained showcases/chatgpt-sites-preview-b/index.html opens offline,
+with synthetic findings, truthful fixability, bounded contextual actions,
+consumed approve/reject proposals, five separate simulated evidence steps,
+unchanged three-model labels/input cost indices, themes and architecture.
+One offline Chromium smoke proves desktop/mobile rendering and all interactions,
+zero network requests/browser errors/model calls/real writes. Package scans pass.
+README.md and site-prompt.md give Amit the source handoff for @Sites; no Site
+was created or published and import availability remains workspace-dependent.
+Live Preview B, bridge, AWS, resources and existing assignments are unchanged.
+PR #5 stays draft/open/unmerged. Next: G/Amit reviews the portable package and
+manually imports/previews it in Sites if available. No automatic publication.
+
 Demo Readiness E2E PASS under Issue #3 comment 5929211062. Full runtime preflight,
 one operator lifecycle, authenticated local readiness and sanitized diagnostics
 are implemented. Native Windows Python/OpenSSH/Chrome proves deployed B HTTP200,

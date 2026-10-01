@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Preview B · Contextual Copilot · MOCK Showcase</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230972d3'/%3E%3Ctext x='9' y='23' fill='white' font-size='22'%3EB%3C/text%3E%3C/svg%3E">
+<style>
+:root { color-scheme:light; --bg:#f2f3f3; --panel:#fff; --ink:#16191f; --muted:#526174; --line:#d5dbdb; --blue:#0972d3; --context:#f0f7ff; --selected:#e7f2fd; --danger:#b12610; --ok:#037f0c; }
+:root[data-theme="dark"] { color-scheme:dark; --bg:#0f1720; --panel:#18232f; --ink:#f0f3f6; --muted:#b0bfce; --line:#435364; --blue:#80bfff; --context:#1d3348; --selected:#233e58; --danger:#ff978a; --ok:#86d995; }
+* { box-sizing:border-box; } body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui,sans-serif; }
+header { background:#232f3e; color:white; padding:22px max(20px,calc((100vw - 1440px)/2)); display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+header h1 { margin:2px 0; font-size:25px; letter-spacing:-.5px; } header p { margin:4px 0; color:#d4deea; } .eyebrow { font-size:12px; letter-spacing:1.8px; text-transform:uppercase; }
+.badge { background:#ffd79a; color:#614400; border-radius:20px; padding:6px 12px; font-size:12px; font-weight:800; white-space:nowrap; }
+header button { margin-left:auto; } main { max-width:1480px; margin:auto; padding:20px; } .intro { margin:0 0 20px; color:var(--muted); }
+.layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(360px,1fr); gap:20px; align-items:start; }
+.panel { background:var(--panel); border:1px solid var(--line); border-radius:10px; overflow:hidden; } .panel-h { margin:0; padding:16px 20px; border-bottom:1px solid var(--line); font-size:18px; }
+.filters,.controls,.actions { display:flex; flex-wrap:wrap; gap:10px; padding:16px 20px; } label { display:flex; flex-direction:column; gap:5px; font-size:12px; color:var(--muted); } .filters label:last-child { flex:1; }
+input,select,button { font:inherit; border-radius:5px; padding:8px 10px; border:1px solid var(--line); background:var(--panel); color:var(--ink); } button { cursor:pointer; border-color:var(--blue); color:var(--blue); font-size:13px; } button.primary { background:#0972d3; color:white; } button.danger { color:var(--danger); border-color:var(--danger); } button:disabled { opacity:.45; cursor:not-allowed; } button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { outline:3px solid var(--blue); outline-offset:3px; }
+.table-wrap { overflow:auto; } table { border-collapse:collapse; width:100%; font-size:13px; } th,td { padding:12px 15px; text-align:left; border-bottom:1px solid var(--line); } th { color:var(--muted); background:var(--context); } tr.selected { background:var(--selected); } td button { border:0; background:none; padding:0; text-align:left; } .status { font-size:11px; font-weight:700; } .NON_COMPLIANT { color:var(--danger); } .COMPLIANT { color:var(--ok); } .HIGH { color:var(--danger); font-weight:700; }
+.note { color:var(--muted); font-size:12px; padding:0 20px; } .context { margin:16px 20px; padding:16px; border:1px solid var(--blue); border-radius:8px; background:var(--context); } h3 { margin:0 0 8px; font-size:15px; } dl { margin:0; } dt { font-size:12px; color:var(--muted); margin-top:10px; } dd { margin:2px 0; overflow-wrap:anywhere; } #reply { margin:0 20px 16px; padding:14px; border-radius:8px; background:var(--selected); font-size:14px; } #proposal { margin:0 20px 16px; border-left:3px solid var(--blue); padding:0 14px; } #result { margin:0 20px; font-weight:600; } .timeline { padding:0 20px 16px; } .timeline ol { margin:0; padding-left:24px; } .timeline li { padding:8px; border-bottom:1px solid var(--line); font-size:13px; } .timeline p { margin:3px 0; color:var(--muted); }
+.architecture { margin-top:20px; padding:20px; } .architecture h2 { margin:0 0 8px; font-size:18px; } .flow { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:15px 0; } .flow span { padding:8px 12px; background:var(--context); border:1px solid var(--line); border-radius:6px; font-size:13px; } .architecture p { max-width:1000px; color:var(--muted); } a { color:var(--blue); } [hidden] { display:none!important; }
+@media(max-width:1000px) { .layout { grid-template-columns:1fr; } header h1 { font-size:21px; } main { padding:12px; } }
+</style>
+</head>
+<body>
+<header><div><div class="eyebrow">Governed remediation · synthetic demo</div><h1>Preview B · Contextual Copilot v1.1</h1><p>A finding is the context. A proposal is the boundary. Evidence is the result.</p></div><span class="badge">MOCK SHOWCASE</span><button id="theme" aria-label="Toggle theme">Dark theme</button></header>
+<main>
+<p class="intro">No AWS connection in this Sites version. Every finding, decision and evidence entry below is synthetic. No model is invoked.</p>
+<section class="panel controls" aria-label="Model comparison"><label>Model comparison<select id="model" aria-label="Model comparison"><option>Nova Micro — Economy — 1.0x</option><option selected>Nova Lite — Default — 1.7x</option><option>Nova 2 Lite — Enhanced — 8.7x</option></select></label><p class="note">Relative input cost index, compared with Micro; not total request cost. Selection is illustrative and never changes approval authority.</p></section>
+<br>
+<div class="layout">
+<section class="panel"><h2 class="panel-h">Synthetic findings</h2><div class="filters"><label>Status<select id="status" aria-label="Status filter"><option value="">All statuses</option><option>NON_COMPLIANT</option><option>COMPLIANT</option><option>NOT_APPLICABLE</option><option>INSUFFICIENT_DATA</option></select></label><label>Fixability<select id="fixability" aria-label="Fixability filter"><option value="">All fixability</option><option>AUTOMATED</option><option>MANUAL</option></select></label><label>Search<input id="search" aria-label="Search findings" placeholder="Finding or synthetic resource"></label></div>
+<div class="table-wrap"><table><thead><tr><th>Severity</th><th>Finding / resource</th><th>Status</th><th>Fixability</th></tr></thead><tbody id="findings"></tbody></table></div><p id="count" class="note" aria-live="polite"></p><p class="note">AUTOMATED = NON_COMPLIANT plus a registered capability. Other findings require manual handling; no guided or asynchronous capability is inferred.</p></section>
+<aside class="panel" aria-label="Contextual assistant"><h2 class="panel-h">Contextual Copilot</h2><section class="context" aria-label="Remediation summary"><h3 id="title"></h3><dl id="summary"></dl></section><div class="actions"><button id="explain">Explain</button><button id="investigate">Investigate</button><button id="preview">Preview Fix</button></div><p id="reply" aria-live="polite"></p><section id="proposal" hidden aria-label="Mock proposal"></section><div class="actions" id="decisions" hidden><button class="primary" id="approve">Approve Once</button><button class="danger" id="reject">Reject</button></div><p id="result" aria-live="polite"></p><section class="timeline" aria-label="Evidence timeline"><h3>Five-step evidence timeline · MOCK</h3><ol id="timeline"></ol></section><div class="actions"><button id="reset">Reset synthetic demo</button></div></aside>
+</div>
+<section class="panel architecture"><h2>How the real system works</h2><div class="flow" aria-label="Real system architecture"><span>Amplify Preview B</span>→<span>private bridge</span>→<span>AgentCore Harness</span>→<span>governed backend</span>→<span>AWS</span></div><p>The engineering demo uses an authenticated private bridge. The Harness investigates with registered tools; the backend validates the exact target and explicit approval before a deterministic write. Provider readback and compliance evaluation are separate evidence. This showcase implements none of those connections.</p><a href="https://main.d2rar4n3w1jdwz.amplifyapp.com" target="_blank" rel="noopener noreferrer">Open real Amplify Preview B engineering demo ↗</a><p>That is a separate application. Opening it does not make this showcase LIVE.</p></section>
+</main>
+<script>
+'use strict';
+// Entire fixture is invented; no network, SDK, storage or model execution.
+const initialFindings = [
+ {id:'demo-ssl',title:'Require encrypted transport',resource:'synthetic-archive',severity:'HIGH',status:'NON_COMPLIANT',remediationCapabilityId:'mock.ssl-only',description:'Synthetic storage policy does not deny unencrypted transport.',change:'Add a deterministic deny for insecure transport; keep public-access protection enabled.'},
+ {id:'demo-owner',title:'Assign a service owner',resource:'synthetic-catalog',severity:'MEDIUM',status:'NON_COMPLIANT',description:'The synthetic inventory has no accountable service owner.'},
+ {id:'demo-audit',title:'Audit logging enabled',resource:'synthetic-audit',severity:'LOW',status:'COMPLIANT',description:'Synthetic audit evidence shows the expected logging control.'},
+ {id:'demo-signal',title:'Collect evaluation evidence',resource:'synthetic-queue',severity:'MEDIUM',status:'INSUFFICIENT_DATA',description:'There is not enough synthetic evidence to evaluate this control.'},
+ {id:'demo-scope',title:'Check applicability',resource:'synthetic-worker',severity:'LOW',status:'NOT_APPLICABLE',description:'This invented control is outside the selected synthetic resource scope.'}
+];
+const steps=['Proposal','Approval','Provider write','Provider readback','Compliance result'];
+const $=id=>document.getElementById(id);
+let findings, selected, proposal, decided, evidence;
+const fixability=f=>f.status==='NON_COMPLIANT' && f.remediationCapabilityId ? 'AUTOMATED':'MANUAL';
+function text(tag,value,parent,className) { const el=document.createElement(tag); el.textContent=value; if(className)el.className=className; parent.append(el); return el; }
+function renderTable() {
+ const query=$('search').value.trim().toLowerCase();
+ const visible=findings.filter(f=>(!$('status').value||f.status===$('status').value)&&(!$('fixability').value||fixability(f)===$('fixability').value)&&`${f.title} ${f.resource}`.toLowerCase().includes(query));
+ $('findings').replaceChildren();
+ for(const f of visible) {
+  const row=document.createElement('tr'); row.className=f.id===selected?.id?'selected':'';
+  text('td',f.severity,row,f.severity); const cell=text('td','',row); const button=text('button',f.title,cell); button.onclick=()=>select(f); text('div',f.resource,cell);
+  text('td',f.status,row,`status ${f.status}`); text('td',fixability(f),row); $('findings').append(row);
+ }
+ $('count').textContent=visible.length ? `${visible.length} synthetic findings`:'No findings match these filters.';
+}
+function renderTimeline() { $('timeline').replaceChildren(); steps.forEach((name,i)=>{const li=text('li','',$('timeline')); text('b',name,li); text('p',evidence[i]||'Not recorded. No operation or success inferred.',li);}); }
+function renderContext() {
+ $('title').textContent=selected.title; $('summary').replaceChildren();
+ for(const [key,value] of [['Why it matters',selected.description],['Synthetic resource',selected.resource],['Status / Fixability',`${selected.status} / ${fixability(selected)}`],['Registered capability',selected.remediationCapabilityId||'None — manual handling'],['Approval required',fixability(selected)==='AUTOMATED'?'Yes — one decision for one exact proposal':'No automated proposal available']]) {text('dt',key,$('summary'));text('dd',value,$('summary'));}
+ $('preview').disabled=fixability(selected)!=='AUTOMATED'||!!proposal;
+}
+function select(f) { selected=f; proposal=null; decided=false; evidence=[]; $('proposal').hidden=true; $('decisions').hidden=true; $('result').textContent=''; $('reply').textContent='Context loaded. Choose Explain, Investigate or Preview Fix. Responses stay bounded to this finding.'; renderTable(); renderContext(); renderTimeline(); }
+$('explain').onclick=()=>{$('reply').textContent=`MOCK explanation: ${selected.description} This is a deterministic response from the selected synthetic record.`;};
+$('investigate').onclick=()=>{$('reply').textContent=`MOCK investigation: exact target ${selected.resource}. ${fixability(selected)==='AUTOMATED'?'A registered deterministic SSL-only capability can be previewed.':'Manual review is required; no automated fix is available.'} No tools, models or provider reads were called.`;};
+$('preview').onclick=()=>{
+ if(fixability(selected)!=='AUTOMATED'||proposal)return;
+ proposal={target:selected.resource,change:selected.change}; evidence=[`MOCK proposal for ${proposal.target}: ${proposal.change}`];
+ $('proposal').textContent=`MOCK proposal — ${proposal.target}. ${proposal.change} Approve Once or Reject; no real write is possible.`; $('proposal').hidden=false; $('decisions').hidden=false; $('reply').textContent='Proposal ready. The assistant cannot approve it. One operator decision consumes this proposal.'; renderContext();renderTimeline();
+};
+function decide(approve) {
+ if(!proposal||decided)return; decided=true; $('decisions').hidden=true;
+ evidence[1]=approve?'MOCK APPROVE_ONCE recorded; proposal consumed.':'MOCK REJECT recorded; proposal consumed.';
+ if(approve) {evidence[2]='SIMULATED policy write: 1 mock write, 0 real writes.';evidence[3]='SIMULATED provider readback: expected SSL-only policy matches.';evidence[4]='SIMULATED separate compliance evaluation: COMPLIANT.'; selected.status='COMPLIANT';$('result').textContent='MOCK VERIFIED · 1 simulated write · 0 real writes';}
+ else {evidence[2]='SKIPPED: rejection means 0 simulated writes, 0 real writes.';evidence[3]='Not performed after rejection.';evidence[4]='Not evaluated; original NON_COMPLIANT finding unchanged.';$('result').textContent='MOCK REJECTED · 0 simulated writes · 0 real writes';}
+ renderTable();renderContext();renderTimeline();
+}
+$('approve').onclick=()=>decide(true); $('reject').onclick=()=>decide(false);
+for(const id of ['status','fixability','search'])$(id).addEventListener('input',renderTable);
+$('theme').onclick=()=>{const dark=document.documentElement.dataset.theme!=='dark';document.documentElement.dataset.theme=dark?'dark':'light';$('theme').textContent=dark?'Light theme':'Dark theme';};
+$('model').onchange=()=>{$('reply').textContent='Illustrative model comparison changed. No model call, permission change or approval change occurs.';};
+function reset() {findings=initialFindings.map(f=>({...f}));$('status').value='';$('fixability').value='';$('search').value='';select(findings[0]);}
+$('reset').onclick=reset;reset();
+</script>
+</body>
+</html>
