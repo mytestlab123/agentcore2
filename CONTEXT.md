@@ -52,6 +52,13 @@ is not used for this follow-up and its security rules remain unchanged.
 
 ## Next action
 
+Demo Readiness E2E is approved by Issue #3 comment 5929211062. X/core2 is adding
+runtime preflight, one helper lifecycle, authenticated no-model readiness,
+friendly connection diagnostics and a real deployed-B browser gate. Build,
+23 contract + 12 Python tests and typecheck pass. No new model invocation is
+authorized: attempts remain 17/18. Complete the real lifecycle proof and update
+only existing Preview B. See docs/demo-readiness.md.
+
 Preview B v1.1 PASS under Issue #3 comment 5928077026; it is the primary demo
 direction. Existing B deployment job 2 SUCCEED serves source e50e78d (HTTP 200).
 Theme, truthful fixability, contextual summary and actual-run evidence timeline

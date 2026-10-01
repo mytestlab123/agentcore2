@@ -21,9 +21,14 @@ export const backend = new Proxy({} as ComplianceBackend, {
   get(_target, key) { const v = active[key as keyof ComplianceBackend]; return typeof v === "function" ? v.bind(active) : v; },
 });
 async function request(body: unknown): Promise<unknown> {
-  const r = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }, body: JSON.stringify(body) });
-  const data = await r.json();
-  if (!r.ok) throw new Error(data.error || "Operator bridge request failed");
+  let r: Response;
+  try { r = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }, body: JSON.stringify(body) }); }
+  catch { throw new Error("Bridge unreachable or blocked by the browser. Run the operator helper, check the SSH tunnel and allow local-network access for this preview."); }
+  if (r.status === 401) throw new Error("Authentication rejected. Retrieve the current owner-private session token and reconnect.");
+  if (r.status === 403) throw new Error("Origin or host rejected. Use the registered preview URL and the exact loopback bridge URL.");
+  if (!r.ok) throw new Error("Runtime preflight or server request failed. Run the operator helper and inspect its private diagnostics.");
+  let data: unknown;
+  try { data = await r.json(); } catch { throw new Error("Runtime readiness response is invalid. Run the operator helper."); }
   return data;
 }
 export function LabControls(): React.ReactElement {
@@ -33,22 +38,30 @@ export function LabControls(): React.ReactElement {
   const [result, setResult] = useState("");
   const [busy, setBusy] = useState(false);
   const [url, setUrl] = useState(endpoint);
+  const [modelAvailable, setModelAvailable] = useState(false);
   async function connect() {
     setBusy(true);
     try {
       endpoint = bridgeUrl(url);
       token = entry;
-      const evidence = await request({ method: "evidence" }) as LiveRuntimeEvidence;
-      active = new LiveAgentCoreBackend(evidence, (method, args) => request({ method, args }));
-      setConnected(true); setEntry(""); setResult("Connected to the authenticated personal LAB backend.");
+      const ready = await request({ method: "readiness" }) as {status: string; evidence: LiveRuntimeEvidence; findingState: string; modelAvailable: boolean};
+      if (ready.status !== "READY") throw new Error("Runtime preflight failed. Run the operator helper before reconnecting.");
+      const absent = ready.findingState === "NO_LIVE_FINDINGS";
+      active = new LiveAgentCoreBackend(ready.evidence, (method, args) => {
+        if (absent && (method === "listFindings" || method === "listCapabilities")) return Promise.resolve([]);
+        if (absent && method === "getFinding") return Promise.resolve(undefined);
+        return request({ method, args });
+      });
+      setConnected(true); setEntry(""); setModelAvailable(ready.modelAvailable);
+      setResult(absent ? "Authenticated, but no live findings: the disposable canary was deleted. No compliance success is inferred." : "Authenticated bridge runtime is ready. Live provider operations remain separate.");
       window.dispatchEvent(new Event("lab-backend-changed"));
-    } catch (e) { token = ""; setResult(String(e)); }
+    } catch (e) { token = ""; setEntry(""); setResult((e as Error).message); }
     finally { setBusy(false); }
   }
   async function explain() {
     setBusy(true);
     try { setResult(JSON.stringify(await request({ method: "model_tool", modelId: model }), null, 2)); }
-    catch (e) { setResult(String(e)); }
+    catch (e) { setResult((e as Error).message); }
     finally { setBusy(false); }
   }
   return <section className="panel lab-controls" style={{ margin: 16, padding: 12 }}>
@@ -59,7 +72,8 @@ export function LabControls(): React.ReactElement {
     <p title={`${pricing.source}; checked ${pricing.date}`}>Input cost index, not total request cost. {models.filter(m => m.id === model).map(m => <span key={m.id}>${m.input}/M input · ${m.output}/M output</span>)} · rates recorded {pricing.date}</p>
     <p>{connected ? "LIVE LAB connection active. Synthetic data only; inference may cross Regions." : "MOCK until connected. Model choice does not invoke AWS in mock mode."}</p>
     {!connected && <div className="bridge-connection"><label>Bridge URL <input aria-label="Bridge URL" type="url" value={url} onChange={e => setUrl(e.target.value)} /></label><input aria-label="Bridge session token" type="password" autoComplete="off" placeholder="Private operator bridge session token" value={entry} onChange={e => setEntry(e.target.value)} /> <button disabled={busy || !entry} onClick={connect}>Connect LAB</button></div>}
-    <button disabled={!connected || busy} onClick={explain}>Inspect and explain SSL control</button>
+    <button disabled={!connected || !modelAvailable || busy} onClick={explain}>Inspect and explain SSL control</button>
+    {connected && !modelAvailable && <p>Live model smoke needs separate budget approval. Readiness checks do not invoke Nova.</p>}
     {result && <pre style={{ whiteSpace: "pre-wrap", maxHeight: 240, overflow: "auto" }}>{result}</pre>}
   </section>;
 }

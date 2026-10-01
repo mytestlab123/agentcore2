@@ -1,5 +1,9 @@
 # Preview B v1.1 — Contextual Copilot
 
+Current operator path: [Demo Readiness E2E](demo-readiness.md). The helper now
+performs preflight → bridge → optional tunnel → readiness, with separate token
+delivery and non-secret stdout; the original manual startup below is historical.
+
 Authority: [G milestone approval](https://github.com/mytestlab123/agentcore2/issues/3#issuecomment-5928077026).
 X/core2 is the sole implementer. PR #5 remains draft/open/unmerged. Kiro is
 review-only. No new app, runtime, canary or remediation is part of this slice.
@@ -44,13 +48,11 @@ py ops/windows-bridge.py --root $DellRoot --state $DellState --python $DellPytho
 If Python/OpenSSH are managed in WSL, run the same helper with `python3` in
 that WSL terminal; do not copy AWS credentials or private keys to Windows.
 
-The helper generates 32 cryptographic random bytes on Dell, exclusively creates
-an owner-private `windows-demo-token` beside the private state, prints the token
-once, prints the bridge-start command, and optionally starts the tunnel. In a
-**second terminal**, execute the printed bridge-start command and keep it open.
-It refuses an existing token file or occupied Dell bridge port rather than
-replacing another session's token. A failed/uncertain token preparation must
-be inspected on Dell before another attempt.
+The current helper preserves an explicit existing owner-private token and only
+generates one if absent. It runs preflight and starts/reuses the exact bridge,
+with non-secret stdout. Retrieve the token separately in an unrecorded owner
+terminal. See the current demo runbook for `--token-file`, `--smoke` and guarded
+reuse. Failed/uncertain preparation must be reconciled before another attempt.
 
 The tunnel is:
 

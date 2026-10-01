@@ -32,9 +32,10 @@ class BridgeGuards(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         root = Path(self.temp.name)
         state = root / "state.json"
-        state.write_text(json.dumps({"apps": {"b": {"url": "https://preview.example"}},
+        state.write_text(json.dumps({"profile":"amit", "canaryDeleted":True, "apps": {"b": {"url": "https://preview.example"}},
             "harnessArn": "synthetic-runtime", "modelId": "apac.amazon.nova-lite-v1:0",
             "sessionId": "synthetic-session", "region": "ap-southeast-1"}))
+        state.chmod(0o600)
         self.token = secrets.token_hex(32)
         token_path = root / "token"
         token_path.write_text(self.token)
@@ -67,6 +68,8 @@ class BridgeGuards(unittest.TestCase):
         for host in ("127.0.0.1:8443", "127.0.0.1:8703"):
             self.assertEqual(self.request(host=host), 200)
         self.assertEqual(self.request(method="OPTIONS"), 204)
+        self.assertEqual(self.request(payload={"method":"readiness"}), 200)
+        self.assertEqual(StubClient.calls, 0)
 
     def test_anonymous_foreign_origin_host_and_unknown_model_fail_closed(self):
         self.assertEqual(self.request(authenticated=False, payload={"method": "execute"}), 401)

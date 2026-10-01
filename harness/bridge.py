@@ -6,6 +6,7 @@ import os
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from client import Client, safe
+from preflight import check
 
 
 def build_server(state_path, token_path, client_factory=Client, port=8703):
@@ -55,6 +56,15 @@ def build_server(state_path, token_path, client_factory=Client, port=8703):
                 if not 0 < length <= 16384:
                     raise ValueError("Bounded JSON request required")
                 r = json.loads(self.rfile.read(length))
+                if r["method"] == "readiness":
+                    admission = check(Path(__file__).parent, state_path, token_path,
+                                      check_port=False, modules=("boto3", "botocore") if client_factory is Client else ())
+                    current = json.loads(Path(state_path).read_text())
+                    return self.reply(200, {"status": "READY", "sourceDigest": admission["sourceDigest"],
+                        "findingState": "NO_LIVE_FINDINGS" if current.get("canaryDeleted") else "AVAILABLE",
+                        "modelAvailable": sum(e.get("kind") == "harness-intent" for e in current.get("evidence", [])) <= 15,
+                        "evidence": {"runtimeArn": current["harnessArn"], "modelId": current["modelId"],
+                            "sessionId": current["sessionId"], "toolId": "inspect_s3_ssl", "region": current["region"]}})
                 c = client_factory(state_path)
                 if r["method"] == "evidence":
                     result = {"runtimeArn": c.state["harnessArn"], "modelId": c.state["modelId"], "sessionId": c.state["sessionId"], "toolId": "inspect_s3_ssl", "region": c.state["region"]}
@@ -64,11 +74,14 @@ def build_server(state_path, token_path, client_factory=Client, port=8703):
                     result = c.rpc(r["method"], r.get("args"))
                 self.reply(200, result)
             except Exception as e:
-                self.reply(400, {"error": str(e)})
+                precheck = isinstance(e, ValueError) and str(e).startswith("PRECHECK_FAILED:")
+                self.reply(503 if precheck else 400, {"code": "RUNTIME_PREFLIGHT_FAILED" if precheck else "REQUEST_REJECTED",
+                    "error": "Runtime preflight failed; run the operator helper." if precheck else "Bridge request rejected; inspect private operator diagnostics."})
     return HTTPServer(("127.0.0.1", port), Handler)
 
 
 def serve(state_path, token_path):
+    check(Path(__file__).parent, state_path, token_path)
     build_server(state_path, token_path).serve_forever()
 
 
