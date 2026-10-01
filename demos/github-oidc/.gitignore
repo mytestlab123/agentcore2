@@ -1,0 +1,3 @@
+# Local review artifacts can contain account metadata; never commit them.
+private/
+*.local.json
