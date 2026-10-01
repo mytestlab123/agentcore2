@@ -35,6 +35,7 @@ class Run:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         os.chmod(self.path.parent, 0o700)
         self.session = boto3.Session(profile_name="amit", region_name=REGION)
+        self.session._session.set_config_variable("max_attempts", 1)
         self.sts = self.session.client("sts")
         self.state = json.loads(self.path.read_text()) if self.path.exists() else None
         identity = self.identity()

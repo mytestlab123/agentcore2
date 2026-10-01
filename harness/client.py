@@ -23,6 +23,7 @@ class Client:
         if self.state["region"] != "ap-southeast-1" or self.state["profile"] != "amit":
             raise ValueError("Identity configuration mismatch")
         session = boto3.Session(profile_name="amit", region_name="ap-southeast-1")
+        session._session.set_config_variable("max_attempts", 1)
         identity = session.client("sts").get_caller_identity()
         if identity["Account"] != self.state["account"] or not identity["Arn"].endswith(":user/amit"):
             raise ValueError("Approved personal LAB identity mismatch")
@@ -80,8 +81,10 @@ class Client:
             self.journal("harness-invocation", {"requestId": response["ResponseMetadata"]["RequestId"], "modelId": selected, "sessionId": self.state["sessionId"], "traceId": trace})
             text, tools, usage = "", {}, {}
             for event in response["stream"]:
-                if "runtimeClientError" in event:
-                    raise RuntimeError(safe(event["runtimeClientError"]))
+                errors = {k: v for k, v in event.items() if k.endswith("Exception") or k == "runtimeClientError"}
+                if errors:
+                    self.journal("harness-error", {"modelId": selected, "traceId": trace, "error": errors})
+                    raise RuntimeError(safe(errors))
                 start = event.get("contentBlockStart", {})
                 if "toolUse" in start.get("start", {}):
                     tools[start["contentBlockIndex"]] = {**start["start"]["toolUse"], "inputText": ""}
