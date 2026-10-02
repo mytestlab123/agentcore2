@@ -1,9 +1,17 @@
 # Current context
 
 Authority: Issue #3 and [G executor decision](https://github.com/mytestlab123/agentcore2/issues/3#issuecomment-5923329299).
-Repository: mytestlab123/agentcore2. Branch: issue-3/agentcore-lab. Primary PR: #5,
-draft/open/unmerged. X/core2 is primary executor; Kiro is review-only. Home Crew
-is not used for this follow-up and its security rules remain unchanged.
+Repository: mytestlab123/agentcore2. Final closeout branch: issue-3/agentcore-lab.
+Primary PR: #5. PR #10 is merged into this branch. Owner explicitly authorized
+validated repository closeout into `main` on 2026-10-02. Kiro remains review-only.
+Home Crew is not used for this closeout and its security rules remain unchanged.
+
+## Bootstrap / continuation note
+
+- Main bootstrap commit `274308dbccd8fea0176aa981c7970cb03cfd032a` is preserved.
+- Its earlier inactive-lab snapshot is historical and superseded by Issues #3, #9 and #12.
+- For future work, use the owning Issue/PR, latest authorized delta and current HEAD;
+  do not infer a task from neighboring repositories or old conversation history.
 
 ## Current truth
 
@@ -52,19 +60,16 @@ is not used for this follow-up and its security rules remain unchanged.
 
 ## Next action
 
-Issue #9 closeout: portable v1.2.1 now semantically syncs exactly the three
-accepted P1 fixes from comment 5940733659. Exact Work v1.2.1 export bytes are
-unavailable; RELEASE/proof explicitly distinguish accepted Site version4/source
-219515a from repository HTML/fingerprint. Seven high-page filter regressions,
-unchanged refresh, named retained Copilot context and concise empty evidence
-are covered by deterministic state/safety checks. True mobile browser proof is
-owner-waived as a closeout blocker under current direct authority and comment
-5949698282; no public-Site browser PASS is inferred from Node VM evidence.
-PR #10 incorporates current bb95e95 base, preserving Issue #3/C1. C1 still
-packages the accepted68aa168 source through its own pinned wrapper/smoke.
-Next: G merges #10 into issue-3, reconciles main bootstrap/context into #5,
-reruns final validation, then merges #5. X does not merge GitHub PRs.
-Main reconciliation plan: docs/repository-closeout.md. No cloud/model/Sites work.
+Repository closeout is authorized. PR #10 (Sites v1.2.1 semantic P1 sync) is now
+merged into the Issue #3 branch. Build, 35 tests, typecheck, state/safety,
+offline desktop/mobile smoke and leak checks passed before this docs-only main
+reconciliation. True mobile public-Site proof is owner-waived as a blocker.
+
+G now reconciles the preserved main bootstrap/context and merges PR #5 to `main`.
+After that merge, Issue #12 is the next active experiment: Dot + Codex Cloud must
+start from the exact merged `main` SHA recorded in Issue #12 and prove a normal
+cloud-only checkout/install/build/test/typecheck/smoke -> small PR -> CI loop,
+without Home/office execution fallback. No AWS/OIDC/deployment belongs to #12.
 
 C1 cloud portability comparison prepared under Issue #3 comment 5949449667.
 Canonical MOCK HTML at accepted68aa168 remains byte-identical; its digest and

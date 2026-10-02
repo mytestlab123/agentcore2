@@ -1,6 +1,6 @@
 # Specification
 
-Status: approved (Issue #3 handoff, 2026-09-30)
+Status: completed / repository closeout authorized (2026-10-02)
 
 ## Problem
 
@@ -31,12 +31,18 @@ evidence and a harvest list for `cloudscape-remediation`.
 ## MUST NOT
 
 - Commit secrets, credentials, real account IDs, or private/CloudSCAPE data.
-- Merge the primary PR, or write to `amitkarpe/cloudscape-remediation`.
+- Write to `amitkarpe/cloudscape-remediation`.
 - Touch office/GovTech/PROD/cross-account resources, or move sensitive
   execution cross-Region.
 - Let the agent invent and run arbitrary destructive commands; remediation is
   deterministic and capability-registered.
 - Track `.kiro/` local state or add a broad `.kiro/` ignore rule.
+
+## Closeout authority
+
+Amit explicitly authorized merging the completed, validated Issue #3 / Issue #9
+repository work into `main` on 2026-10-02. That repository merge does not grant
+new AWS, IAM, hosting, model, Site-publication, PROD, office or cross-account authority.
 
 ## Verification
 
