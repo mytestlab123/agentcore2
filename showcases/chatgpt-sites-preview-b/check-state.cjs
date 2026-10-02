@@ -1,7 +1,7 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict'),performance=require('perf_hooks').performance;
 const html=fs.readFileSync(require('path').join(__dirname,'index.html'),'utf8');
 const release=require('./RELEASE.json'),sha256=s=>require('node:crypto').createHash('sha256').update(s).digest('hex');
-assert.equal(sha256(html),release.htmlSha256,'The portable HTML must equal the accepted Site source');
+assert.equal(sha256(html),release.htmlSha256,'The portable HTML must match the repository source receipt');
 assert.equal(sha256(html.replace(release.guiSourceFingerprint,'__FINGERPRINT__')),release.guiSourceFingerprint,'GUI source fingerprint must match');
 assert(!/@aws-sdk|\baws-sdk\b|\bimport\s*\(|\brequire\s*\(|\beval\s*\(|sendBeacon\s*\(|RTCPeerConnection|serviceWorker|AKIA[A-Z0-9]{16}|ASIA[A-Z0-9]{16}|appg(?:prj|ver|dep)_/.test(html));
 const elements=new Map();
@@ -27,5 +27,28 @@ run("changeFilter('search','no-such-demo-record')");assert.equal(run('filtered.l
 const maxStart=performance.now();run('generate(1000)');const maxMs=performance.now()-maxStart;assert.equal(run('findings.length'),75400);assert.equal(run('new Set(findings.map(f=>f.id)).size'),75400);assert.equal(el('findings').children.length,25);
 assert(!/\b(fetch\s*\(|XMLHttpRequest|WebSocket|EventSource|localStorage|sessionStorage)|arn:aws|https?:\/\/(localhost|127\.|10\.|192\.168\.)/.test(html));assert(!/\b\d{12}\b/.test(html));assert(html.includes("connect-src 'none'"));assert.equal([...html.matchAll(/(?:src|href)="https?:[^\"]+/g)].length,2);
 for(const label of ['Preview B · Contextual Copilot v1.2','Nova Micro — Economy — 1.0x','Nova Lite — Default — 1.7x','Nova 2 Lite — Enhanced — 8.7x','Input Cost Index','SHOWCASE / MOCK'])assert(html.includes(label));
-const result={release:'v1.2.0',checks:'PASS — actual script in Node VM / minimal DOM, not browser proof',baselineSyntheticResources:baseTotal,accounts:58,maxScenarioResources:75400,pageSize:25,approve1000Writes:1000,reject1000Writes:0,partial1000Blocked:58,replayNoAdditionalWrites:true,immutableSnapshot:true,mixedCapabilitiesExcluded:true,staleTargetGuard:true,filterChangeCancels:true,commandMenu:true,modelDecisionUnchanged:true,sourceSafetyScan:'PASS',realWrites:0,modelCalls:0,initialNodeVmMs:Math.round(initialMs),maxScenarioNodeVmMs:Math.round(maxMs),desktopVisual:'NOT VERIFIED',mobileVisual:'NOT VERIFIED'};
+// P1: every changed filter/search resets high pagination; unchanged refresh does not.
+const filterCases={search:'s3',account:'LAB-01',resource:'S3',control:'s3-bpa',status:'NON_COMPLIANT',fixability:'AUTOMATED',severity:'HIGH'};
+for(const [id,value] of Object.entries(filterCases)){
+ click('reset-filters');run('page=8;refresh()');assert.equal(run('page'),8);
+ el(id).value=value;run('refresh()');assert.equal(run('page'),1,`${id} changed refresh must reset`);
+ assert(run('filtered.length')>25,`${id} must have matching multi-page results`);
+ run('page=2;refresh()');assert.equal(run('page'),2,`${id} unchanged refresh preserves page`);
+ click('reset-filters');run('page=8;refresh()');el(id).value=value;el(id).handlers.input();
+ assert.equal(run('page'),1,`${id} UI input must reset`);
+}
+click('reset');const retained=run('focused().resource');run("changeFilter('account','LAB-58')");
+assert.equal(run('focused().resource'),retained);
+assert(el('selection-note').textContent.includes(retained));
+assert.match(el('selection-note').textContent,/Select a resource name to change the finding context/);
+run('focusFinding(filtered[0].id)');assert(el('selection-note').textContent.includes(run('focused().resource')));
+// P1: one empty-state note, five labels and no repeated per-stage empty copy.
+click('reset');assert.equal(el('timeline').children.length,5);
+assert(el('timeline').children.every(li=>li.children.length===1));
+assert.match(el('evidence-empty').textContent,/No run recorded/);assert(!el('evidence-empty').hidden);
+click('preview');assert.match(el('evidence-empty').textContent,/Proposal pending/);
+assert(el('timeline').children.every(li=>li.children.length===1));
+click('reject');assert(el('evidence-empty').hidden);assert.equal(el('timeline').children.length,5);
+assert.match(el('timeline').textContent,/SKIPPED: 0 simulated writes/);
+const result={release:'v1.2.1',checks:'PASS — actual script in Node VM / minimal DOM, not browser proof',baselineSyntheticResources:baseTotal,accounts:58,maxScenarioResources:75400,pageSize:25,approve1000Writes:1000,reject1000Writes:0,partial1000Blocked:58,replayNoAdditionalWrites:true,immutableSnapshot:true,mixedCapabilitiesExcluded:true,staleTargetGuard:true,filterChangeCancels:true,commandMenu:true,modelDecisionUnchanged:true,sourceSafetyScan:'PASS',p1FilterResetCount:7,unchangedRefreshPreservesPage:true,retainedContextNamesResource:true,resourceSelectionChangesContext:true,conciseEmptyEvidence:true,fiveEvidenceLabelsRetained:true,realWrites:0,modelCalls:0,initialNodeVmMs:Math.round(initialMs),maxScenarioNodeVmMs:Math.round(maxMs),desktopVisual:'NOT VERIFIED BY VM',mobileVisual:'OWNER_WAIVED_NOT_BLOCKING'};
 console.log(JSON.stringify(result,null,2));

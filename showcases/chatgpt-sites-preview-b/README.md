@@ -8,18 +8,21 @@ engineering demo and its source remain unchanged.
 
 ## Source and version
 
-`index.html` is a byte-for-byte copy of the accepted Site's `dist/index.html`,
-not an independently rebuilt UI. See `RELEASE.json` for the exact source commit,
-saved Site version, HTML SHA-256 and GUI fingerprint. The release label is
-`v1.2.0`; no upstream Git tag is claimed. GUI: **Preview B · Contextual Copilot v1.2**.
+`index.html` is a **semantic synchronization** of the three accepted v1.2.1 P1
+fixes onto the v1.2.0 Work export. Exact v1.2.1 Work export bytes are unavailable
+to this controller; byte-for-byte identity is not claimed. RELEASE.json separates
+the reported accepted Site source/version/fingerprint from this repository's
+HTML SHA-256 and local fingerprint. Release: `v1.2.1`; no Git tag is claimed.
+GUI: **Preview B · Contextual Copilot v1.2**.
 Internal hosting configuration, credentials and opaque deployment IDs are omitted.
 
 The baseline package is in unmerged PR #5 at
 `68aa168f764531697ef34c472f87468ad738e36a`. Issue #9's single source-sync PR
 targets `issue-3/agentcore-lab` from that exact commit. This preserves the baseline
-without duplicating the lab changes in a second PR against main. PR #5 stays
-untouched. After #5 merges, retarget the same PR to main and review its diff.
-Do not create another implementation PR or merge without Amit's approval.
+without duplicating the lab changes in a second PR against main. PR #10 now
+incorporates the newer Issue #3/C1 base so it can merge into that branch cleanly.
+G merges #10 into issue-3 first, reconciles main into #5, runs final validation,
+then merges #5. X performs no merges on GitHub. No PR retarget is needed.
 
 ## Demo in five minutes
 
@@ -64,7 +67,7 @@ there is no generic chatbot composer.
 
 ## Files and checks
 
-- `index.html`: exact accepted single-file Site source, including CSS/JS.
+- `index.html`: semantic v1.2.1 P1 sync of the Work single-file source, CSS/JS.
 - `RELEASE.json`: version, source identity and rollback mapping.
 - `check-state.cjs`: actual page script tested in a Node VM/minimal DOM harness.
 - `smoke.cjs`: offline desktop/mobile Playwright smoke and network/error checks.
@@ -87,16 +90,19 @@ No browser or dependency is installed by the showcase itself. Playwright is
 test tooling only. The smoke keeps browser networking offline and opens a file
 URL; it never navigates to the engineering demo.
 
-Node VM state/safety checks and focused public-Site desktop browser interactions
-passed. A desktop light-theme screenshot was inspected. Offline Chromium smoke
-and mobile visual review remain unverified in this execution environment;
-do not reuse the old five-fixture receipt as v1.2 proof. The managed cloud
-download wait timed out, so full browser download completion is also unverified.
+Node VM state/safety checks include high-page reset for all seven filters/search,
+unchanged-refresh pagination preservation, named retained context and concise
+no-run/pending-proposal evidence with all five stage labels. The current receipt
+is proof.json; historical v1.2.0 evidence is retained separately. The published
+v1.2.1 TinyFish run did not fully verify Reject/pagination/theme/mobile; no local
+result upgrades that public-Site result. Amit explicitly waived true mobile
+browser proof as a closeout blocker. It is owner-waived, not an invented PASS.
+Any local offline browser result is separate from the public Work Site.
 
 ## Rollback and updates
 
 Keep the existing Site and its saved versions. Roll back by redeploying saved
-Site version 2 (source `68c6a19df90a5be7a5a423d4be817c8fb78df50d`) using @Sites,
+Site version 3 (source `4dca2e145032a3dcd4fba77998c86ffc42a73a7d`) using @Sites,
 preserving the audience currently set by the owner. Do not reset Git history.
 The owner made the Site public on 2026-10-01; that audience was verified,
 not changed by this source sync. Publishing future edits follows the owner's

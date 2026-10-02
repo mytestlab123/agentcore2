@@ -44,6 +44,21 @@ const {chromium} = require(process.argv[2] || 'playwright');
     assert.deepEqual(await page.locator('#model option').allTextContents(),[
       'Nova Micro — Economy — 1.0x','Nova Lite — Default — 1.7x','Nova 2 Lite — Enhanced — 8.7x']);
     assert.match(await page.locator('.model-control').innerText(),/Input Cost Index/);
+    assert.equal(await page.locator('#timeline li').count(),5);
+    assert.equal(await page.locator('#timeline li p').count(),0);
+    assert.match(await text('evidence-empty'),/No run recorded/);
+    const filters={search:'s3',account:'LAB-01',resource:'S3',control:'s3-bpa',status:'NON_COMPLIANT',fixability:'AUTOMATED',severity:'HIGH'};
+    for(const [id,value] of Object.entries(filters)){
+      await button('Clear filters').click();
+      for(let i=0;i<7;i++)await button('Next').click();
+      assert.match(await text('page-info'),/^8 \/ /);
+      if(id==='search')await page.locator('#search').fill(value);
+      else await page.locator('#'+id).selectOption(value);
+      assert.match(await text('page-info'),/^1 \/ /);
+      assert.equal(await page.locator('#findings tr').count(),25);
+    }
+    assert.match(await text('selection-note'),/Retained Copilot context: .+Select a resource name to change the finding context/);
+    await button('Clear filters').click();
     await button('Next').click(); assert.match(await text('count'),/26–50/);
     await button('Previous').click(); assert.match(await text('count'),/1–25/);
     await button('Sort by account').click();
@@ -110,7 +125,7 @@ const {chromium} = require(process.argv[2] || 'playwright');
     assert.equal(blocked.length,58); assert(blocked.every(t=>t.simulatedWrites===0&&t.currentStatus==='NON_COMPLIANT'));
     assert.equal(partial.targets.reduce((n,t)=>n+t.simulatedWrites,0),942);
     await page.locator('#last-run details > summary').click();
-    await page.getByLabel('Outcome filter',{exact:true}).selectOption('BLOCKED');
+    await page.locator('#outcome-filter').selectOption('BLOCKED');
     assert.match(await text('outcome-count'),/58 matching outcomes · page 1/);
     await button('Next outcomes').click(); assert.match(await text('outcome-count'),/page 2/);
 
@@ -133,12 +148,13 @@ const {chromium} = require(process.argv[2] || 'playwright');
     assert.equal(await page.getByLabel('Resource filter').inputValue(),'Security Group');
     assert.equal(await page.getByLabel('Control filter').inputValue(),'sg-ssh');
     assert.deepEqual(network,[]); assert.deepEqual(errors,[]);
-    console.log(JSON.stringify({status:'PASS',release:'v1.2.0',mode:'SHOWCASE / MOCK',
+    console.log(JSON.stringify({status:'PASS',release:'v1.2.1',mode:'SHOWCASE / MOCK',
       offlineFileRender:true,desktopViewport:[1440,1000],mobileViewport:[390,844],
       accounts:58,baselineRecords:49476,pageSize:25,rejectSimulatedWrites:0,
       approveSimulatedWrites:1000,partialBlocked:58,partialSimulatedWrites:942,
       completeTargetDownloads:true,consumedDecisions:true,replayNoAdditionalWrites:true,
       filterChangeCancels:true,manualFixDisabled:true,evidenceSteps:5,
+      p1FilterResetCount:7,namedContextGuidance:true,conciseEmptyEvidence:true,
       networkRequests:network.length,browserErrors:errors.length,realWrites:0,modelCalls:0},null,2));
   } finally {await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
