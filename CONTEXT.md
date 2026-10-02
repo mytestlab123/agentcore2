@@ -15,7 +15,12 @@ identities. Transfer length/SHA256 and original base/head are recorded in
 12 Python tests, build, typecheck and state/safety).
 The fast/browser verification lanes and read-only PR workflow are prepared.
 Cloud-environment browser installation remains owner-deferred; CI browser
-execution is approved. Next: publish one draft PR and observe both CI jobs. Full pilot acceptance is pending that evidence.
+execution is approved. Draft PR #13 is open. Cloud verification run 37018266868 passed both fast
+(29 s) and browser (52 s) at `6fa16b3d04591edebf18789adbcc974a3bdcf18d`.
+Desktop/mobile browser smoke reported one local document request and zero
+unexpected requests, browser errors, model calls or real writes. Phase 1 PASS;
+next action is owner review of the draft PR, with no merge authorization.
+The final documentation-only head and its CI result are in the PR/handoff.
 No AWS, IAM, OIDC, deployment, live Preview B, Home/office work or merge belongs
 to this task.
 

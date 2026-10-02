@@ -1,6 +1,6 @@
 # Dot cloud pilot — Issue #12
 
-Status: **saved-environment GitHub access PASS; PR/CI pending**. Earlier blocked-access records below are historical.
+Status: **cloud-only pilot PASS**, with draft PR #13 open and both CI lanes passing. Earlier blocked-access records below are historical.
 
 ## Current saved-environment continuation (2026-10-02)
 
@@ -49,6 +49,33 @@ Status: **saved-environment GitHub access PASS; PR/CI pending**. Earlier blocked
 | Included typecheck | PASS | 6.51 s |
 | Included showcase state/safety | PASS, zero model calls/real writes | 6.23 s |
 | `node ops/verify-cloud.cjs browser` prerequisite probe | Expected exit 2: missing tooling; smoke NOT_RUN | <1 s |
+
+### Published proof and remaining limits
+
+- Draft PR: [#13](https://github.com/mytestlab123/agentcore2/pull/13), branch
+  `issue-12/cloud-verification`. No merge was performed or authorized.
+- Validated implementation/evidence head:
+  `6fa16b3d04591edebf18789adbcc974a3bdcf18d`.
+- [Cloud verification run 37018266868](https://github.com/mytestlab123/agentcore2/actions/runs/37018266868)
+  completed successfully on that head on 2026-10-02.
+  [Fast job](https://github.com/mytestlab123/agentcore2/actions/runs/37018266868/job/110874450632)
+  passed in 29 s; [browser job](https://github.com/mytestlab123/agentcore2/actions/runs/37018266868/job/110874450906)
+  passed in 52 s, including tooling, browser and system-library installation.
+- Browser logs report matching Chromium headless shell 151.0.7922.34 (Playwright
+  build v1234), smoke PASS in 13.63 s, desktop 1440×1000 and mobile 390×844,
+  one local document request, zero unexpected requests/browser errors, zero real
+  writes/model calls, and all retained synthetic approval/rejection assertions.
+- This closing evidence update is documentation-only. Its exact head and CI
+  result are recorded in the PR description and final handoff after publication,
+  avoiding a self-referential commit SHA in this file.
+- CI emitted a nonblocking Node 20 action-runtime deprecation warning for the
+  pinned checkout/setup-node actions; GitHub ran them on Node 24 successfully.
+  No workflow behavior change was needed for the pilot.
+- Failure artifact capture remains **NOT_RUN**: there was no browser failure,
+  so artifact upload was correctly **SKIPPED**. Cloud-environment browser setup
+  remains owner-deferred; browser evidence comes from GitHub-hosted CI only.
+- No remaining blocker for Phase 1. Owner review/merge and any future AWS/OIDC
+  experiment remain separate decisions. No laptop power-state claim is made.
 
 The following sections preserve earlier task evidence and access failures;
 statements about blocked publication describe those earlier attempts, not the
