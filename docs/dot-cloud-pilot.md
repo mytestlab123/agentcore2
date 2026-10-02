@@ -1,6 +1,58 @@
 # Dot cloud pilot — Issue #12
 
-Status: **local fast lane PASS; GitHub publication BLOCKED**, not full pilot acceptance.
+Status: **saved-environment GitHub access PASS; PR/CI pending**. Earlier blocked-access records below are historical.
+
+## Current saved-environment continuation (2026-10-02)
+
+- Owner authorized a new task to adopt published saved network settings; the old
+  task remains idle. The existing executor is usable, including after a reported
+  disconnect callback. No replacement execution or Home/office fallback was used.
+- Origin and clean local HEAD verified first. The single original
+  `gh api repos/mytestlab123/agentcore2` read succeeded with exit 0 in about 0.49 s
+  using existing configured credentials. No secret value was read or printed;
+  no alternate auth, route, proxy bypass or access-policy change was attempted.
+- Read the checkout AGENTS.md, CONTEXT.md, SPEC.md and Issue #12 with its latest
+  comments. Plain `gh issue view --comments` hit a legacy Projects GraphQL error;
+  selecting explicit JSON fields succeeded through the same CLI/auth route.
+- Remote main remains `e2f64c522b005ada178c2c98fc2318dac2ab7dcd`. Target branch
+  and matching PR were absent before restoration; no base reconciliation needed.
+- Source transfer is the exact diff from that base to preserved original head
+  `03d590ad98a7be2a1174c450c2038cf29f9dcd64`. Standard Python base64 + lzma decode
+  verified **27,591 bytes**, SHA256
+  `59b510008d54c15f999243580b420507b0fe58775a1a5f47d5619f1cb93165f2`.
+  Patch was inspected, `git apply --check` passed at the clean exact base, and all
+  nine restored blob hashes matched. Commit `d0ce9c9` preserves those files;
+  it does **not** preserve or claim the original commit identities/history.
+- This environment has Node 24.19.0, npm 11.9.0 and Python 3.12.14. Normal root
+  `npm ci --no-audit --no-fund --fetch-retries=0 --cache /workspace/.npm-cache`
+  passed: 74 packages, 1.51 s. No browser package or binary was installed here.
+- Entrypoint/smoke syntax checks and diff whitespace checks passed. Canonical
+  showcase HTML, state/safety script, root lockfile and inert deployment workflow
+  remain unchanged from the approved base.
+- Internet access was needed for GitHub; npm used the configured registry/cache.
+  CI will need Actions, Node, registry and browser/system-package downloads.
+  Existing GitHub credentials are the only publication auth used; no AWS or
+  application credentials are needed. Owner settings/publication UI work was
+  reported in the handoff; this task did not operate that UI.
+- Browser execution in this cloud environment remains **NOT_RUN / owner-deferred**.
+  The approved separate GitHub CI browser job supplies browser evidence when run.
+  Browser failure artifact capture remains untested until an actual failure.
+
+### Current-task verification
+
+| Check | Result | Elapsed |
+| --- | --- | --- |
+| Root npm ci (workspace cache) | PASS, 74 packages | 1.51 s |
+| `npm run verify:cloud -- fast` | PASS, browser explicitly SKIPPED | 25.09 s |
+| Included build | PASS, contracts + previews A/B/C | 8.00 s |
+| Included tests | PASS, 23 contract + 12 Python | 4.10 s |
+| Included typecheck | PASS | 6.51 s |
+| Included showcase state/safety | PASS, zero model calls/real writes | 6.23 s |
+| `node ops/verify-cloud.cjs browser` prerequisite probe | Expected exit 2: missing tooling; smoke NOT_RUN | <1 s |
+
+The following sections preserve earlier task evidence and access failures;
+statements about blocked publication describe those earlier attempts, not the
+successful original API read in this new task.
 
 ## Authority and baseline
 

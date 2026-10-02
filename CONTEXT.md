@@ -3,23 +3,21 @@
 ## Issue #12 cloud pilot update (2026-10-02)
 
 PR #5 is merged at `e2f64c522b005ada178c2c98fc2318dac2ab7dcd`, confirmed
-by GitHub and Issue #12's gate-release comment 5950622930. The older closeout
-and unmerged statements below are historical. Phase 1 started from that exact
-clean baseline in the saved cloud environment. GitHub CLI repository API read
-returned `Forbidden`, including one owner-authorized retry; the source of the
-denial is unknown. GitHub-dependent work is paused pending environment access
-resolution, with no alternate route or credential attempted. Local showcase
-state/safety and 12 offline Python tests passed. See
-[pilot evidence](docs/dot-cloud-pilot.md) for timings, setup friction and gaps.
-Subsequent owner approval permits local verification/CI code preparation on
-`issue-12/cloud-verification`; browser installation remains deferred. The fast
-and browser lanes are separate, with explicit prerequisite failures. No
-implementation PR or CI result exists yet; no full pilot acceptance is claimed.
-Root npm ci and the complete fast lane now PASS (build, 23 contract + 12 Python
-tests, typecheck and state/safety). Initial npm cache-path failure was resolved
-using a writable workspace cache. Registry metadata generated the browser
-lockfile integrity; browser binaries were not installed. GitHub access was not
-retried. See the latest results in the pilot evidence.
+by Issue #12's gate-release comment 5950622930 and current remote main.
+The older Issue #3 closeout/unmerged statements below are historical.
+
+The new saved cloud environment's original GitHub CLI repository read succeeded
+with its existing configured credentials. No alternate route or authentication
+was used. The preserved Issue #12 patch was restored exactly from the approved
+base and committed as `d0ce9c9`; this preserves file content, not original commit
+identities. Transfer length/SHA256 and original base/head are recorded in
+[the pilot evidence](docs/dot-cloud-pilot.md). Root npm ci and the complete fast lane passed in this task (23 contract +
+12 Python tests, build, typecheck and state/safety).
+The fast/browser verification lanes and read-only PR workflow are prepared.
+Cloud-environment browser installation remains owner-deferred; CI browser
+execution is approved. Next: publish one draft PR and observe both CI jobs. Full pilot acceptance is pending that evidence.
+No AWS, IAM, OIDC, deployment, live Preview B, Home/office work or merge belongs
+to this task.
 
 Authority: Issue #3 and [G executor decision](https://github.com/mytestlab123/agentcore2/issues/3#issuecomment-5923329299).
 Repository: mytestlab123/agentcore2. Final closeout branch: issue-3/agentcore-lab.
