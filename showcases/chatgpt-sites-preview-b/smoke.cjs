@@ -1,19 +1,46 @@
-// Repeatable offline E2E for the accepted Site export. Test tooling only.
+// Repeatable localhost-only E2E for the accepted Site export. Test tooling only.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
-const {pathToFileURL} = require('node:url');
+const http = require('node:http');
 const {join} = require('node:path');
-const {chromium} = require(process.argv[2] || 'playwright');
+const {chromium} = require(process.argv[2] || '../../tools/browser/node_modules/playwright-core');
 
 (async () => {
-  const browser = await chromium.launch({headless:true,
-    ...(process.env.SHOWCASE_BROWSER ? {executablePath:process.env.SHOWCASE_BROWSER} : {})});
+  const html = fs.readFileSync(join(__dirname,'index.html'));
+  const server = http.createServer((request,response) => {
+    if (request.method !== 'GET' || request.url !== '/') {
+      response.writeHead(404); response.end(); return;
+    }
+    response.writeHead(200, {'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'});
+    response.end(html);
+  });
+  await new Promise((resolve,reject) => {
+    server.once('error',reject);
+    server.listen(0,'127.0.0.1',resolve);
+  });
+  const url = `http://127.0.0.1:${server.address().port}/`;
+  const artifacts = process.env.SHOWCASE_ARTIFACTS || join(__dirname,'../../artifacts/showcase');
+  let browser,context,page,tracing=false;
+  const errors=[],network=[],unexpected=[];
   try {
-    const context = await browser.newContext({offline:true,viewport:{width:1440,height:1000}});
-    const page = await context.newPage(),errors=[],network=[];
+    browser = await chromium.launch({headless:true,
+      ...(process.env.SHOWCASE_BROWSER ? {executablePath:process.env.SHOWCASE_BROWSER} : {})});
+    context = await browser.newContext({serviceWorkers:'block',viewport:{width:1440,height:1000}});
+    await context.tracing.start({screenshots:true,snapshots:true}); tracing=true;
+    page = await context.newPage();
+    page.setDefaultTimeout(10000);
     page.on('pageerror',e=>errors.push(e.message));
     page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
-    page.on('request',r=>{if(/^https?:/.test(r.url()))network.push(r.url());});
+    // Only the initial main document may use HTTP. Any other request is
+    // aborted before transmission and fails the check; no external services.
+    await context.route('**/*',route=>{
+      const request=route.request();
+      if(request.url()===url && request.method()==='GET' && request.isNavigationRequest()
+          && request.frame()===page.mainFrame() && network.length===0){
+        network.push('local document'); return route.continue();
+      }
+      unexpected.push(request.resourceType()); return route.abort();
+    });
     const text = id => page.locator('#'+id).innerText();
     const button = name => page.getByRole('button',{name,exact:true});
     const command = async (query,name) => {
@@ -35,7 +62,8 @@ const {chromium} = require(process.argv[2] || 'playwright');
       assert(path,'Expected a completed local JSON download');
       return JSON.parse(fs.readFileSync(path,'utf8'));
     };
-    await page.goto(pathToFileURL(join(__dirname,'index.html')).href);
+    const response=await page.goto(url);
+    assert.equal(response.status(),200);
     assert.equal(await page.title(),'Preview B · Contextual Copilot v1.2');
     assert.equal(await page.locator('.badge').innerText(),'SHOWCASE / MOCK');
     assert.equal(await text('total'),'49,476');
@@ -147,14 +175,23 @@ const {chromium} = require(process.argv[2] || 'playwright');
     await command('ssh',/^Security Groups · internet-open SSH/);
     assert.equal(await page.getByLabel('Resource filter').inputValue(),'Security Group');
     assert.equal(await page.getByLabel('Control filter').inputValue(),'sg-ssh');
-    assert.deepEqual(network,[]); assert.deepEqual(errors,[]);
+    assert.deepEqual(network,['local document']); assert.deepEqual(unexpected,[]); assert.deepEqual(errors,[]);
     console.log(JSON.stringify({status:'PASS',release:'v1.2.1',mode:'SHOWCASE / MOCK',
-      offlineFileRender:true,desktopViewport:[1440,1000],mobileViewport:[390,844],
+      localhostHttpRender:true,desktopViewport:[1440,1000],mobileViewport:[390,844],
       accounts:58,baselineRecords:49476,pageSize:25,rejectSimulatedWrites:0,
       approveSimulatedWrites:1000,partialBlocked:58,partialSimulatedWrites:942,
       completeTargetDownloads:true,consumedDecisions:true,replayNoAdditionalWrites:true,
       filterChangeCancels:true,manualFixDisabled:true,evidenceSteps:5,
       p1FilterResetCount:7,namedContextGuidance:true,conciseEmptyEvidence:true,
-      networkRequests:network.length,browserErrors:errors.length,realWrites:0,modelCalls:0},null,2));
-  } finally {await browser.close();}
+      localDocumentRequests:network.length,unexpectedRequests:unexpected.length,browserErrors:errors.length,realWrites:0,modelCalls:0},null,2));
+  } catch (error) {
+    fs.mkdirSync(artifacts,{recursive:true});
+    fs.writeFileSync(join(artifacts,'failure.json'),JSON.stringify({message:error.message,errors,unexpected},null,2));
+    if(page) await page.screenshot({path:join(artifacts,'failure.png'),fullPage:true}).catch(()=>{});
+    if(tracing) await context.tracing.stop({path:join(artifacts,'trace.zip')}).catch(()=>{});
+    throw error;
+  } finally {
+    try { if(browser) await browser.close(); }
+    finally { await new Promise(resolve=>server.close(resolve)); }
+  }
 })().catch(e=>{console.error(e);process.exitCode=1;});
