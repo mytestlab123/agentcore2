@@ -27,6 +27,16 @@ missing config before browser use; one native Windows operator lifecycle proves
 real deployed B MOCK → authenticated LIVE LAB with zero model invocations.
 Existing B job4, source58a7600. Current model attempt count remains 17/18.
 
+## C1 cloud portability
+
+Evidence-backed comparison and repository wrappers prepared under comment
+5949449667. [Runbook](docs/cloud-portability-c1.md) and
+[machine-readable evidence](docs/cloud-portability-c1.json).
+Canonical MOCK HTML unchanged. Sites/Pages OWNER_UI_REQUIRED; Amplify BLOCKED
+at exact repo/branch IAM and isolated-branch/dispatch gates. No hosted C1 URL is
+claimed. No cloud/IAM change, no merge or existing Preview B change.
+Next: G/Amit reviews exact narrow provider owner steps; full local validation PASS.
+
 ## Historical v4.2 Crew run
 
 ## Now

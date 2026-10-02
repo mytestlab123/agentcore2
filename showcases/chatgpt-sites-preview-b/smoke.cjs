@@ -2,18 +2,30 @@
 const assert = require('node:assert/strict');
 const {pathToFileURL} = require('node:url');
 const {join} = require('node:path');
+const {createHash} = require('node:crypto');
 const {chromium} = require(process.argv[2] || 'playwright');
 (async () => {
   const browser = await chromium.launch({headless:true,
     ...(process.env.SHOWCASE_BROWSER ? {executablePath:process.env.SHOWCASE_BROWSER} : {})});
   try {
-    const context = await browser.newContext({offline:true, viewport:{width:1440,height:1000}});
+    const target=process.env.SHOWCASE_URL || pathToFileURL(join(__dirname,'index.html')).href;
+    const hosted=/^https:\/\//.test(target);
+    if(process.env.SHOWCASE_URL && !hosted)throw new Error('Hosted proof requires HTTPS');
+    const context = await browser.newContext({offline:!hosted, viewport:{width:1440,height:1000}});
     const page = await context.newPage();
+    if(hosted) await page.route('**/*',route=>
+      route.request().url()===target && route.request().method()==='GET'
+        ? route.continue() : route.abort());
     const errors=[], network=[];
     page.on('pageerror',e=>errors.push(e.message));
     page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
     page.on('request',r=>{if(/^https?:/.test(r.url()))network.push(r.url());});
-    await page.goto(pathToFileURL(join(__dirname,'index.html')).href);
+    const response=await page.goto(target);
+    if(hosted) {
+      assert.equal(response.status(),200);
+      assert.equal(createHash('sha256').update(await response.body()).digest('hex'),
+        '1bc76ab8f57090a3132e2371ff49973b5e37c29ea191044556ac2b930c50acbd');
+    }
     assert.equal(await page.locator('.badge').innerText(),'MOCK SHOWCASE');
     assert.equal(await page.locator('#findings tr').count(),5);
     assert.equal(await page.locator('#timeline li').count(),5);
@@ -68,13 +80,14 @@ const {chromium} = require(process.argv[2] || 'playwright');
     assert(await page.getByRole('button',{name:'Explain',exact:true}).isVisible());
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     assert.equal(await page.locator('.architecture a').getAttribute('href'),'https://main.d2rar4n3w1jdwz.amplifyapp.com');
-    assert.deepEqual(network,[]); assert.deepEqual(errors,[]);
-    console.log(JSON.stringify({status:'PASS',mode:'MOCK SHOWCASE',offlineFileRender:true,
+    assert.deepEqual(network,hosted?[target]:[]); assert.deepEqual(errors,[]);
+    console.log(JSON.stringify({status:'PASS',mode:'MOCK SHOWCASE',offlineFileRender:!hosted,
       filters:['status','fixability','search'],manualFixDisabled:true,contextActions:true,
       rejectSimulatedWrites:0,approveSimulatedWrites:1,oneDecisionPerProposal:true,
       selectionClearsPendingProposal:true,
       separateReadbackAndCompliance:true,evidenceSteps:5,modelLabelsAndCostIndices:true,
       modelSelectionPreservesApproval:true,theme:['dark','light'],mobileWidth:390,
-      unexpectedBrowserErrors:0,networkRequests:0,realWrites:0,modelCalls:0},null,2));
+      unexpectedBrowserErrors:0,networkRequests:network.length,unexpectedNetworkRequests:0,
+      realWrites:0,modelCalls:0},null,2));
   } finally {await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

@@ -52,6 +52,19 @@ is not used for this follow-up and its security rules remain unchanged.
 
 ## Next action
 
+C1 cloud portability comparison prepared under Issue #3 comment 5949449667.
+Canonical MOCK HTML at accepted68aa168 remains byte-identical; its digest and
+two-file build wrapper are recorded in docs/cloud-portability-c1.md/.json.
+Sites/Pages are OWNER_UI_REQUIRED: no authenticated supported provider surface
+or confirmed Cloudflare owner binding exposed here. Amplify is BLOCKED: existing
+GitHub OIDC provider, but zero role trusts name this repo/branch; isolated branch
+absent. Narrow symbolic policy/trust and inert manual-dispatch workflow prepared;
+no IAM/cloud changes or hosted-success claims. Dispatch registration on default
+branch is a separate owner gate; do not merge draft PR #5 to bypass it.
+Local offline desktop/mobile smoke and normal build/test/typecheck pass.
+Next: G/Amit reviews exact owner gates; no new hosting resources or Preview B
+changes are authorized by this handback alone. See C1 comparison for owner steps.
+
 ChatGPT Sites MOCK showcase PASS under Issue #3 comment 5931467199.
 The self-contained showcases/chatgpt-sites-preview-b/index.html opens offline,
 with synthetic findings, truthful fixability, bounded contextual actions,

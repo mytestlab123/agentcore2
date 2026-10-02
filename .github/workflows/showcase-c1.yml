@@ -1,0 +1,55 @@
+name: C1 MOCK Amplify proposal
+# Inert until an owner approves/provisions the narrow role and isolated branch,
+# reviews this workflow, and registers dispatch on the default branch.
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: Type DEPLOY_SYNTHETIC_C1 after owner gates are resolved
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: agentcore2-showcase-c1
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: github.repository == 'mytestlab123/agentcore2' && github.ref == 'refs/heads/issue-3/agentcore-lab' && inputs.confirm == 'DEPLOY_SYNTHETIC_C1' && vars.C1_DEPLOY_ENABLED == 'YES'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AWS_REGION: ap-southeast-1
+      C1_APP_ID: ${{ secrets.C1_AMPLIFY_APP_ID }}
+      C1_EXPECTED_ACCOUNT: ${{ secrets.C1_AWS_ACCOUNT_ID }}
+      C1_BRANCH: showcase-c1
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Validate canonical static package
+        run: python3 ops/showcase-c1.py --output "$RUNNER_TEMP/c1"
+      - name: Reject missing private deployment configuration
+        env:
+          ROLE: ${{ secrets.C1_AWS_ROLE_ARN }}
+        run: test -n "$ROLE" && test -n "$C1_APP_ID" && test -n "$C1_EXPECTED_ACCOUNT"
+      - uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502
+        with:
+          role-to-assume: ${{ secrets.C1_AWS_ROLE_ARN }}
+          aws-region: ap-southeast-1
+          mask-aws-account-id: true
+          role-session-name: agentcore2-c1-${{ github.run_id }}
+          role-duration-seconds: 900
+      - name: Deploy only pre-created isolated branch
+        # The script records sanitized deployment IDs before upload/start;
+        # it never logs the signed upload URL or creates IAM/apps/branches.
+        run: python3 ops/deploy-showcase-c1.py --bundle "$RUNNER_TEMP/c1/showcase.zip" --journal "$RUNNER_TEMP/c1-deployment.json"
+      - name: Retain bounded non-secret deployment receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: c1-deployment-${{ github.run_id }}
+          path: ${{ runner.temp }}/c1-deployment.json
+          if-no-files-found: ignore
+          retention-days: 7
