@@ -1,0 +1,86 @@
+{
+  "milestone": "Preview B v1.1",
+  "status": "PASS",
+  "checkedDate": "2026-10-01",
+  "authority": "https://github.com/mytestlab123/agentcore2/issues/3#issuecomment-5928077026",
+  "deployment": {
+    "appId": "d2rar4n3w1jdwz",
+    "branch": "main",
+    "jobId": "2",
+    "state": "SUCCEED",
+    "url": "https://main.d2rar4n3w1jdwz.amplifyapp.com",
+    "sourceSha": "e50e78d8270f844c41c7eb6b3d08457b017bec89",
+    "bundleSha256": "6a83229301bb2166ab5a9102d35f3a7a13833c0d2d9e45349288a92618b4f475",
+    "http": 200,
+    "revisionMarkerHttp": 200,
+    "revisionMarkerPreview": "b",
+    "identity": "approved personal LAB validated locally with amit in ap-southeast-1",
+    "existingAppOwnership": "verified before deployment",
+    "durableJobJournal": "retained in existing owner-private execution state",
+    "newAppsOrRuntimes": 0
+  },
+  "validation": {
+    "fullRepoBuild": "PASS",
+    "fullRepoTypecheck": "PASS",
+    "contractTests": { "passed": 23, "failed": 0 },
+    "pythonTests": { "passed": 9, "failed": 0 },
+    "chromiumOnDeployedB": {
+      "status": "PASS",
+      "themeToggleAndPreferencePersistence": true,
+      "manualAndAutomatedColumnAndFilters": true,
+      "compliantWithCapabilityIsNotAutomated": true,
+      "statusSearchCombinedWithFixability": true,
+      "contextualSummary": true,
+      "rejectedRunAbsentTimelineSteps": 5,
+      "approvedRunRecordedTimelineSteps": 5,
+      "timelineEvidenceMode": "MOCK",
+      "modelPickerUnchanged": true,
+      "defaultModel": "apac.amazon.nova-lite-v1:0",
+      "browserPersistedKeys": ["preview-b-theme"],
+      "awsCalls": 0,
+      "proofCommand": "node ops/preview-b-proof.cjs https://main.d2rar4n3w1jdwz.amplifyapp.com"
+    },
+    "bridgeGuardsOffline": {
+      "status": "PASS",
+      "directDellHost": 200,
+      "forwardedWindowsHost": 200,
+      "forwardedPreflight": 204,
+      "anonymousMutation": 401,
+      "foreignOrigin": 403,
+      "foreignHost": 403,
+      "foreignHostPreflight": 403,
+      "unknownModel": 400,
+      "sdkCalls": 0
+    },
+    "nativeWindowsBrowser": {
+      "status": "PASS",
+      "platform": "win32",
+      "browser": "native Windows Chrome",
+      "previewHTTP": 200,
+      "authenticatedBridgeHTTP": 200,
+      "browserBridgeURL": "http://127.0.0.1:8443",
+      "transport": "Windows OpenSSH local forward to Dell loopback port 8703",
+      "tokenPreparation": "ops/windows-bridge.py; 32 random bytes; exclusive owner-private file",
+      "operation": "authenticated runtime evidence only; existing LAB identity checked on Dell",
+      "modelInvocations": 0,
+      "remediationCalls": 0,
+      "tokenArtifacts": "none",
+      "ownedBridgeAndTunnel": "stopped",
+      "exactOwnedEphemeralToken": "removed after bridge stopped",
+      "proofCommand": "node ops/bridge-browser-proof.cjs <existing Playwright module>; secret stdin only"
+    }
+  },
+  "otherPreviews": {
+    "A": { "http": 200, "sourceSha": "87f468b9eedba18dc039cab269661badccc71d66", "redeployed": false },
+    "C": { "http": 200, "sourceSha": "87f468b9eedba18dc039cab269661badccc71d66", "redeployed": false }
+  },
+  "limits": [
+    "Timeline UX proof uses actual mock-backend run records, explicitly labelled MOCK; no new live remediation claim.",
+    "F4 canary remains deleted. Authenticating the bridge does not restore live canary findings.",
+    "Theme is the only persisted browser preference; token and bridge URL stay in memory.",
+    "Private SDK/browser/build scratch retained for evidence and repeatability; no automatic deletion.",
+    "Prior retained-resource review and unreconciled total billing remain unchanged.",
+    "PR #5 remains draft/open/unmerged; Kiro is review-only."
+  ],
+  "blockers": []
+}

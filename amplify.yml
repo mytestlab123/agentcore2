@@ -1,0 +1,64 @@
+version: 1
+# Amplify Hosting build convention for the AgentCore experiment lab.
+#
+# Each preview app is a static SPA under apps/<name>, built from the shared
+# workspace so it consumes @agentcore2/contracts. Amplify preview branches map
+# 1:1 to preview apps (branch/preview strategy in ARCHITECTURE.md). Point the
+# Amplify app's monorepo "app root" at apps/<name> per preview, or override
+# appRoot per branch.
+#
+# No AWS credentials are needed to build a MOCK preview — the mock backend is
+# bundled. LIVE_LAB previews receive backend endpoints via Amplify environment
+# variables at build/runtime, never committed secrets.
+applications:
+  - appRoot: apps/preview-a
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm ci --workspaces --include-workspace-root
+            - npm run build -w @agentcore2/contracts
+        build:
+          commands:
+            - npm run build -w @agentcore2/preview-a
+      artifacts:
+        baseDirectory: apps/preview-a/dist
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+  - appRoot: apps/preview-b
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm ci --workspaces --include-workspace-root
+            - npm run build -w @agentcore2/contracts
+        build:
+          commands:
+            - npm run build -w @agentcore2/preview-b
+      artifacts:
+        baseDirectory: apps/preview-b/dist
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+  - appRoot: apps/preview-c
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm ci --workspaces --include-workspace-root
+            - npm run build -w @agentcore2/contracts
+        build:
+          commands:
+            - npm run build -w @agentcore2/preview-c
+      artifacts:
+        baseDirectory: apps/preview-c/dist
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*

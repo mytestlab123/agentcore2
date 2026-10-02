@@ -1,0 +1,10 @@
+{
+  "source": "Amit AWS pricing screen; Issue #3 comment 5924807689",
+  "date": "2026-10-01",
+  "units": "USD per million tokens; input cost index relative to Micro, not total request cost",
+  "models": [
+    {"id": "apac.amazon.nova-micro-v1:0", "label": "Nova Micro — Economy", "route": "APAC", "input": 0.047, "output": 0.188},
+    {"id": "apac.amazon.nova-lite-v1:0", "label": "Nova Lite — Default", "route": "APAC", "input": 0.081, "output": 0.324},
+    {"id": "global.amazon.nova-2-lite-v1:0", "label": "Nova 2 Lite — Enhanced", "route": "Global", "input": 0.41, "output": 3.39}
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "milestone": "Demo Readiness E2E",
+  "status": "PASS",
+  "authority": "https://github.com/mytestlab123/agentcore2/issues/3#issuecomment-5929211062",
+  "validation": {
+    "build": "PASS",
+    "typecheck": "PASS",
+    "contractTests": 23,
+    "pythonTests": 12,
+    "cleanDellScratchMissingHarnessJson": {
+      "status": "PASS",
+      "diagnostic": "PRECHECK_FAILED: harness.json missing or unsafe",
+      "beforeBridgeAndBrowser": true
+    },
+    "offlineBridgeGuardsAndReadiness": "PASS; no SDK client calls",
+    "browserDiagnostics": {
+      "status": "PASS",
+      "cases": ["unreachable", "authentication rejected", "origin/host rejected", "runtime preflight/server error"],
+      "rawDetailsRendered": false
+    },
+    "exactTokenAndAccountScan": "PASS"
+  },
+  "windowsLifecycle": {
+    "status": "PASS",
+    "command": "py ops/windows-bridge.py --root <private root> --state <private state> --python <Dell SDK Python> --token-file <owner-private token> --tunnel --smoke --playwright-module <existing module>",
+    "nativeWindowsPython": true,
+    "nativeWindowsOpenSSH": true,
+    "nativeWindowsChrome": true,
+    "freshCoherentBundleStartup": "PASS",
+    "exactOwnedBridgeReuse": "PASS",
+    "bridgePid": 2350309,
+    "bind": "127.0.0.1:8703",
+    "browserBridgeURL": "http://127.0.0.1:8443",
+    "previewHTTP": 200,
+    "badgeTransition": "MOCK -> LIVE LAB",
+    "authenticatedReadiness": true,
+    "findingState": "NO_LIVE_FINDINGS",
+    "themeToggle": true,
+    "fixabilityTableFilter": true,
+    "contextualCopilotShell": true,
+    "unexpectedBrowserErrors": 0,
+    "bridgeMethods": ["readiness"],
+    "modelInvocations": 0,
+    "tokenArtifacts": "none",
+    "tokenRotated": false,
+    "ownedSmokeTunnel": "stopped after smoke",
+    "bridge": "retained READY for owner demo",
+    "runtimeBundleSourceSha": "7ede2f35748283faabee8cd84005cbfeac37c967"
+  },
+  "deployment": {
+    "appId": "d2rar4n3w1jdwz",
+    "url": "https://main.d2rar4n3w1jdwz.amplifyapp.com",
+    "branch": "main",
+    "jobId": "4",
+    "state": "SUCCEED",
+    "sourceSha": "58a7600d6361b7807a4faa44f74f1940cbef5bc5",
+    "bundleSha256": "d76c7655aab1907a5f02918aa14090652aeac10008dd99609eaf844b490f49c0",
+    "http": 200,
+    "revisionMarkerHTTP": 200,
+    "revisionMarkerPreview": "b",
+    "priorGateFailure": "job 3 UI had a missing default favicon; native Chrome emitted 404 before connect; bundled data favicon fixes it without suppressing console checks",
+    "onlyExistingPreviewBUpdated": true,
+    "newAppRuntimeCanaryResources": 0
+  },
+  "modelAttempts": { "before": 17, "after": 17, "cap": 18, "routineModelSmoke": "disabled; separate approval required" },
+  "limits": [
+    "Readiness proves authenticated local runtime readiness, not fresh provider compliance or a model invocation.",
+    "NO_LIVE_FINDINGS comes from the existing durable canary-cleanup record; it never means COMPLIANT.",
+    "Private PID/logs, runtime scratch and existing token remain retained for the owner; no automatic cleanup.",
+    "PR #5 remains draft/open/unmerged; Kiro remains review-only."
+  ],
+  "blockers": []
+}

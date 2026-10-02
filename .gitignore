@@ -9,3 +9,14 @@ __pycache__/
 .terraform/
 .AGENTS-temp/
 tmp/
+
+# JS/TS experiment workspace (Issue #3 lab)
+node_modules/
+dist/
+dist-test/
+.next/
+out/
+build/
+*.tsbuildinfo
+.amplify/
+.amplify-hosting/
