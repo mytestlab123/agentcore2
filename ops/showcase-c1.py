@@ -14,7 +14,8 @@ DIGEST = '1bc76ab8f57090a3132e2371ff49973b5e37c29ea191044556ac2b930c50acbd'
 
 
 def build(output):
-    data = SOURCE.read_bytes()
+    # C1 compares the accepted v1.1 source, independently of later Issue 9 sync.
+    data = subprocess.check_output(['git', 'show', REFERENCE + ':' + str(SOURCE.relative_to(ROOT))], cwd=ROOT)
     if hashlib.sha256(data).hexdigest() != DIGEST:
         raise ValueError('Canonical HTML differs from approved source; obtain a new source decision')
     text = data.decode()

@@ -1,72 +1,112 @@
-# Preview B · ChatGPT Sites MOCK showcase
+# Preview B · Contextual Copilot v1.2
 
-A portable companion to Contextual Copilot v1.1. This is **MOCK SHOWCASE**:
-synthetic findings, deterministic replies and simulated evidence. It has no
-AWS, bridge, model, SDK or runtime connection. The live application is unchanged.
+The portable source of the accepted ChatGPT Work / Sites **SHOWCASE / MOCK**.
+[Open the public Site](https://contextual-copilot-mock.amit-6719.chatgpt.site/).
+All resources, proposals and evidence are synthetic. This page has no AWS,
+AgentCore, bridge, model, SDK or backend connection. The separate Amplify
+engineering demo and its source remain unchanged.
 
-## Open locally
+## Source and version
 
-Download this directory from PR #5's `issue-3/agentcore-lab` branch. Open
-`index.html` directly in a current browser (double-click works). No install,
-build, server or Internet access is required. All CSS, JS and fixture data are
-embedded in that one file; there are no fonts, images or scripts to download.
-The only external link is an explicit navigation to the separate engineering demo.
+`index.html` is a **semantic synchronization** of the three accepted v1.2.1 P1
+fixes onto the v1.2.0 Work export. Exact v1.2.1 Work export bytes are unavailable
+to this controller; byte-for-byte identity is not claimed. RELEASE.json separates
+the reported accepted Site source/version/fingerprint from this repository's
+HTML SHA-256 and local fingerprint. Release: `v1.2.1`; no Git tag is claimed.
+GUI: **Preview B · Contextual Copilot v1.2**.
+Internal hosting configuration, credentials and opaque deployment IDs are omitted.
 
-1. Select a finding; try Explain and Investigate.
-2. Choose **Require encrypted transport**, then Preview Fix → Reject: zero
-   simulated writes; the finding stays NON_COMPLIANT.
-3. Reset synthetic demo; Preview Fix → Approve Once: one simulated write,
-   separate provider readback and compliance result. The proposal is consumed.
-4. Try status/fixability/search, the illustrative three-model selector, and theme.
+The baseline package is in unmerged PR #5 at
+`68aa168f764531697ef34c472f87468ad738e36a`. Issue #9's single source-sync PR
+targets `issue-3/agentcore-lab` from that exact commit. This preserves the baseline
+without duplicating the lab changes in a second PR against main. PR #10 now
+incorporates the newer Issue #3/C1 base so it can merge into that branch cleanly.
+G merges #10 into issue-3 first, reconciles main into #5, runs final validation,
+then merges #5. X performs no merges on GitHub. No PR retarget is needed.
 
-AUTOMATED is derived only from NON_COMPLIANT plus remediationCapabilityId;
-otherwise MANUAL. Approval changes only in-memory mock state. Reload/reset
-restores fixtures. No state is saved to browser storage.
+## Demo in five minutes
 
-## Use with ChatGPT Sites
+1. Open `index.html` directly in a browser, or open the Site. No install, server,
+   build or Internet connection is required for the downloaded page.
+2. Open **Commands** (Ctrl+K), search `s3 bpa`, and choose the BPA filter.
+3. Open Commands again, search `1000`, and select up to 1,000 compatible findings.
+   Selection is only preparation; it never approves or executes a fix.
+4. **Preview Fix** freezes exact target IDs, accounts, regions, revisions and
+   fixed parameters. Expand the target list or download the full snapshot.
+5. **Reject** consumes the proposal: zero simulated and real writes, unchanged
+   findings. The Change tab shows a consumed decision; Evidence records the run.
+6. Reset, repeat, and **Approve Once**. Progress and five evidence stages show
+   simulated writes, separate provider readback and separate compliance result.
+7. Under **Learn / Demo**, enable every-17th-target blocking before previewing.
+   A 1,000-target approval yields 942 verified / 58 blocked, with no auto retry.
+8. Try filters, search `ssh`, account scope, sortable columns, pagination,
+   row selection, inspector, Context/Change/Evidence tabs and light/dark themes.
 
-1. In Amit's ChatGPT workspace, select **@Sites** if that integration is available.
-2. Attach `index.html` as the implementation reference. If the composer will not
-   accept HTML, paste its complete contents into the conversation as a code block.
-3. Copy the entire contents of `site-prompt.md` into the same message and send it.
-4. Explicitly ask to **save a version without deploying it**. Review the MOCK
-   badge, synthetic data, all controls and approve/reject timeline before
-   choosing any deployment/publish action yourself.
-5. Keep this package as the authoritative reference. If Sites cannot import or
-   preserve the file directly, ask it to reproduce the same static behavior from
-   the attached source; do not add a backend to work around import limitations.
+## Honest scale and bounded behavior
 
-These are source handoff instructions, not a claim that Sites supports a specific
-upload/import button or an automated deployment API. Integration availability
-and the actual generated site's behavior must be checked in Amit's workspace.
-**No Site was created or published by this mission.**
-Official [OpenAI Sites guidance](https://learn.chatgpt.com/docs/sites) supports
-starting with @Sites and adding reference files, and says deployment URLs are
-production deployments. The prompt therefore requests a saved version without
-deployment. Exact raw HTML import compatibility still needs workspace review.
+The baseline contains **58 invented LAB accounts and 49,476 unique resources**:
+32,076 S3 buckets, 10,440 security groups and 6,960 EC2 instances. Each resource
+has one illustrative control finding; this is not a complete compliance scan.
+Baseline S3 counts vary deterministically from 100–1,000 per account. The
+uniform scenario can reach 75,400 records. Only 25 findings render per page.
+Overview values describe the entire synthetic inventory; table values describe
+filtered matches. These counts are computed from records, not cosmetic numbers.
 
-## Files and proof
+A batch shares resource type, control, registered mock capability and fixed
+parameter version. Only actionable NON_COMPLIANT findings can be selected.
+Page selection, all compatible matches and the up-to-1,000 command are distinct.
+Changing filters/context cancels pending authority. A consumed or stale proposal
+cannot execute. A model choice changes neither target scope nor approval.
+Current finding state is separate from the last run's exact scope. Replay only
+highlights recorded evidence; it never performs another simulated write.
 
-- `index.html`: standalone implementation and synthetic fixture.
-- `site-prompt.md`: one copy/paste request for @Sites.
-- `ARCHITECTURE.md`: showcase boundary and real engineering architecture.
-- `smoke.cjs`: one focused offline Playwright check.
-- `proof.json`: sanitized local Chromium render/interaction receipt, not proof
-  that a generated ChatGPT Site has been imported, tested or published.
+The three Nova choices show an illustrative **Input Cost Index**, not total
+request cost, and invoke no model. The assistant uses a compact deterministic
+transcript. A finding (or explicit compatible selection) is the context;
+there is no generic chatbot composer.
 
-To repeat with an existing local Playwright installation and Chromium:
+## Files and checks
+
+- `index.html`: semantic v1.2.1 P1 sync of the Work single-file source, CSS/JS.
+- `RELEASE.json`: version, source identity and rollback mapping.
+- `check-state.cjs`: actual page script tested in a Node VM/minimal DOM harness.
+- `smoke.cjs`: offline desktop/mobile Playwright smoke and network/error checks.
+- `proof.json`: sanitized evidence with separate PASS and unverified results.
+- `ARCHITECTURE.md`: explanation of the separate engineering system.
+- `site-prompt.md`: reusable Work / @Sites instruction for this UI.
+- `evidence/desktop-light.jpg`: inspected public Site desktop screenshot.
+- [Reusable MOCK-first practice](../../docs/mock-first-ui-pattern.md).
+
+To run with existing Node and Playwright tooling:
 
 ```sh
+node showcases/chatgpt-sites-preview-b/check-state.cjs
 node showcases/chatgpt-sites-preview-b/smoke.cjs
 ```
 
-Or pass the local Playwright module path as the first argument. Playwright is
-validation tooling only; opening or using the showcase requires no dependencies.
-For an already installed Chromium at a different version, set SHOWCASE_BROWSER
-to its executable path rather than installing another browser for this package.
-The smoke opens a file URL with browser networking offline and verifies filters,
-bounded actions, manual refusal, reject-zero-write, approve-once, separate evidence,
-model labels, themes and mobile layout. No live engineering endpoint is fetched.
+The smoke accepts an installed Playwright module path as its first argument.
+`SHOWCASE_BROWSER` may point to an already-installed Chromium executable.
+No browser or dependency is installed by the showcase itself. Playwright is
+test tooling only. The smoke keeps browser networking offline and opens a file
+URL; it never navigates to the engineering demo.
 
-Authority: [Issue #3 approval](https://github.com/mytestlab123/agentcore2/issues/3#issuecomment-5931467199).
-Delivery remains in [PR #5](https://github.com/mytestlab123/agentcore2/pull/5), draft/open/unmerged.
+Node VM state/safety checks include high-page reset for all seven filters/search,
+unchanged-refresh pagination preservation, named retained context and concise
+no-run/pending-proposal evidence with all five stage labels. The current receipt
+is proof.json; historical v1.2.0 evidence is retained separately. The published
+v1.2.1 TinyFish run did not fully verify Reject/pagination/theme/mobile; no local
+result upgrades that public-Site result. Amit explicitly waived true mobile
+browser proof as a closeout blocker. It is owner-waived, not an invented PASS.
+Any local offline browser result is separate from the public Work Site.
+
+## Rollback and updates
+
+Keep the existing Site and its saved versions. Roll back by redeploying saved
+Site version 3 (source `4dca2e145032a3dcd4fba77998c86ffc42a73a7d`) using @Sites,
+preserving the audience currently set by the owner. Do not reset Git history.
+The owner made the Site public on 2026-10-01; that audience was verified,
+not changed by this source sync. Publishing future edits follows the owner's
+current explicit instructions. Repository merging still needs explicit approval.
+
+Authority: [Issue #9](https://github.com/mytestlab123/agentcore2/issues/9), plus
+Amit's accepted Work v1.2 expansion and request for code, docs and one PR.

@@ -1,30 +1,80 @@
 {
-  "authority": "https://github.com/mytestlab123/agentcore2/issues/3#issuecomment-5931467199",
-  "status": "PASS",
-  "mode": "MOCK SHOWCASE",
-  "validation": "Local Playwright Chromium; file URL, offline browser context; inspected desktop screenshot",
-  "offlineFileRender": true,
-  "filters": ["status", "fixability", "search"],
-  "manualFixDisabled": true,
-  "contextActions": true,
-  "rejectSimulatedWrites": 0,
-  "approveSimulatedWrites": 1,
-  "oneDecisionPerProposal": true,
-  "selectionClearsPendingProposal": true,
-  "separateReadbackAndCompliance": true,
-  "evidenceSteps": 5,
-  "modelLabelsAndCostIndices": true,
-  "modelSelectionPreservesApproval": true,
-  "theme": ["dark", "light"],
-  "mobileWidth": 390,
-  "unexpectedBrowserErrors": 0,
-  "networkRequests": 0,
-  "realWrites": 0,
-  "modelCalls": 0,
-  "packageSecretAccountPrivateAddressScan": "PASS",
-  "interactionNetworkApiScan": "PASS",
-  "livePreviewSourceChanged": false,
-  "liveDeploymentChanged": false,
-  "siteCreatedOrPublished": false,
-  "scope": "Proof of local static reference only; generated Sites import/render not yet attempted"
+  "authority": "https://github.com/mytestlab123/agentcore2/issues/9#issuecomment-5949698282",
+  "release": "v1.2.1",
+  "overallStatus": "PASS \u2014 repository semantic source sync; public browser limits retained; mobile proof owner-waived",
+  "source": {
+    "acceptedSiteSourceCommit": "219515a8514b1a9e058458087fbed6b2f7484f74",
+    "savedSiteVersion": 4,
+    "sourceSyncMode": "SEMANTIC_P1_SYNC",
+    "portableHtmlEqualsAcceptedSource": false,
+    "exactWorkExportAvailable": false,
+    "htmlSha256": "96f34f4159c11467433968b117b2d66169f08548ca00c8e826c27e7a5e5110b9",
+    "guiSourceFingerprint": "ecdf013642a4d8c4bd2c217bc7f9eba0ff474d9d0344c631065fa8e37f2bfc24",
+    "acceptedSiteFingerprintPrefix": "15b9d93b5f"
+  },
+  "stateHarness": {
+    "status": "PASS",
+    "method": "Actual inline script in Node VM/minimal DOM; not browser proof",
+    "p1ChangedFilterResetCount": 7,
+    "unchangedRefreshPreservesPagination": true,
+    "retainedContextNamesSelectedResource": true,
+    "resourceSelectionChangesContext": true,
+    "conciseNoRunPendingProposalNote": true,
+    "fiveEvidenceLabelsRetained": true,
+    "approve1000SimulatedWrites": 1000,
+    "reject1000SimulatedWrites": 0,
+    "partial1000Blocked": 58,
+    "snapshotReplayStaleTargetGuards": "PASS",
+    "sourceSafetyScan": "PASS"
+  },
+  "publicSites": {
+    "evidenceRef": "https://github.com/mytestlab123/agentcore2/issues/9#issuecomment-5940733659",
+    "reportedSource": "219515a8514b1a9e058458087fbed6b2f7484f74",
+    "status": "NOT FULLY VERIFIED \u2014 historical TinyFish run; not retested by X",
+    "approveOnce": "PASS reported",
+    "reject": "INCOMPLETE reported",
+    "paginationThemeMobile": "UNVERIFIED reported"
+  },
+  "mobileAcceptance": {
+    "state": "OWNER_WAIVED_NOT_BLOCKING",
+    "authority": "Current Amit closeout mission and Issue 9 comment 5949698282",
+    "notBrowserProof": true
+  },
+  "historicalV120Receipt": "evidence/v1.2.0-proof.json",
+  "safety": {
+    "realWrites": 0,
+    "modelCalls": 0,
+    "livePreviewChanged": false,
+    "sitePublishedOrEdited": false,
+    "cloudMutation": false,
+    "accountSecretPrivateIdentifierScan": "PASS"
+  },
+  "repoValidation": {
+    "build": "PASS",
+    "contractTests": 23,
+    "harnessTests": 12,
+    "typecheck": "PASS",
+    "smokeSyntax": "PASS",
+    "offlineBrowser": "PASS \u2014 local file only; not published Site proof",
+    "offlineBrowserViewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "completeLocalJsonDownloads": true,
+    "localP1FilterResetCount": 7,
+    "localNetworkRequests": 0,
+    "localBrowserErrors": 0,
+    "c1PinnedSourceBundleAndSmoke": "PASS"
+  },
+  "closeout": {
+    "githubPrMergedByX": false,
+    "pr10BaseReconciled": "bb95e9547597138ef1657eef311137e35f9b586d",
+    "next": "G merge PR10 into issue-3 -> reconcile main into PR5 -> final validation -> G merge PR5"
+  }
 }

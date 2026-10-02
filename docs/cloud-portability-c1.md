@@ -13,7 +13,9 @@ change occurred. Machine-readable evidence: [cloud-portability-c1.json](cloud-po
 Canonical source: `showcases/chatgpt-sites-preview-b/index.html`, accepted commit
 `68aa168f764531697ef34c472f87468ad738e36a`. Exact HTML SHA-256:
 `1bc76ab8f57090a3132e2371ff49973b5e37c29ea191044556ac2b930c50acbd`.
-The HTML remains byte-identical. Only packaging, validation and provider setup
+The C1 accepted reference remains byte-identical. Issue #9 separately syncs v1.2.1
+into the current package path; C1 now reads its frozen accepted Git source rather
+than treating that newer product as the original C1 experiment. Only wrappers
 wrappers change. `ops/showcase-c1.py` checks that digest and the MOCK/no-AWS
 wording, scans the HTML and emits only `public/index.html`, `public/revision.json`
 and a zip of those two files. The marker separates the accepted product commit
@@ -73,7 +75,7 @@ Exact proposed settings:
 - Production branch: `issue-3/agentcore-lab`; disable other branch previews to
   respect the one-public-URL experiment envelope. Use only the stable project URL.
 - Root: repository root; framework preset: None.
-- Build command: `python3 ops/showcase-c1.py --output .c1-build`.
+- Build command: `git fetch origin 68aa168f764531697ef34c472f87468ad738e36a --depth=1 && python3 ops/showcase-c1.py --output .c1-build`.
 - Build output: `.c1-build/public`; environment `SKIP_DEPENDENCY_INSTALL=1`.
 - No Functions, Workers, custom DNS, secrets or backend bindings.
 
@@ -147,7 +149,7 @@ served HTML SHA-256 with the digest above, then run the existing smoke against
 the actual HTTPS root URL (including trailing slash):
 
 ```sh
-SHOWCASE_URL="<ACTUAL_VERIFIED_HTTPS_ROOT_URL>" node showcases/chatgpt-sites-preview-b/smoke.cjs
+SHOWCASE_URL="<ACTUAL_VERIFIED_HTTPS_ROOT_URL>" node ops/showcase-c1-smoke.cjs
 ```
 
 Browser tooling is a validation dependency only. Run it in a hosted CI or owner
@@ -155,6 +157,10 @@ environment with Playwright/Chromium available; no permanently running Home is
 needed for the static build or deployed page. Logs/URLs must never contain signed
 upload URLs/private state. Record each actual URL/revision/result in the evidence
 file only after provider readback. Reconcile job IDs before retrying mutations.
+For local C1 proof, set C1_STATIC_HTML to the built public/index.html when running
+ops/showcase-c1-smoke.cjs. The separate v1.2.1 smoke remains with the current
+showcase package. The proposed Actions checkout retains history for the pinned
+source; Pages fetches that exact public reference before its stdlib packaging.
 
 ## Cost boundary and recommendation
 

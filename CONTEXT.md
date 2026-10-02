@@ -52,6 +52,20 @@ is not used for this follow-up and its security rules remain unchanged.
 
 ## Next action
 
+Issue #9 closeout: portable v1.2.1 now semantically syncs exactly the three
+accepted P1 fixes from comment 5940733659. Exact Work v1.2.1 export bytes are
+unavailable; RELEASE/proof explicitly distinguish accepted Site version4/source
+219515a from repository HTML/fingerprint. Seven high-page filter regressions,
+unchanged refresh, named retained Copilot context and concise empty evidence
+are covered by deterministic state/safety checks. True mobile browser proof is
+owner-waived as a closeout blocker under current direct authority and comment
+5949698282; no public-Site browser PASS is inferred from Node VM evidence.
+PR #10 incorporates current bb95e95 base, preserving Issue #3/C1. C1 still
+packages the accepted68aa168 source through its own pinned wrapper/smoke.
+Next: G merges #10 into issue-3, reconciles main bootstrap/context into #5,
+reruns final validation, then merges #5. X does not merge GitHub PRs.
+Main reconciliation plan: docs/repository-closeout.md. No cloud/model/Sites work.
+
 C1 cloud portability comparison prepared under Issue #3 comment 5949449667.
 Canonical MOCK HTML at accepted68aa168 remains byte-identical; its digest and
 two-file build wrapper are recorded in docs/cloud-portability-c1.md/.json.
