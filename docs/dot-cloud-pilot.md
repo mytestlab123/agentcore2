@@ -1,5 +1,13 @@
 # Dot cloud pilot — Issue #12
 
+2026-10-03 reconciliation: PR #13 merged at
+`098e0254c2d5167a985073f0dc40dccf731c183b`. Final pilot head
+`17feaeb58a4a6747efaf856482b88574e5942b4c` passed
+[CI 37018552864](https://github.com/mytestlab123/agentcore2/actions/runs/37018552864)
+(fast 38 s; browser 75 s). Later draft/open wording is historical.
+[Issue #14](https://github.com/mytestlab123/agentcore2/issues/14) owns repository-only
+deployment readiness; no live-deployment authority transfers from pilot PASS.
+
 Status: **cloud-only pilot PASS**, with draft PR #13 open and both CI lanes passing. Earlier blocked-access records below are historical.
 
 ## Current saved-environment continuation (2026-10-02)

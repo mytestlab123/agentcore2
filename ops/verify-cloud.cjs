@@ -6,8 +6,8 @@ const root = join(__dirname, '..');
 process.chdir(root);
 const lane = process.argv[2] || 'fast';
 function fail(message) { console.error(message); process.exit(2); }
-if (!['fast', 'browser'].includes(lane) || process.argv.length > 3)
-  fail('Usage: npm run verify:cloud -- [fast|browser]');
+if (!['fast', 'browser', 'deployment'].includes(lane) || process.argv.length > 3)
+  fail('Usage: npm run verify:cloud -- [fast|browser|deployment]');
 if (Number(process.versions.node.split('.')[0]) < 20) fail('MISSING prerequisite: Node >=20');
 function run(command, args) {
   const start = Date.now();
@@ -23,6 +23,9 @@ if (lane === 'fast') {
   run('python3', ['--version']);
   for (const name of ['build', 'test', 'typecheck']) run('npm', ['run', name]);
   run(process.execPath, ['showcases/chatgpt-sites-preview-b/check-state.cjs']);
+} else if (lane === 'deployment') {
+  run('python3', ['-m', 'unittest', 'discover', '-s', 'ops/tests', '-v']);
+  console.log('Deployment: NOT_RUN (offline checks only; no AWS identity or hosting proof).');
 } else {
   const modulePath = join(root, 'tools/browser/node_modules/playwright-core');
   if (!existsSync(join(modulePath, 'package.json')))

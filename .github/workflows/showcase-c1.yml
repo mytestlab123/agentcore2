@@ -1,6 +1,6 @@
 name: C1 MOCK Amplify proposal
 # Inert until an owner approves/provisions the narrow role and isolated branch,
-# reviews this workflow, and registers dispatch on the default branch.
+# reviews the exact revision and separately authorizes one manual dispatch.
 on:
   workflow_dispatch:
     inputs:
@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   deploy:
-    if: github.repository == 'mytestlab123/agentcore2' && github.ref == 'refs/heads/issue-3/agentcore-lab' && inputs.confirm == 'DEPLOY_SYNTHETIC_C1' && vars.C1_DEPLOY_ENABLED == 'YES'
+    if: github.repository == 'mytestlab123/agentcore2' && github.ref == 'refs/heads/deploy/showcase-c1' && inputs.confirm == 'DEPLOY_SYNTHETIC_C1' && vars.C1_DEPLOY_ENABLED == 'YES' && github.sha == vars.C1_APPROVED_REVISION
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
@@ -26,12 +26,18 @@ jobs:
       C1_APP_ID: ${{ secrets.C1_AMPLIFY_APP_ID }}
       C1_EXPECTED_ACCOUNT: ${{ secrets.C1_AWS_ACCOUNT_ID }}
       C1_BRANCH: showcase-c1
+      C1_AWS_ROLE_ARN: ${{ secrets.C1_AWS_ROLE_ARN }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
+          persist-credentials: false
+      - name: Fetch exact accepted C1 source
+        run: git fetch origin 68aa168f764531697ef34c472f87468ad738e36a --depth=1
       - name: Validate canonical static package
         run: python3 ops/showcase-c1.py --output "$RUNNER_TEMP/c1"
+      - name: Offline artifact preflight before requesting credentials
+        run: python3 ops/c1_preflight.py --bundle "$RUNNER_TEMP/c1/showcase.zip" --expected-revision "$GITHUB_SHA"
       - name: Reject missing private deployment configuration
         env:
           ROLE: ${{ secrets.C1_AWS_ROLE_ARN }}

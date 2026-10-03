@@ -1,5 +1,10 @@
 # C1 — same MOCK source, three hosting paths
 
+2026-10-03: Historical comparison. PR #5 and PR #13 are now merged.
+The [Issue #14 readiness packet](cloud-deployment-readiness.md) supersedes the
+old execution branch, legacy-only trust subject and workflow-registration gates
+below. Provider findings remain historical, not current identity/hosting proof.
+
 Authority: [G GO](https://github.com/mytestlab123/agentcore2/issues/3#issuecomment-5949449667).
 PR #5 remains draft/open/unmerged. X/core2 implements; Kiro is review-only.
 

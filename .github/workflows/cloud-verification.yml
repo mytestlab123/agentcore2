@@ -17,6 +17,10 @@ jobs:
           node-version: '24.19.0'
       - run: npm ci --no-audit --no-fund
       - run: npm run verify:cloud -- fast
+      - name: Fetch exact accepted C1 source
+        run: git fetch origin 68aa168f764531697ef34c472f87468ad738e36a --depth=1
+      - name: Offline deployment readiness
+        run: npm run verify:cloud -- deployment
   browser:
     runs-on: ubuntu-24.04
     timeout-minutes: 15

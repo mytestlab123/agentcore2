@@ -6,7 +6,7 @@
     "Action": "sts:AssumeRoleWithWebIdentity",
     "Condition": {"StringEquals": {
       "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-      "token.actions.githubusercontent.com:sub": "repo:mytestlab123/agentcore2:ref:refs/heads/issue-3/agentcore-lab"
+      "token.actions.githubusercontent.com:sub": "${APPROVED_EXACT_GITHUB_SUB}"
     }}
   }]
 }
