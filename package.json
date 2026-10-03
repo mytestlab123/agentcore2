@@ -13,7 +13,8 @@
     "test": "npm run contracts:build && npm run test --workspaces --if-present && npm run harness:test",
     "harness:test": "python3 -m unittest discover -s harness -v",
     "typecheck": "npm run contracts:build && npm run typecheck --workspaces --if-present",
-    "contracts:test": "npm run test -w @agentcore2/contracts"
+    "contracts:test": "npm run test -w @agentcore2/contracts",
+    "verify:cloud": "node ops/verify-cloud.cjs"
   },
   "engines": {
     "node": ">=20"

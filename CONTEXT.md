@@ -1,5 +1,29 @@
 # Current context
 
+## Issue #12 cloud pilot update (2026-10-02)
+
+PR #5 is merged at `e2f64c522b005ada178c2c98fc2318dac2ab7dcd`, confirmed
+by Issue #12's gate-release comment 5950622930 and current remote main.
+The older Issue #3 closeout/unmerged statements below are historical.
+
+The new saved cloud environment's original GitHub CLI repository read succeeded
+with its existing configured credentials. No alternate route or authentication
+was used. The preserved Issue #12 patch was restored exactly from the approved
+base and committed as `d0ce9c9`; this preserves file content, not original commit
+identities. Transfer length/SHA256 and original base/head are recorded in
+[the pilot evidence](docs/dot-cloud-pilot.md). Root npm ci and the complete fast lane passed in this task (23 contract +
+12 Python tests, build, typecheck and state/safety).
+The fast/browser verification lanes and read-only PR workflow are prepared.
+Cloud-environment browser installation remains owner-deferred; CI browser
+execution is approved. Draft PR #13 is open. Cloud verification run 37018266868 passed both fast
+(29 s) and browser (52 s) at `6fa16b3d04591edebf18789adbcc974a3bdcf18d`.
+Desktop/mobile browser smoke reported one local document request and zero
+unexpected requests, browser errors, model calls or real writes. Phase 1 PASS;
+next action is owner review of the draft PR, with no merge authorization.
+The final documentation-only head and its CI result are in the PR/handoff.
+No AWS, IAM, OIDC, deployment, live Preview B, Home/office work or merge belongs
+to this task.
+
 Authority: Issue #3 and [G executor decision](https://github.com/mytestlab123/agentcore2/issues/3#issuecomment-5923329299).
 Repository: mytestlab123/agentcore2. Final closeout branch: issue-3/agentcore-lab.
 Primary PR: #5. PR #10 is merged into this branch. Owner explicitly authorized

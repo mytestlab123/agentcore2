@@ -3,6 +3,7 @@
 .env.*
 !.env.example
 *.log
+artifacts/showcase/
 node_modules/
 __pycache__/
 .pytest_cache/
