@@ -10,9 +10,12 @@ below are historical. Issue #12 remains open; this task does not close it.
 Issue #14 starts from that merged main. Existing Issue #7 / draft PR #8 stays
 independent and unchanged. Repository-only C1 deployment readiness is active:
 shared preflight, offline tests, existing workflow reuse and an owner approval
-packet. No live deployment or AWS access is authorized. Next: verify preparation
-CI, then owner review of the separate private identity/trust/target/revision
-gates in [the packet](docs/cloud-deployment-readiness.md). No merge or activation.
+packet. Draft PR #15 implementation head `f8763c27eeaa4fcab6b03f2ce339e77e540cfbc5`
+passed CI 37116329915: fast with 14 offline preflight tests, plus browser.
+Repository preparation PASS; live identity/OIDC/deployment NOT_RUN. Next: owner
+review of the private identity/trust/target/revision gates in
+[the packet](docs/cloud-deployment-readiness.md). No merge or activation.
+Final documentation head and its CI are recorded in PR #15 and the handoff.
 
 ## Issue #12 cloud pilot update (2026-10-02)
 

@@ -1,6 +1,6 @@
 # Cloud deployment readiness — Issue #14
 
-**Repository preparation only. AWS identity, OIDC exchange, deployment and hosted
+**Repository preparation PASS. AWS identity, OIDC exchange, deployment and hosted
 acceptance: NOT_RUN.** This document supersedes the old C1 execution-branch and
 assumed-subject instructions; it does not apply cloud configuration.
 
@@ -115,5 +115,12 @@ owner acceptance; never delete the shared app or live main branch.
 - Deployment lane PASS (14 tests, 0.27 s including interpreter overhead).
 - Python/Node syntax, YAML permission/activation-gate checks, diff whitespace,
   unchanged canonical HTML/service policy/root lockfile checks PASS.
-- Exact-head CI is pending publication; its run/head will be recorded in the PR
-  and closing evidence. Preparation acceptance does not close the later live gate.
+- Draft [PR #15](https://github.com/mytestlab123/agentcore2/pull/15), implementation
+  head `f8763c27eeaa4fcab6b03f2ce339e77e540cfbc5`: both jobs passed in
+  [CI run 37116329915](https://github.com/mytestlab123/agentcore2/actions/runs/37116329915).
+  Fast (including preflight tests) 40 s; browser 63 s. Existing action-runtime
+  deprecation warning is nonblocking. Failure artifact upload was SKIPPED because
+  smoke passed; failure capture remains unexercised.
+- This closing evidence change is documentation-only; final head and its CI are
+  recorded in the PR description/final handoff to avoid a self-referential SHA.
+  Preparation acceptance does not close the later live gate.
