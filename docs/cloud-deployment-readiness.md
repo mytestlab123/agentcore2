@@ -1,5 +1,11 @@
 # Cloud deployment readiness — Issue #14
 
+2026-10-04: PR #15 merged at `41bd3a3e0dc6bacbd5db7318fbab32f38487be98`.
+Its final head `3c784aed0c080b390650ea323b58ccb34e2167a5` passed
+[CI 37116441432](https://github.com/mytestlab123/agentcore2/actions/runs/37116441432).
+[Issue #16 recovery guidance](cloud-deployment-recovery.md) adds offline receipt
+inspection and observation-only resume; private activation gates here remain.
+
 **Repository preparation PASS. AWS identity, OIDC exchange, deployment and hosted
 acceptance: NOT_RUN.** This document supersedes the old C1 execution-branch and
 assumed-subject instructions; it does not apply cloud configuration.
