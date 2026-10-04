@@ -6,8 +6,11 @@ PR #15 merged at `41bd3a3e0dc6bacbd5db7318fbab32f38487be98`; this is the
 clean base for Issue #16. Earlier draft/open wording below is historical.
 The helper now has bound versioned receipts, offline inspection and an
 observation-only resume path; synthetic lifecycle tests check no duplicate writes.
-Parent #14 remains preparation, not live acceptance. Next: verify full tests/CI
-and hand back one draft PR, then owner review of the remaining private gates in
+Parent #14 remains preparation, not live acceptance. Draft PR #17 implementation
+head `313674d94e4351f6fc791f5933a261a0b538b427` passed CI 37165163502:
+fast with 31 preflight/recovery tests, plus browser. Repository milestone PASS;
+live recovery/deployment NOT_RUN. Final documentation head and CI are recorded
+in PR #17/handoff. Next: owner review of remaining private gates in
 [the recovery guide](docs/cloud-deployment-recovery.md). No activation or merge.
 
 ## Issue #14 deployment readiness (2026-10-03)

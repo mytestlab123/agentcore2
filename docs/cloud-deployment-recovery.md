@@ -126,4 +126,13 @@ tests 4.00 s; typecheck 5.67 s; state/safety 6.01 s. Deployment lane PASS:
 31 tests (14 existing + 17 recovery), 0.47 s including interpreter overhead.
 Python compilation and diff whitespace PASS. Workflow/IAM templates, root
 lockfile and canonical product HTML are unchanged from the approved base.
-Exact-head hosted CI is pending publication; no live result is implied.
+Draft [PR #17](https://github.com/mytestlab123/agentcore2/pull/17), implementation
+head `313674d94e4351f6fc791f5933a261a0b538b427`, passed both jobs in
+[CI 37165163502](https://github.com/mytestlab123/agentcore2/actions/runs/37165163502):
+fast including 31 deployment tests 32 s; browser 55 s. Repository milestone PASS;
+no live result is implied. The existing action-runtime deprecation warning is
+nonblocking. Browser failure-artifact upload was SKIPPED because smoke passed.
+This closing evidence update changes documentation only; final head and its CI
+are recorded in the PR description/handoff rather than a self-referential SHA.
+Next gate remains owner review of the private identity/target/budget/lifecycle
+and activation packet in #14. No merge, live observation or deployment occurred.
