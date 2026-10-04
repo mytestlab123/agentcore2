@@ -1,5 +1,22 @@
 # Current context
 
+## Issue #14 deployment readiness (2026-10-03)
+
+PR #13 merged at `098e0254c2d5167a985073f0dc40dccf731c183b`; Issue #12
+cloud pilot PASS. Its final head `17feaeb58a4a6747efaf856482b88574e5942b4c`
+passed CI run 37018552864 (fast and browser). Earlier draft/open statements
+below are historical. Issue #12 remains open; this task does not close it.
+
+Issue #14 starts from that merged main. Existing Issue #7 / draft PR #8 stays
+independent and unchanged. Repository-only C1 deployment readiness is active:
+shared preflight, offline tests, existing workflow reuse and an owner approval
+packet. Draft PR #15 implementation head `f8763c27eeaa4fcab6b03f2ce339e77e540cfbc5`
+passed CI 37116329915: fast with 14 offline preflight tests, plus browser.
+Repository preparation PASS; live identity/OIDC/deployment NOT_RUN. Next: owner
+review of the private identity/trust/target/revision gates in
+[the packet](docs/cloud-deployment-readiness.md). No merge or activation.
+Final documentation head and its CI are recorded in PR #15 and the handoff.
+
 ## Issue #12 cloud pilot update (2026-10-02)
 
 PR #5 is merged at `e2f64c522b005ada178c2c98fc2318dac2ab7dcd`, confirmed

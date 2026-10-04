@@ -10,7 +10,7 @@ import os
 import subprocess
 import time
 import urllib.request
-import zipfile
+import c1_preflight as preflight
 from pathlib import Path
 from importlib.util import module_from_spec, spec_from_file_location
 
@@ -31,33 +31,20 @@ def aws(service, action, **params):
 
 
 def deploy(bundle, journal):
-    app = os.environ['C1_APP_ID']
-    branch = os.environ['C1_BRANCH']
-    if branch != 'showcase-c1' or not os.environ.get('C1_EXPECTED_ACCOUNT'):
-        raise ValueError('Isolated branch/identity configuration missing')
+    revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'],
+                                       cwd=source.ROOT, text=True).strip()
+    config = preflight.configuration(os.environ, revision)
+    app, branch = config['app'], preflight.BRANCH
     if journal.exists():
         raise ValueError('Prior journal exists; reconcile its job before any retry')
-    with zipfile.ZipFile(bundle) as archive:
-        if sorted(archive.namelist()) != ['index.html', 'revision.json']:
-            raise ValueError('Bundle contains unexpected files')
-        if hashlib.sha256(archive.read('index.html')).hexdigest() != source.DIGEST:
-            raise ValueError('Canonical HTML digest mismatch')
-        marker = json.loads(archive.read('revision.json'))
-        if marker['htmlSha256'] != source.DIGEST or marker['sourceReference'] != source.REFERENCE:
-            raise ValueError('Source marker mismatch')
-    identity = aws('sts', 'get-caller-identity')
-    if identity['Account'] != os.environ['C1_EXPECTED_ACCOUNT'] or ':assumed-role/' not in identity['Arn']:
-        raise ValueError('OIDC assumed-role identity mismatch')
+    # Validate and upload the same bytes, even if the input path later changes.
+    bundle_data = bundle.read_bytes()
+    marker = preflight.artifact(bundle_data, source.DIGEST, source.REFERENCE, revision)
+    preflight.identity(config, aws('sts', 'get-caller-identity'))
     owned = aws('amplify', 'get-app', app_id=app)['app']
-    tags = owned.get('tags', {})
-    if owned.get('repository') or tags.get('project') != 'agentcore2' or tags.get('issue') != '3':
-        raise ValueError('Expected Issue 3 manual app ownership not proven')
     isolated = aws('amplify', 'get-branch', app_id=app, branch_name=branch)['branch']
-    if isolated.get('enableAutoBuild'):
-        raise ValueError('Isolated manual branch unexpectedly has autobuild enabled')
     jobs = aws('amplify', 'list-jobs', app_id=app, branch_name=branch, max_results=10)['jobSummaries']
-    if any(j['status'] in ['CREATED','PENDING','PROVISIONING','RUNNING','CANCELLING'] for j in jobs):
-        raise ValueError('Existing active C1 job; reconcile before another deployment')
+    preflight.target(config, owned, isolated, jobs)
     record = {'mode':'MOCK SHOWCASE', 'sourceReference':source.REFERENCE,
               'htmlSha256':source.DIGEST, 'wrapperRevision':marker['wrapperRevision'],
               'githubRunId':os.environ.get('GITHUB_RUN_ID'), 'phase':'CREATE_INTENT'}
@@ -71,7 +58,7 @@ def deploy(bundle, journal):
     record.update(jobId=created['jobId'], phase='UPLOAD_INTENT'); save()
     # The signed provider upload URL is held in memory only.
     with urllib.request.urlopen(urllib.request.Request(created['zipUploadUrl'],
-             data=bundle.read_bytes(), method='PUT'), timeout=60) as response:
+             data=bundle_data, method='PUT'), timeout=60) as response:
         if response.status not in (200, 201):
             raise ValueError('Bundle upload rejected; reconcile job')
     record['phase'] = 'START_INTENT'; save()

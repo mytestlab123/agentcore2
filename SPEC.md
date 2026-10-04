@@ -1,6 +1,23 @@
 # Specification
 
-Status: completed / repository closeout authorized (2026-10-02)
+Status: Issue #14 repository-only deployment readiness approved (2026-10-03)
+
+## Current bounded milestone
+
+Authority: Issue #14 and Amit's delegated request after Issue #12 / merged PR #13.
+Base: `098e0254c2d5167a985073f0dc40dccf731c183b`.
+Reuse C1 static Amplify packaging/manual workflow and cloud verification CI.
+Share fail-closed artifact, exact identity and isolated-target checks with the
+existing deployment script; prove them offline and prepare the minimal owner
+approval packet. Publish one draft PR and verify exact-head CI.
+No AWS calls/mutations, IAM/OIDC changes, secrets handling, deployment dispatch,
+private identity publication, live Preview B changes, Home/office work or merge.
+Preparation PASS is not live acceptance. Provider verification, exact private
+identity/trust approval, execution branch/revision activation and one deployment
+are separate later gates. See `docs/cloud-deployment-readiness.md`.
+
+The Issue #3 specification below is historical and grants no authority to this
+milestone.
 
 ## Problem
 
