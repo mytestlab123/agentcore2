@@ -1,6 +1,6 @@
 # Issue22 — Agentic Operations Capability Showcase
 
-Status: IMPLEMENTED / AWAITING G REVIEW, MOCK is the product. Base main 5b10c8b09e8dabc21e276a9d4328284809fd16e3.
+Status: ACCEPTED / READY TO MERGE, MOCK is the product. Base main 5b10c8b09e8dabc21e276a9d4328284809fd16e3.
 Authority: https://github.com/mytestlab123/agentcore2/issues/22 and G comment 6009423279.
 
 ## Delivery contract
@@ -42,7 +42,7 @@ E2E, mobile work, decoder/image/test/CI machinery. At final major finish only,
 one focused desktop smoke plus existing build/test/typecheck and identifier scan.
 
 Issue22 is the durable checkpoint source; reread G comments at each checkpoint.
-PASS at a direction checkpoint means implemented/validated, not roadmap acceptance.
-Do not merge until all five directions are coherent and parent/G review accepts.
+PASS at a direction checkpoint means implemented/validated. All five directions
+are now coherent; G review accepted PR #24 head `d14dc08a8b7a4bfd1fc9da95dc98c1f0aa141454`.
 Stop only at explicit scope, security, new cost/resource, publication, destructive
 or dependency/framework gates. Routine design/state decisions stay autonomous.
