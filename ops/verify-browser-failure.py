@@ -3,6 +3,8 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import struct
+import subprocess
 import sys
 import zipfile
 
@@ -34,6 +36,20 @@ def session_check(value):
             session_check(item)
 
 
+def screenshot_dimensions(data):
+    # Bound the known full-page desktop fixture before asking the existing decoder
+    # to load pixels. A PNG signature or IHDR alone is not screenshot evidence.
+    require(data.startswith(b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR') and len(data) >= 33)
+    width, height = struct.unpack('>II', data[16:24])
+    require(width == 1440 and 1000 <= height <= 10000)
+    decoded = subprocess.run(
+        ['convert', '-regard-warnings', 'png:-', '-format', '%w %h', 'info:'],
+        input=data, capture_output=True, timeout=30)
+    require(decoded.returncode == 0)
+    require(decoded.stdout.decode('ascii').strip() == f'{width} {height}')
+    return {'width': width, 'height': height, 'decodedBy': 'ImageMagick'}
+
+
 def verify(folder):
     expected = {'failure.json', 'failure.png', 'trace.zip'}
     require({p.name for p in folder.iterdir()} == expected)
@@ -44,7 +60,7 @@ def verify(folder):
         blobs[name] = p.read_bytes()
         scan(blobs[name])
     require(json.loads(blobs['failure.json']) == {'message': MARKER, 'errors': [], 'unexpected': []})
-    require(blobs['failure.png'].startswith(b'\x89PNG\r\n\x1a\n'))
+    screenshot = screenshot_dimensions(blobs['failure.png'])
     network, snapshots = [], 0
     with zipfile.ZipFile(folder / 'trace.zip') as archive:
         names = archive.namelist()
@@ -68,6 +84,7 @@ def verify(folder):
     require(len(network) == 1 and snapshots > 0)
     return {'status': 'PASS', 'scope': 'SYNTHETIC_FAILURE_CAPTURE_ONLY',
             'expectedSmokeExit': 1, 'localDocumentRequests': len(network),
+            'screenshot': screenshot,
             'traceFrameSnapshots': snapshots, 'privateSentinelFound': False,
             'sessionStateFound': False,
             'files': {name: {'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}

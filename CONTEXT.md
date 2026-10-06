@@ -8,7 +8,12 @@ inspect JSON/PNG/trace before publishing a dedicated fixture artifact. Normal
 browser smoke must still pass independently. No provider calls, credentials or
 settings changes, deployment, Sites product edits or merge. Exact-head CI and
 artifact-download evidence belong in the draft PR / Issue #12. Independent review
-is required before merge; local browser installation remains deferred.
+is required before merge; no browser installation was performed.
+PR #21 review corrections add independent HTTP subcases and full PNG decoding.
+A fresh local fixture was generated and visually inspected using already-present
+browser tools; its evidence is separate from CI. Hosted artifact download/visual
+acceptance remains unresolved; the previously denied route was not retried.
+See the local evidence record in `docs/dot-cloud-pilot.md`.
 
 ## Issue #16 source/offline acceptance (2026-10-06)
 

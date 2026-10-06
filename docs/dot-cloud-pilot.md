@@ -332,7 +332,7 @@ allowlisted subprocess environment. Runner credential/session variables are not
 forwarded; a synthetic private sentinel seeded in the parent must be absent from
 child logs and all artifact bytes, including decompressed trace resources.
 The verifier requires exactly failure.json, failure.png and trace.zip, the exact
-fixed diagnostic, a PNG signature, trace frame snapshots and exactly one localhost
+fixed diagnostic, a complete ImageMagick PNG decode with bounded desktop dimensions, trace frame snapshots and exactly one localhost
 GET. Recorded auth/cookie headers, nonempty session state, extra files and known
 credential-shaped bytes are rejected. Offline negative cases test these guards.
 This is provenance and validation for this controlled synthetic fixture, **not a
@@ -349,3 +349,33 @@ Final SHA, exact-head CI, artifact ID/digest, download inspection and screenshot
 review will be recorded in the draft PR / Issue #12 after execution. No synthetic
 artifact is committed to Git; no public URL, credentials or live browser profile
 is used by the fixture. No product HTML or external Site is changed.
+
+
+### PR #21 review correction and separate local visual proof
+
+The HTTP rejection subcases now start from independent valid localhost GETs, so
+POST cannot accidentally fail only because an earlier external URL survived.
+Screenshot verification uses existing ImageMagick `convert` to fully decode the
+PNG, rejects decoder errors/warnings, and checks width 1440 and full-page height
+1000–10000. No new image dependency is installed. Unit fixtures are valid RGB
+PNGs generated with stdlib; negatives include signature-only junk, truncation,
+invalid compressed pixels, incomplete decoded pixels and wrong dimensions.
+Forty offline tests pass; negative controls removing the method or image-decode
+guard fail the corresponding regression.
+
+A separate local run used the saved environment's already-present Playwright
+1.62.1 and `/usr/bin/chromium`, not the CI-pinned Playwright 1.62.0 toolchain.
+It used a fresh home/context and an allowlisted environment, rendered localhost,
+and exited 1 with the expected marker. Verification found one local GET, six
+trace snapshots and no recorded session state. The actual screenshot decoded as
+1440×1702, 306611 bytes, SHA256
+`fad76c016f9b14ae2a173772fe5e87861db1b559af9c9e432f145d9d5c98cd3e`.
+The image-viewing tool confirmed a rendered MOCK workspace with synthetic
+findings, visible MOCK banner and zero-real-writes/model-calls label; no visible
+credentials or private-session data. This is **local visual proof only**, not
+independently downloaded hosted bytes or a substitute for full hosted acceptance.
+
+The previous denied artifact-download route was not retried or bypassed. Hosted
+post-download byte validation and visual acceptance remain unresolved. Current
+head/CI evidence is recorded on PR #21 / Issue #12; the PR remains draft and
+unmerged pending independent review. No product or external Site changed.
