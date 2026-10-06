@@ -1,20 +1,18 @@
 # Specification
 
-Status: Issue #14 repository-only deployment readiness approved (2026-10-03)
+Status: Issue #16 offline recovery/operator readiness approved (2026-10-04)
 
 ## Current bounded milestone
 
-Authority: Issue #14 and Amit's delegated request after Issue #12 / merged PR #13.
-Base: `098e0254c2d5167a985073f0dc40dccf731c183b`.
-Reuse C1 static Amplify packaging/manual workflow and cloud verification CI.
-Share fail-closed artifact, exact identity and isolated-target checks with the
-existing deployment script; prove them offline and prepare the minimal owner
-approval packet. Publish one draft PR and verify exact-head CI.
-No AWS calls/mutations, IAM/OIDC changes, secrets handling, deployment dispatch,
-private identity publication, live Preview B changes, Home/office work or merge.
-Preparation PASS is not live acceptance. Provider verification, exact private
-identity/trust approval, execution branch/revision activation and one deployment
-are separate later gates. See `docs/cloud-deployment-readiness.md`.
+Authority: Issue #16 and Amit's delegated continuation; parent #14 remains
+preparation. Base: `41bd3a3e0dc6bacbd5db7318fbab32f38487be98` (merged PR #15).
+Reuse helper/preflight and CI for versioned receipts, offline inspection and
+observation-only recovery, proven with synthetic uncertain lifecycle tests and
+zero duplicate writes. One draft PR, full applicable tests and exact-head CI.
+No AWS calls, IAM/OIDC changes, secrets handling, deployment dispatch, live
+Preview B, Home/office execution, activation or merge. Private identity/target,
+budget/lifecycle and one live run remain separate owner gates. See
+`docs/cloud-deployment-recovery.md` and the parent readiness packet.
 
 The Issue #3 specification below is historical and grants no authority to this
 milestone.

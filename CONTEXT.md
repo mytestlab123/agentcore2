@@ -1,5 +1,29 @@
 # Current context
 
+## Issue #16 retry boundary correction (2026-10-06)
+
+Resumed existing draft PR #17 from `09f1181c14231f50d6cd3ab3237d9557ce47d50c`.
+Independent review identified implicit AWS CLI retries beneath the helper mocks.
+The child subprocess environment now enforces one total CLI attempt. Forty
+offline boundary cases prove uncertain receipt preservation and no repeated writes;
+32 deployment tests and the full fast lane pass. See the
+[recovery guide](docs/cloud-deployment-recovery.md); exact final SHA and CI are in
+PR #17 / Issue #16. Review remains open; private activation gates remain blocked.
+No AWS, credentials, IAM/OIDC, hosted deployment, Preview B changes or merge.
+
+## Issue #16 offline recovery (2026-10-04)
+
+PR #15 merged at `41bd3a3e0dc6bacbd5db7318fbab32f38487be98`; this is the
+clean base for Issue #16. Earlier draft/open wording below is historical.
+The helper now has bound versioned receipts, offline inspection and an
+observation-only resume path; synthetic lifecycle tests check no duplicate writes.
+Parent #14 remains preparation, not live acceptance. Draft PR #17 implementation
+head `313674d94e4351f6fc791f5933a261a0b538b427` passed CI 37165163502:
+fast with 31 preflight/recovery tests, plus browser. Repository milestone PASS;
+live recovery/deployment NOT_RUN. Final documentation head and CI are recorded
+in PR #17/handoff. Next: owner review of remaining private gates in
+[the recovery guide](docs/cloud-deployment-recovery.md). No activation or merge.
+
 ## Issue #14 deployment readiness (2026-10-03)
 
 PR #13 merged at `098e0254c2d5167a985073f0dc40dccf731c183b`; Issue #12
