@@ -1,33 +1,37 @@
-# Work + @Sites handoff — Agentic Operations Lab
+# @Sites — Agentic Operations Lab
 
-Use the accompanying Issue22 `index.html` and `RELEASE.json` as the implementation
-reference for a polished desktop SHOWCASE / MOCK. This is an authoring brief,
-not permission to publish or modify an existing Site. Confirm the target with
-Amit in Work before any external Site action. Preserve existing Sites unchanged
-until that action is separately authorized.
+Create a NEW private native Site titled Agentic Operations Lab from the attached
+index.html and RELEASE.json. Creation intent is user_requested. Keep the existing
+public Contextual Copilot Site and every unrelated Site unchanged. Use only the
+supported native Sites source/version/deployment workflow; no substitute hosting.
 
-Landing: Capability Catalogue with Compliance, Security, Incident and Agent
-Platform domains. Navigation: Contextual Copilot, Catalogue, Governance, Evidence,
-Architecture, Agent Platform and Incident story. Preserve the dark/light design,
-compact finding table and contextual inspector. No generic chat composer.
+Preserve the dark enterprise operations console: persistent Compliance, Security,
+Incident and Agent Platform navigation; compact registry/table and contextual
+inspector; visible SHOWCASE / MOCK, synthetic data, zero real writes and no live
+AWS dependency. Do not replace the working surface with a marketing page or chat.
 
-Preserve eight truthful capabilities and their agent/tool/approval/evidence
-boundaries. Logging remains partial; snapshot exposure remains planned. All
-reasoning is scripted MOCK. No live AgentCore or model capability is implied.
+Keep all eight capabilities with domain, readiness, agent/tool responsibilities,
+approval and evidence. Six are MOCK READY; logging is MOCK PARTIAL; snapshot
+exposure is PLANNED. Readiness means local simulation, never a live agent.
 
-Reuse the one existing synthetic proposal/decision/executor/evidence state.
-CLI/API/event/ticket views are local presentations, never five backends. Events
-and tickets can propose but cannot approve. Keep exact target/revision snapshots,
-consumed decisions, zero-write rejection/unauthorized behavior, stale blocking,
-partial outcomes, same-run in-memory resume and separate compliance. Mismatch
-must remain NEEDS_REVIEW, never VERIFIED.
+Preserve selected finding → Explain/Investigate → frozen exact proposal → Approve
+Once/Reject → simulated operation → provider readback → independent compliance →
+evidence. Keep zero-write rejection/unauthorized/stale paths, partial batches,
+consumed approval refusal, same-run in-memory resume and NEEDS_REVIEW when provider
+success does not establish compliance. Reload resets state; no durable claim.
 
-Preserve the four-minute Northstar synthetic incident narrative and its exact
-finding/proposal/run link. Resolve only from matching verified compliance evidence;
-rejection or missing/divergent evidence leaves the ticket open. Export local audit
-JSON. Reset/reload clears in-memory state; do not claim durable provider recovery.
+Copilot, CLI, API, event/scheduled and ServiceNow-style ticket are presentations of
+ONE shared contract. Display the same complete target scope and capability that
+the proposal uses. Channels cannot grant approval. Incident audit export must
+attach only its matching proposal/run; unrelated later target history yields an
+explicit mismatch and no attached run.
 
-No credentials, real account identifiers, private data, external bridges, provider
-or model calls, live writes, new dependencies, mobile work or automatic publication.
-Use only the bundled deterministic synthetic data. Report behavior that cannot be
-preserved. Keep historical screenshots/proof separate from new source acceptance.
+Preserve the four-minute fictional Northstar incident story, human decision,
+separate evidence, architecture panel and local JSON exports. No real ServiceNow,
+model/provider/backend calls, AWS resources, account identifiers, credentials,
+private data, new framework, mobile work or runtime bindings. Use bundled synthetic
+data only. New AWS recurring cost $0.
+
+Use the supplied release receipt to identify source. Publish only through native
+Sites with owner-private access; return a URL only after native deployment reports
+success. Report any unsupported behavior instead of silently dropping governance.

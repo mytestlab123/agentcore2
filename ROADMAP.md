@@ -4,7 +4,9 @@
 - [x] M2 capability presentation: domain/readiness and computed registry counts
 - [x] M3 governed flow: compact step rail, optional scenario lab and explicit review counts
 - [x] M4 reusable channels and incident story: request/record panels and compact briefing
-- [ ] M5 portable handoff / native private Sites authoring
+- [x] M5 portable source/data/README/exact Sites prompt and local final validation
+- [ ] M5 native private Sites: blocked on missing required source-workflow helper
+- [ ] G review / exact-head CI / overall acceptance
 
 One cohesive draft PR. No merge without G acceptance. Existing public Site unchanged.
 

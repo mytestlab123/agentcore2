@@ -1,9 +1,9 @@
-# Agentic Operations Lab — Issue22
+# Agentic Operations Lab — Sites showcase / Issue25
 
 Unpublished, portable **SHOWCASE / MOCK** source for Work + @Sites. Open
 `index.html` directly: no install, server, network, model or provider is needed.
-Existing public Sites and engineering deployments are unchanged. PR24 holds the
-five milestone source changes; G review and roadmap acceptance remain gates.
+Existing public Sites and engineering deployments are unchanged. PR26 holds this polish roadmap, based on accepted Issue22 main
+`d9082690d5bd596d8272454c0cb936a9094b5f07`. G review and acceptance remain gates.
 
 ## Four-minute demo
 
@@ -50,8 +50,10 @@ Only compatible explicit selections share approval. JSON exports remain local.
 Provide `index.html`, `RELEASE.json` and `site-prompt.md` to Work/@Sites.
 RELEASE.json binds the HTML bytes and embedded source fingerprint. Historic
 proof files/screenshots describe earlier versions and are not Issue22 acceptance.
-The document title retains the old Preview B compatibility label; the visible
-product is Agentic Operations Lab. No mobile milestone is included.
+The document title and visible console identify Agentic Operations Lab.
+The fixed domain rail opens Compliance, Security, Incident and Agent Platform.
+Governance opens the optional scenario lab; Evidence opens recorded results.
+No mobile milestone is included.
 
 `issue22-validation.json` and its desktop screenshot remain evidence for their
 original HTML digest. The later model/cost follow-up restores explicit zero-agent
@@ -62,3 +64,26 @@ Small existing check: `node showcases/chatgpt-sites-preview-b/check-state.cjs`.
 Per milestone stop after syntax and the smallest useful state/manual check.
 One desktop smoke and existing build/test/typecheck belong at major finish.
 No new browser, dependencies or CI machinery is required. New AWS cost: $0.
+
+## Native Sites handoff status
+
+Native Sites list access succeeded in the saved cloud task. The existing public
+Contextual Copilot Site was observed and left unchanged. Registration/publication
+was not attempted: the mandatory Sites `scripts/site-workflow.mjs` helper is absent
+from the execution environment, and the referenced cloud skill resource is not
+readable. Native tools being exposed is not proof that this source workflow works.
+No credential was requested or exposed; no substitute hosting was used.
+
+The exact Work/@Sites prompt is `site-prompt.md`. Supply it with `index.html` and
+`RELEASE.json`; the HTML includes all deterministic data generation, styles and
+behavior. In a Sites-capable Work environment, place the HTML at `dist/index.html`,
+set `static.directory` to `dist`, register one new private Site with
+`creation_intent=user_requested`, and use the supported source/version workflow.
+Do not overwrite the existing public Site. This task's user explicitly requested
+native authoring; the old Issue22 publication restriction is historical.
+
+`sites-validation.json` and `evidence/sites-desktop.png` bind the final local
+one-time desktop smoke to its source digest. They are not hosted Site acceptance.
+Two baseline correctness gaps were corrected during polish: channel requests now
+use the proposal's exact shared batch scope, and incident exports reject mismatched
+later target history. Prior unpublished commits were not replayed.

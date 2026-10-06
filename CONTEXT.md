@@ -2,15 +2,27 @@
 
 ## Active Sites roadmap — Issue25
 
-Base main d9082690d5bd596d8272454c0cb936a9094b5f07; Issue22 closed/merged.
-New branch sites/agentic-operations-polish preserves the prior local branch without
-replaying unpublished commits. M1 adds a dark enterprise console with domain rail,
-compact registry overview and explicit synthetic/zero-write/no-live-AWS boundary.
-Syntax + existing state check pass; 1600px visual inspected. M2 adds domain column and data-derived readiness counts; focused check passes. M3 exposes the operator sequence, collapses optional scenario controls and separates review counts. Existing state check passes. M4 refines channel request/record presentation and compact incident briefing; existing state check passes. Next M5 in one
-draft PR, new private native Site only if supported. Existing public Site unchanged.
-Native Sites list succeeded; supported local workflow helper discovery unresolved.
-New AWS cost $0; no provider calls, mobile, new tests or dependency/CI machinery.
+PR26, branch sites/agentic-operations-polish, based on accepted main
+`d9082690d5bd596d8272454c0cb936a9094b5f07`. Issue22 closed; unpublished older
+commits remain preserved on their old branch and were not replayed.
+M1–M4 source polish complete: dark console/domain rail, compact capability registry,
+scenario lab, operator steps, channel request/record panes and incident briefing.
+Baseline inspection also found channel scope and incident export mismatches;
+minimal source corrections now use shared exact targets and reject unrelated runs.
+M5 portable HTML/data/README/exact site-prompt complete. Syntax and existing state
+check pass. One final 1600px desktop smoke passes domain navigation, incident
+closure, five same-run channels, batch scope, audit mismatch, failure/resume and
+consumed authority. Zero browser requests/errors and zero real writes. Source-bound
+evidence: showcases/chatgpt-sites-preview-b/sites-validation.json.
 
+Native Sites list succeeds; existing public Site untouched. Native registration
+and publishing NOT_STARTED: mandatory site-workflow.mjs is absent in the execution
+environment and unavailable at referenced skill resource paths. No Site credential
+requested, alternate workflow/hosting used, or publication claimed. Continue only
+that step in a supported native Sites environment using the exact site-prompt.
+GitHub access works; source PR remains draft pending exact-head CI and G review.
+New AWS cost $0. No AWS/model/provider calls/resources, mobile or new testing
+machinery. No further desktop/E2E rerun is scheduled.
 
 ## MOCK-first reuse and model decision (2026-10-06)
 
