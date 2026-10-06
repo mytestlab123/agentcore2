@@ -11,7 +11,8 @@ M1 implements a guided 3–5 minute SSL compliance story with bounded context,
 Explain/Investigate, frozen diff, human decisions and compact recorded evidence.
 The story calls the existing preview/decide/executor, never a second backend.
 Syntax and existing state check pass; desktop exact-target preview inspected.
-Next M2 security pack, then M3/M4 and compact handoff. $0 new AWS, MOCK only,
+M2 adds HIGH-severity SG exposure with a fixed public-SSH removal tool and
+unauthorized/stale paths. Manual denial records zero writes. Next M3/M4 and compact handoff. $0 new AWS, MOCK only,
 no provider/model calls, new tests/framework/CI/mobile or old C1/artifact work.
 
 

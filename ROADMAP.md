@@ -1,7 +1,7 @@
 # Active Issue27 — story packs
 
 - [x] M1 compliance walkthrough
-- [ ] M2 security incident walkthrough
+- [x] M2 security walkthrough: exact SG tool and unauthorized/stale branches
 - [ ] M3 enterprise incident executive story
 - [ ] M4 architecture / learning mode
 - [ ] Final compact story/source and existing-private-Site handoff
