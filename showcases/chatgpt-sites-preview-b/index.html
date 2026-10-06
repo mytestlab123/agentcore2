@@ -13,13 +13,14 @@
 <body>
 <header><div class="brand"><span class="mark" aria-hidden="true">A</span><div><p class="eyebrow">A finding. A bounded agent. An accountable action.</p><h1>Agentic Operations Lab</h1></div></div><div class="header-actions"><span class="badge">SHOWCASE / MOCK</span><button id="command-open" title="Open command menu — Ctrl+K">Commands <kbd>Ctrl K</kbd></button><button id="theme" aria-label="Toggle theme">Light theme</button></div></header>
 <main>
-<nav class="lab-nav" aria-label="Lab workspaces"><button id="lab-nav-catalogue" aria-pressed="true">Capability Catalogue</button><button id="lab-nav-copilot" aria-pressed="false">Contextual Copilot</button></nav>
+<nav class="lab-nav" aria-label="Lab workspaces"><button id="lab-nav-catalogue" aria-pressed="true">Capability Catalogue</button><button id="lab-nav-copilot" aria-pressed="false">Contextual Copilot</button><button id="lab-nav-platform" aria-pressed="false">Agent Platform</button></nav>
 <section id="lab-catalogue">
 <div class="lab-hero"><div><p class="eyebrow">Operations, with accountable intelligence</p><h2>Clarity before change.</h2><p>Understand a finding. Select a registered capability. See exactly what a deterministic tool would change—and what evidence should follow.</p><strong>8 capabilities · synthetic data only · 0 real writes</strong></div><div><div class="lab-flow"><span>01 · Finding context</span><span>02 · Agent selects</span><span>03 · Human decides</span><span>04 · Tool executes</span><span>05 · Evidence explains</span></div><p>MOCK READY means an interactive synthetic path exists here. It never means a live agent, integration or AWS resource.</p></div></div>
 <div class="lab-section-title"><div><h2>Capability registry</h2><p>What it does. Who decides. How we know.</p></div><span id="catalogue-count" class="version"></span></div>
 <div class="lab-domains" aria-label="Capability domains"><button id="domain-all" aria-pressed="true">All capabilities</button><button id="domain-compliance" aria-pressed="false">Compliance</button><button id="domain-security" aria-pressed="false">Security</button><button id="domain-incident" aria-pressed="false">Incident</button><button id="domain-platform" aria-pressed="false">Agent Platform</button></div>
 <div class="catalogue-layout"><section class="panel"><table class="catalogue-table"><thead><tr><th>Capability / finding</th><th>Readiness</th><th>Operator decision</th></tr></thead><tbody id="catalogue-rows"></tbody></table></section><aside class="panel cap-detail" aria-label="Selected capability"><span id="cap-status" class="readiness"></span><h2 id="cap-title"></h2><p id="cap-purpose"></p><dl id="cap-details"></dl><div id="cap-boundary" class="lab-note"></div><button id="cap-open" class="primary">Open finding in Copilot</button></aside></div>
 </section>
+<section id="lab-platform" hidden><div class="catalogue-hero"><p class="eyebrow">Many entry points · one governed contract</p><h2>The interface can change.<br>The decision stays accountable.</h2><p>These are local MOCK presentations of the same selected finding, proposal and run. No shell, HTTP endpoint, scheduler or ticket service is connected.</p></div><div class="catalogue-grid"><section class="panel cap-detail"><label>Invocation channel<select id="channel-kind"><option value="copilot">Contextual Copilot</option><option value="cli">CLI-style MOCK</option><option value="api">API-style MOCK</option><option value="event">Scheduled / event-style MOCK</option><option value="ticket">ServiceNow-style ticket MOCK</option></select></label><dl id="channel-context"></dl><div class="actions"><button id="channel-propose" class="primary">Request exact proposal</button><button id="channel-open">Review in Copilot</button><button id="channel-refresh">Read existing record</button></div><p class="lab-note">A channel can request a proposal. It cannot grant approval. Review the frozen target and make a human decision in Copilot.</p><pre id="channel-request" style="white-space:pre-wrap;overflow-wrap:anywhere"></pre></section><section class="panel cap-detail"><p class="eyebrow">Shared response · read-only projection</p><h2>One record across channels</h2><pre id="channel-response" style="white-space:pre-wrap;overflow-wrap:anywhere"></pre><p class="lab-note">Registry → target / policy validation → proposal → human decision → deterministic executor → provider and compliance evidence.</p><p>Contract vocabulary comes from packages/contracts. This portable browser simulation reuses one in-memory executor; it is not a deployed API or durable service.</p></section></div></section>
 <section id="lab-copilot" hidden>
 
 <div class="scope-line"><p><strong>58 synthetic accounts.</strong> Presentation-safe simulation. No AWS connection, model invocation or real write.</p><span class="version" id="build-id">Build v1.2.1</span></div>
@@ -48,7 +49,7 @@
 <dialog id="command-dialog" aria-labelledby="command-title"><div class="dialog-heading"><h2 id="command-title">Commands</h2><button id="command-close" aria-label="Close commands">Close</button></div><label class="sr-only" for="command-search">Search commands</label><input id="command-search" placeholder="Search s3, bpa, ssh, account, evidence…" autocomplete="off"><div id="command-list" class="command-list" aria-label="Matching commands"></div><p class="dialog-hint">↑ ↓ navigate · Enter choose · Esc close · filtering only, never automatic approval</p></dialog>
 <dialog id="inspector" class="inspector" aria-labelledby="inspector-title"><div class="dialog-heading"><h2 id="inspector-title">Synthetic resource inspector</h2><button id="inspect-close">Close</button></div><dl id="inspector-details"></dl></dialog>
 <script>'use strict';
-const RELEASE='v1.3.0-mock',BUILD_FINGERPRINT='6a78da68521352494f1097b7f07ff263f9050609287788720cfd1bc1e0b948e8',BASELINE_SHA='4dca2e145032a3dcd4fba77998c86ffc42a73a7d';
+const RELEASE='v1.3.0-mock',BUILD_FINGERPRINT='a958ef63dc49fa5dc6a93954a36dd39085604e000ea238e4ec6b0a88f9a2e727',BASELINE_SHA='4dca2e145032a3dcd4fba77998c86ffc42a73a7d';
 const $=id=>document.getElementById(id),fmt=n=>n.toLocaleString('en-US');
 const controlDefs={
  's3-bpa':{name:'S3 Block Public Access',type:'S3',capability:'mock.s3-bpa',severity:'HIGH',description:'All four public-access protection flags must be enabled for this synthetic bucket.',before:'BlockPublicAcls: false\nIgnorePublicAcls: false\nBlockPublicPolicy: false\nRestrictPublicBuckets: false',after:'BlockPublicAcls: true\nIgnorePublicAcls: true\nBlockPublicPolicy: true\nRestrictPublicBuckets: true'},
@@ -70,7 +71,7 @@ function fields(parent,values){parent.replaceChildren();for(const [key,value]of 
 function notice(message){$('notice').textContent=message;$('notice').hidden=!message;}
 function generate(uniform=null){
  if(runTimer)clearTimeout(runTimer);if(replayTimer)clearTimeout(replayTimer);runTimer=replayTimer=null;datasetRevision++;scenarioUniform=uniform;
- findings=[];byId=new Map();history=new Map();selectedIds.clear();proposal=lastRun=null;serial=0;page=1;outcomePage=1;
+ governanceEvents=[];findings=[];byId=new Map();history=new Map();selectedIds.clear();proposal=lastRun=null;serial=0;page=1;outcomePage=1;
  const add=(account,type,i,control)=>{const seed=account*2003+i*31+type.length*7;const r=seed%100;const status=r<61?'NON_COMPLIANT':r<87?'COMPLIANT':r<95?'INSUFFICIENT_DATA':'NOT_APPLICABLE';
  const kind=type==='Security Group'?'sg':type.toLowerCase();const accountLabel=`LAB-${String(account).padStart(2,'0')}`;const id=`synthetic-${accountLabel.toLowerCase()}-${kind}-${String(i).padStart(4,'0')}`;
  const f={id,resource:id,account:accountLabel,region:account%3===0?'ap-southeast-2':'ap-southeast-1',type,control,status,severity:controlDefs[control].severity,revision:0};findings.push(f);byId.set(id,f);};
@@ -232,7 +233,8 @@ const capabilityCatalogue=[
  {id:'incident',domain:'incident',name:'Incident investigation',finding:'Synthetic incident · linked security finding',purpose:'Connect an incident narrative to a specialist, approval, remediation and audit record.',agent:'Incident coordinator will hand off one bounded finding to a specialist.',tool:'PLANNED · incident-to-finding orchestration over the same governed executor',approval:'Required for the linked remediation',evidence:'Planned incident timeline + linked finding/proposal/run + audit update',status:'PLANNED',control:null,boundary:'Incident story is the next roadmap layer; no ServiceNow or external ticket integration.'}
 ];
 let catalogueDomain='all',selectedCapability='s3-ssl';
-function labNavigate(view){$('lab-catalogue').hidden=view!=='catalogue';$('lab-copilot').hidden=view!=='copilot';for(const name of ['catalogue','copilot'])$(`lab-nav-${name}`).setAttribute('aria-pressed',String(view===name));}
+function labNavigate(view){for(const name of ['catalogue','copilot','platform']){$(`lab-${name}`).hidden=view!==name;$(`lab-nav-${name}`).setAttribute('aria-pressed',String(view===name));}if(view==='platform')renderChannel();}
+
 function renderCatalogue(){
  const rows=capabilityCatalogue.filter(c=>catalogueDomain==='all'||c.domain===catalogueDomain);$('catalogue-count').textContent=`${rows.length} of ${capabilityCatalogue.length} capabilities`;$('catalogue-rows').replaceChildren();
  for(const c of rows){const tr=make('tr',undefined,$('catalogue-rows'));tr.setAttribute('aria-selected',String(c.id===selectedCapability));const td=make('td',undefined,tr);const b=make('button',c.name,td);b.onclick=()=>{selectedCapability=c.id;renderCatalogue();};make('small',c.finding,td);make('span',c.status,make('td',undefined,tr),'readiness '+(c.status==='MOCK READY'?'ready':c.status==='MOCK PARTIAL'?'partial':'planned'));make('td',c.approval,tr);}
@@ -247,7 +249,7 @@ function renderGovernance(){
  if(!$('governance-contract'))return;
  const p=proposal,r=lastRun;fields($('governance-contract'),[['Registry',p?.capability||'Select a finding; only registered tools'],['Proposal',p?.id||'Not created'],['Run',r?.id||'Not created'],['State',r?.state||'No execution'],['Resume cursor',r?`${r.processed} / ${r.targets.length} recorded targets`:'No run'],['Writes',r?`${r.simulatedWrites} simulated / 0 real`:'0 simulated / 0 real']]);
  $('governance-events').replaceChildren();for(const event of governanceEvents)make('li',event,$('governance-events'));if(!governanceEvents.length)make('li','No guard decisions yet. No result is inferred.', $('governance-events'));
- $('resume-governance').disabled=r?.state!=='INTERRUPTED';$('reuse-approval').disabled=!p?.consumed;
+ $('governance-scenario').disabled=running();$('load-governance').disabled=running();$('resume-governance').disabled=r?.state!=='INTERRUPTED';$('reuse-approval').disabled=!p?.consumed;
  const hints={normal:'Approve Once or Reject the exact proposal. Reject always records zero writes.',unauthorized:'The simulated actor has no target grant. Approve is an attempted request, not authorization; the guard denies it.',stale:'At decision time, inject a synthetic revision change. The frozen proposal must be refused before execution.',blocked:'The deterministic policy gate blocks the target before its simulated provider operation.',partial:'34 compatible targets; every 17th is blocked before a write. Other targets use the same fixed executor.',interrupted:'Three targets. Pause after the first recorded target, then Resume existing run. In-memory session demo; reload resets it.',mismatch:'The simulated provider accepts the operation, but independent compliance remains NON_COMPLIANT. Never label this VERIFIED.'};$('governance-hint').textContent=hints[$('governance-scenario').value||'normal'];
 }
 function loadGovernanceScenario(){
@@ -259,6 +261,19 @@ function loadGovernanceScenario(){
 function resumeExistingRun(){if(lastRun?.state!=='INTERRUPTED'||!proposal?.consumed)return;const r=lastRun;r.resumeAuthorized=true;r.state='RUNNING';recordGuard(`RESUME ${r.id} at target ${r.processed+1}; ${r.simulatedWrites} existing simulated writes retained.`);runChunk(proposal,r);}
 $('load-governance').onclick=loadGovernanceScenario;$('governance-scenario').onchange=()=>{if(!running())cancelPending();renderGovernance();};$('resume-governance').onclick=resumeExistingRun;$('reuse-approval').onclick=()=>decide(true);
 renderGovernance();
+
+// All channel requests delegate to the existing proposal/decision/executor state.
+function channelEnvelope(){return {mode:'MOCK',channel:$('channel-kind').value,operation:'proposeRemediation',findingId:focused()?.id,capability:controlDefs[focused()?.control]?.capability||null,approval:'HUMAN_REQUIRED',execution:'NOT_REQUESTED'};}
+function renderChannel(){
+ const request=channelEnvelope(),p=proposal,r=lastRun;
+ fields($('channel-context'),[['Selected finding',request.findingId||'None'],['Registered capability',request.capability||'No automatic executor'],['Scope','Current finding or explicit compatible selection'],['Transport','Local presentation only · no external calls']]);
+ const forms={copilot:`Preview Fix for ${request.findingId}`,cli:`MOCK> agentctl propose --finding ${request.findingId}`,api:`MOCK POST /proposals\n${JSON.stringify(request,null,2)}`,event:`MOCK event: finding.review.requested\n${JSON.stringify(request,null,2)}`,ticket:`MOCK request SCTASK-SYN-0042\n${JSON.stringify(request,null,2)}`};
+ $('channel-request').textContent=forms[request.channel];
+ $('channel-response').textContent=JSON.stringify({mode:'MOCK',proposal:p?{id:p.id,capability:p.capability,targets:p.targets.map(t=>t.id),consumed:p.consumed}:null,run:r?{id:r.id,proposalId:r.proposalId,state:r.state,decision:r.decision,simulatedWrites:r.simulatedWrites,realWrites:0,results:r.results}:null},null,2);
+ $('channel-propose').disabled=running()||!!proposal||!request.capability;
+}
+function requestFromChannel(){if(!proposal&&!running())preview();renderChannel();}
+$('lab-nav-platform').onclick=()=>labNavigate('platform');$('channel-kind').onchange=renderChannel;$('channel-propose').onclick=requestFromChannel;$('channel-refresh').onclick=renderChannel;$('channel-open').onclick=()=>{labNavigate('copilot');showTab(proposal?'change':'context');$('copilot').scrollIntoView({block:'start'});};
 
 </script>
 </body></html>

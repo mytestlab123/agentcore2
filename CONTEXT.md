@@ -8,7 +8,7 @@ Directions1–4 and the final portable handoff. No merge until roadmap acceptanc
 and G review. Direction1 catalogue is implemented: eight synthetic capabilities
 with agent/tool boundaries, approval, evidence and truthful readiness. Existing
 Copilot inventory/executor is reused; logging remains partial, snapshot and
-incident orchestration planned. Direction2 now adds unauthorized/stale/consumed guards, blocked and partial outcomes, same-run in-memory resume, and distinct provider/compliance outcomes. Focused state check and manual interruption/mismatch inspection pass. Next: shared multi-channel presentations.
+incident orchestration planned. Direction2 now adds unauthorized/stale/consumed guards, blocked and partial outcomes, same-run in-memory resume, and distinct provider/compliance outcomes. Focused state check and manual interruption/mismatch inspection pass. Direction3 now presents Copilot/CLI/API/event/ticket envelopes over the same proposal and run state, with human approval in Copilot. Syntax, existing state check and manual same-proposal inspection pass. Next: enterprise incident story.
 
 Issue12 is CLOSED; hosted-artifact 403 is ACCEPTED. Never reopen, retry/bypass or
 make another evidence task from it. PR21 is historical, not a testing template.

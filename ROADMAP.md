@@ -5,7 +5,7 @@ One major draft PR, no new AWS resources/cost, desktop MOCK only.
 - [x] Direction1 implementation checkpoint: eight-capability operator catalogue,
   existing finding/Copilot links and truthful readiness. Await G checkpoint review.
 - [x] Direction2: governed failure/recovery simulator on the existing executor.
-- [ ] Direction3: five presentations, one contract/executor/evidence semantics.
+- [x] Direction3: five presentations, one contract/executor/evidence semantics.
 - [ ] Direction4: 3–5 minute synthetic enterprise incident story.
 - [ ] Final: portable source, README/site-prompt, one desktop finish smoke and G review.
 
