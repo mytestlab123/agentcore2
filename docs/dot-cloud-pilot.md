@@ -379,3 +379,33 @@ The previous denied artifact-download route was not retried or bypassed. Hosted
 post-download byte validation and visual acceptance remain unresolved. Current
 head/CI evidence is recorded on PR #21 / Issue #12; the PR remains draft and
 unmerged pending independent review. No product or external Site changed.
+
+
+### Test-economy policy reconciliation (2026-10-06)
+
+Read the canonical [TESTING.md at dotfiles 606384fc](https://github.com/amitkarpe/dotfiles/blob/606384fcf258da7f282251ef9826db1ffb765d6b/agent/.agent/TESTING.md)
+and main's AGENTS/CONTEXT policy at `413fa53`. The actual CONTEXT insertion
+conflict was already resolved in `52c0ae7`, preserving both policy and milestone;
+there is no remaining Git conflict. This clarification changes documentation
+only and adds/runs no further tests or browser flows.
+
+The existing eight focused artifact-verifier tests are retained because they
+protect distinct, stable acceptance risks: corrupt/missing/wrong evidence,
+nonlocal/non-GET requests, session/credential leakage, and the exact controlled
+failure contract. The HTTP-isolation and image-decoding regressions were explicit
+review requests for demonstrated gaps, not coverage-count expansion. Prior local
+visual/decode proof is retained without repeating it. No mobile work is planned;
+historical mobile results above remain historical only.
+
+Existing repository CI automatically runs fast, deployment and normal browser
+checks on PR updates. The normal smoke still contains legacy mobile assertions;
+this is disclosed existing CI behavior, not renewed mobile acceptance authority.
+This policy-only reconciliation does not mute/delete those checks or rewrite
+historical evidence. It does not manually dispatch or rerun broad CI/E2E.
+
+CI run 37410501023 failed because `convert` is absent on its runners. Normal fast
+checks and normal browser smoke passed, but image-dependent verification failed
+closed and fixture upload was skipped. This is still a tooling gate, not grounds
+to weaken real decoding or add dependencies automatically. Local visual proof,
+CI execution and hosted downloaded-byte/visual acceptance remain separate; the
+last remains unresolved and the denied artifact route has not been retried.
