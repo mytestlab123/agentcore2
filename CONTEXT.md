@@ -2,20 +2,25 @@
 
 ## Active Issue27 — story packs / learning mode
 
-Base main 693cf09942041ea935bacbc50249b0bf16df2328. Issues22/25 are accepted
-and complete; the private Agentic Operations Lab Site exists and remains unchanged.
-Earlier helper/publication blockers below are historical. Issue27/comment6012349813
-authorizes one cohesive source/story PR: compliance, security, enterprise incident,
-learning mode and later Sites handoff. No Site actions/publication/sharing changes.
-M1 implements a guided 3–5 minute SSL compliance story with bounded context,
-Explain/Investigate, frozen diff, human decisions and compact recorded evidence.
-The story calls the existing preview/decide/executor, never a second backend.
-Syntax and existing state check pass; desktop exact-target preview inspected.
-M2 adds HIGH-severity SG exposure with a fixed public-SSH removal tool and
-unauthorized/stale paths. Manual denial records zero writes. M3 adds the executive problem/action/human-control/outcome/evidence brief;
-provider-match/compliance-fail remains OPEN / REVIEW REQUIRED. Next M4 and compact handoff. $0 new AWS, MOCK only,
-no provider/model calls, new tests/framework/CI/mobile or old C1/artifact work.
+Base main 693cf09942041ea935bacbc50249b0bf16df2328; one draft PR28 on
+stories/issue27-demo-packs. Issues22/25 accepted complete, private Site exists;
+earlier helper/publication blockers below are historical. No old commits replayed.
+M1 compliance and M2 security use one story presentation over existing
+scope/preview/decide/executor/evidence. M3 executive incident brief distinguishes
+problem/action/human control/outcome/evidence and requires matching verified run
+for closure. M4 teaches nine read-only architecture stages and five channels of
+one contract. Compact story-packs.json and updated site-prompt prepare later visual
+polish of the existing private Site; no Site tool call or sharing/publication change.
 
+All source milestones implemented; G review and roadmap acceptance remain gates.
+Syntax/existing state checks and useful milestone visuals pass. One final desktop
+smoke proves compliance reject/approve, security unauthorized/stale zero writes,
+enterprise reject/divergence open and verified closure, missing evidence open,
+reset/context-safe story linkage, read-only learning and five same-run channels.
+Zero network requests/page errors/real writes. See story-validation.json and
+source digest; sensitive identifier scan and whitespace pass. No new tests,
+framework/dependency/CI/mobile or repeated E2E. New AWS cost $0; Issue23 separate.
+Next: exact-head CI and G review of PR28. Do not merge or publish automatically.
 
 ## Active Sites roadmap — Issue25
 

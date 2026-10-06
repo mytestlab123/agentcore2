@@ -1,0 +1,113 @@
+{
+  "sourceHtmlSha256": "51f5471080cdf9c8d7b3af4be856717d348135da8533266c77e8148566f0c63b",
+  "mode": "SYNTHETIC MOCK / copy snapshot, not a runtime",
+  "stories": {
+    "compliance": {
+      "title": "Compliance · encrypted transport",
+      "control": "s3-ssl",
+      "premise": "A fictional research archive accepts insecure transport. Show how a bounded specialist explains the risk while a fixed tool and one human decision govern the remedy.",
+      "cues": [
+        "0:00 · Name the exact synthetic bucket and the transport risk. This is a finding, not an open-ended chat.",
+        "0:40 · Explain and Investigate: the scripted specialist selects mock.s3-ssl. It cannot invent APIs or grant approval.",
+        "1:20 · Preview the fixed policy diff and frozen target. Approve Once or Reject consumes this proposal only.",
+        "2:10 · Read operation, provider readback and separate compliance. Provider success alone cannot close the finding.",
+        "3:00 · Narrate the recorded result. Reject has zero writes; mismatch remains NEEDS_REVIEW."
+      ]
+    },
+    "security": {
+      "title": "Security · contain internet-open SSH",
+      "control": "sg-ssh",
+      "premise": "A fictional application security group exposes TCP 22 to the internet. The network specialist explains a HIGH-severity path; the registered tool may remove only the public SSH rule, preserving unrelated ingress.",
+      "cues": [
+        "0:00 · Identify the exact group, HIGH exposure and attack surface. This is synthetic SecOps context, not a live scan.",
+        "0:40 · Explain / Investigate: the specialist chooses mock.sg-ssh; it cannot run arbitrary APIs or remove unrelated rules.",
+        "1:20 · Preview the exact group and fixed ingress diff. Human approval cannot enlarge this scope or grant target authorization.",
+        "2:00 · Demonstrate unauthorized actor: an attempted Approve Once yields DENIED and zero writes. Or show stale snapshot refusal.",
+        "3:00 · Load a normal story and compare verified evidence. Provider readback and independent compliance remain separate."
+      ]
+    }
+  },
+  "learning": [
+    {
+      "title": "Finding / incident",
+      "time": "0:00",
+      "does": "Anchor the question to one synthetic resource or explicit compatible selection.",
+      "cannot": "A vague ticket or free-text instruction is not authority to change resources.",
+      "evidence": "Finding ID, control, revision and current status.",
+      "example": "The SSL story identifies one bucket; the SG story identifies one exact group."
+    },
+    {
+      "title": "AI reasoning + selection",
+      "time": "0:15",
+      "does": "Explain impact and choose a registered capability. Here reasoning is scripted MOCK.",
+      "cannot": "AI cannot grant approval, invent tools, expand the target set or execute arbitrary APIs.",
+      "evidence": "Bounded Explain / Investigate context and named capability.",
+      "example": "The network specialist chooses mock.sg-ssh; it does not produce a shell command."
+    },
+    {
+      "title": "Capability registry",
+      "time": "0:30",
+      "does": "Describe fixed inputs, supported resource/control and deterministic action.",
+      "cannot": "A catalogue label does not establish a live agent or implementation. Partial/planned remain explicit.",
+      "evidence": "Registered capability ID and fixed before/after parameters.",
+      "example": "Logging is partial and snapshot exposure is planned; neither pretends to remediate."
+    },
+    {
+      "title": "Exact target / policy validation",
+      "time": "0:45",
+      "does": "Check eligibility, exact frozen revisions and simulated actor authorization.",
+      "cannot": "Approval cannot authorize an unrelated target or override a denied actor.",
+      "evidence": "Frozen target list; stale and unauthorized refusal records.",
+      "example": "The unauthorized SG branch is DENIED with zero writes."
+    },
+    {
+      "title": "Approve Once / Reject",
+      "time": "1:00",
+      "does": "A human consumes one decision for this exact proposal.",
+      "cannot": "A repeated click, model choice, ticket or scheduled event cannot create new authority.",
+      "evidence": "Proposal ID, recorded decision and consumed state.",
+      "example": "Reject records a run with zero writes and unchanged finding status."
+    },
+    {
+      "title": "Deterministic executor",
+      "time": "1:15",
+      "does": "Apply only the fixed registered simulated operation to approved scope.",
+      "cannot": "No arbitrary provider commands; no repeat of recorded targets on same-run resume.",
+      "evidence": "Run ID, processed cursor and target-level simulated write counts.",
+      "example": "The SSH tool removes public TCP22 rules and retains unrelated ingress."
+    },
+    {
+      "title": "Provider readback",
+      "time": "1:30",
+      "does": "Record whether simulated provider parameters match the intended change.",
+      "cannot": "A successful operation or matching provider response is not a compliance verdict.",
+      "evidence": "Separate provider operation and readback entries.",
+      "example": "The mismatch branch reports SIMULATED PARAMETERS MATCH but still needs review."
+    },
+    {
+      "title": "Independent compliance",
+      "time": "1:45",
+      "does": "Evaluate the control separately and distinguish compliant from unresolved.",
+      "cannot": "A provider success cannot be promoted to VERIFIED when compliance fails.",
+      "evidence": "COMPLIANT, NON_COMPLIANT or NOT EVALUATED independent result.",
+      "example": "Provider match with failed compliance yields NEEDS_REVIEW and leaves the incident open."
+    },
+    {
+      "title": "Audit / incident update",
+      "time": "2:00",
+      "does": "Link the exact finding, proposal and run before recording a business outcome.",
+      "cannot": "Missing or unrelated later target history cannot close an incident or contaminate its export.",
+      "evidence": "Matching incident audit and local JSON record.",
+      "example": "MOCK works offline because contracts and safety decisions are demonstrable without AWS. It is not live or durable provider proof."
+    }
+  ],
+  "enterprise": {
+    "title": "Northstar archive transport risk",
+    "duration": "3 minutes",
+    "problem": "Synthetic incident linked to exact S3 finding",
+    "action": "Scripted triage selects fixed mock.s3-ssl proposal",
+    "humanControl": "Approve Once / Reject",
+    "outcome": "Resolve only on matching VERIFIED evidence; rejected/missing/divergent stays OPEN",
+    "evidence": "Linked finding/proposal/run, separate compliance and matching audit export"
+  }
+}

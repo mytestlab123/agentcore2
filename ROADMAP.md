@@ -4,7 +4,8 @@
 - [x] M2 security walkthrough: exact SG tool and unauthorized/stale branches
 - [x] M3 enterprise incident executive brief and matching-evidence closure
 - [x] M4 nine-stage read-only architecture / learning mode
-- [ ] Final compact story/source and existing-private-Site handoff
+- [x] Final compact story/source and existing-private-Site handoff
+- [ ] Exact-head CI / G review / overall roadmap acceptance
 
 One draft PR; G review/roadmap acceptance before merge. No Site mutation.
 Issues22/25 accepted complete; older unchecked gates below are historical.

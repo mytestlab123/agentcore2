@@ -1,6 +1,6 @@
 # Issue27 — story packs and learning mode
 
-ACTIVE. Authority: Issue27/comment6012349813. Base main
+IMPLEMENTED / AWAITING REVIEW. Authority: Issue27/comment6012349813. Base main
 693cf09942041ea935bacbc50249b0bf16df2328. Issues22/25 accepted complete.
 
 One cohesive draft PR: M1 compliance, M2 security, M3 enterprise incident,
