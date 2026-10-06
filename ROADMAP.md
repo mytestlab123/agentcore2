@@ -1,5 +1,13 @@
 # Roadmap — current focused follow-up
 
+## Active Issue #16 / draft PR #17 (2026-10-06)
+
+CLI retry boundary corrected in the existing recovery helper; 32 offline tests
+including 40 subprocess-boundary cases and full fast checks pass. Continue review
+on the same draft PR; exact SHA/CI and status live in PR #17 and Issue #16.
+Private activation gates remain separate; no deployment or merge authorized.
+
+
 F1–F5 PASS. The prior Crew roadmap state below is historical and superseded by
 [focused proof and closeout](docs/focused-followup.md),
 [live evidence](docs/focused-live-evidence.json) and [GUI proof](docs/focused-gui-proof.json).

@@ -136,3 +136,35 @@ This closing evidence update changes documentation only; final head and its CI
 are recorded in the PR description/handoff rather than a self-referential SHA.
 Next gate remains owner review of the private identity/target/budget/lifecycle
 and activation packet in #14. No merge, live observation or deployment occurred.
+
+
+## CLI retry boundary correction (2026-10-06)
+
+Independent review found that the original lifecycle fakes replaced `helper.aws`,
+so one helper call could still allow implicit CLI retries. The production wrapper
+now supplies `AWS_MAX_ATTEMPTS=1` and `AWS_RETRY_MODE=standard` in a copied child
+process environment for every AWS command, including create/start. Parent settings
+are preserved; ambient retry configuration cannot increase this bound. Read calls
+also use one attempt; the existing bounded GetJob observation loop is unchanged.
+[AWS documents](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-retries.html)
+that max attempts includes the initial request. This prevents CLI retry replay;
+it does not prove a failed request had no provider effect or provide exactly-once
+provider execution. Private reconciliation remains mandatory for uncertain writes.
+
+The added offline regression invokes the real `aws()` wrapper and replaces only
+`subprocess.run` (plus local revision lookup and HTTP fixtures). Forty subcases
+cover create/start with nonzero CLI exit, malformed JSON, timeout, interruption
+and connection loss, against absent, legacy, standard and adaptive inherited
+retry configuration. They assert child attempt/mode settings, unchanged parent
+environment, pre-call intent, byte-preserved uncertain receipts, blocked
+redispatch and repeated observation without further writes. No AWS executable
+or service is used. A negative control removing the child environment fails the
+new test as expected.
+
+Local verification: 32 deployment tests PASS (14 preflight + 18 recovery),
+including all 40 boundary subcases; full fast lane, Python compilation and
+`git diff --check` PASS. The initial checkout lacked the frozen source object;
+fetching its exact documented SHA restored the existing artifact tests. Existing
+product, workflows, IAM/OIDC templates and lockfile are unchanged. Final commit
+and exact-head CI evidence are recorded in PR #17 and Issue #16. Keep the PR draft;
+review and all private activation gates remain outstanding. No merge or live work.

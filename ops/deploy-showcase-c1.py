@@ -24,7 +24,10 @@ def aws(service, action, **params):
     cmd = ['aws', service, action, '--region', 'ap-southeast-1', '--output', 'json']
     for key, value in params.items():
         cmd.extend(['--' + key.replace('_', '-'), str(value)])
-    response = subprocess.run(cmd, capture_output=True, text=True)
+    # CLI max attempts includes the initial request. Override ambient/profile
+    # retries at the child boundary: an uncertain mutation must never be replayed.
+    child_env = {**os.environ, 'AWS_MAX_ATTEMPTS': '1', 'AWS_RETRY_MODE': 'standard'}
+    response = subprocess.run(cmd, capture_output=True, text=True, env=child_env)
     if response.returncode:
         # Provider stderr can contain private identifiers; do not forward it.
         raise RuntimeError(f'{service}:{action} failed; reconcile private provider logs before retry')

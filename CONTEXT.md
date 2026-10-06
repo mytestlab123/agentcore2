@@ -1,5 +1,16 @@
 # Current context
 
+## Issue #16 retry boundary correction (2026-10-06)
+
+Resumed existing draft PR #17 from `09f1181c14231f50d6cd3ab3237d9557ce47d50c`.
+Independent review identified implicit AWS CLI retries beneath the helper mocks.
+The child subprocess environment now enforces one total CLI attempt. Forty
+offline boundary cases prove uncertain receipt preservation and no repeated writes;
+32 deployment tests and the full fast lane pass. See the
+[recovery guide](docs/cloud-deployment-recovery.md); exact final SHA and CI are in
+PR #17 / Issue #16. Review remains open; private activation gates remain blocked.
+No AWS, credentials, IAM/OIDC, hosted deployment, Preview B changes or merge.
+
 ## Issue #16 offline recovery (2026-10-04)
 
 PR #15 merged at `41bd3a3e0dc6bacbd5db7318fbab32f38487be98`; this is the

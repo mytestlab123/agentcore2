@@ -3,6 +3,7 @@ from contextlib import ExitStack, redirect_stdout
 import copy
 import io
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -77,16 +78,84 @@ class Recovery(unittest.TestCase):
             return io.BytesIO(json.dumps({} if self.http_mismatch else self.marker).encode())
         return io.BytesIO(self.data)
 
-    def run_helper(self, resume=False):
+    def run_helper(self, resume=False, cli_boundary=False):
         with ExitStack() as stack:
             stack.enter_context(redirect_stdout(io.StringIO()))
             stack.enter_context(patch.dict('os.environ', self.env, clear=True))
-            stack.enter_context(patch.object(helper, 'aws', self.fake_aws))
+            if cli_boundary:
+                stack.enter_context(patch.object(helper.subprocess, 'check_output',
+                                                return_value=self.revision))
+                stack.enter_context(patch.object(helper.subprocess, 'run', self.fake_cli))
+            else:
+                stack.enter_context(patch.object(helper, 'aws', self.fake_aws))
             stack.enter_context(patch.object(helper.urllib.request, 'urlopen', self.fake_http))
             stack.enter_context(patch.object(helper.time, 'sleep'))
             stack.enter_context(patch.object(helper.source, 'DIGEST', self.digest))
             stack.enter_context(patch.object(helper.source, 'REFERENCE', 'a' * 40))
             helper.deploy(self.bundle, self.journal, resume_observation=resume, attempts=2)
+
+    def fake_cli(self, cmd, *, capture_output, text, env):
+        # Exercise the production aws() wrapper, replacing only the OS boundary.
+        self.assertEqual(cmd[0], 'aws')
+        self.assertEqual(cmd[3:7], ['--region', 'ap-southeast-1', '--output', 'json'])
+        self.assertTrue(capture_output and text)
+        self.assertEqual(env['AWS_MAX_ATTEMPTS'], '1')
+        self.assertEqual(env['AWS_RETRY_MODE'], 'standard')
+        self.assertEqual(dict(os.environ), self.env)  # Parent is not mutated.
+        self.assertEqual(env['C1_APP_ID'], self.env['C1_APP_ID'])
+        params = {cmd[i][2:].replace('-', '_'): cmd[i + 1]
+                  for i in range(7, len(cmd), 2)}
+        result = self.fake_aws(cmd[1], cmd[2], **params)
+        if cmd[2] == self.cli_fault_action:
+            self.intent_bytes = self.journal.read_bytes()
+            if self.cli_outcome == 'nonzero':
+                return subprocess.CompletedProcess(cmd, 1, '', 'PRIVATE provider error')
+            if self.cli_outcome == 'invalid-json':
+                return subprocess.CompletedProcess(cmd, 0, 'PRIVATE malformed response', '')
+            if self.cli_outcome == 'timeout':
+                raise subprocess.TimeoutExpired(cmd, 30)
+            if self.cli_outcome == 'interrupt':
+                raise KeyboardInterrupt('PRIVATE interruption')
+            raise OSError('PRIVATE connection lost')
+        return subprocess.CompletedProcess(cmd, 0, json.dumps(result), '')
+
+    def test_cli_boundary_uncertain_writes_preserve_receipts_and_never_repeat(self):
+        for action, phase, counts in [('create-deployment', 'CREATE_INTENT', (1, 0, 0)),
+                                      ('start-deployment', 'START_INTENT', (1, 1, 1))]:
+            for outcome in ['nonzero', 'invalid-json', 'timeout', 'interrupt', 'connection']:
+                for mode in [None, 'legacy', 'standard', 'adaptive']:
+                    with self.subTest(action=action, outcome=outcome, inherited_mode=mode):
+                        self.journal = self.root / f'{action}-{outcome}-{mode}.json'
+                        self.calls, self.puts = [], []
+                        if mode:
+                            self.env.update(AWS_MAX_ATTEMPTS='9', AWS_RETRY_MODE=mode)
+                        else:
+                            self.env.pop('AWS_MAX_ATTEMPTS', None)
+                            self.env.pop('AWS_RETRY_MODE', None)
+                        self.cli_fault_action, self.cli_outcome = action, outcome
+                        with self.assertRaises((RuntimeError, ValueError, OSError,
+                                                subprocess.TimeoutExpired, KeyboardInterrupt)):
+                            self.run_helper(cli_boundary=True)
+                        self.assertEqual(self.write_counts(), counts)
+                        self.assertEqual(self.read()['phase'], phase)
+                        self.assertEqual(self.journal.read_bytes(), self.intent_bytes)
+                        before = list(self.calls)
+                        with self.assertRaises(ValueError):
+                            self.run_helper(cli_boundary=True)
+                        self.assertEqual(self.calls, before)
+                        self.inspect()
+                        self.assertEqual(self.journal.read_bytes(), self.intent_bytes)
+                        self.cli_fault_action = None
+                        if action == 'create-deployment':
+                            with self.assertRaises(ValueError):
+                                self.run_helper(resume=True, cli_boundary=True)
+                            self.assertEqual(self.calls, before)
+                            self.assertEqual(self.journal.read_bytes(), self.intent_bytes)
+                        else:
+                            self.run_helper(resume=True, cli_boundary=True)
+                            self.run_helper(resume=True, cli_boundary=True)
+                            self.assertEqual(self.read()['phase'], 'HTTP_DIGEST_VERIFIED')
+                        self.assertEqual(self.write_counts(), counts)
 
     def read(self):
         return json.loads(self.journal.read_text())
