@@ -6,7 +6,7 @@ Base main d9082690d5bd596d8272454c0cb936a9094b5f07; Issue22 closed/merged.
 New branch sites/agentic-operations-polish preserves the prior local branch without
 replaying unpublished commits. M1 adds a dark enterprise console with domain rail,
 compact registry overview and explicit synthetic/zero-write/no-live-AWS boundary.
-Syntax + existing state check pass; 1600px visual inspected. M2 adds domain column and data-derived readiness counts; focused check passes. Next M3–M5 in one
+Syntax + existing state check pass; 1600px visual inspected. M2 adds domain column and data-derived readiness counts; focused check passes. M3 exposes the operator sequence, collapses optional scenario controls and separates review counts. Existing state check passes. Next M4–M5 in one
 draft PR, new private native Site only if supported. Existing public Site unchanged.
 Native Sites list succeeded; supported local workflow helper discovery unresolved.
 New AWS cost $0; no provider calls, mobile, new tests or dependency/CI machinery.

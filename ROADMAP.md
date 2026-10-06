@@ -2,7 +2,7 @@
 
 - [x] M1 dark enterprise console / domain navigation
 - [x] M2 capability presentation: domain/readiness and computed registry counts
-- [ ] M3 governed flow presentation
+- [x] M3 governed flow: compact step rail, optional scenario lab and explicit review counts
 - [ ] M4 reusable channels and incident story
 - [ ] M5 portable handoff / native private Sites authoring
 
