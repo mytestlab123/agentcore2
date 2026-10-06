@@ -1,104 +1,48 @@
-# Specification
+# Issue22 — Agentic Operations Capability Showcase
 
-## Active Issue #12 failure-artifact follow-up (2026-10-06)
+Status: ACCEPTED / READY TO MERGE, MOCK is the product. Base main 5b10c8b09e8dabc21e276a9d4328284809fd16e3.
+Authority: https://github.com/mytestlab123/agentcore2/issues/22 and G comment 6009423279.
 
-Amit authorized one cloud-only synthetic browser failure proof: reuse the smoke
-and existing CI, check capture/sanitization, distinguish fixture exit 1 from job
-failure, and preserve normal assertions. Necessary harness/tests may be published
-in one draft PR. No merge before independent review. No AWS/provider calls,
-credentials/security/settings changes, deployments, external activation, new
-costs or external Sites changes. No local browser installation is performed.
-Apply the merged test-economy/no-mobile policy: keep validation scoped to the
-explicit failure-artifact boundary; no additional tests or repeated broad/manual
-E2E by default. Existing focused corruption, method-isolation and publication
-regressions address demonstrated uncovered risks. No mobile acceptance is added.
-Ordinary PRs use existing fast checks plus the focused artifact fixture. Full
-desktop E2E requires an explicit major-finish/high-risk validation label; active
-mobile assertions/output are removed. Use the pinned Playwright bundle's PNG
-decoder instead of adding ImageMagick. No additional test cases are introduced.
-Independent review and current checks remain merge gates; hosted downloaded-byte
-and visual acceptance remains separate and unresolved.
-The Issue #16 acceptance record below remains historical and unchanged.
+## Delivery contract
 
-Status: Issue #16 source/offline acceptance complete (2026-10-06)
+One cohesive major draft PR with five milestone commits/checkpoints:
+1. Operator capability catalogue: eight synthetic capabilities, purpose/resource,
+   agent versus deterministic-tool responsibility, approval, evidence and truthful
+   MOCK READY / MOCK PARTIAL / PLANNED status.
+2. Governed remediation: selected finding → bounded context → registered proposal
+   → Approve Once/Reject → simulated operation → separate provider/compliance
+   evidence; zero-write rejection/unauthorized cases, stale/consumed approvals,
+   blocked/partial outcomes, interrupted/resumed same run.
+3. Copilot, CLI/API, event and ServiceNow-style MOCK presentations all use the
+   same existing proposal/decision/executor/evidence semantics, not five backends.
+4. A coherent synthetic enterprise incident story understandable in 3–5 minutes.
+5. Portable source/data + concise README and site-prompt.md for later Work/@Sites.
 
-PR #17 merged at `3213ec56f6204dbe31fa883a7d9de746e5ca4186` after
-independent review and exact-head CI PASS. Amit's later source-only merge
-authority superseded the earlier no-merge restriction for this acceptance.
-The bounded milestone below is retained as its historical scope. No AWS,
-identity/credential/OIDC/security changes, deployment, external activation,
-material cost or Sites work is authorized. Live acceptance remains NOT_RUN;
-the private packet in `docs/cloud-deployment-readiness.md` is still required.
+Reuse existing contracts, synthetic inventory, Contextual Copilot and executor.
+Agent responsibility is explanation/capability selection; mutations are fixed,
+registered deterministic actions. Scripted reasoning is labelled MOCK; no generic
+blank chat or live-agent claims. Source-level reuse of the contracts' exact target,
+approval/run/evidence vocabulary must remain explicit in the handoff.
 
-## Current bounded milestone
+## Boundaries
 
-Authority: Issue #16 and Amit's delegated continuation; parent #14 remains
-preparation. Base: `41bd3a3e0dc6bacbd5db7318fbab32f38487be98` (merged PR #15).
-Reuse helper/preflight and CI for versioned receipts, offline inspection and
-observation-only recovery, proven with synthetic uncertain lifecycle tests and
-zero duplicate writes. One draft PR, full applicable tests and exact-head CI.
-No AWS calls, IAM/OIDC changes, secrets handling, deployment dispatch, live
-Preview B, Home/office execution, activation or merge. Private identity/target,
-budget/lifecycle and one live run remain separate owner gates. See
-`docs/cloud-deployment-recovery.md` and the parent readiness packet.
+$0 new recurring AWS. No AWS/provider/model calls, real ServiceNow, AgentCore,
+Amplify/ECR/IAM/OIDC/Lambda/API Gateway/S3/CloudWatch work, credentials/security
+settings, office/PROD/private data, external Site modification or publication.
+Issue23 separately owns old-resource cost review; do not delete/modify resources.
+Issue12 is closed with the hosted-artifact limitation accepted; never retry it.
+No major framework/dependency or unrelated architecture expansion.
 
-The Issue #3 specification below is historical and grants no authority to this
-milestone.
+## Validation and checkpoints
 
-## Problem
+Follow AGENTS.md and canonical TESTING.md: zero new tests by default. Each
+ordinary milestone uses syntax/build and the smallest useful existing focused
+check, with lightweight visual inspection when useful, then stops. No repeated
+E2E, mobile work, decoder/image/test/CI machinery. At final major finish only,
+one focused desktop smoke plus existing build/test/typecheck and identifier scan.
 
-Prove that one governed AgentCore/remediation backend can power multiple,
-meaningfully different operator UIs for compliance findings, and learn which
-interactions help an Ops engineer investigate and safely remediate.
-
-## Scope
-
-Detailed roadmap (M1–M5) lives in the source of truth:
-https://github.com/mytestlab123/agentcore2/issues/3
-
-This repo is a rapid experimentation LAB. Deliver a shared mock-first contract
-layer and Preview A first, then ≥3 Amplify previews, one real AgentCore Harness
-S3 specialist, and one governed disposable-S3-canary remediation, with truthful
-evidence and a harvest list for `cloudscape-remediation`.
-
-## MUST
-
-- Keep one shared contract (`@agentcore2/contracts`) powering UI and backends.
-- Show a truthful MOCK / RECORDED / LIVE_LAB badge on every preview.
-- Enforce the governed flow: Approve Once / Reject, where REJECT yields zero
-  writes; keep provider readback distinct from compliance convergence.
-- Keep mock/recorded modes working with no AWS credentials.
-- Tag/name/TTL every AWS resource per `~/.agent/AWS.md`; keep LAB spend near the
-  ~USD 10 envelope.
-
-## MUST NOT
-
-- Commit secrets, credentials, real account IDs, or private/CloudSCAPE data.
-- Write to `amitkarpe/cloudscape-remediation`.
-- Touch office/GovTech/PROD/cross-account resources, or move sensitive
-  execution cross-Region.
-- Let the agent invent and run arbitrary destructive commands; remediation is
-  deterministic and capability-registered.
-- Track `.kiro/` local state or add a broad `.kiro/` ignore rule.
-
-## Closeout authority
-
-Amit explicitly authorized merging the completed, validated Issue #3 / Issue #9
-repository work into `main` on 2026-10-02. That repository merge does not grant
-new AWS, IAM, hosting, model, Site-publication, PROD, office or cross-account authority.
-
-## Verification
-
-- `npm test -w @agentcore2/contracts` proves the governed seam (reject = zero
-  writes, approve = converge, runs resumable).
-- `npm run build -w @agentcore2/preview-a` produces a static preview bundle.
-- Live milestones (M3/M4) require fresh provider + compliance readback and a
-  captured execution/session/trace id — screenshots alone are not proof.
-
-## Stop Gates
-
-The Issue #3 hard gates: office/GovTech/PROD/cross-account access; destructive
-changes to non-canary resources; broad AdministratorAccess or unsafe PassRole;
-secret publication or credential rotation; anonymous/public mutation; material
-recurring spend beyond the envelope; cross-Region execution with residency
-impact; unrelated architecture expansion; or a failed safety/identity check.
+Issue22 is the durable checkpoint source; reread G comments at each checkpoint.
+PASS at a direction checkpoint means implemented/validated. All five directions
+are now coherent; G review accepted PR #24 head `d14dc08a8b7a4bfd1fc9da95dc98c1f0aa141454`.
+Stop only at explicit scope, security, new cost/resource, publication, destructive
+or dependency/framework gates. Routine design/state decisions stay autonomous.

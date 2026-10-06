@@ -1,5 +1,58 @@
 # Current context
 
+## MOCK-first reuse and model decision (2026-10-06)
+
+Issues #22/#23: the full showcase stays synthetic and independent of AWS/model
+availability. PR #24 contains the accepted five-checkpoint MOCK product work plus the
+explicit demo-model default and reuse/cost contract.
+Source selects `global.amazon.nova-2-lite-v1:0` in Harness configuration, the
+operator client and React preview selector; no automatic fallback. This is not a
+deployed-model update or fresh live availability proof. The retained live tool
+still supports only S3 SSL inspection; its original canary was deleted.
+
+Reuse one retained Harness/runtime for optional bounded proof, not five runtimes.
+All five target experiences work in MOCK; future live capability parity requires
+separate review of registered tool, runtime and IAM scope. Issue #23's fresh
+2026-10-06 readback supports KEEP; service costs are account-wide, not exact
+project billing. Planning estimate around $10/month, proposed alert $20/month;
+no budget resource is created and an alert does not enforce a spending cap.
+No AWS/model/provider calls, resources, IAM, deployments or external publication
+changed. No new tests/dependencies/E2E. G review PASS at head
+`d14dc08a8b7a4bfd1fc9da95dc98c1f0aa141454`; exact-head CI 37418717777 PASS.
+Next: merge PR #24, then use the portable package for a separately authorized
+Work + @Sites authoring pass. Live invocation/billing configuration remain gated.
+
+Existing CI exposed stale architecture-node names/link count in the Issue #22
+state check. The same PR restores explicit zero-agent wording, derives test nodes
+from the real HTML, expects its one roadmap link, and refreshes the source receipt.
+Earlier browser evidence keeps its original digest; no new browser proof claimed.
+
+## Active Issue22 — MOCK capability showcase (2026-10-06)
+
+Authority: Issue22 and G comment 6009423279. Base main
+`5b10c8b09e8dabc21e276a9d4328284809fd16e3`. PR24 contains Directions1–4
+and the final portable handoff. All five implementation checkpoints are complete
+and G review accepts head `d14dc08a8b7a4bfd1fc9da95dc98c1f0aa141454` for merge.
+Eight capabilities (six MOCK READY, logging partial, snapshot planned), governed
+failure/resume simulation, five presentations of one executor and a linked
+synthetic incident story are implemented. README/site-prompt describe the portable
+unpublished package, boundaries and four-minute demo. One final 1600px desktop
+smoke passed with zero requests/errors, same-run channel projections, incident
+closure, and failure/resume cases. Build, 23 contract tests, 12 harness tests,
+typecheck and identifier scan pass. See the package's issue22-validation.json and
+evidence/issue22-desktop.png. No new test/dependency/CI machinery was added.
+Next: merge PR24; Work/@Sites authoring or publishing remains a separate
+authorized action. Do not resume historical C1.
+
+Issue12 is CLOSED; hosted-artifact 403 is ACCEPTED. Never reopen, retry/bypass or
+make another evidence task from it. PR21 is historical, not a testing template.
+The old live C1/runtime direction below is superseded, not the next action.
+Issue23 owns retained-resource cost review; no resource changes here. New AWS
+recurring cost $0. No provider/model/ServiceNow calls, credentials, infrastructure,
+publication or mobile work. Ordinary milestone validation: syntax/build + smallest
+existing focused check + useful visual inspection, then stop. One desktop smoke
+at final major finish only. Later sections are historical where they disagree.
+
 ## Project testing / demo policy (2026-10-06)
 
 Amit clarified the standing project rule after reviewing the Work/Sites flow:
