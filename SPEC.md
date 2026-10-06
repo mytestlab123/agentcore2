@@ -1,6 +1,14 @@
 # Specification
 
-Status: Issue #16 offline recovery/operator readiness approved (2026-10-04)
+Status: Issue #16 source/offline acceptance complete (2026-10-06)
+
+PR #17 merged at `3213ec56f6204dbe31fa883a7d9de746e5ca4186` after
+independent review and exact-head CI PASS. Amit's later source-only merge
+authority superseded the earlier no-merge restriction for this acceptance.
+The bounded milestone below is retained as its historical scope. No AWS,
+identity/credential/OIDC/security changes, deployment, external activation,
+material cost or Sites work is authorized. Live acceptance remains NOT_RUN;
+the private packet in `docs/cloud-deployment-readiness.md` is still required.
 
 ## Current bounded milestone
 
