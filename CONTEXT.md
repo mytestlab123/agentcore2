@@ -21,6 +21,11 @@ changed. No new tests/dependencies/E2E. Next: G reviews this same PR #24 and the
 [cost/reuse contract](docs/mock-live-cost-contract.md); separate authority is
 needed before any live invocation or billing configuration.
 
+Existing CI exposed stale architecture-node names/link count in the Issue #22
+state check. The same PR restores explicit zero-agent wording, derives test nodes
+from the real HTML, expects its one roadmap link, and refreshes the source receipt.
+Earlier browser evidence keeps its original digest; no new browser proof claimed.
+
 ## Active Issue22 — MOCK capability showcase (2026-10-06)
 
 Authority: Issue22 and G comment 6009423279. Base main

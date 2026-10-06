@@ -53,6 +53,11 @@ proof files/screenshots describe earlier versions and are not Issue22 acceptance
 The document title retains the old Preview B compatibility label; the visible
 product is Agentic Operations Lab. No mobile milestone is included.
 
+`issue22-validation.json` and its desktop screenshot remain evidence for their
+original HTML digest. The later model/cost follow-up restores explicit zero-agent
+wording, refreshes RELEASE.json and corrects the existing state check's stale
+architecture nodes/link count; it does not claim a new browser acceptance run.
+
 Small existing check: `node showcases/chatgpt-sites-preview-b/check-state.cjs`.
 Per milestone stop after syntax and the smallest useful state/manual check.
 One desktop smoke and existing build/test/typecheck belong at major finish.
