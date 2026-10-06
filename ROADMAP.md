@@ -3,7 +3,7 @@
 - [x] M1 dark enterprise console / domain navigation
 - [x] M2 capability presentation: domain/readiness and computed registry counts
 - [x] M3 governed flow: compact step rail, optional scenario lab and explicit review counts
-- [ ] M4 reusable channels and incident story
+- [x] M4 reusable channels and incident story: request/record panels and compact briefing
 - [ ] M5 portable handoff / native private Sites authoring
 
 One cohesive draft PR. No merge without G acceptance. Existing public Site unchanged.
