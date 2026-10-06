@@ -1,7 +1,7 @@
 # Active Sites roadmap — Issue25
 
 - [x] M1 dark enterprise console / domain navigation
-- [ ] M2 capability presentation
+- [x] M2 capability presentation: domain/readiness and computed registry counts
 - [ ] M3 governed flow presentation
 - [ ] M4 reusable channels and incident story
 - [ ] M5 portable handoff / native private Sites authoring
