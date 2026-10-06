@@ -23,6 +23,11 @@ that step in a supported native Sites environment using the exact site-prompt.
 GitHub access works; source PR remains draft pending exact-head CI and G review.
 New AWS cost $0. No AWS/model/provider calls/resources, mobile or new testing
 machinery. No further desktop/E2E rerun is scheduled.
+G polish followup synchronizes domain aria-pressed across rail/tabs/filters and
+sets sticky detail top104px below the84px header. Focused state/navigation check
+passes. CI37424256268 fast passed but browser fixture retained the old page title;
+only that existing title assertion changed, not the artifact workflow. Original
+desktop evidence retains its source digest; no repeated smoke claimed.
 
 ## MOCK-first reuse and model decision (2026-10-06)
 

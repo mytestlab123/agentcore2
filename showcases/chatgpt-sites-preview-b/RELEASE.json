@@ -5,8 +5,8 @@
   "scope": "MOCK / synthetic only; no live integration",
   "authority": "https://github.com/mytestlab123/agentcore2/issues/25",
   "baseCommit": "d9082690d5bd596d8272454c0cb936a9094b5f07",
-  "htmlSha256": "085b64f7b493dd81c4441f262b3e803eb7929a166385131480f625ba1f728ddd",
-  "guiSourceFingerprint": "12f9abc6652dab29431cbaa597f5cfe932ea8fb5580ae65538a9f980dda0e67f",
+  "htmlSha256": "f8581a48a7cff95f3b3400612c0d15b37834f927a994b6c19cbf78b7c6649c3a",
+  "guiSourceFingerprint": "8dec3733277e41875ce78d59403594c0a0ce2ca991815b1520d43e1b309647cf",
   "fingerprintAlgorithm": "sha256(index.html with BUILD_FINGERPRINT replaced by __FINGERPRINT__)",
   "historicalSiteMapping": "See the unchanged Issue9 evidence and Git history; no existing Site modified."
 }

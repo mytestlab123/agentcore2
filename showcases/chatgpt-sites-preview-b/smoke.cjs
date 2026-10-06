@@ -64,7 +64,7 @@ const {chromium} = require(process.argv[2] || '../../tools/browser/node_modules/
     };
     const response=await page.goto(url);
     assert.equal(response.status(),200);
-    assert.equal(await page.title(),'Preview B · Contextual Copilot v1.2');
+    assert.equal(await page.title(),'Agentic Operations Lab · MOCK Showcase');
     assert.equal(await page.locator('.badge').innerText(),'SHOWCASE / MOCK');
     // Test-only failure after a real synthetic page render; normal assertions stay mandatory.
     if(process.env.SHOWCASE_FAILURE_FIXTURE === 'capture-v1')
