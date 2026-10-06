@@ -1,0 +1,36 @@
+{
+  "scope": "Issue22 local offline source validation; not roadmap acceptance or Site proof",
+  "htmlSha256": "66ff602336733885e88204eaf9f7591d7f4c9c8f6e269790b77ea97f064580ce",
+  "syntax": "PASS",
+  "existingStateCheck": "PASS at Directions1\u20134",
+  "build": "PASS",
+  "contractTests": 23,
+  "harnessTests": 12,
+  "typecheck": "PASS",
+  "desktopSmoke": {
+    "viewport": "1600x1100",
+    "status": "PASS",
+    "capabilities": 8,
+    "incident": "RESOLVED only from matching verified run",
+    "channels": "five views of same run",
+    "simulatedWrites": {
+      "unauthorized": 0,
+      "stale": 0,
+      "blocked": 0,
+      "partial34": 32,
+      "resumed3": 3,
+      "mismatch": 1
+    },
+    "consumedApproval": "no extra writes",
+    "networkRequests": 0,
+    "pageErrors": 0
+  },
+  "scan": "No credential/ARN/private endpoint/account identifiers in active portable handoff; only public GitHub links, SVG namespace and hash substrings matched broad scan",
+  "newAwsCost": "$0",
+  "remainingGates": [
+    "G source review",
+    "overall roadmap acceptance",
+    "separate Work/@Sites action"
+  ],
+  "published": false
+}

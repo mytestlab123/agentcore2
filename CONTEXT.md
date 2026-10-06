@@ -3,12 +3,19 @@
 ## Active Issue22 — MOCK capability showcase (2026-10-06)
 
 Authority: Issue22 and G comment 6009423279. Base main
-`5b10c8b09e8dabc21e276a9d4328284809fd16e3`. One major draft PR owns
-Directions1–4 and the final portable handoff. No merge until roadmap acceptance
-and G review. Direction1 catalogue is implemented: eight synthetic capabilities
-with agent/tool boundaries, approval, evidence and truthful readiness. Existing
-Copilot inventory/executor is reused; logging remains partial, snapshot and
-incident orchestration planned. Direction2 now adds unauthorized/stale/consumed guards, blocked and partial outcomes, same-run in-memory resume, and distinct provider/compliance outcomes. Focused state check and manual interruption/mismatch inspection pass. Direction3 now presents Copilot/CLI/API/event/ticket envelopes over the same proposal and run state, with human approval in Copilot. Syntax, existing state check and manual same-proposal inspection pass. Direction4 now links a synthetic incident to the same finding/proposal/run and gates ticket resolution on separate compliant evidence. Rejected decisions remain OPEN with zero writes. Next: portable handoff and final major-finish validation.
+`5b10c8b09e8dabc21e276a9d4328284809fd16e3`. Draft PR24 contains Directions1–4
+and the final portable handoff. All five implementation checkpoints complete;
+G review and roadmap acceptance are still required. No merge is authorized.
+Eight capabilities (six MOCK READY, logging partial, snapshot planned), governed
+failure/resume simulation, five presentations of one executor and a linked
+synthetic incident story are implemented. README/site-prompt describe the portable
+unpublished package, boundaries and four-minute demo. One final 1600px desktop
+smoke passed with zero requests/errors, same-run channel projections, incident
+closure, and failure/resume cases. Build, 23 contract tests, 12 harness tests,
+typecheck and identifier scan pass. See the package's issue22-validation.json and
+evidence/issue22-desktop.png. No new test/dependency/CI machinery was added.
+Next: G reviews the exact final PR24 head and existing CI; Work/@Sites authoring
+or publishing remains a separate authorized action. Do not resume historical C1.
 
 Issue12 is CLOSED; hosted-artifact 403 is ACCEPTED. Never reopen, retry/bypass or
 make another evidence task from it. PR21 is historical, not a testing template.

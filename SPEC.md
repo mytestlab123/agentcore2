@@ -1,6 +1,6 @@
 # Issue22 — Agentic Operations Capability Showcase
 
-Status: ACTIVE, MOCK is the product. Base main 5b10c8b09e8dabc21e276a9d4328284809fd16e3.
+Status: IMPLEMENTED / AWAITING G REVIEW, MOCK is the product. Base main 5b10c8b09e8dabc21e276a9d4328284809fd16e3.
 Authority: https://github.com/mytestlab123/agentcore2/issues/22 and G comment 6009423279.
 
 ## Delivery contract
