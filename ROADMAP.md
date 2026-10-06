@@ -2,7 +2,7 @@
 
 - [x] M1 compliance walkthrough
 - [x] M2 security walkthrough: exact SG tool and unauthorized/stale branches
-- [ ] M3 enterprise incident executive story
+- [x] M3 enterprise incident executive brief and matching-evidence closure
 - [ ] M4 architecture / learning mode
 - [ ] Final compact story/source and existing-private-Site handoff
 

@@ -12,7 +12,8 @@ Explain/Investigate, frozen diff, human decisions and compact recorded evidence.
 The story calls the existing preview/decide/executor, never a second backend.
 Syntax and existing state check pass; desktop exact-target preview inspected.
 M2 adds HIGH-severity SG exposure with a fixed public-SSH removal tool and
-unauthorized/stale paths. Manual denial records zero writes. Next M3/M4 and compact handoff. $0 new AWS, MOCK only,
+unauthorized/stale paths. Manual denial records zero writes. M3 adds the executive problem/action/human-control/outcome/evidence brief;
+provider-match/compliance-fail remains OPEN / REVIEW REQUIRED. Next M4 and compact handoff. $0 new AWS, MOCK only,
 no provider/model calls, new tests/framework/CI/mobile or old C1/artifact work.
 
 
