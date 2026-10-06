@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "htmlSha256": "085b64f7b493dd81c4441f262b3e803eb7929a166385131480f625ba1f728ddd",
+  "desktop": "1600x1100",
+  "navigation": "four domains",
+  "incident": "verified closure and rejected audit linkage",
+  "channels": "five views of same run; batch scope matches proposal",
+  "scenarios": [
+    {
+      "mode": "unauthorized",
+      "writes": 0,
+      "state": "BLOCKED"
+    },
+    {
+      "mode": "stale",
+      "writes": 0,
+      "state": "STALE"
+    },
+    {
+      "mode": "blocked",
+      "writes": 0,
+      "state": "PARTIAL"
+    },
+    {
+      "mode": "partial",
+      "writes": 32,
+      "state": "PARTIAL"
+    },
+    {
+      "mode": "interrupted",
+      "writes": 3,
+      "state": "VERIFIED"
+    },
+    {
+      "mode": "mismatch",
+      "writes": 1,
+      "state": "NEEDS_REVIEW"
+    }
+  ],
+  "networkRequests": 0,
+  "pageErrors": 0,
+  "realWrites": 0,
+  "limits": "Local one-time major-finish smoke; no hosted/native Site evidence or mobile claim",
+  "reviewFollowup": {
+    "htmlSha256": "f8581a48a7cff95f3b3400612c0d15b37834f927a994b6c19cbf78b7c6649c3a",
+    "syntax": "PASS",
+    "existingStateCheck": "PASS",
+    "focusedNavigation": "PASS: rail highlights follow top tabs and catalogue domain filters",
+    "stickyDetail": "Source-confirmed top104px below header84px",
+    "existingSmokeFixture": "Title assertion updated to current document title; no fixture workflow changed",
+    "desktopSmoke": "Not repeated; prior result above retains its original source digest"
+  }
+}

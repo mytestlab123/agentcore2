@@ -1,5 +1,34 @@
 # Current context
 
+## Active Sites roadmap — Issue25
+
+PR26, branch sites/agentic-operations-polish, based on accepted main
+`d9082690d5bd596d8272454c0cb936a9094b5f07`. Issue22 closed; unpublished older
+commits remain preserved on their old branch and were not replayed.
+M1–M4 source polish complete: dark console/domain rail, compact capability registry,
+scenario lab, operator steps, channel request/record panes and incident briefing.
+Baseline inspection also found channel scope and incident export mismatches;
+minimal source corrections now use shared exact targets and reject unrelated runs.
+M5 portable HTML/data/README/exact site-prompt complete. Syntax and existing state
+check pass. One final 1600px desktop smoke passes domain navigation, incident
+closure, five same-run channels, batch scope, audit mismatch, failure/resume and
+consumed authority. Zero browser requests/errors and zero real writes. Source-bound
+evidence: showcases/chatgpt-sites-preview-b/sites-validation.json.
+
+Native Sites list succeeds; existing public Site untouched. Native registration
+and publishing NOT_STARTED: mandatory site-workflow.mjs is absent in the execution
+environment and unavailable at referenced skill resource paths. No Site credential
+requested, alternate workflow/hosting used, or publication claimed. Continue only
+that step in a supported native Sites environment using the exact site-prompt.
+GitHub access works; source PR remains draft pending exact-head CI and G review.
+New AWS cost $0. No AWS/model/provider calls/resources, mobile or new testing
+machinery. No further desktop/E2E rerun is scheduled.
+G polish followup synchronizes domain aria-pressed across rail/tabs/filters and
+sets sticky detail top104px below the84px header. Focused state/navigation check
+passes. CI37424256268 fast passed but browser fixture retained the old page title;
+only that existing title assertion changed, not the artifact workflow. Original
+desktop evidence retains its source digest; no repeated smoke claimed.
+
 ## MOCK-first reuse and model decision (2026-10-06)
 
 Issues #22/#23: the full showcase stays synthetic and independent of AWS/model
