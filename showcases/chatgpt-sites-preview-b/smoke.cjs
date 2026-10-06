@@ -66,6 +66,9 @@ const {chromium} = require(process.argv[2] || '../../tools/browser/node_modules/
     assert.equal(response.status(),200);
     assert.equal(await page.title(),'Preview B · Contextual Copilot v1.2');
     assert.equal(await page.locator('.badge').innerText(),'SHOWCASE / MOCK');
+    // Test-only failure after a real synthetic page render; normal assertions stay mandatory.
+    if(process.env.SHOWCASE_FAILURE_FIXTURE === 'capture-v1')
+      throw new Error('SHOWCASE_EXPECTED_FAILURE_CAPTURE_V1');
     assert.equal(await text('total'),'49,476');
     assert.equal(await page.locator('#findings tr').count(),25);
     assert.equal(await page.getByLabel('Account filter').locator('option').count(),59);
@@ -167,17 +170,12 @@ const {chromium} = require(process.argv[2] || '../../tools/browser/node_modules/
     assert.match(await text('architecture-detail'),/invokes no agent/);
     assert.equal(await page.getByRole('link',{name:'Open separate Amplify engineering demo'}).getAttribute('href'),
       'https://main.d2rar4n3w1jdwz.amplifyapp.com');
-    await page.setViewportSize({width:390,height:844});
-    assert(await button('Commands Ctrl K').isVisible());
-    await page.getByRole('tab',{name:'Context',exact:true}).click();
-    assert(await button('Explain').isVisible());
-    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     await command('ssh',/^Security Groups · internet-open SSH/);
     assert.equal(await page.getByLabel('Resource filter').inputValue(),'Security Group');
     assert.equal(await page.getByLabel('Control filter').inputValue(),'sg-ssh');
     assert.deepEqual(network,['local document']); assert.deepEqual(unexpected,[]); assert.deepEqual(errors,[]);
     console.log(JSON.stringify({status:'PASS',release:'v1.2.1',mode:'SHOWCASE / MOCK',
-      localhostHttpRender:true,desktopViewport:[1440,1000],mobileViewport:[390,844],
+      localhostHttpRender:true,desktopViewport:[1440,1000],
       accounts:58,baselineRecords:49476,pageSize:25,rejectSimulatedWrites:0,
       approveSimulatedWrites:1000,partialBlocked:58,partialSimulatedWrites:942,
       completeTargetDownloads:true,consumedDecisions:true,replayNoAdditionalWrites:true,

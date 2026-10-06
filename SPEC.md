@@ -1,5 +1,25 @@
 # Specification
 
+## Active Issue #12 failure-artifact follow-up (2026-10-06)
+
+Amit authorized one cloud-only synthetic browser failure proof: reuse the smoke
+and existing CI, check capture/sanitization, distinguish fixture exit 1 from job
+failure, and preserve normal assertions. Necessary harness/tests may be published
+in one draft PR. No merge before independent review. No AWS/provider calls,
+credentials/security/settings changes, deployments, external activation, new
+costs or external Sites changes. No local browser installation is performed.
+Apply the merged test-economy/no-mobile policy: keep validation scoped to the
+explicit failure-artifact boundary; no additional tests or repeated broad/manual
+E2E by default. Existing focused corruption, method-isolation and publication
+regressions address demonstrated uncovered risks. No mobile acceptance is added.
+Ordinary PRs use existing fast checks plus the focused artifact fixture. Full
+desktop E2E requires an explicit major-finish/high-risk validation label; active
+mobile assertions/output are removed. Use the pinned Playwright bundle's PNG
+decoder instead of adding ImageMagick. No additional test cases are introduced.
+Independent review and current checks remain merge gates; hosted downloaded-byte
+and visual acceptance remains separate and unresolved.
+The Issue #16 acceptance record below remains historical and unchanged.
+
 Status: Issue #16 source/offline acceptance complete (2026-10-06)
 
 PR #17 merged at `3213ec56f6204dbe31fa883a7d9de746e5ca4186` after

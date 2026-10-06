@@ -311,3 +311,132 @@ change was attempted. Current remote main and existing Issue #12 PRs were not
 reconciled after this denial. No branch was pushed, PR created, CI observed,
 browser installed or merge performed. Prior local fast-lane results stand;
 publication remains blocked pending environment/access resolution.
+
+
+## Issue #12 controlled failure-artifact proof (2026-10-06)
+
+This follow-up closes the unexercised-capture evidence gap, not the already-passing
+normal smoke path. Base main: `dbe1e9ffc64f0a1051414ce5028fc2d465b3c2f4`.
+Run `node ops/browser-failure-proof.cjs` only where the pinned browser is already
+installed. Local browser installation remains deferred; existing CI supplies it.
+
+The existing smoke recognizes test-only `SHOWCASE_FAILURE_FIXTURE=capture-v1`
+and throws a fixed marker after real localhost rendering and MOCK badge checks.
+It still exits **1** through the existing JSON/screenshot/trace catch/finally path.
+The full desktop journey runs without that flag only when explicitly requested
+by a major-finish/high-risk validation label. Ordinary PRs exercise the focused
+fixture. Mobile assertions are retired by the standing project policy.
+The proof command fails for unexpected success, wrong failure, timeout/signal,
+missing artifacts or failed content verification. No continue-on-error is used.
+
+The fixture runs in a fresh browser context and fresh temporary home with an
+allowlisted subprocess environment. Runner credential/session variables are not
+forwarded; a synthetic private sentinel seeded in the parent must be absent from
+child logs and all artifact bytes, including decompressed trace resources.
+The verifier requires exactly failure.json, failure.png and trace.zip, the exact
+fixed diagnostic, a full PNG decode using the pinned Playwright bundle with
+bounded desktop dimensions, trace frame snapshots and exactly one localhost
+GET. Recorded auth/cookie headers, nonempty session state, extra files and known
+credential-shaped bytes are rejected. Offline negative cases test these guards.
+This is provenance and validation for this controlled synthetic fixture, **not a
+general-purpose sanitizer for arbitrary browser sessions or arbitrary secrets**.
+
+Only after verification succeeds does CI upload those three exact fixture files
+as `showcase-expected-failure`, retained seven days. If verification fails, the
+fixture directory is not published. The original normal-failure upload retains
+its failure condition and its three standard file paths, excluding the separate
+fixture directory. Normal test failures still fail the job. Neither fixture nor
+CI success is live hosting/provider evidence.
+
+Final SHA, exact-head CI, artifact ID/digest, download inspection and screenshot
+review will be recorded in the draft PR / Issue #12 after execution. No synthetic
+artifact is committed to Git; no public URL, credentials or live browser profile
+is used by the fixture. No product HTML or external Site is changed.
+
+
+### PR #21 review correction and separate local visual proof
+
+The HTTP rejection subcases now start from independent valid localhost GETs, so
+POST cannot accidentally fail only because an earlier external URL survived.
+Screenshot verification uses existing ImageMagick `convert` to fully decode the
+PNG, rejects decoder errors/warnings, and checks width 1440 and full-page height
+1000–10000. No new image dependency is installed. Unit fixtures are valid RGB
+PNGs generated with stdlib; negatives include signature-only junk, truncation,
+invalid compressed pixels, incomplete decoded pixels and wrong dimensions.
+Forty offline tests pass; negative controls removing the method or image-decode
+guard fail the corresponding regression.
+
+A separate local run used the saved environment's already-present Playwright
+1.62.1 and `/usr/bin/chromium`, not the CI-pinned Playwright 1.62.0 toolchain.
+It used a fresh home/context and an allowlisted environment, rendered localhost,
+and exited 1 with the expected marker. Verification found one local GET, six
+trace snapshots and no recorded session state. The actual screenshot decoded as
+1440×1702, 306611 bytes, SHA256
+`fad76c016f9b14ae2a173772fe5e87861db1b559af9c9e432f145d9d5c98cd3e`.
+The image-viewing tool confirmed a rendered MOCK workspace with synthetic
+findings, visible MOCK banner and zero-real-writes/model-calls label; no visible
+credentials or private-session data. This is **local visual proof only**, not
+independently downloaded hosted bytes or a substitute for full hosted acceptance.
+
+The previous denied artifact-download route was not retried or bypassed. Hosted
+post-download byte validation and visual acceptance remain unresolved. Current
+head/CI evidence is recorded on PR #21 / Issue #12; the PR remains draft and
+unmerged pending independent review. No product or external Site changed.
+
+
+### Test-economy policy reconciliation (2026-10-06)
+
+Read the canonical [TESTING.md at dotfiles 606384fc](https://github.com/amitkarpe/dotfiles/blob/606384fcf258da7f282251ef9826db1ffb765d6b/agent/.agent/TESTING.md)
+and main's AGENTS/CONTEXT policy at `413fa53`. The actual CONTEXT insertion
+conflict was already resolved in `52c0ae7`, preserving both policy and milestone;
+there is no remaining Git conflict. This clarification changes documentation
+only and adds/runs no further tests or browser flows.
+
+The existing eight focused artifact-verifier tests are retained because they
+protect distinct, stable acceptance risks: corrupt/missing/wrong evidence,
+nonlocal/non-GET requests, session/credential leakage, and the exact controlled
+failure contract. The HTTP-isolation and image-decoding regressions were explicit
+review requests for demonstrated gaps, not coverage-count expansion. Prior local
+visual/decode proof is retained without repeating it. No mobile work is planned;
+historical mobile results above remain historical only.
+
+Existing repository CI automatically runs fast, deployment and normal browser
+checks on PR updates. The normal smoke still contains legacy mobile assertions;
+this is disclosed existing CI behavior, not renewed mobile acceptance authority.
+This policy-only reconciliation does not mute/delete those checks or rewrite
+historical evidence. It does not manually dispatch or rerun broad CI/E2E.
+
+CI run 37410501023 failed because `convert` is absent on its runners. Normal fast
+checks and normal browser smoke passed, but image-dependent verification failed
+closed and fixture upload was skipped. This is still a tooling gate, not grounds
+to weaken real decoding or add dependencies automatically. Local visual proof,
+CI execution and hosted downloaded-byte/visual acceptance remain separate; the
+last remains unresolved and the denied artifact route has not been retried.
+
+
+### Active-path policy and decoder compatibility resolution
+
+This supersedes the preceding docs-only policy interpretation. Current smoke
+commands no longer switch to a mobile viewport, assert mobile behavior or emit
+mobile acceptance fields. Historical reports above are unchanged. Ordinary PRs
+run the existing fast checks and the focused failure fixture, not the full UI
+journey. Apply `validation:major-finish` only for an explicit major finish
+(normally about five milestones) or `validation:high-risk` for a concrete risk
+to request the desktop E2E step. Label additions/removals trigger evaluation;
+no such label is added by this task. Any selected check still fails normally.
+
+The CI portability fix reuses pngjs already bundled in pinned Playwright 1.62.0
+(`lib/utilsBundle.js`). CRC checking and complete RGBA pixel decoding replace
+the unavailable ImageMagick command; dimension limits remain. No dependency is
+added. This internal bundled capability is version-bound and fails closed if a
+future Playwright upgrade changes it. The existing eight artifact-verifier cases
+move to `tools/browser/tests`, run after the existing browser-tool installation;
+fast's provider-free deployment suite remains separate. No cases are added.
+
+Focused local validation: eight existing verifier cases, revalidation of the
+already-generated local screenshot/trace with the replacement decoder, JavaScript
+syntax, workflow parsing/source inspection and diff whitespace. No new browser
+journey or mobile flow was run. Existing automatic CI still performs build,
+contract/harness/state checks and the 32 offline deployment tests, then the eight
+artifact cases and focused capture; full desktop E2E is explicitly gated. Current
+SHA/CI results are in PR #21. Independent review is required before merge.

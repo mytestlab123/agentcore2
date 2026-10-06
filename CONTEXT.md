@@ -16,6 +16,38 @@ Amit clarified the standing project rule after reviewing the Work/Sites flow:
 - Existing historical mobile/browser evidence remains historical proof only; it
   must not be converted into a standing requirement.
 
+## Issue #12 failure-artifact proof (2026-10-06)
+
+Active bounded follow-up from merged main `dbe1e9ffc64f0a1051414ce5028fc2d465b3c2f4`:
+prove the existing browser failure capture with a controlled synthetic failure and
+inspect JSON/PNG/trace before publishing a dedicated fixture artifact. Validation
+for this milestone stays focused on capture, decoding and publication guards. No provider calls, credentials or
+settings changes, deployment, Sites product edits or merge. Exact-head CI and
+artifact-download evidence belong in the draft PR / Issue #12. Independent review
+is required before merge; no browser installation was performed.
+PR #21 review corrections add independent HTTP subcases and full PNG decoding.
+A fresh local fixture was generated and visually inspected using already-present
+browser tools; its evidence is separate from CI. Hosted artifact download/visual
+acceptance remains unresolved; the previously denied route was not retried.
+See the local evidence record in `docs/dot-cloud-pilot.md`.
+
+Policy reconciliation: main `413fa53ecfc8e61a6324f6e85047a8a5351e0c35`
+was already incorporated by merge `52c0ae7`; the CONTEXT insertion conflict was
+resolved by preserving both the project policy and this bounded milestone.
+No Git conflict remains. Retain only the existing focused artifact-verifier
+regressions justified by false-acceptance/publication risks; add no more tests
+by default. No further manual broad E2E or mobile validation is scheduled.
+Active paths now enforce policy: mobile assertions/output are removed from the
+current smoke commands (historical reports remain untouched). Full desktop E2E
+runs only for an explicit `validation:major-finish` or `validation:high-risk`
+PR label; ordinary updates retain fast checks and the focused desktop fixture.
+The missing ImageMagick dependency is replaced by pngjs already bundled with the
+pinned Playwright tool. The same eight verifier regressions move to the browser
+tooling job; no new cases/package/install are added. Focused checks pass locally;
+current CI must confirm the pinned-tool path. Hosted downloaded-byte/visual
+acceptance is still unresolved; no denied download route was retried.
+Independent review and passing current checks remain merge gates.
+
 ## Issue #16 source/offline acceptance (2026-10-06)
 
 Amit authorized source-only merge after independent review PASS of
