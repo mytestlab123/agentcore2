@@ -2,6 +2,7 @@ name: Cloud verification
 on:
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened, labeled, unlabeled]
 permissions:
   contents: read
 jobs:
@@ -35,7 +36,10 @@ jobs:
         run: npm ci --prefix tools/browser --ignore-scripts --no-audit --no-fund
       - name: Install matching Chromium and system libraries
         run: node tools/browser/node_modules/playwright-core/cli.js install --with-deps chromium
-      - name: Run localhost showcase checks
+      - name: Verify focused artifact guards
+        run: python3 -m unittest discover -s tools/browser/tests -v
+      - name: Run explicitly requested desktop E2E
+        if: contains(github.event.pull_request.labels.*.name, 'validation:major-finish') || contains(github.event.pull_request.labels.*.name, 'validation:high-risk')
         env:
           SHOWCASE_ARTIFACTS: artifacts/showcase
         run: npm run verify:cloud -- browser

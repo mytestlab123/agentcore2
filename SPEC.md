@@ -12,9 +12,12 @@ Apply the merged test-economy/no-mobile policy: keep validation scoped to the
 explicit failure-artifact boundary; no additional tests or repeated broad/manual
 E2E by default. Existing focused corruption, method-isolation and publication
 regressions address demonstrated uncovered risks. No mobile acceptance is added.
-The existing automatic repository CI remains unchanged in this reconciliation;
-its broader checks are not a new milestone requirement. CI decoder availability,
-independent review and current checks remain unresolved merge gates.
+Ordinary PRs use existing fast checks plus the focused artifact fixture. Full
+desktop E2E requires an explicit major-finish/high-risk validation label; active
+mobile assertions/output are removed. Use the pinned Playwright bundle's PNG
+decoder instead of adding ImageMagick. No additional test cases are introduced.
+Independent review and current checks remain merge gates; hosted downloaded-byte
+and visual acceptance remains separate and unresolved.
 The Issue #16 acceptance record below remains historical and unchanged.
 
 Status: Issue #16 source/offline acceptance complete (2026-10-06)

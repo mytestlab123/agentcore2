@@ -43,11 +43,11 @@ def screenshot_dimensions(data):
     width, height = struct.unpack('>II', data[16:24])
     require(width == 1440 and 1000 <= height <= 10000)
     decoded = subprocess.run(
-        ['convert', '-regard-warnings', 'png:-', '-format', '%w %h', 'info:'],
+        ['node', str(Path(__file__).with_name('decode-browser-png.cjs'))],
         input=data, capture_output=True, timeout=30)
     require(decoded.returncode == 0)
     require(decoded.stdout.decode('ascii').strip() == f'{width} {height}')
-    return {'width': width, 'height': height, 'decodedBy': 'ImageMagick'}
+    return {'width': width, 'height': height, 'decodedBy': 'Playwright bundled pngjs'}
 
 
 def verify(folder):

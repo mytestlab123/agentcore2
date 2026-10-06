@@ -37,11 +37,15 @@ resolved by preserving both the project policy and this bounded milestone.
 No Git conflict remains. Retain only the existing focused artifact-verifier
 regressions justified by false-acceptance/publication risks; add no more tests
 by default. No further manual broad E2E or mobile validation is scheduled.
-Existing automatic PR CI still invokes the full fast/browser lanes, including
-legacy mobile assertions. That is existing CI behavior, not a new project
-acceptance requirement; no CI/test removal is smuggled into this docs resolution.
-The current engineering blocker remains ImageMagick `convert` absent from CI;
-local decode/visual proof does not clear CI or hosted downloaded-byte acceptance.
+Active paths now enforce policy: mobile assertions/output are removed from the
+current smoke commands (historical reports remain untouched). Full desktop E2E
+runs only for an explicit `validation:major-finish` or `validation:high-risk`
+PR label; ordinary updates retain fast checks and the focused desktop fixture.
+The missing ImageMagick dependency is replaced by pngjs already bundled with the
+pinned Playwright tool. The same eight verifier regressions move to the browser
+tooling job; no new cases/package/install are added. Focused checks pass locally;
+current CI must confirm the pinned-tool path. Hosted downloaded-byte/visual
+acceptance is still unresolved; no denied download route was retried.
 Independent review and passing current checks remain merge gates.
 
 ## Issue #16 source/offline acceptance (2026-10-06)

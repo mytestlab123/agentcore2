@@ -323,7 +323,9 @@ installed. Local browser installation remains deferred; existing CI supplies it.
 The existing smoke recognizes test-only `SHOWCASE_FAILURE_FIXTURE=capture-v1`
 and throws a fixed marker after real localhost rendering and MOCK badge checks.
 It still exits **1** through the existing JSON/screenshot/trace catch/finally path.
-Normal smoke runs first in CI, without that flag, and all its assertions remain.
+The full desktop journey runs without that flag only when explicitly requested
+by a major-finish/high-risk validation label. Ordinary PRs exercise the focused
+fixture. Mobile assertions are retired by the standing project policy.
 The proof command fails for unexpected success, wrong failure, timeout/signal,
 missing artifacts or failed content verification. No continue-on-error is used.
 
@@ -332,7 +334,8 @@ allowlisted subprocess environment. Runner credential/session variables are not
 forwarded; a synthetic private sentinel seeded in the parent must be absent from
 child logs and all artifact bytes, including decompressed trace resources.
 The verifier requires exactly failure.json, failure.png and trace.zip, the exact
-fixed diagnostic, a complete ImageMagick PNG decode with bounded desktop dimensions, trace frame snapshots and exactly one localhost
+fixed diagnostic, a full PNG decode using the pinned Playwright bundle with
+bounded desktop dimensions, trace frame snapshots and exactly one localhost
 GET. Recorded auth/cookie headers, nonempty session state, extra files and known
 credential-shaped bytes are rejected. Offline negative cases test these guards.
 This is provenance and validation for this controlled synthetic fixture, **not a
@@ -409,3 +412,31 @@ closed and fixture upload was skipped. This is still a tooling gate, not grounds
 to weaken real decoding or add dependencies automatically. Local visual proof,
 CI execution and hosted downloaded-byte/visual acceptance remain separate; the
 last remains unresolved and the denied artifact route has not been retried.
+
+
+### Active-path policy and decoder compatibility resolution
+
+This supersedes the preceding docs-only policy interpretation. Current smoke
+commands no longer switch to a mobile viewport, assert mobile behavior or emit
+mobile acceptance fields. Historical reports above are unchanged. Ordinary PRs
+run the existing fast checks and the focused failure fixture, not the full UI
+journey. Apply `validation:major-finish` only for an explicit major finish
+(normally about five milestones) or `validation:high-risk` for a concrete risk
+to request the desktop E2E step. Label additions/removals trigger evaluation;
+no such label is added by this task. Any selected check still fails normally.
+
+The CI portability fix reuses pngjs already bundled in pinned Playwright 1.62.0
+(`lib/utilsBundle.js`). CRC checking and complete RGBA pixel decoding replace
+the unavailable ImageMagick command; dimension limits remain. No dependency is
+added. This internal bundled capability is version-bound and fails closed if a
+future Playwright upgrade changes it. The existing eight artifact-verifier cases
+move to `tools/browser/tests`, run after the existing browser-tool installation;
+fast's provider-free deployment suite remains separate. No cases are added.
+
+Focused local validation: eight existing verifier cases, revalidation of the
+already-generated local screenshot/trace with the replacement decoder, JavaScript
+syntax, workflow parsing/source inspection and diff whitespace. No new browser
+journey or mobile flow was run. Existing automatic CI still performs build,
+contract/harness/state checks and the 32 offline deployment tests, then the eight
+artifact cases and focused capture; full desktop E2E is explicitly gated. Current
+SHA/CI results are in PR #21. Independent review is required before merge.

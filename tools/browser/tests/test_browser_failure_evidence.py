@@ -9,7 +9,7 @@ import unittest
 import zipfile
 
 spec = importlib.util.spec_from_file_location(
-    'browser_evidence', Path(__file__).resolve().parents[1] / 'verify-browser-failure.py')
+    'browser_evidence', Path(__file__).resolve().parents[3] / 'ops/verify-browser-failure.py')
 evidence = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(evidence)
 
@@ -51,7 +51,7 @@ class FailureEvidence(unittest.TestCase):
         self.assertEqual(result['localDocumentRequests'], 1)
         self.assertEqual(len(result['files']), 3)
         self.assertEqual(result['screenshot'],
-                         {'width': 1440, 'height': 1000, 'decodedBy': 'ImageMagick'})
+                         {'width': 1440, 'height': 1000, 'decodedBy': 'Playwright bundled pngjs'})
 
     def test_corrupt_or_wrong_dimension_png_rejected(self):
         for data in [b'\x89PNG\r\n\x1a\nfixture', png_fixture()[:40],

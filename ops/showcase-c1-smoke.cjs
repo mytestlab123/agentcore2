@@ -77,9 +77,6 @@ const {chromium} = require(process.argv[2] || 'playwright');
     await page.getByRole('button',{name:'Reset synthetic demo'}).click();
     assert.equal(await page.locator('#result').innerText(),'');
     assert(await page.getByRole('button',{name:'Preview Fix',exact:true}).isEnabled());
-    await page.setViewportSize({width:390,height:844});
-    assert(await page.getByRole('button',{name:'Explain',exact:true}).isVisible());
-    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     assert.equal(await page.locator('.architecture a').getAttribute('href'),'https://main.d2rar4n3w1jdwz.amplifyapp.com');
     assert.deepEqual(network,hosted?[target]:[]); assert.deepEqual(errors,[]);
     console.log(JSON.stringify({status:'PASS',mode:'MOCK SHOWCASE',offlineFileRender:!hosted,
@@ -87,7 +84,7 @@ const {chromium} = require(process.argv[2] || 'playwright');
       rejectSimulatedWrites:0,approveSimulatedWrites:1,oneDecisionPerProposal:true,
       selectionClearsPendingProposal:true,
       separateReadbackAndCompliance:true,evidenceSteps:5,modelLabelsAndCostIndices:true,
-      modelSelectionPreservesApproval:true,theme:['dark','light'],mobileWidth:390,
+      modelSelectionPreservesApproval:true,theme:['dark','light'],
       unexpectedBrowserErrors:0,networkRequests:network.length,unexpectedNetworkRequests:0,
       realWrites:0,modelCalls:0},null,2));
   } finally {await browser.close();}
