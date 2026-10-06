@@ -1,3 +1,20 @@
+# Active roadmap — Issue22
+
+One major draft PR, no new AWS resources/cost, desktop MOCK only.
+
+- [x] Direction1 implementation checkpoint: eight-capability operator catalogue,
+  existing finding/Copilot links and truthful readiness. Await G checkpoint review.
+- [ ] Direction2: governed failure/recovery simulator on the existing executor.
+- [ ] Direction3: five presentations, one contract/executor/evidence semantics.
+- [ ] Direction4: 3–5 minute synthetic enterprise incident story.
+- [ ] Final: portable source, README/site-prompt, one desktop finish smoke and G review.
+
+Issue22 owns current decisions/checkpoints. Issue12 is closed with its 403 limit
+accepted; PR21 is historical. Issue23 owns old cost review. Do not revive the
+historical infrastructure/cleanup directions below.
+
+---
+
 # Roadmap — current focused follow-up
 
 ## Issue #16 source/offline acceptance (2026-10-06)

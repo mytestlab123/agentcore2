@@ -1,5 +1,24 @@
 # Current context
 
+## Active Issue22 — MOCK capability showcase (2026-10-06)
+
+Authority: Issue22 and G comment 6009423279. Base main
+`5b10c8b09e8dabc21e276a9d4328284809fd16e3`. One major draft PR owns
+Directions1–4 and the final portable handoff. No merge until roadmap acceptance
+and G review. Direction1 catalogue is implemented: eight synthetic capabilities
+with agent/tool boundaries, approval, evidence and truthful readiness. Existing
+Copilot inventory/executor is reused; logging remains partial, snapshot and
+incident orchestration planned. Next: deepen governed failure/recovery semantics.
+
+Issue12 is CLOSED; hosted-artifact 403 is ACCEPTED. Never reopen, retry/bypass or
+make another evidence task from it. PR21 is historical, not a testing template.
+The old live C1/runtime direction below is superseded, not the next action.
+Issue23 owns retained-resource cost review; no resource changes here. New AWS
+recurring cost $0. No provider/model/ServiceNow calls, credentials, infrastructure,
+publication or mobile work. Ordinary milestone validation: syntax/build + smallest
+existing focused check + useful visual inspection, then stop. One desktop smoke
+at final major finish only. Later sections are historical where they disagree.
+
 ## Project testing / demo policy (2026-10-06)
 
 Amit clarified the standing project rule after reviewing the Work/Sites flow:
