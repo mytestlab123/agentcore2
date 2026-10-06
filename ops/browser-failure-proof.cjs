@@ -35,4 +35,4 @@ const checked = spawnSync('python3', [path.join(__dirname, 'verify-browser-failu
   {cwd:root, encoding:'utf8', timeout:30000});
 assert.equal(checked.status, 0, 'Artifact content verification failed; do not publish');
 process.stdout.write(checked.stdout);
-console.log('PASS: expected fixture exit 1; normal browser smoke is a separate required check.');
+console.log('PASS: expected fixture exit 1; artifact guards passed.');
