@@ -1,5 +1,15 @@
 # Specification
 
+## Active Issue #12 failure-artifact follow-up (2026-10-06)
+
+Amit authorized one cloud-only synthetic browser failure proof: reuse the smoke
+and existing CI, check capture/sanitization, distinguish fixture exit 1 from job
+failure, and preserve normal assertions. Necessary harness/tests may be published
+in one draft PR. No merge before independent review. No AWS/provider calls,
+credentials/security/settings changes, deployments, external activation, new
+costs or external Sites changes. No local browser installation is performed.
+The Issue #16 acceptance record below remains historical and unchanged.
+
 Status: Issue #16 source/offline acceptance complete (2026-10-06)
 
 PR #17 merged at `3213ec56f6204dbe31fa883a7d9de746e5ca4186` after

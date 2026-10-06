@@ -39,11 +39,28 @@ jobs:
         env:
           SHOWCASE_ARTIFACTS: artifacts/showcase
         run: npm run verify:cloud -- browser
+      - name: Prove synthetic failure capture
+        id: failure-proof
+        run: node ops/browser-failure-proof.cjs
+      - name: Publish verified synthetic failure fixture
+        if: success() && steps.failure-proof.outcome == 'success'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: showcase-expected-failure
+          path: |
+            artifacts/showcase/expected-failure/failure.json
+            artifacts/showcase/expected-failure/failure.png
+            artifacts/showcase/expected-failure/trace.zip
+          if-no-files-found: error
+          retention-days: 7
       - name: Retain browser failure evidence
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: showcase-failure
-          path: artifacts/showcase
+          path: |
+            artifacts/showcase/failure.json
+            artifacts/showcase/failure.png
+            artifacts/showcase/trace.zip
           if-no-files-found: ignore
           retention-days: 7

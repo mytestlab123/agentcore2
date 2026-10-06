@@ -311,3 +311,41 @@ change was attempted. Current remote main and existing Issue #12 PRs were not
 reconciled after this denial. No branch was pushed, PR created, CI observed,
 browser installed or merge performed. Prior local fast-lane results stand;
 publication remains blocked pending environment/access resolution.
+
+
+## Issue #12 controlled failure-artifact proof (2026-10-06)
+
+This follow-up closes the unexercised-capture evidence gap, not the already-passing
+normal smoke path. Base main: `dbe1e9ffc64f0a1051414ce5028fc2d465b3c2f4`.
+Run `node ops/browser-failure-proof.cjs` only where the pinned browser is already
+installed. Local browser installation remains deferred; existing CI supplies it.
+
+The existing smoke recognizes test-only `SHOWCASE_FAILURE_FIXTURE=capture-v1`
+and throws a fixed marker after real localhost rendering and MOCK badge checks.
+It still exits **1** through the existing JSON/screenshot/trace catch/finally path.
+Normal smoke runs first in CI, without that flag, and all its assertions remain.
+The proof command fails for unexpected success, wrong failure, timeout/signal,
+missing artifacts or failed content verification. No continue-on-error is used.
+
+The fixture runs in a fresh browser context and fresh temporary home with an
+allowlisted subprocess environment. Runner credential/session variables are not
+forwarded; a synthetic private sentinel seeded in the parent must be absent from
+child logs and all artifact bytes, including decompressed trace resources.
+The verifier requires exactly failure.json, failure.png and trace.zip, the exact
+fixed diagnostic, a PNG signature, trace frame snapshots and exactly one localhost
+GET. Recorded auth/cookie headers, nonempty session state, extra files and known
+credential-shaped bytes are rejected. Offline negative cases test these guards.
+This is provenance and validation for this controlled synthetic fixture, **not a
+general-purpose sanitizer for arbitrary browser sessions or arbitrary secrets**.
+
+Only after verification succeeds does CI upload those three exact fixture files
+as `showcase-expected-failure`, retained seven days. If verification fails, the
+fixture directory is not published. The original normal-failure upload retains
+its failure condition and its three standard file paths, excluding the separate
+fixture directory. Normal test failures still fail the job. Neither fixture nor
+CI success is live hosting/provider evidence.
+
+Final SHA, exact-head CI, artifact ID/digest, download inspection and screenshot
+review will be recorded in the draft PR / Issue #12 after execution. No synthetic
+artifact is committed to Git; no public URL, credentials or live browser profile
+is used by the fixture. No product HTML or external Site is changed.

@@ -1,5 +1,15 @@
 # Current context
 
+## Issue #12 failure-artifact proof (2026-10-06)
+
+Active bounded follow-up from merged main `dbe1e9ffc64f0a1051414ce5028fc2d465b3c2f4`:
+prove the existing browser failure capture with a controlled synthetic failure and
+inspect JSON/PNG/trace before publishing a dedicated fixture artifact. Normal
+browser smoke must still pass independently. No provider calls, credentials or
+settings changes, deployment, Sites product edits or merge. Exact-head CI and
+artifact-download evidence belong in the draft PR / Issue #12. Independent review
+is required before merge; local browser installation remains deferred.
+
 ## Issue #16 source/offline acceptance (2026-10-06)
 
 Amit authorized source-only merge after independent review PASS of

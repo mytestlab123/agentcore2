@@ -66,6 +66,9 @@ const {chromium} = require(process.argv[2] || '../../tools/browser/node_modules/
     assert.equal(response.status(),200);
     assert.equal(await page.title(),'Preview B · Contextual Copilot v1.2');
     assert.equal(await page.locator('.badge').innerText(),'SHOWCASE / MOCK');
+    // Test-only failure after a real synthetic page render; normal assertions stay mandatory.
+    if(process.env.SHOWCASE_FAILURE_FIXTURE === 'capture-v1')
+      throw new Error('SHOWCASE_EXPECTED_FAILURE_CAPTURE_V1');
     assert.equal(await text('total'),'49,476');
     assert.equal(await page.locator('#findings tr').count(),25);
     assert.equal(await page.getByLabel('Account filter').locator('option').count(),59);
