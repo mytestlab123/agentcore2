@@ -6,7 +6,7 @@ One major draft PR, no new AWS resources/cost, desktop MOCK only.
   existing finding/Copilot links and truthful readiness. Await G checkpoint review.
 - [x] Direction2: governed failure/recovery simulator on the existing executor.
 - [x] Direction3: five presentations, one contract/executor/evidence semantics.
-- [ ] Direction4: 3–5 minute synthetic enterprise incident story.
+- [x] Direction4: 3–5 minute synthetic enterprise incident story.
 - [ ] Final: portable source, README/site-prompt, one desktop finish smoke and G review.
 
 Issue22 owns current decisions/checkpoints. Issue12 is closed with its 403 limit
