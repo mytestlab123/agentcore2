@@ -1,37 +1,45 @@
-# @Sites — Agentic Operations Lab
+# @Sites — existing private Agentic Operations Lab / Issue27 story polish
 
-Create a NEW private native Site titled Agentic Operations Lab from the attached
-index.html and RELEASE.json. Creation intent is user_requested. Keep the existing
-public Contextual Copilot Site and every unrelated Site unchanged. Use only the
-supported native Sites source/version/deployment workflow; no substitute hosting.
+This is a prepared handoff, not permission to publish. After Amit explicitly
+requests visual authoring, use the EXISTING private Agentic Operations Lab Site
+as the target. Preserve its identity and private sharing. Do not create another
+Site, modify the older public Contextual Copilot Site, use alternate hosting,
+or publish/change sharing automatically. The parent owns the later Site action.
 
-Preserve the dark enterprise operations console: persistent Compliance, Security,
-Incident and Agent Platform navigation; compact registry/table and contextual
-inspector; visible SHOWCASE / MOCK, synthetic data, zero real writes and no live
-AWS dependency. Do not replace the working surface with a marketing page or chat.
+Use index.html and RELEASE.json as the executable reference; story-packs.json
+contains compact copy for three stories and the architecture teaching mode.
+Preserve the dark enterprise console, compact tables/context panels and obvious
+SHOWCASE / MOCK, synthetic data, zero real writes and no live AWS dependency.
+No generic blank chat, marketing-only landing or duplicate story backends.
 
-Keep all eight capabilities with domain, readiness, agent/tool responsibilities,
-approval and evidence. Six are MOCK READY; logging is MOCK PARTIAL; snapshot
-exposure is PLANNED. Readiness means local simulation, never a live agent.
+Compliance (3–5 min): exact S3 finding → Explain/Investigate → frozen target and
+fixed policy diff → Approve Once/Reject → simulated operation → provider readback
+→ separate compliance → compact recorded evidence. Reject means zero writes;
+provider match with failed compliance remains NEEDS_REVIEW.
 
-Preserve selected finding → Explain/Investigate → frozen exact proposal → Approve
-Once/Reject → simulated operation → provider readback → independent compliance →
-evidence. Keep zero-write rejection/unauthorized/stale paths, partial batches,
-consumed approval refusal, same-run in-memory resume and NEEDS_REVIEW when provider
-success does not establish compliance. Reload resets state; no durable claim.
+Security (3–5 min): HIGH public-SSH exposure → bounded network specialist → fixed
+public TCP22 rule removal only → exact proposal/human decision. Demonstrate
+Unauthorized actor or Stale proposal with zero writes, then load a Normal example.
+The agent cannot invent APIs, expand scope or approve itself.
 
-Copilot, CLI, API, event/scheduled and ServiceNow-style ticket are presentations of
-ONE shared contract. Display the same complete target scope and capability that
-the proposal uses. Channels cannot grant approval. Incident audit export must
-attach only its matching proposal/run; unrelated later target history yields an
-explicit mismatch and no attached run.
+Enterprise (~3 min): synthetic ServiceNow-style ticket → triage → S3 specialist
+→ exact proposal → human control → simulated remediation → matching evidence →
+incident update/audit. Executive brief: problem, action, human control, outcome,
+evidence. Rejected, missing, unrelated or divergent evidence keeps the incident
+OPEN / REVIEW REQUIRED; exports cannot attach another proposal's run.
 
-Preserve the four-minute fictional Northstar incident story, human decision,
-separate evidence, architecture panel and local JSON exports. No real ServiceNow,
-model/provider/backend calls, AWS resources, account identifiers, credentials,
-private data, new framework, mobile work or runtime bindings. Use bundled synthetic
-data only. New AWS recurring cost $0.
+Learning (2–3 min): nine read-only stages explain finding/incident, reasoning and
+capability selection, registry, exact target/policy validation, one human decision,
+deterministic executor, provider readback, independent compliance and audit.
+Copilot/CLI/API/event-scheduled/ServiceNow-style channels are five presentations of
+ONE contract. Learning controls cannot create authority or execute mutations.
 
-Use the supplied release receipt to identify source. Publish only through native
-Sites with owner-private access; return a URL only after native deployment reports
-success. Report any unsupported behavior instead of silently dropping governance.
+Reuse the existing scope/proposal/decision/executor/evidence state. Preserve exact
+frozen targets/revisions, consumed decisions, zero-write refusal, same-run resume,
+context-change cancellation and reset-safe story linkage. All state is session
+local; no durable provider or live AWS proof is implied.
+
+No AWS/provider/model/backend calls, credentials/account IDs, private data, real
+ServiceNow, new framework/dependency, mobile work or CI/test expansion. Use only
+bundled synthetic data. New AWS recurring cost $0. Report any unsupported behavior
+instead of dropping governance. Return for review before any publication.

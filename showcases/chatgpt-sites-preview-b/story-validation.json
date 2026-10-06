@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "htmlSha256": "51f5471080cdf9c8d7b3af4be856717d348135da8533266c77e8148566f0c63b",
+  "desktop": "1600x1100",
+  "compliance": "UI Explain/Investigate, frozen preview, reject0 and approve1 verified",
+  "security": "UI unauthorized0 and stale0",
+  "enterprise": [
+    {
+      "branch": "normal",
+      "state": "OPEN · REVIEW REQUIRED",
+      "result": "REJECTED",
+      "writes": 0
+    },
+    {
+      "branch": "mismatch",
+      "state": "OPEN · REVIEW REQUIRED",
+      "result": "NEEDS_REVIEW",
+      "writes": 1
+    },
+    {
+      "branch": "normal",
+      "state": "RESOLVED · MOCK",
+      "result": "VERIFIED",
+      "writes": 1
+    }
+  ],
+  "guards": {
+    "missingEvidenceOpen": true,
+    "resetEvidenceBound": true,
+    "changedContextNoWrite": true
+  },
+  "learning": "nine read-only stages preserve proposal/run/writes",
+  "channels": "five presentations retain same run",
+  "networkRequests": 0,
+  "pageErrors": 0,
+  "realWrites": 0,
+  "limits": "One local final smoke; no hosted Site or mobile claim"
+}

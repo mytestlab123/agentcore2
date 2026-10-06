@@ -1,5 +1,27 @@
 # Current context
 
+## Active Issue27 — story packs / learning mode
+
+Base main 693cf09942041ea935bacbc50249b0bf16df2328; one draft PR28 on
+stories/issue27-demo-packs. Issues22/25 accepted complete, private Site exists;
+earlier helper/publication blockers below are historical. No old commits replayed.
+M1 compliance and M2 security use one story presentation over existing
+scope/preview/decide/executor/evidence. M3 executive incident brief distinguishes
+problem/action/human control/outcome/evidence and requires matching verified run
+for closure. M4 teaches nine read-only architecture stages and five channels of
+one contract. Compact story-packs.json and updated site-prompt prepare later visual
+polish of the existing private Site; no Site tool call or sharing/publication change.
+
+All source milestones implemented; G review and roadmap acceptance remain gates.
+Syntax/existing state checks and useful milestone visuals pass. One final desktop
+smoke proves compliance reject/approve, security unauthorized/stale zero writes,
+enterprise reject/divergence open and verified closure, missing evidence open,
+reset/context-safe story linkage, read-only learning and five same-run channels.
+Zero network requests/page errors/real writes. See story-validation.json and
+source digest; sensitive identifier scan and whitespace pass. No new tests,
+framework/dependency/CI/mobile or repeated E2E. New AWS cost $0; Issue23 separate.
+Next: exact-head CI and G review of PR28. Do not merge or publish automatically.
+
 ## Active Sites roadmap — Issue25
 
 PR26, branch sites/agentic-operations-polish, based on accepted main
