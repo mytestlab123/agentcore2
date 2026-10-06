@@ -1,3 +1,15 @@
+# Active Sites roadmap — Issue25
+
+- [x] M1 dark enterprise console / domain navigation
+- [ ] M2 capability presentation
+- [ ] M3 governed flow presentation
+- [ ] M4 reusable channels and incident story
+- [ ] M5 portable handoff / native private Sites authoring
+
+One cohesive draft PR. No merge without G acceptance. Existing public Site unchanged.
+
+---
+
 # Active roadmap — Issue22
 
 One major PR, no new AWS resources/cost, desktop MOCK only.
