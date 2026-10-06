@@ -6,6 +6,7 @@ import os
 import socket
 import stat
 from pathlib import Path
+from models import DEFAULT_MODEL
 
 REQUIRED = ("bridge.py", "client.py", "models.py", "harness.json")
 
@@ -43,7 +44,7 @@ def check(root, state_path, token_path, host="127.0.0.1", port=8703,
             raise ValueError("PRECHECK_FAILED: runtime source/config digest mismatch")
     try:
         config = json.loads((root / "harness.json").read_text())
-        if config["model"]["bedrockModelConfig"]["modelId"] != "apac.amazon.nova-lite-v1:0" or config["allowedTools"] != ["inspect_s3_ssl", "@*/inspect_s3_ssl"]:
+        if config["model"]["bedrockModelConfig"]["modelId"] != DEFAULT_MODEL or config["allowedTools"] != ["inspect_s3_ssl", "@*/inspect_s3_ssl"]:
             raise ValueError()
     except (ValueError, KeyError):
         raise ValueError("PRECHECK_FAILED: unexpected Harness model/tool config") from None

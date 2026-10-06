@@ -32,7 +32,7 @@ async function request(body: unknown): Promise<unknown> {
   return data;
 }
 export function LabControls(): React.ReactElement {
-  const [model, setModel] = useState("apac.amazon.nova-lite-v1:0");
+  const [model, setModel] = useState("global.amazon.nova-2-lite-v1:0");
   const [entry, setEntry] = useState("");
   const [connected, setConnected] = useState(false);
   const [result, setResult] = useState("");

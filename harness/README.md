@@ -22,12 +22,19 @@ No credentials are packaged. Runtime access is AWS IAM authenticated. The new
 runtime role is scoped to this image, model and exact new canary; pre-existing
 resources remain off limits.
 
-Model scope: exactly Nova Micro APAC (Economy), Nova Lite APAC (Default) and
-Nova 2 Lite global (Enhanced), per Issue #3 comment 5924722893. The Python
+Model scope: exactly Nova Micro APAC, Nova Lite APAC and Nova 2 Lite global,
+per Issue #3 comment 5924722893. The current owner decision makes
+`global.amazon.nova-2-lite-v1:0` the explicit demo default in the source config,
+operator client and React preview selector. Earlier deployed model settings and
+portable MOCK comparison labels remain historical; no Harness update or
+invocation is authorized by this repository change. No automatic fallback is
+performed if Nova 2 Lite fails; MOCK remains independent. The Python
 operator client owns the allowlist and forwards only a model ID, fixed Converse
 format and 256-token cap. Prompt, tools and remediation authority stay unchanged.
 The private journal limits this experiment to 18 model API attempts; no automatic
 SDK retries. Token usage and latency are recorded, not invented dollar prices.
+See [the MOCK/reuse/cost contract](../docs/mock-live-cost-contract.md) for the
+five-capability boundary, retained resources and proposed $20 budget alert.
 
 The three static previews start in MOCK. To connect live, run `bridge.py` on Home
 with the private state and a mode-0600 random token file, then forward Home port

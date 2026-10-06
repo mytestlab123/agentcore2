@@ -1,10 +1,10 @@
 """Server-owned model selection; callers cannot supply provider configuration."""
 MODELS = {
     "apac.amazon.nova-micro-v1:0": "Nova Micro — Economy",
-    "apac.amazon.nova-lite-v1:0": "Nova Lite — Default",
-    "global.amazon.nova-2-lite-v1:0": "Nova 2 Lite — Enhanced",
+    "apac.amazon.nova-lite-v1:0": "Nova Lite — Alternative",
+    "global.amazon.nova-2-lite-v1:0": "Nova 2 Lite — Demo default",
 }
-DEFAULT_MODEL = "apac.amazon.nova-lite-v1:0"
+DEFAULT_MODEL = "global.amazon.nova-2-lite-v1:0"
 
 
 def model_config(model_id=None):

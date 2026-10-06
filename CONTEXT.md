@@ -1,5 +1,26 @@
 # Current context
 
+## MOCK-first reuse and model decision (2026-10-06)
+
+Issues #22/#23: the full showcase stays synthetic and independent of AWS/model
+availability. Existing PR #24 contains the five-direction product work; this
+follow-up changes only explicit demo model defaults and the reuse/cost contract.
+Source selects `global.amazon.nova-2-lite-v1:0` in Harness configuration, the
+operator client and React preview selector; no automatic fallback. This is not a
+deployed-model update or fresh live availability proof. The retained live tool
+still supports only S3 SSL inspection; its original canary was deleted.
+
+Reuse one retained Harness/runtime for optional bounded proof, not five runtimes.
+All five target experiences work in MOCK; future live capability parity requires
+separate review of registered tool, runtime and IAM scope. Issue #23's fresh
+2026-10-06 readback supports KEEP; service costs are account-wide, not exact
+project billing. Planning estimate around $10/month, proposed alert $20/month;
+no budget resource is created and an alert does not enforce a spending cap.
+No AWS/model/provider calls, resources, IAM, deployments or external publication
+changed. No new tests/dependencies/E2E. Next: G reviews this same PR #24 and the
+[cost/reuse contract](docs/mock-live-cost-contract.md); separate authority is
+needed before any live invocation or billing configuration.
+
 ## Active Issue22 — MOCK capability showcase (2026-10-06)
 
 Authority: Issue22 and G comment 6009423279. Base main
