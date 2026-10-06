@@ -1,5 +1,20 @@
 # Current context
 
+## Active Issue27 — story packs / learning mode
+
+Base main 693cf09942041ea935bacbc50249b0bf16df2328. Issues22/25 are accepted
+and complete; the private Agentic Operations Lab Site exists and remains unchanged.
+Earlier helper/publication blockers below are historical. Issue27/comment6012349813
+authorizes one cohesive source/story PR: compliance, security, enterprise incident,
+learning mode and later Sites handoff. No Site actions/publication/sharing changes.
+M1 implements a guided 3–5 minute SSL compliance story with bounded context,
+Explain/Investigate, frozen diff, human decisions and compact recorded evidence.
+The story calls the existing preview/decide/executor, never a second backend.
+Syntax and existing state check pass; desktop exact-target preview inspected.
+Next M2 security pack, then M3/M4 and compact handoff. $0 new AWS, MOCK only,
+no provider/model calls, new tests/framework/CI/mobile or old C1/artifact work.
+
+
 ## Active Sites roadmap — Issue25
 
 PR26, branch sites/agentic-operations-polish, based on accepted main

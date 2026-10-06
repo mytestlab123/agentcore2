@@ -1,3 +1,16 @@
+# Active Issue27 — story packs
+
+- [x] M1 compliance walkthrough
+- [ ] M2 security incident walkthrough
+- [ ] M3 enterprise incident executive story
+- [ ] M4 architecture / learning mode
+- [ ] Final compact story/source and existing-private-Site handoff
+
+One draft PR; G review/roadmap acceptance before merge. No Site mutation.
+Issues22/25 accepted complete; older unchecked gates below are historical.
+
+---
+
 # Active Sites roadmap — Issue25
 
 - [x] M1 dark enterprise console / domain navigation

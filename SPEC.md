@@ -1,17 +1,21 @@
-# SITES — Agentic Operations Lab
+# Issue27 — story packs and learning mode
 
-ACTIVE. Authority: Issue25 and Amit's delegated five-milestone Sites roadmap.
-Base main d9082690d5bd596d8272454c0cb936a9094b5f07. Issue22 is closed/accepted.
+ACTIVE. Authority: Issue27/comment6012349813. Base main
+693cf09942041ea935bacbc50249b0bf16df2328. Issues22/25 accepted complete.
 
-M1 console, M2 catalogue, M3 governed flow, M4 channels/story, M5 native Sites
-and portable handoff. Reuse accepted single-file source and governance contracts.
-One cohesive draft PR; no merge until G acceptance. Dark desktop console first.
+One cohesive draft PR: M1 compliance, M2 security, M3 enterprise incident,
+M4 architecture/learning, final compact story/source + site-prompt handoff.
+Reuse existing selected finding, registry, proposal, approval, deterministic
+executor and evidence. Story controls are presentations, not new backends.
+Keep reject/unauthorized zero-write, frozen scope/one decision, separate provider
+readback/compliance, matching incident evidence, and session-only MOCK claims.
 
-$0 new AWS recurring cost. No AWS/provider/model/backend calls, real data,
-resources, security/IAM/OIDC, cleanup or old C1/artifact work. No new dependencies,
-tests by default, CI machinery, mobile QA or repeated E2E. Smallest existing
-check plus syntax and useful visual per milestone; at most one final desktop smoke.
+MOCK only, $0 new AWS. No resources, settings, credentials, provider/model calls,
+real ServiceNow/private data, cleanup, new framework, old C1/artifact work.
+Preserve private Agentic Operations Lab Site as later visual target. No native
+Sites calls, publication, sharing change or alternative hosting in this task.
 
-Native Sites authoring explicitly requested: one new user_requested private Site;
-preserve existing public Site. Native source credential only via supported private
-workflow. No substitute hosting. If unavailable, return package and exact prompt.
+Smallest existing focused check + syntax and useful visual per milestone. Zero
+new tests by default; no mobile/dependency/decoder/CI expansion or repeated E2E.
+At most one useful desktop smoke at final finish. Continue milestones without go;
+keep PR open until G review/roadmap acceptance. Read G feedback at checkpoints.
