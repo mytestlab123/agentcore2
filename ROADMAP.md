@@ -1,12 +1,25 @@
 # Roadmap — current focused follow-up
 
-## Active Issue #16 / draft PR #17 (2026-10-06)
+## Issue #16 source/offline acceptance (2026-10-06)
 
-CLI retry boundary corrected in the existing recovery helper; 32 offline tests
-including 40 subprocess-boundary cases and full fast checks pass. Continue review
-on the same draft PR; exact SHA/CI and status live in PR #17 and Issue #16.
-Private activation gates remain separate; no deployment or merge authorized.
+Amit authorized source-only merge after independent review PASS of
+`230336504673b0c2a330108b08180cc8a4a75b95`. PR #17 merged normally as
+`3213ec56f6204dbe31fa883a7d9de746e5ca4186`; accepted source was unchanged.
+[Exact-head CI 37406530042](https://github.com/mytestlab123/agentcore2/actions/runs/37406530042)
+passed fast and browser. Offline evidence includes 32 deployment tests with 40
+subprocess-boundary cases, 23 contract tests, 12 harness tests, build, typecheck
+and state/safety checks. Issue #16 is complete for source/offline acceptance.
+Earlier draft/unmerged/review-pending statements below are historical.
 
+Live recovery/deployment remains NOT_RUN. Issue #14 is already closed for
+repository preparation; its [private approval packet](docs/cloud-deployment-readiness.md)
+remains the gate for any later activation. The next existing-roadmap objective
+is that bounded C1 activation review: confirmed private identity/effective OIDC
+subject and owned isolated target, approved exact execution revision, budget,
+lifecycle, and separate authorization for one live run. These inputs/permissions
+are not established by the source merge. No safe independent implementation gap
+is currently identified in #16; do not invent cleanup or resume #7/#8 or Sites.
+No cloud calls, credentials, security configuration or deployment changed.
 
 F1–F5 PASS. The prior Crew roadmap state below is historical and superseded by
 [focused proof and closeout](docs/focused-followup.md),
