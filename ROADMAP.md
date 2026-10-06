@@ -3,7 +3,7 @@
 - [x] M1 compliance walkthrough
 - [x] M2 security walkthrough: exact SG tool and unauthorized/stale branches
 - [x] M3 enterprise incident executive brief and matching-evidence closure
-- [ ] M4 architecture / learning mode
+- [x] M4 nine-stage read-only architecture / learning mode
 - [ ] Final compact story/source and existing-private-Site handoff
 
 One draft PR; G review/roadmap acceptance before merge. No Site mutation.
