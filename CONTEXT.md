@@ -1,5 +1,21 @@
 # Current context
 
+## Project testing / demo policy (2026-10-06)
+
+Amit clarified the standing project rule after reviewing the Work/Sites flow:
+
+- Follow the canonical test-economy policy in
+  https://github.com/amitkarpe/dotfiles/blob/main/agent/.agent/TESTING.md.
+- MOCK/demo work does **not** receive deep E2E after each small fix. Use the
+  smallest focused validation that proves the change and then stop.
+- Full E2E belongs at the end of a major PR covering roughly **5+ milestones**,
+  or earlier only for a concrete high-risk/security regression.
+- **Never schedule mobile work for this project** unless Amit explicitly changes
+  this rule. No mobile viewport QA, mobile acceptance gate, responsive milestone,
+  or mobile-specific remediation is part of future planning.
+- Existing historical mobile/browser evidence remains historical proof only; it
+  must not be converted into a standing requirement.
+
 ## Issue #16 source/offline acceptance (2026-10-06)
 
 Amit authorized source-only merge after independent review PASS of
