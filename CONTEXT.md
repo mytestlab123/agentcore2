@@ -1,6 +1,21 @@
 # Current context
 
-## Active Issue27 — story packs / learning mode
+## Active Issue29 — Operations Campaign
+
+Single saved Codex Cloud writer; clean start from verified origin/main
+01f8676f88e8015c291857f18d9445834b99f11a. Branch campaign/issue29-operations.
+M1 adds current-inventory severity/control/actionability/review totals and exact
+filtered-findings navigation. Syntax and existing state check pass.
+Next M2 queues, M3 stable bounded journal, M4 selected-run audit packet, M5 handoff.
+One draft PR through independent/G acceptance; no merge or publication.
+MOCK only, $0 new AWS. No providers/resources/credentials/Sites/mobile/new
+dependencies/test or CI machinery. Existing PR CI allowed; one final desktop smoke.
+
+Issues22/25/27 and PR28 are accepted complete. Their status below is historical;
+private Site remains unchanged. Do not resume old source/publication/test gates.
+
+
+## Historical Issue27 — story packs / learning mode
 
 Base main 693cf09942041ea935bacbc50249b0bf16df2328; one draft PR28 on
 stories/issue27-demo-packs. Issues22/25 accepted complete, private Site exists;
