@@ -1,21 +1,20 @@
-# Issue27 — story packs and learning mode
+# Issue29 — Operations Campaign
 
-IMPLEMENTED / AWAITING REVIEW. Authority: Issue27/comment6012349813. Base main
-693cf09942041ea935bacbc50249b0bf16df2328. Issues22/25 accepted complete.
+ACTIVE. Sole implementation writer in the existing saved Codex Cloud session.
+Verified main01f8676f88e8015c291857f18d9445834b99f11a. One branch/draft PR.
 
-One cohesive draft PR: M1 compliance, M2 security, M3 enterprise incident,
-M4 architecture/learning, final compact story/source + site-prompt handoff.
-Reuse existing selected finding, registry, proposal, approval, deterministic
-executor and evidence. Story controls are presentations, not new backends.
-Keep reject/unauthorized zero-write, frozen scope/one decision, separate provider
-readback/compliance, matching incident evidence, and session-only MOCK claims.
+M1 derived inventory overview; M2 3–5 deterministic exact queues; M3 bounded
+stable session journal; M4 selected recorded-run Markdown/JSON audit packet;
+M5 desktop polish, four-minute demo script and exact-head CI evidence.
 
-MOCK only, $0 new AWS. No resources, settings, credentials, provider/model calls,
-real ServiceNow/private data, cleanup, new framework, old C1/artifact work.
-Preserve private Agentic Operations Lab Site as later visual target. No native
-Sites calls, publication, sharing change or alternative hosting in this task.
+Reuse existing selection/scope/preview/decide/runChunk and fixed tools. Individual
+frozen proposals only, no campaign approval or hidden execution. Preserve target
+permission/revision checks, consumed decisions, zero-write refusal, same-run
+resume, separate provider/compliance evidence and reset-isolated journal identity.
+Journal is read-only and in-memory. Never export an incomplete run as VERIFIED.
 
-Smallest existing focused check + syntax and useful visual per milestone. Zero
-new tests by default; no mobile/dependency/decoder/CI expansion or repeated E2E.
-At most one useful desktop smoke at final finish. Continue milestones without go;
-keep PR open until G review/roadmap acceptance. Read G feedback at checkpoints.
+MOCK only, $0 new AWS. No provider/model/ServiceNow/Sites calls, infrastructure,
+credentials, deployments/workflow_dispatch, IAM, cleanup or external publication.
+No framework/dependency/CI expansion/mobile/new tests by default. Smallest existing
+checks and syntax; one useful final desktop smoke with existing tools. Record
+unavailable proof honestly. Continue to review gate; never merge automatically.

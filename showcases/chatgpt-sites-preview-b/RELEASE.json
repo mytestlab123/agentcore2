@@ -1,12 +1,12 @@
 {
-  "release": "v1.5.0-mock",
-  "guiTitle": "Agentic Operations Lab / Contextual Copilot",
+  "release": "v1.6.0-mock",
+  "guiTitle": "Agentic Operations Lab / Operations Campaign",
   "publication": "SOURCE ONLY \u2014 existing private Site unchanged",
   "scope": "MOCK / synthetic only; no live integration",
-  "authority": "https://github.com/mytestlab123/agentcore2/issues/27",
-  "baseCommit": "693cf09942041ea935bacbc50249b0bf16df2328",
-  "htmlSha256": "51f5471080cdf9c8d7b3af4be856717d348135da8533266c77e8148566f0c63b",
-  "guiSourceFingerprint": "e2e972a47a2c11fe0544d1b9d37bb59d90c926ebe8f21848233db0837e431b2f",
+  "authority": "https://github.com/mytestlab123/agentcore2/issues/29",
+  "baseCommit": "01f8676f88e8015c291857f18d9445834b99f11a",
+  "htmlSha256": "04a8f59dea7447d0f297a408459f53771a9d416ccbbfb6ace5ca23c102a053ae",
+  "guiSourceFingerprint": "05596bf271e3ea14d3aa815e7796db2af526347d8bda35930402e5719b83127b",
   "fingerprintAlgorithm": "sha256(index.html with BUILD_FINGERPRINT replaced by __FINGERPRINT__)",
   "historicalSiteMapping": "See the unchanged Issue9 evidence and Git history; no existing Site modified."
 }

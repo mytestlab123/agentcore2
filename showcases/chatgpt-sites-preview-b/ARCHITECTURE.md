@@ -38,3 +38,22 @@ The separate engineering demo is an ordinary explicit navigation link.
 It may require private operator setup to use LIVE LAB. The Site never embeds,
 prefetches or calls it. No bridge address, token or deployment identity is copied
 into this portable package.
+
+## Operations Campaign (Issue29)
+
+The campaign derives inventory totals and four 25-target queues from the existing
+synthetic records. Open/Preview uses the same selection, scope, proposal, human
+decision and fixed-tool executor. A queue is never approval for another queue.
+
+The session journal copies and freezes recorded runs at the evidence boundary.
+Identity is inventory epoch + run ID + proposal ID. Up to 12 recent records survive
+inventory reset in memory; reload clears them. Only the current interrupted run
+can resume through its existing consumed proposal. Final snapshots never change
+when another finding/run is selected. No new persistence or transport exists.
+
+Selected complete snapshots feed both audit formats through the existing Blob
+export mechanism. Counts distinguish evaluations from unique targets within each
+epoch, and unresolved from verified evaluations. Provider readback and compliance
+remain separate; no incident record is inferred or attached. An incomplete record
+cannot be selected for the final packet. Historical proof files retain their own
+source digests and do not verify the campaign release.

@@ -1,6 +1,34 @@
 # Current context
 
-## Active Issue27 — story packs / learning mode
+## Active Issue29 — Operations Campaign
+
+Single saved Codex Cloud writer; clean start from verified origin/main
+01f8676f88e8015c291857f18d9445834b99f11a. Branch campaign/issue29-operations.
+M1 derived inventory overview and M2 four exact queues are implemented. M3 retains
+12 deep-frozen session snapshots keyed by inventory epoch/run/proposal; reset
+cannot cross-link evidence. M4 selected complete-run Markdown/JSON packets include
+exact revisions, separate provider/compliance, unresolved evaluation counts and
+zero real writes. Uses the existing executor and exports; no blanket approval.
+M1–M5 implementation and docs complete. Syntax/existing state/safety checks pass.
+One final desktop campaign smoke passed exact queues, separate human decisions,
+zero-write refusal, divergence/partial outcomes, same-run resume, actual downloads,
+reset identity and bounded eviction; zero requests/errors/real writes. The exact
+HTML was loaded in memory because browser policy blocked direct file navigation.
+Source-bound proof and reviewed PNGs: campaign-validation.json and evidence/campaign-*.
+Source head76f3bfa CI38097024658 passed fast and browser-fixture lanes. The browser
+CI lane is not campaign E2E; campaign desktop proof is the local Cloud smoke above.
+Final documentation/evidence head CI will be recorded on PR30 / Issue29.
+Next: independent G review and overall acceptance. Do not merge or publish.
+Draft PR30: https://github.com/mytestlab123/agentcore2/pull/30.
+One draft PR through independent/G acceptance; no merge or publication.
+MOCK only, $0 new AWS. No providers/resources/credentials/Sites/mobile/new
+dependencies/test or CI machinery. Existing PR CI allowed; one final desktop smoke.
+
+Issues22/25/27 and PR28 are accepted complete. Their status below is historical;
+private Site remains unchanged. Do not resume old source/publication/test gates.
+
+
+## Historical Issue27 — story packs / learning mode
 
 Base main 693cf09942041ea935bacbc50249b0bf16df2328; one draft PR28 on
 stories/issue27-demo-packs. Issues22/25 accepted complete, private Site exists;
