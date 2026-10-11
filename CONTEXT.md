@@ -9,7 +9,16 @@ source review and exact-head CI pass. No new GO required for ordinary fixes.
 
 M1–M4 implemented; syntax/existing state checks pass, including 19 malformed-input
 variants, immutable original evidence, Markdown escaping and execution isolation.
-Final desktop/docs and exact-head CI pending; independent review before merge.
+M5 focused final Cloud desktop PASS: actual local import, both downloaded overlays,
+blocked/needs-review notes, untouched counts/evidence, bounded admission, inert text,
+Markdown escaping, delayed-read cancellation and unchanged campaign authority.
+Zero browser errors/network requests/provider calls/review writes/real writes.
+Proof: shift-review-validation.json, actual overlay example JSON/Markdown and PNGs.
+Source implementation77986a5f8579bac30f5b6e5eb242f5caab84376c CI38114713412 PASS.
+Draft PR32: https://github.com/mytestlab123/agentcore2/pull/32. Final evidence head
+and CI readback will be recorded on PR32/Issue31; independent review remains gate.
+Existing state check gained focused admission/overlay regressions because untrusted
+input is a new safety boundary; no new framework or broad suite.
 
 Safe bounded untrusted synthetic packet import → evidence-only exceptions inbox
 → in-memory operator notes → source-linked overlay exports → desktop demo/docs.

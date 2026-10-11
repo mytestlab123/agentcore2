@@ -4,7 +4,8 @@
 - [x] M2 evidence-derived exceptions inbox
 - [x] M3 bounded operator-only review annotations
 - [x] M4 source-linked Markdown/JSON overlay handoff
-- [ ] M5 docs / focused Cloud desktop / exact-head CI
+- [x] M5 docs / focused Cloud desktop / source-bound download proof
+- [ ] Final evidence-head CI readback
 - [ ] Independent source acceptance and authorized merge
 
 One branch/PR. Existing private Site unchanged. Issue29 remains open only for its

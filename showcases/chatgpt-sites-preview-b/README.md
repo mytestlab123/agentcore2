@@ -129,6 +129,9 @@ claim or new AWS resource is implied; Issue23 separately governs retained costs.
   `main@32b36f31ab3083b1fdd0eb5a433922d6951e16e3`, not live/provider data.
 - `shift-review-validation.json` and `evidence/shift-review-desktop.png`: final
   Cloud desktop proof tied to the v1.7.0 HTML digest.
+- `shift-review-overlay-example.json` / `.md`: actual downloaded review overlays
+  from that smoke. JSON retains the unchanged sample packet; both record four
+  unresolved evaluations, two notes and two untouched exceptions.
 
 
 - `index.html`: complete UI, synthetic generator, story definitions and executor.
