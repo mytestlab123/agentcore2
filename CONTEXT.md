@@ -9,7 +9,16 @@ M1 derived inventory overview and M2 four exact queues are implemented. M3 retai
 cannot cross-link evidence. M4 selected complete-run Markdown/JSON packets include
 exact revisions, separate provider/compliance, unresolved evaluation counts and
 zero real writes. Uses the existing executor and exports; no blanket approval.
-Syntax and existing state/safety check pass. M5 docs/final desktop/CI are in progress.
+M1–M5 implementation and docs complete. Syntax/existing state/safety checks pass.
+One final desktop campaign smoke passed exact queues, separate human decisions,
+zero-write refusal, divergence/partial outcomes, same-run resume, actual downloads,
+reset identity and bounded eviction; zero requests/errors/real writes. The exact
+HTML was loaded in memory because browser policy blocked direct file navigation.
+Source-bound proof and reviewed PNGs: campaign-validation.json and evidence/campaign-*.
+Source head76f3bfa CI38097024658 passed fast and browser-fixture lanes. The browser
+CI lane is not campaign E2E; campaign desktop proof is the local Cloud smoke above.
+Final documentation/evidence head CI will be recorded on PR30 / Issue29.
+Next: independent G review and overall acceptance. Do not merge or publish.
 Draft PR30: https://github.com/mytestlab123/agentcore2/pull/30.
 One draft PR through independent/G acceptance; no merge or publication.
 MOCK only, $0 new AWS. No providers/resources/credentials/Sites/mobile/new

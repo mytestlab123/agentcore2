@@ -1,0 +1,68 @@
+{
+  "issue": 29,
+  "mode": "MOCK",
+  "sourceHtmlSha256": "04a8f59dea7447d0f297a408459f53771a9d416ccbbfb6ace5ca23c102a053ae",
+  "guiSourceFingerprint": "05596bf271e3ea14d3aa815e7796db2af526347d8bda35930402e5719b83127b",
+  "release": "v1.6.0-mock",
+  "environment": "Saved Codex Cloud; /workspace/agentcore2; Chromium /usr/bin/chromium",
+  "viewport": {
+    "width": 1600,
+    "height": 1100
+  },
+  "validation": "One final desktop campaign smoke using existing Playwright/Chromium; no new test suite",
+  "checks": [
+    "Derived totals and exact filtered navigation",
+    "Four deterministic 25-target queues; Open grants no authority",
+    "Frozen scope, separate Reject/Approve Once and consumed decision",
+    "Unauthorized/stale zero writes",
+    "PARTIAL and NEEDS_REVIEW preserve separate evidence",
+    "Interrupted incomplete export refused; same-run resume without duplicate writes",
+    "Selected actual JSON and Markdown downloads",
+    "Stable snapshots and packet selection across reset and reused IDs",
+    "12-record retention and selected eviction"
+  ],
+  "downloadedPacketTotals": {
+    "runs": 6,
+    "targetEvaluations": 150,
+    "uniqueTargetsWithinEpoch": 125,
+    "simulatedWrites": 99,
+    "realWrites": 0,
+    "verifiedTargetEvaluations": 74,
+    "unresolvedTargetEvaluations": 76,
+    "runOutcomes": {
+      "VERIFIED": 2,
+      "NEEDS_REVIEW": 1,
+      "PARTIAL": 1,
+      "BLOCKED": 1,
+      "REJECTED": 1
+    },
+    "targetOutcomes": {
+      "VERIFIED": 74,
+      "NEEDS_REVIEW": 25,
+      "BLOCKED": 26,
+      "REJECTED": 25
+    }
+  },
+  "networkRequests": 0,
+  "browserErrors": 0,
+  "realWrites": 0,
+  "providerCalls": 0,
+  "publication": "NOT RUN",
+  "independentReview": "PENDING",
+  "cloudExecution": {
+    "environmentId": "ccarenv_b64_Y2NhcmVudl9iYWFiNGU2Y2RhODA4MTkxOTA2M2I5ZjA5N2UwMzdmYw",
+    "repository": "mytestlab123/agentcore2",
+    "checkout": "/workspace/agentcore2",
+    "branch": "campaign/issue29-operations",
+    "verifiedBase": "01f8676f88e8015c291857f18d9445834b99f11a",
+    "sourceCommit": "76f3bfa05ba3b04dc7ed1e7887f6f6a9cecdfeec",
+    "status": "VERIFIED \u2014 existing saved Cloud execution, repository access and PR CI; not hosted product/provider proof"
+  },
+  "focusedChecks": [
+    "node --check extracted inline script: PASS",
+    "existing check-state.cjs actual-script VM and source safety: PASS",
+    "git diff --check: PASS"
+  ],
+  "sourceCommitCI": "https://github.com/mytestlab123/agentcore2/actions/runs/38097024658",
+  "browserLoading": "Direct file navigation was blocked before execution; exact HTML bytes loaded in memory with page.setContent. Zero network requests. Screenshots show retention after eviction; downloaded packet totals precede eviction."
+}

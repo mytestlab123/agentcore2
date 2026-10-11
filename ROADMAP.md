@@ -4,7 +4,8 @@
 - [x] M2 exact-scope recommended queues
 - [x] M3 bounded stable multi-run journal
 - [x] M4 selected recorded-run Markdown / JSON handoff
-- [ ] M5 desktop finish / docs / exact-head CI / independent review
+- [x] M5 desktop finish / docs / source-bound proof
+- [ ] Final-head CI readback / independent G review and overall acceptance
 
 One draft PR; no merge/publish. Issues22/25/27 completed; prior status below historical.
 
