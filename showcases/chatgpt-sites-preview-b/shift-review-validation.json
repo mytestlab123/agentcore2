@@ -1,0 +1,75 @@
+{
+  "issue": 31,
+  "release": "v1.7.0-mock",
+  "sourceHtmlSha256": "710d46d30caaa7ce2d34d397ab2cb62bbf981c3f54d1c41f8b9605b6b3f5b482",
+  "guiSourceFingerprint": "24f9ea2ded1ac9f17db2299c50b7b4702611142cd5e7f52486fb2f04a996ce17",
+  "cloudEnvironmentId": "ccarenv_b64_Y2NhcmVudl9iYWFiNGU2Y2RhODA4MTkxOTA2M2I5ZjA5N2UwMzdmYw",
+  "repository": "mytestlab123/agentcore2",
+  "branch": "review/issue31-shift-desk",
+  "verifiedBase": "32b36f31ab3083b1fdd0eb5a433922d6951e16e3",
+  "viewport": {
+    "width": 1600,
+    "height": 1100
+  },
+  "execution": "One focused final desktop smoke in saved Cloud using existing Playwright and /usr/bin/chromium; exact source bytes loaded with page.setContent, all requests blocked",
+  "checks": [
+    "Actual local file selection/admission",
+    "Blocked and NEEDS_REVIEW triage; separate provider/compliance evidence",
+    "Run/control/severity/account/outcome filters; stable explicit export selection",
+    "Bounded operator notes; verified assertions read-only",
+    "Actual JSON/Markdown downloads; original packet identical",
+    "Untouched exception counts and zero review/real writes",
+    "Explicit clear/replacement; oversized/incomplete admission denied",
+    "Untrusted narrative/notes inert in DOM and escaped in Markdown",
+    "Delayed reads cannot resurrect cleared or superseded packets",
+    "Imported review never changes campaign authority, run or incident state"
+  ],
+  "sample": {
+    "sourceRelease": "v1.6.0-mock",
+    "declaredFingerprint": "05596bf271e3ea14d3aa815e7796db2af526347d8bda35930402e5719b83127b",
+    "sha256": "7d23e5acc780cd35ecc910e8fef277f55cd5419d3c747bf8bf202aef9374debe"
+  },
+  "downloads": {
+    "json": {
+      "name": "synthetic-shift-review-overlay.json",
+      "sha256": "b2d8d44aab1ba3db143425863e01c58746edd09c49975630330cc915f0080b3f"
+    },
+    "markdown": {
+      "name": "synthetic-shift-review-overlay.md",
+      "sha256": "2ab7e7197ed379d286904c59dee1585b2e0583b4195a0cc056d235bffc46296a"
+    }
+  },
+  "overlayTotals": {
+    "originalEvaluations": 21,
+    "originalUniqueTargetsWithinEpoch": 21,
+    "originalUnresolvedEvaluations": 4,
+    "originalUntouchedUnresolvedEvaluations": 2,
+    "selectedUnresolvedEvaluations": 4,
+    "selectedUniqueTargetsWithinEpoch": 4,
+    "selectedUntouchedEvaluations": 2,
+    "unselectedUnresolvedEvaluations": 0,
+    "operatorReviewStatuses": {
+      "INVESTIGATING": 1,
+      "FOLLOW_UP": 1,
+      "OPEN": 2
+    },
+    "originalSimulatedWrites": 20,
+    "reviewSimulatedWrites": 0,
+    "realWrites": 0
+  },
+  "browserErrors": 0,
+  "networkRequests": 0,
+  "providerCalls": 0,
+  "realWrites": 0,
+  "existingSite": "UNCHANGED; no hosted E2E or authentication attempted",
+  "independentSourceReview": "PENDING",
+  "sourceImplementationCommit": "77986a5f8579bac30f5b6e5eb242f5caab84376c",
+  "sourceImplementationCI": "https://github.com/mytestlab123/agentcore2/actions/runs/38114713412",
+  "focusedChecks": [
+    "Inline script syntax: PASS",
+    "Existing state/safety check with 19 malformed input variants and overlay invariants: PASS",
+    "Whitespace: PASS"
+  ],
+  "visualReview": "Desktop inbox and notes screenshots inspected; full-page capture includes sticky header at the scrolled position.",
+  "scopeLimitation": "Synthetic structure/consistency only. No signed authenticity or hosted Site proof. First smoke attempt stopped on a whitespace-sensitive innerText assertion; corrected it to textContent and completed the focused smoke without source changes."
+}

@@ -1,0 +1,785 @@
+{
+  "schema": "agentcore2.synthetic-shift-review-overlay.v1",
+  "mode": "MOCK — operator notes only; not execution or compliance authority",
+  "reviewSource": {
+    "release": "v1.7.0-mock",
+    "fingerprint": "24f9ea2ded1ac9f17db2299c50b7b4702611142cd5e7f52486fb2f04a996ce17"
+  },
+  "provenance": "Original release/fingerprint are self-reported declarations, not signatures or provider attestations. This overlay never replaces or changes original run evidence.",
+  "originalPacket": {
+    "schema": "agentcore2.synthetic-shift-handoff.v1",
+    "mode": "MOCK — synthetic evidence only",
+    "source": {
+      "release": "v1.6.0-mock",
+      "fingerprint": "05596bf271e3ea14d3aa815e7796db2af526347d8bda35930402e5719b83127b"
+    },
+    "scope": "Only explicitly selected recorded snapshots; no incident or later-run evidence attached. Counts describe selected evaluations, not current fleet compliance. Same synthetic ID in different inventory epochs is a distinct target.",
+    "totals": {
+      "runs": 2,
+      "targetEvaluations": 21,
+      "uniqueTargetsWithinEpoch": 21,
+      "simulatedWrites": 20,
+      "realWrites": 0,
+      "verifiedTargetEvaluations": 17,
+      "unresolvedTargetEvaluations": 4,
+      "runOutcomes": {
+        "PARTIAL": 1,
+        "NEEDS_REVIEW": 1
+      },
+      "targetOutcomes": {
+        "VERIFIED": 17,
+        "BLOCKED": 1,
+        "NEEDS_REVIEW": 3
+      }
+    },
+    "exceptions": [
+      {
+        "record": "1:mock-v12-run-1:mock-v12-proposal-1",
+        "target": "synthetic-lab-58-s3-0773",
+        "outcome": "BLOCKED",
+        "reason": "Synthetic policy block before write",
+        "providerReadback": "NOT PERFORMED",
+        "complianceResult": "NOT EVALUATED"
+      },
+      {
+        "record": "1:mock-v12-run-2:mock-v12-proposal-2",
+        "target": "synthetic-lab-58-sg-0180",
+        "outcome": "NEEDS_REVIEW",
+        "reason": "Separate mock provider readback and compliance evaluation",
+        "providerReadback": "SIMULATED PARAMETERS MATCH",
+        "complianceResult": "SIMULATED NON_COMPLIANT (independent evaluation)"
+      },
+      {
+        "record": "1:mock-v12-run-2:mock-v12-proposal-2",
+        "target": "synthetic-lab-58-sg-0179",
+        "outcome": "NEEDS_REVIEW",
+        "reason": "Separate mock provider readback and compliance evaluation",
+        "providerReadback": "SIMULATED PARAMETERS MATCH",
+        "complianceResult": "SIMULATED NON_COMPLIANT (independent evaluation)"
+      },
+      {
+        "record": "1:mock-v12-run-2:mock-v12-proposal-2",
+        "target": "synthetic-lab-58-sg-0177",
+        "outcome": "NEEDS_REVIEW",
+        "reason": "Separate mock provider readback and compliance evaluation",
+        "providerReadback": "SIMULATED PARAMETERS MATCH",
+        "complianceResult": "SIMULATED NON_COMPLIANT (independent evaluation)"
+      }
+    ],
+    "runs": [
+      {
+        "id": "mock-v12-run-1",
+        "proposalId": "mock-v12-proposal-1",
+        "datasetRevision": 1,
+        "capability": "mock.s3-ssl",
+        "simulation": "partial",
+        "source": {
+          "release": "v1.6.0-mock",
+          "fingerprint": "05596bf271e3ea14d3aa815e7796db2af526347d8bda35930402e5719b83127b"
+        },
+        "parameters": {
+          "before": "Deny insecure transport: absent\nPublic-access protection: retained",
+          "after": "Deny insecure transport: present\nPublic-access protection: retained"
+        },
+        "control": "s3-ssl",
+        "decision": "APPROVE ONCE",
+        "state": "PARTIAL",
+        "targets": [
+          {
+            "id": "synthetic-lab-58-s3-0836",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0833",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0830",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0827",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0824",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0821",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0818",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0815",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0812",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0794",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0791",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0788",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0785",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0782",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0779",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0776",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0773",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-s3-0770",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "s3-ssl",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          }
+        ],
+        "results": [
+          {
+            "target": "synthetic-lab-58-s3-0836",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0833",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0830",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0827",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0824",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0821",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0818",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0815",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0812",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0794",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0791",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0788",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0785",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0782",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0779",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0776",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0773",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "BLOCKED",
+            "simulatedWrites": 0,
+            "realWrites": 0,
+            "providerWrite": "SKIPPED",
+            "providerReadback": "NOT PERFORMED",
+            "complianceResult": "NOT EVALUATED",
+            "currentStatus": "NON_COMPLIANT",
+            "reason": "Synthetic policy block before write"
+          },
+          {
+            "target": "synthetic-lab-58-s3-0770",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "VERIFIED",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED COMPLIANT",
+            "currentStatus": "COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          }
+        ],
+        "processed": 18,
+        "simulatedWrites": 17,
+        "verified": 17,
+        "blocked": 1,
+        "divergent": 0,
+        "realWrites": 0,
+        "evidence": [
+          "MOCK proposal mock-v12-proposal-1: 18 exact targets.",
+          "MOCK APPROVE ONCE recorded; proposal consumed.",
+          "SIMULATED writes 17; 1 blocked before write. Real writes: 0.",
+          "Separate SIMULATED provider readback: 17 matching; blocked targets not read.",
+          "Separate SIMULATED compliance evaluation: 17 COMPLIANT; 1 remain NON_COMPLIANT."
+        ]
+      },
+      {
+        "id": "mock-v12-run-2",
+        "proposalId": "mock-v12-proposal-2",
+        "datasetRevision": 1,
+        "capability": "mock.sg-ssh",
+        "simulation": "mismatch",
+        "source": {
+          "release": "v1.6.0-mock",
+          "fingerprint": "05596bf271e3ea14d3aa815e7796db2af526347d8bda35930402e5719b83127b"
+        },
+        "parameters": {
+          "before": "TCP 22 from 0.0.0.0/0: allowed\nTCP 22 from ::/0: allowed\nUnrelated rules: retained",
+          "after": "TCP 22 from 0.0.0.0/0: removed\nTCP 22 from ::/0: removed\nUnrelated rules: retained"
+        },
+        "control": "sg-ssh",
+        "decision": "APPROVE ONCE",
+        "state": "NEEDS_REVIEW",
+        "targets": [
+          {
+            "id": "synthetic-lab-58-sg-0180",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "sg-ssh",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-sg-0179",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "sg-ssh",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          },
+          {
+            "id": "synthetic-lab-58-sg-0177",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "control": "sg-ssh",
+            "revision": 0,
+            "status": "NON_COMPLIANT"
+          }
+        ],
+        "results": [
+          {
+            "target": "synthetic-lab-58-sg-0180",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "NEEDS_REVIEW",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED NON_COMPLIANT (independent evaluation)",
+            "currentStatus": "NON_COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-sg-0179",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "NEEDS_REVIEW",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED NON_COMPLIANT (independent evaluation)",
+            "currentStatus": "NON_COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          },
+          {
+            "target": "synthetic-lab-58-sg-0177",
+            "account": "LAB-58",
+            "region": "ap-southeast-1",
+            "outcome": "NEEDS_REVIEW",
+            "simulatedWrites": 1,
+            "realWrites": 0,
+            "providerWrite": "SIMULATED CHANGE APPLIED",
+            "providerReadback": "SIMULATED PARAMETERS MATCH",
+            "complianceResult": "SIMULATED NON_COMPLIANT (independent evaluation)",
+            "currentStatus": "NON_COMPLIANT",
+            "reason": "Separate mock provider readback and compliance evaluation"
+          }
+        ],
+        "processed": 3,
+        "simulatedWrites": 3,
+        "verified": 0,
+        "blocked": 0,
+        "divergent": 3,
+        "realWrites": 0,
+        "evidence": [
+          "MOCK proposal mock-v12-proposal-2: 3 exact targets.",
+          "MOCK APPROVE ONCE recorded; proposal consumed.",
+          "SIMULATED writes 3; 0 blocked before write. Real writes: 0.",
+          "Separate SIMULATED provider readback: 3 matching; blocked targets not read.",
+          "Separate SIMULATED compliance evaluation: 0 COMPLIANT; 3 remain NON_COMPLIANT."
+        ]
+      }
+    ]
+  },
+  "totals": {
+    "originalEvaluations": 21,
+    "originalUniqueTargetsWithinEpoch": 21,
+    "originalUnresolvedEvaluations": 4,
+    "originalUntouchedUnresolvedEvaluations": 2,
+    "selectedUnresolvedEvaluations": 4,
+    "selectedUniqueTargetsWithinEpoch": 4,
+    "selectedUntouchedEvaluations": 2,
+    "unselectedUnresolvedEvaluations": 0,
+    "operatorReviewStatuses": {
+      "INVESTIGATING": 1,
+      "FOLLOW_UP": 1,
+      "OPEN": 2
+    },
+    "originalSimulatedWrites": 20,
+    "reviewSimulatedWrites": 0,
+    "realWrites": 0
+  },
+  "evaluations": [
+    {
+      "reference": {
+        "epoch": 1,
+        "runId": "mock-v12-run-1",
+        "proposalId": "mock-v12-proposal-1",
+        "targetId": "synthetic-lab-58-s3-0773",
+        "targetRevision": 0
+      },
+      "originalRunOutcome": "PARTIAL",
+      "originalDecision": "APPROVE ONCE",
+      "originalTarget": {
+        "id": "synthetic-lab-58-s3-0773",
+        "account": "LAB-58",
+        "region": "ap-southeast-1",
+        "control": "s3-ssl",
+        "revision": 0,
+        "status": "NON_COMPLIANT"
+      },
+      "originalResult": {
+        "target": "synthetic-lab-58-s3-0773",
+        "account": "LAB-58",
+        "region": "ap-southeast-1",
+        "outcome": "BLOCKED",
+        "simulatedWrites": 0,
+        "realWrites": 0,
+        "providerWrite": "SKIPPED",
+        "providerReadback": "NOT PERFORMED",
+        "complianceResult": "NOT EVALUATED",
+        "currentStatus": "NON_COMPLIANT",
+        "reason": "Synthetic policy block before write"
+      },
+      "annotation": {
+        "status": "INVESTIGATING",
+        "owner": "Shift Alpha",
+        "nextAction": "Review the synthetic policy block with the next shift."
+      },
+      "annotationRecorded": true
+    },
+    {
+      "reference": {
+        "epoch": 1,
+        "runId": "mock-v12-run-2",
+        "proposalId": "mock-v12-proposal-2",
+        "targetId": "synthetic-lab-58-sg-0180",
+        "targetRevision": 0
+      },
+      "originalRunOutcome": "NEEDS_REVIEW",
+      "originalDecision": "APPROVE ONCE",
+      "originalTarget": {
+        "id": "synthetic-lab-58-sg-0180",
+        "account": "LAB-58",
+        "region": "ap-southeast-1",
+        "control": "sg-ssh",
+        "revision": 0,
+        "status": "NON_COMPLIANT"
+      },
+      "originalResult": {
+        "target": "synthetic-lab-58-sg-0180",
+        "account": "LAB-58",
+        "region": "ap-southeast-1",
+        "outcome": "NEEDS_REVIEW",
+        "simulatedWrites": 1,
+        "realWrites": 0,
+        "providerWrite": "SIMULATED CHANGE APPLIED",
+        "providerReadback": "SIMULATED PARAMETERS MATCH",
+        "complianceResult": "SIMULATED NON_COMPLIANT (independent evaluation)",
+        "currentStatus": "NON_COMPLIANT",
+        "reason": "Separate mock provider readback and compliance evaluation"
+      },
+      "annotation": {
+        "status": "FOLLOW_UP",
+        "owner": "Shift Beta",
+        "nextAction": "Compare independent compliance with recorded provider parameters."
+      },
+      "annotationRecorded": true
+    },
+    {
+      "reference": {
+        "epoch": 1,
+        "runId": "mock-v12-run-2",
+        "proposalId": "mock-v12-proposal-2",
+        "targetId": "synthetic-lab-58-sg-0179",
+        "targetRevision": 0
+      },
+      "originalRunOutcome": "NEEDS_REVIEW",
+      "originalDecision": "APPROVE ONCE",
+      "originalTarget": {
+        "id": "synthetic-lab-58-sg-0179",
+        "account": "LAB-58",
+        "region": "ap-southeast-1",
+        "control": "sg-ssh",
+        "revision": 0,
+        "status": "NON_COMPLIANT"
+      },
+      "originalResult": {
+        "target": "synthetic-lab-58-sg-0179",
+        "account": "LAB-58",
+        "region": "ap-southeast-1",
+        "outcome": "NEEDS_REVIEW",
+        "simulatedWrites": 1,
+        "realWrites": 0,
+        "providerWrite": "SIMULATED CHANGE APPLIED",
+        "providerReadback": "SIMULATED PARAMETERS MATCH",
+        "complianceResult": "SIMULATED NON_COMPLIANT (independent evaluation)",
+        "currentStatus": "NON_COMPLIANT",
+        "reason": "Separate mock provider readback and compliance evaluation"
+      },
+      "annotation": {
+        "status": "OPEN",
+        "owner": "",
+        "nextAction": ""
+      },
+      "annotationRecorded": false
+    },
+    {
+      "reference": {
+        "epoch": 1,
+        "runId": "mock-v12-run-2",
+        "proposalId": "mock-v12-proposal-2",
+        "targetId": "synthetic-lab-58-sg-0177",
+        "targetRevision": 0
+      },
+      "originalRunOutcome": "NEEDS_REVIEW",
+      "originalDecision": "APPROVE ONCE",
+      "originalTarget": {
+        "id": "synthetic-lab-58-sg-0177",
+        "account": "LAB-58",
+        "region": "ap-southeast-1",
+        "control": "sg-ssh",
+        "revision": 0,
+        "status": "NON_COMPLIANT"
+      },
+      "originalResult": {
+        "target": "synthetic-lab-58-sg-0177",
+        "account": "LAB-58",
+        "region": "ap-southeast-1",
+        "outcome": "NEEDS_REVIEW",
+        "simulatedWrites": 1,
+        "realWrites": 0,
+        "providerWrite": "SIMULATED CHANGE APPLIED",
+        "providerReadback": "SIMULATED PARAMETERS MATCH",
+        "complianceResult": "SIMULATED NON_COMPLIANT (independent evaluation)",
+        "currentStatus": "NON_COMPLIANT",
+        "reason": "Separate mock provider readback and compliance evaluation"
+      },
+      "annotation": {
+        "status": "OPEN",
+        "owner": "",
+        "nextAction": ""
+      },
+      "annotationRecorded": false
+    }
+  ],
+  "outstandingNextActions": [
+    {
+      "reference": "1:mock-v12-run-1:mock-v12-proposal-1:synthetic-lab-58-s3-0773",
+      "originalOutcome": "BLOCKED",
+      "reviewStatus": "INVESTIGATING",
+      "owner": "Shift Alpha",
+      "nextAction": "Review the synthetic policy block with the next shift."
+    },
+    {
+      "reference": "1:mock-v12-run-2:mock-v12-proposal-2:synthetic-lab-58-sg-0180",
+      "originalOutcome": "NEEDS_REVIEW",
+      "reviewStatus": "FOLLOW_UP",
+      "owner": "Shift Beta",
+      "nextAction": "Compare independent compliance with recorded provider parameters."
+    },
+    {
+      "reference": "1:mock-v12-run-2:mock-v12-proposal-2:synthetic-lab-58-sg-0179",
+      "originalOutcome": "NEEDS_REVIEW",
+      "reviewStatus": "OPEN",
+      "owner": "",
+      "nextAction": "No operator next action recorded; original exception remains unresolved."
+    },
+    {
+      "reference": "1:mock-v12-run-2:mock-v12-proposal-2:synthetic-lab-58-sg-0177",
+      "originalOutcome": "NEEDS_REVIEW",
+      "reviewStatus": "OPEN",
+      "owner": "",
+      "nextAction": "No operator next action recorded; original exception remains unresolved."
+    }
+  ]
+}

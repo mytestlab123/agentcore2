@@ -1,12 +1,66 @@
-# Agentic Operations Lab — Operations Campaign / Issue29
+# Agentic Operations Lab — Shift Review Desk / Issue31
 
 Portable **SHOWCASE / MOCK** source based on accepted main
-`01f8676f88e8015c291857f18d9445834b99f11a`. Open `index.html` directly. All data,
+`32b36f31ab3083b1fdd0eb5a433922d6951e16e3`. Open `index.html` directly. All data,
 reasoning and operations are synthetic; no install, server, model or AWS is needed.
 The existing private Agentic Operations Lab Site is unchanged. This PR prepares
 source for a later explicit Work + @Sites visual-polish action, not publication.
 
-## Four-minute operator demo
+## Four-minute Shift Review Desk demo
+
+1. **0:00–0:45 — Import.** Open Shift Review Desk and choose the bundled
+   `shift-review-sample.json` through **Local campaign JSON**. This is an actual
+   v1.6.0 campaign export from the accepted prior source, with two complete runs,
+   21 evaluations, 17 synthetic VERIFIED results and four unresolved exceptions.
+   Declared source release/fingerprint are self-reported, not a signature.
+2. **0:45–1:45 — Triage.** Filter Target outcome to BLOCKED. Inspect its exact
+   epoch/run/proposal/target/revision, skipped provider write and unevaluated
+   compliance. Then inspect NEEDS_REVIEW: the simulated provider matched, while
+   the separate compliance result did not. Severity uses the bundled control
+   mapping; it is not an imported cloud risk metric.
+3. **1:45–2:45 — Notes.** Save INVESTIGATING with an optional owner label and
+   next action for the blocked evaluation, and FOLLOW_UP for one NEEDS_REVIEW
+   evaluation. These are memory-only operator notes. No assignment is sent;
+   REVIEWED never changes the original unresolved evidence or incident state.
+4. **2:45–4:00 — Next shift.** Clear filters to All unresolved, select filtered
+   unresolved, then download review JSON and Markdown. Compare the four original
+   exceptions, two notes and two untouched evaluations. The JSON `originalPacket`
+   is unchanged; annotations are a separate overlay with exact source references.
+   Clear import & notes to demonstrate session-only continuity.
+
+## Admission and review boundaries
+
+- Explicit local file selection only: original `agentcore2.synthetic-shift-handoff.v1`
+  campaign JSON, maximum **2 MiB / 12 complete runs / 2,000 total evaluations**.
+  Larger valid campaign exports must be split into smaller source selections.
+- Admission rejects unknown fields, unsupported controls/outcomes, duplicate
+  runs/proposals/targets/results, mismatched identities/sources/counters,
+  inconsistent per-target provider/compliance evidence and incomplete runs.
+  VERIFIED evaluations inside PARTIAL runs receive the same checks. All supplied
+  totals and exception lists must match the records. Structural consistency is
+  not source authenticity, provider attestation or proof of real compliance.
+- Imported text uses DOM text APIs; Markdown escapes imported text and notes.
+  Imported decisions are historical assertions, never approvals or authority.
+  Files, notes and exports cannot execute a tool, alter inventory or close incidents.
+- Every unresolved evaluation keeps its full epoch/run/proposal/target identity.
+  Repeated evaluations are not deduplicated; unique targets within epoch are
+  counted separately. Verified assertions can be inspected but not annotated.
+  Unsupported manual/unknown outcomes fail closed rather than being called compliant.
+- Select unresolved evaluations explicitly. Filters do not silently change export
+  selection. JSON overlays retain the entire original packet; Markdown lists the
+  selected exact evidence and honest totals, including untouched/unselected items.
+  Overlay schema is `agentcore2.synthetic-shift-review-overlay.v1`; it cannot be
+  reimported as original execution evidence. Notes do not resolve exceptions.
+- Owner labels ≤80 characters; next-action notes ≤1,000. Nothing is stored or sent.
+  Clear cancels pending file reads and removes notes; a loaded import must be
+  cleared before replacement. Inventory reset cannot change imported evidence.
+  Page reload clears all review state; no durable task tracking is claimed.
+
+Issue29's actual Site and its separately blocked hosted E2E are unchanged and are
+not prerequisites. This roadmap delivers portable source only; no Site calls,
+login troubleshooting or publication is part of Issue31.
+
+## Accepted campaign four-minute demo
 
 1. **0:00–0:45 — Overview.** Open Operations Campaign. Explain the current
    inventory/control/severity totals. Reviewed overlaps other outcomes; blocked
@@ -71,16 +125,26 @@ claim or new AWS resource is implied; Issue23 separately governs retained costs.
 
 ## Source and evidence
 
+- `shift-review-sample.json`: real synthetic v1.6.0 exporter output from
+  `main@32b36f31ab3083b1fdd0eb5a433922d6951e16e3`, not live/provider data.
+- `shift-review-validation.json` and `evidence/shift-review-desktop.png`: final
+  Cloud desktop proof tied to the v1.7.0 HTML digest.
+- `shift-review-overlay-example.json` / `.md`: actual downloaded review overlays
+  from that smoke. JSON retains the unchanged sample packet; both record four
+  unresolved evaluations, two notes and two untouched exceptions.
+
+
 - `index.html`: complete UI, synthetic generator, story definitions and executor.
 - `RELEASE.json`: exact HTML digest and embedded source fingerprint.
 - `story-packs.json`: compact story/teaching copy extracted from this source,
   plus enterprise narration; a handoff snapshot, not a second runtime.
 - `site-prompt.md`: exact brief for later polish of the existing private Site.
-- `campaign-validation.json` / `evidence/campaign-desktop.png`: campaign desktop
-  proof bound to the current HTML digest.
+- `campaign-validation.json` / `evidence/campaign-desktop.png`: historical v1.6.0
+  campaign proof; its source identity is preserved, not rebound to v1.7.0.
 - `story-validation.json`, `story-packs.json`, and earlier Issue22/Sites evidence
   retain historical source identities; they do not verify the campaign bytes.
 
 Validation stays economical: syntax plus existing `check-state.cjs`, useful
-milestone visuals, and one final desktop smoke. No new suite/dependencies/CI or
-mobile work. G review and roadmap acceptance remain required; no automatic merge.
+milestone visuals, and one final desktop smoke. The existing state check includes focused regressions for the new untrusted-input
+boundary; no new suite/dependencies/CI or mobile work. Independent review and
+exact-head CI are required before the owner-authorized source merge.

@@ -52,3 +52,42 @@ click('reject');assert(el('evidence-empty').hidden);assert.equal(el('timeline').
 assert.match(el('timeline').textContent,/SKIPPED: 0 simulated writes/);
 const result={release:'v1.2.1',checks:'PASS — actual script in Node VM / minimal DOM, not browser proof',baselineSyntheticResources:baseTotal,accounts:58,maxScenarioResources:75400,pageSize:25,approve1000Writes:1000,reject1000Writes:0,partial1000Blocked:58,replayNoAdditionalWrites:true,immutableSnapshot:true,mixedCapabilitiesExcluded:true,staleTargetGuard:true,filterChangeCancels:true,commandMenu:true,modelDecisionUnchanged:true,sourceSafetyScan:'PASS',p1FilterResetCount:7,unchangedRefreshPreservesPage:true,retainedContextNamesResource:true,resourceSelectionChangesContext:true,conciseEmptyEvidence:true,fiveEvidenceLabelsRetained:true,realWrites:0,modelCalls:0,initialNodeVmMs:Math.round(initialMs),maxScenarioNodeVmMs:Math.round(maxMs),desktopVisual:'NOT VERIFIED BY VM'};
 console.log(JSON.stringify(result,null,2));
+
+// Issue31: focused admission/overlay regression at the new untrusted-file boundary.
+// Uses an actual v1.6 campaign export; no provider/browser or new test framework.
+const reviewSample=fs.readFileSync(require('path').join(__dirname,'shift-review-sample.json'),'utf8');
+sandbox.reviewSampleText=reviewSample;
+assert.equal(run('parseReviewPacket(reviewSampleText).rows.length'),21);
+const reviewBadCases=[
+ [p=>{p.runs[0].state='RUNNING'},/state/],
+ [p=>{p.runs[0].processed--},/processed/],
+ [p=>{p.runs.push(p.runs[0])},/duplicate/],
+ [p=>{p.runs[0].targets[1]=p.runs[0].targets[0]},/duplicate/],
+ [p=>{p.runs[0].results[1]=p.runs[0].results[0]},/duplicate/],
+ [p=>{p.runs[0].proposalId='mock-v12-proposal-999'},/proposalId/],
+ [p=>{p.runs[0].results[0].account='LAB-01'},/account/],
+ [p=>{p.runs[0].results[0].complianceResult='NOT EVALUATED'},/complianceResult/],
+ [p=>{p.runs[0].results[0].providerReadback='NOT PERFORMED'},/providerReadback/],
+ [p=>{p.runs[0].simulatedWrites++},/simulatedWrites/],
+ [p=>{p.runs[0].results[0].realWrites=1},/realWrites/],
+ [p=>{p.runs[0].verified++},/verified/],
+ [p=>{p.runs[0].source.fingerprint='f'.repeat(64)},/source/],
+ [p=>{p.totals.unresolvedTargetEvaluations--},/totals/],
+ [p=>{p.exceptions.pop()},/exceptions/],
+ [p=>{p.runs[0].activeAuthority=true},/unsupported field/],
+ [p=>{p.runs[0].targets[0].revision=-1},/revision/]
+];
+for(const [mutate,error] of reviewBadCases){const packet=JSON.parse(reviewSample);mutate(packet);sandbox.reviewBad=JSON.stringify(packet);assert.throws(()=>run('parseReviewPacket(reviewBad)'),error);}
+assert.throws(()=>run("parseReviewPacket(' '.repeat(REVIEW_LIMITS.bytes+1))"),/2 MiB/);
+assert.throws(()=>run("parseReviewPacket('{')"),/invalid JSON/);
+const campaignBeforeReview=run('JSON.stringify({datasetRevision,proposal,lastRun,journal:[...campaignJournal],selected:[...selectedIds],incident})');
+run('const admittedReview=parseReviewPacket(reviewSampleText);reviewPacket=admittedReview.packet;reviewRows=admittedReview.rows;reviewSelected=new Set(reviewRows.filter(r=>r.result.outcome!==\'VERIFIED\').map(r=>r.key));reviewFocus=[...reviewSelected][0]');
+const originalImported=run('JSON.stringify(reviewPacket)');
+el('review-note-status').value='REVIEWED';el('review-owner').value='<script>not an assignment</script>';el('review-action').value='[link](https://example.invalid)\n# forged heading';run('saveReviewNote()');
+assert.equal(run('reviewNotes.size'),1);assert.equal(run('reviewOverlay().totals.originalUnresolvedEvaluations'),4);assert.equal(run('reviewOverlay().totals.originalUntouchedUnresolvedEvaluations'),3);assert.equal(run('reviewOverlay().totals.reviewSimulatedWrites'),0);
+assert.equal(run('JSON.stringify(reviewPacket)'),originalImported);assert.equal(run('JSON.stringify(reviewOverlay().originalPacket)'),originalImported);
+assert.equal(run('JSON.stringify({datasetRevision,proposal,lastRun,journal:[...campaignJournal],selected:[...selectedIds],incident})'),campaignBeforeReview);
+const overlayMd=run('reviewOverlayMarkdown(reviewOverlay())');assert(!overlayMd.includes('<script>'));assert(!overlayMd.includes('[link](https://'));assert(!overlayMd.includes('\n# forged heading'));assert(overlayMd.includes('&lt;script&gt;'));
+el('review-action').value='x'.repeat(1001);run('saveReviewNote()');assert.match(el('review-note-message').textContent,/1000/);assert.equal(run('reviewNotes.size'),1);
+run('clearReviewDesk()');assert.equal(run('reviewPacket'),null);assert.equal(run('reviewNotes.size'),0);assert.equal(run('reviewSelected.size'),0);
+console.log(JSON.stringify({shiftReviewAdmission:'PASS',rejectedMalformedVariants:reviewBadCases.length+2,originalEvidenceUnchanged:true,campaignAuthorityUnchanged:true,markdownUntrustedTextEscaped:true,operatorNotesBounded:true,reviewRealWrites:0}));

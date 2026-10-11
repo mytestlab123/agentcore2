@@ -1,4 +1,4 @@
-# @Sites — existing private Agentic Operations Lab / Issue29 Operations Campaign
+# @Sites — existing private Agentic Operations Lab / Issue31 Shift Review Desk
 
 This is a prepared handoff, not permission to publish. After Amit explicitly
 requests visual authoring, use the EXISTING private Agentic Operations Lab Site
@@ -12,7 +12,29 @@ Preserve the dark enterprise console, compact tables/context panels and obvious
 SHOWCASE / MOCK, synthetic data, zero real writes and no live AWS dependency.
 No generic blank chat, marketing-only landing or duplicate story backends.
 
-Make Operations Campaign the entry workspace: current synthetic control/severity
+For a later separately authorized visual release, make Shift Review Desk the entry
+workspace. Explicit local original campaign JSON import → exact exception inbox →
+operator-only notes → Markdown/JSON review overlay. Use README's four-minute demo
+and shift-review-sample.json (actual prior v1.6.0 synthetic exporter output).
+
+Preserve the strict size/count/schema/identity/evidence checks. Source labels are
+self-reported, not signed attestation. Render all imported text as text and escape
+Markdown. Never convert imported recorded decisions into authority. Imported data
+and review notes stay isolated from inventory/proposals/executor/incidents.
+
+Keep full epoch/run/proposal/target/revision identity. Filters cannot silently drop
+selected items or deduplicate unresolved evaluations. Show synthetic verified
+assertions separately; REVIEWED is only an operator note, not a compliance change.
+Export the original evidence unchanged plus exact selected references and notes;
+include untouched/unselected exception counts, 0 review writes and 0 real writes.
+Clear/reload erases notes; pending file reads cannot restore cleared state. No
+persistence, remote assignment, auth, hosting or provider integration.
+
+This Issue31 source brief does NOT authorize Site changes. The existing private
+Site and Issue29 hosted E2E remain separately owned. Preserve the accepted campaign
+and stories below as adjacent workspaces.
+
+Retain Operations Campaign: current synthetic control/severity
 and actionability totals → four exact 25-target recommended queues → separate
 Preview and human decision → read-only multi-run session journal → selected
 Markdown/JSON shift handoff. Reuse the existing executor, no campaign-wide approval.

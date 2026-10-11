@@ -57,3 +57,21 @@ epoch, and unresolved from verified evaluations. Provider readback and complianc
 remain separate; no incident record is inferred or attached. An incomplete record
 cannot be selected for the final packet. Historical proof files retain their own
 source digests and do not verify the campaign release.
+
+## Offline Shift Review Desk (Issue31)
+
+Explicit local file → bounded parser → strict synthetic v1 contract validation
+→ frozen original packet + exact evaluation index → separate operator-note Map
+→ source-linked review overlay. No edge connects imported data to campaign
+selection, proposal, executor, inventory or incident closure. The source release
+and fingerprint are declarations only; consistency checks do not authenticate them.
+
+Limits are 2 MiB, 12 runs, 2,000 evaluations; every nested contract object uses an
+allowlist, terminal results/counters/identities are reconciled, and all display
+text is bounded. Complete VERIFIED target evidence is checked even within PARTIAL
+runs. Exact JSON overlay includes the unchanged original packet; Markdown escapes
+untrusted text and includes only explicitly selected evidence plus honest totals.
+
+Notes use the full epoch/run/proposal/target tuple (validated identifiers cannot
+contain delimiters). Import admission uses a monotonically increasing token so
+clear/replacement invalidates pending reads. No persistence or remote API exists.
