@@ -1,10 +1,18 @@
-# Agentic Operations Lab — Shift Handoff Reconciliation / Issue35
+# Agentic Operations Lab — one operator journey
 
-Portable **SHOWCASE / MOCK** source based on accepted main
-`e76028e1cfb74211fc45c093b454fab2068b156d`. Open `index.html` directly. All data,
-reasoning and operations are synthetic; no install, server, model or AWS is needed.
-The existing private Agentic Operations Lab Site is unchanged. This PR prepares
-source for a later explicit Work + @Sites visual-polish action, not publication.
+Feature expansion is paused. Start with [One bucket, one decision, an honest
+handoff](../../docs/operator-journey.md): one four-minute script and a blank
+five-minute real-viewer card. This is the primary demo; no real viewer has run it yet.
+
+Current main source is v1.9 at `5c5849d7389c94de3040ec5a2fab40f44d355939`.
+Parent reports the private Site at Issue31 v1.7; the primary journey uses only
+v1.7 controls checked in source. Hosted compatibility is not verified by this docs
+change. No publication, access change or new runtime behavior is included.
+
+<details>
+<summary>Optional reference: earlier feature demos, file mechanics and evidence</summary>
+
+The material below is retained for reference, not a suggested multi-feature tour.
 
 ## Three-minute handoff reconciliation demo
 
@@ -229,3 +237,5 @@ Validation stays economical: syntax plus existing `check-state.cjs`, useful
 milestone visuals, and one final desktop smoke. The existing state check includes focused regressions for the new untrusted-input
 boundary; no new suite/dependencies/CI or mobile work. Independent review and
 exact-head CI are required before the owner-authorized source merge.
+
+</details>

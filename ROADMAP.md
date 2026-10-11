@@ -1,4 +1,18 @@
-# Active Issue35 — Shift Handoff Reconciliation
+# Active Issue37 — one clear operator story, then a real viewer
+
+Feature expansion PAUSED by owner direction.
+
+- [x] Prepare one four-minute v1.7-compatible source-linked script and blank viewer card
+- [ ] Parent review of docs-only draft PR and selection of a real viewer
+- [ ] Actual five-minute viewer observation / feedback — NOT RUN
+
+Do not mark viewer validation complete from documentation, CI or old smoke evidence.
+No merge, publication, access changes, outreach or new feature work. Issue35 source
+completed via PR36/main5c5849d; previous pending lifecycle wording below historical.
+
+---
+
+# Historical Issue35 — Shift Handoff Reconciliation
 
 - [x] M1 strict same-source comparison and paged differences
 - [x] M2 individual note choices and stale-state safeguards
