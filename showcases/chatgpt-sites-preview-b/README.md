@@ -1,12 +1,48 @@
-# Agentic Operations Lab — Shift Review Desk / Issue31
+# Agentic Operations Lab — Next-Shift Review Continuation / Issue33
 
 Portable **SHOWCASE / MOCK** source based on accepted main
-`32b36f31ab3083b1fdd0eb5a433922d6951e16e3`. Open `index.html` directly. All data,
+`b95d4c7d3469460bf1cb26a5b972cbfb5d3c924a`. Open `index.html` directly. All data,
 reasoning and operations are synthetic; no install, server, model or AWS is needed.
 The existing private Agentic Operations Lab Site is unchanged. This PR prepares
 source for a later explicit Work + @Sites visual-polish action, not publication.
 
-## Four-minute Shift Review Desk demo
+## Three-minute next-shift continuation demo
+
+1. **0:00–0:45 — Stage.** In Shift Review Desk, choose the accepted v1.7 sample
+   `shift-review-overlay-example.json` using **Prior review overlay JSON**.
+   Read its declared original/review sources and available/omitted note counts.
+   Staging loads no notes and grants no authority. Press **Continue review**.
+2. **0:45–1:30 — Continue.** Filter Review progress to Carried unchanged.
+   Inspect one note, compare its immutable carried baseline, change its next
+   action and save. It becomes Edited from carried; original BLOCKED/NEEDS_REVIEW
+   and separate provider/compliance assertions remain unchanged.
+3. **1:30–2:15 — Preserve scope.** Clear export selection and select one row.
+   Read the excluded-note warning. Use **Include all saved notes** if all saved
+   notes should carry forward. This action only changes file export selection.
+   Previously claimed but omitted note contents are unavailable, never invented.
+4. **2:15–3:00 — Round trip.** Download review JSON/Markdown, clear the desk,
+   choose the newly downloaded JSON as a prior overlay, then Continue review.
+   Available saved notes now form the next session baseline. No mutation,
+   assignment, incident closure, provider attestation or durable history occurred.
+
+Continuation accepts only the existing `agentcore2.synthetic-shift-review-overlay.v1`
+contract, up to **4 MiB**; its embedded original still has the 2 MiB/12-run/2,000-
+evaluation limits. Selected identities/revisions, copied evidence, annotation flags,
+notes, totals and next actions are reconciled against the original packet. Strict
+bounds/shape checks fail closed. The two file controls distinguish original evidence
+from prior operator notes; clear before replacing an active desk. Clear also cancels
+staged/in-flight input. Input is untrusted; source labels and any omitted-note count
+remain self-reported declarations rather than authenticated proof.
+
+Only annotations actually present in the selected overlay evaluations can be
+restored. Unselected prior notes have no identities/content in the v1 format;
+their bounded reported count is disclosed, not treated as available evidence.
+The new export recalculates current counts from the available desk notes. It
+keeps the same v1 schema and original packet, with no nested overlay history or
+fabricated parent chain. Progress comparison is in-memory against this import
+only; edit-back to the baseline appears Carried unchanged again.
+
+## Prior Shift Review Desk demo
 
 1. **0:00–0:45 — Import.** Open Shift Review Desk and choose the bundled
    `shift-review-sample.json` through **Local campaign JSON**. This is an actual
@@ -49,8 +85,9 @@ source for a later explicit Work + @Sites visual-polish action, not publication.
 - Select unresolved evaluations explicitly. Filters do not silently change export
   selection. JSON overlays retain the entire original packet; Markdown lists the
   selected exact evidence and honest totals, including untouched/unselected items.
-  Overlay schema is `agentcore2.synthetic-shift-review-overlay.v1`; it cannot be
-  reimported as original execution evidence. Notes do not resolve exceptions.
+  Overlay schema is `agentcore2.synthetic-shift-review-overlay.v1`; only the
+  separate continuation input accepts it as operator notes. It cannot be imported
+  as original execution evidence. Notes do not resolve exceptions.
 - Owner labels ≤80 characters; next-action notes ≤1,000. Nothing is stored or sent.
   Clear cancels pending file reads and removes notes; a loaded import must be
   cleared before replacement. Inventory reset cannot change imported evidence.
@@ -125,10 +162,15 @@ claim or new AWS resource is implied; Issue23 separately governs retained costs.
 
 ## Source and evidence
 
+- `continuation-validation.json` and `evidence/continuation-desktop.png`: current
+  source-bound focused Cloud round-trip proof.
+- `continuation-overlay-example.json` / `.md`: actual next-shift downloaded outputs.
+
+
 - `shift-review-sample.json`: real synthetic v1.6.0 exporter output from
   `main@32b36f31ab3083b1fdd0eb5a433922d6951e16e3`, not live/provider data.
 - `shift-review-validation.json` and `evidence/shift-review-desktop.png`: final
-  Cloud desktop proof tied to the v1.7.0 HTML digest.
+  Historical Cloud desktop proof tied to the v1.7.0 HTML digest, not current bytes.
 - `shift-review-overlay-example.json` / `.md`: actual downloaded review overlays
   from that smoke. JSON retains the unchanged sample packet; both record four
   unresolved evaluations, two notes and two untouched exceptions.

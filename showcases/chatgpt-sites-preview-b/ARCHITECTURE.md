@@ -75,3 +75,18 @@ untrusted text and includes only explicitly selected evidence plus honest totals
 Notes use the full epoch/run/proposal/target tuple (validated identifiers cannot
 contain delimiters). Import admission uses a monotonically increasing token so
 clear/replacement invalidates pending reads. No persistence or remote API exists.
+
+## Next-Shift Review Continuation (Issue33)
+
+Separate bounded local overlay input → strict v1 overlay + embedded original
+validation → staged admission preview → explicit continuation → same isolated
+review desk. Prior annotations are copied into a current-note Map and referenced
+by an immutable baseline Map; editing replaces the current note, never its baseline
+or original evidence. Progress/filtering is a session comparison only.
+
+All selected identities/revisions/targets/results must exactly match the original
+validated unresolved evaluation. Omitted annotations cannot be reconstructed from
+a count. The old format's aggregate omitted-note count is checked for feasibility
+and labelled self-reported/unavailable. Current export remains flat v1, derived
+from available notes and explicit selection, with an excluded-note warning. No
+nested history, new backend, storage or executor edge is introduced.

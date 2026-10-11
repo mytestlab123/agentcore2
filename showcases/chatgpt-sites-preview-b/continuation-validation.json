@@ -1,0 +1,65 @@
+{
+  "issue": 33,
+  "release": "v1.8.0-mock",
+  "sourceHtmlSha256": "05792fc7bef051dbff57c163a0369e3f7ac1a9c249fa10d3171015aba09d899b",
+  "guiSourceFingerprint": "90170c45217607968b102973b7bde51e62ce26e141c56688d5dc37247ac83683",
+  "cloudEnvironmentId": "ccarenv_b64_Y2NhcmVudl9iYWFiNGU2Y2RhODA4MTkxOTA2M2I5ZjA5N2UwMzdmYw",
+  "repository": "mytestlab123/agentcore2",
+  "branch": "review/issue33-continuation",
+  "base": "b95d4c7d3469460bf1cb26a5b972cbfb5d3c924a",
+  "proof": "One focused final Cloud desktop smoke, existing Playwright/Chromium, exact HTML bytes loaded in memory; 1600x1100",
+  "checks": [
+    "Actual overlay file selection stages without notes/authority",
+    "Explicit continuation and declared provenance",
+    "Carried versus edited progress, immutable prior-note baseline",
+    "Saved-note exclusion warning and explicit include-noted action",
+    "Actual JSON/Markdown download and reopening the downloaded v1 overlay",
+    "Omitted saved note count disclosed without inventing annotations",
+    "Active replacement and mismatched/oversize input refused",
+    "Carried untrusted notes inert in DOM and escaped in Markdown",
+    "Clear and newer original import invalidate delayed overlay reads",
+    "Original evidence and campaign authority unchanged"
+  ],
+  "downloadedOverlayTotals": {
+    "originalEvaluations": 21,
+    "originalUniqueTargetsWithinEpoch": 21,
+    "originalUnresolvedEvaluations": 4,
+    "originalUntouchedUnresolvedEvaluations": 2,
+    "selectedUnresolvedEvaluations": 2,
+    "selectedUniqueTargetsWithinEpoch": 2,
+    "selectedUntouchedEvaluations": 0,
+    "unselectedUnresolvedEvaluations": 2,
+    "operatorReviewStatuses": {
+      "FOLLOW_UP": 2
+    },
+    "originalSimulatedWrites": 20,
+    "reviewSimulatedWrites": 0,
+    "realWrites": 0
+  },
+  "downloads": {
+    "json": {
+      "name": "synthetic-shift-review-overlay.json",
+      "sha256": "d19e9e7f356ec8140ec1968c8e2e5cea47236a1e9ad448c6570309b209174f2f"
+    },
+    "markdown": {
+      "name": "synthetic-shift-review-overlay.md",
+      "sha256": "08c9b3ae11d4cda560b53ae16ef0f62f80c403a9273e242b8c8ad6e2e405eab6"
+    }
+  },
+  "browserErrors": 0,
+  "networkRequests": 0,
+  "providerCalls": 0,
+  "reviewWrites": 0,
+  "realWrites": 0,
+  "site": "NOT TOUCHED; parent-owned publication separate",
+  "independentReview": "PENDING",
+  "implementationCommit": "c25abc5f4266299b1377af8d8525c6329e973a1b",
+  "implementationCI": "https://github.com/mytestlab123/agentcore2/actions/runs/38116009806",
+  "focusedChecks": [
+    "Inline syntax PASS",
+    "Existing state/safety check PASS with 14 malformed-overlay variants and round-trip invariants",
+    "Whitespace PASS"
+  ],
+  "visualReview": "Full desktop continuation screenshot inspected; readable current/prior notes, exact evidence and selected-note warnings.",
+  "limitations": "Self-reported sources and feasible omitted-note count only; missing annotations cannot be recovered. Baseline comparison is memory-only. No Site/publication or hosted E2E proof."
+}
