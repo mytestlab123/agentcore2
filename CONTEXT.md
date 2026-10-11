@@ -4,9 +4,13 @@
 
 Single saved Codex Cloud writer; clean start from verified origin/main
 01f8676f88e8015c291857f18d9445834b99f11a. Branch campaign/issue29-operations.
-M1 adds current-inventory severity/control/actionability/review totals and exact
-filtered-findings navigation. Syntax and existing state check pass.
-Next M2 queues, M3 stable bounded journal, M4 selected-run audit packet, M5 handoff.
+M1 derived inventory overview and M2 four exact queues are implemented. M3 retains
+12 deep-frozen session snapshots keyed by inventory epoch/run/proposal; reset
+cannot cross-link evidence. M4 selected complete-run Markdown/JSON packets include
+exact revisions, separate provider/compliance, unresolved evaluation counts and
+zero real writes. Uses the existing executor and exports; no blanket approval.
+Syntax and existing state/safety check pass. M5 docs/final desktop/CI are in progress.
+Draft PR30: https://github.com/mytestlab123/agentcore2/pull/30.
 One draft PR through independent/G acceptance; no merge or publication.
 MOCK only, $0 new AWS. No providers/resources/credentials/Sites/mobile/new
 dependencies/test or CI machinery. Existing PR CI allowed; one final desktop smoke.

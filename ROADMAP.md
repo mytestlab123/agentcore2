@@ -1,9 +1,9 @@
 # Active Issue29 — Operations Campaign
 
 - [x] M1 current-state operator overview
-- [ ] M2 exact-scope recommended queues
-- [ ] M3 bounded stable multi-run journal
-- [ ] M4 selected recorded-run Markdown / JSON handoff
+- [x] M2 exact-scope recommended queues
+- [x] M3 bounded stable multi-run journal
+- [x] M4 selected recorded-run Markdown / JSON handoff
 - [ ] M5 desktop finish / docs / exact-head CI / independent review
 
 One draft PR; no merge/publish. Issues22/25/27 completed; prior status below historical.

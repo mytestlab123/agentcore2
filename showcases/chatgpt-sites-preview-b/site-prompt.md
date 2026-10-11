@@ -1,4 +1,4 @@
-# @Sites — existing private Agentic Operations Lab / Issue27 story polish
+# @Sites — existing private Agentic Operations Lab / Issue29 Operations Campaign
 
 This is a prepared handoff, not permission to publish. After Amit explicitly
 requests visual authoring, use the EXISTING private Agentic Operations Lab Site
@@ -11,6 +11,25 @@ contains compact copy for three stories and the architecture teaching mode.
 Preserve the dark enterprise console, compact tables/context panels and obvious
 SHOWCASE / MOCK, synthetic data, zero real writes and no live AWS dependency.
 No generic blank chat, marketing-only landing or duplicate story backends.
+
+Make Operations Campaign the entry workspace: current synthetic control/severity
+and actionability totals → four exact 25-target recommended queues → separate
+Preview and human decision → read-only multi-run session journal → selected
+Markdown/JSON shift handoff. Reuse the existing executor, no campaign-wide approval.
+Show exact IDs/revisions before preview. Read-only inspection must not execute.
+Keep reviewed counts overlapping and unknown/manual distinct from compliant.
+
+Retain at most 12 copied run snapshots with inventory epoch + run + proposal
+identity. Reset may reuse IDs but must never attach old evidence to a new run.
+Reload clears the journal; no persistence/API. Only the current interrupted run
+can resume through its existing consumed proposal. Never export incomplete runs
+as final evidence. Both packet formats include exact frozen scope, source identity,
+operator decision, separate provider/compliance, unresolved outcomes and truthful
+selected evaluation/unique-target totals. Zero real writes is always explicit.
+
+Preserve the accepted stories below alongside the campaign. story-packs.json is
+historical presentation copy; index.html and RELEASE.json are current authority.
+Use the four-minute operator demo in README.md for the new journey.
 
 Compliance (3–5 min): exact S3 finding → Explain/Investigate → frozen target and
 fixed policy diff → Approve Once/Reject → simulated operation → provider readback
