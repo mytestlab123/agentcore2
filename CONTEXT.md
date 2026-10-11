@@ -1,6 +1,22 @@
 # Current context
 
-## Active Issue35 — Shift Handoff Reconciliation
+## Active Issue37 — consolidate one story; real-viewer validation pending
+
+Owner changed direction: pause feature expansion. Current main verified
+5c5849d7389c94de3040ec5a2fab40f44d355939 (v1.9); clean docs/issue37-operator-story
+branch in the same saved Cloud session. PR36 merged; Issue35 closed. Prior source
+receipts preserved; old review/merge-pending text below is historical.
+
+Docs only: docs/operator-journey.md gives one single-bucket transport decision,
+truthful NEEDS_REVIEW evidence and Markdown handoff, plus a blank five-minute
+viewer card. README points to this as the primary demo; advanced tours optional.
+Parent reports Site at Issue31 v1.7/b95d4c7d; chosen controls checked in that source
+and current main. No hosted/browser check here; no viewer or results invented.
+Next: parent chooses a real viewer with permitted access and records observations.
+Keep Issue37 open, PR draft/unmerged. No code/features/tests/browser reruns/provider/
+AWS/Sites/sharing/auth/outreach work. Issue29 hosted gate remains separate.
+
+## Historical Issue35 — Shift Handoff Reconciliation
 
 Owner authorized next bounded offline implementation after PR34 merge. Same saved
 Cloud session, sole writer, clean base e76028e1cfb74211fc45c093b454fab2068b156d.
