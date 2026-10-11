@@ -1,0 +1,65 @@
+{
+  "issue": 35,
+  "release": "v1.9.0-mock",
+  "sourceHtmlSha256": "c8dbda544ca05d1a2c71919629229310e8e41f9a1961c8b2acd451324a8e8272",
+  "guiSourceFingerprint": "75f42e716ecc949fce5e2ab203ca192948e18d73a4737d714575fb44ac41754e",
+  "environmentId": "ccarenv_b64_Y2NhcmVudl9iYWFiNGU2Y2RhODA4MTkxOTA2M2I5ZjA5N2UwMzdmYw",
+  "repository": "mytestlab123/agentcore2",
+  "branch": "review/issue35-reconciliation",
+  "base": "e76028e1cfb74211fc45c093b454fab2068b156d",
+  "proof": "One focused final 1600x1100 Cloud desktop smoke; existing Playwright/Chromium; exact HTML bytes loaded in memory; actual local files/downloads",
+  "checks": [
+    "Same-source local overlay admission; comparison alone changes no notes",
+    "Exact conflict/local-only/incoming-only classification and per-note choices",
+    "Incoming data, carried baseline, original evidence and export scope unchanged",
+    "Actual reconciled JSON/Markdown downloads and reopening with three notes",
+    "Different original rejected even with same declared fingerprint",
+    "Stale current-note/comparison choice refused",
+    "Untrusted incoming text inert and Markdown escaped",
+    "Comparison clear keeps applied notes; pending comparison/full clear cannot resurrect",
+    "No campaign/incident/authority changes"
+  ],
+  "totals": {
+    "originalEvaluations": 21,
+    "originalUniqueTargetsWithinEpoch": 21,
+    "originalUnresolvedEvaluations": 4,
+    "originalUntouchedUnresolvedEvaluations": 1,
+    "selectedUnresolvedEvaluations": 4,
+    "selectedUniqueTargetsWithinEpoch": 4,
+    "selectedUntouchedEvaluations": 1,
+    "unselectedUnresolvedEvaluations": 0,
+    "operatorReviewStatuses": {
+      "FOLLOW_UP": 2,
+      "INVESTIGATING": 1,
+      "OPEN": 1
+    },
+    "originalSimulatedWrites": 20,
+    "reviewSimulatedWrites": 0,
+    "realWrites": 0
+  },
+  "downloads": {
+    "json": {
+      "name": "synthetic-shift-review-overlay.json",
+      "sha256": "3a71879731153404927dcd15e4c92c9b9f9e29a561844c93834a546a890e0750"
+    },
+    "markdown": {
+      "name": "synthetic-shift-review-overlay.md",
+      "sha256": "78da7e09a78cc39b6ae20dbd7af649fe2928334d4a36188b8348a1d62e12552c"
+    }
+  },
+  "networkRequests": 0,
+  "browserErrors": 0,
+  "providerCalls": 0,
+  "realWrites": 0,
+  "site": "UNCHANGED BY WRITER",
+  "independentReview": "PENDING",
+  "implementationCommit": "1834f6ed396d48d1ddbc8208f5dcb387cb79b1e1",
+  "implementationCI": "https://github.com/mytestlab123/agentcore2/actions/runs/38117908570",
+  "focusedChecks": [
+    "Inline syntax PASS",
+    "Existing state/safety check PASS including exact source matching, classification, stale choices, baseline/evidence/authority isolation and reopen",
+    "Whitespace PASS"
+  ],
+  "visualReview": "Comparison choice screenshot inspected: exact identities, current/incoming notes, absence-not-deletion and individually applied choices visible.",
+  "limitations": "Synthetic self-reported sources/notes; full structural packet equality is not authenticity. Choices are session-only, not durable history. No hosted Site proof. First smoke attempt stopped at an assertion expecting raw text rather than displayed JSON escaping; corrected test expectation without source changes and completed the focused smoke."
+}

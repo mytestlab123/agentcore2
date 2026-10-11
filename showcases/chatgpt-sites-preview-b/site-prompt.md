@@ -1,4 +1,4 @@
-# @Sites — existing private Agentic Operations Lab / Issue33 Next-Shift Review Continuation
+# @Sites — existing private Agentic Operations Lab / Issue35 Shift Handoff Reconciliation
 
 This is a prepared handoff, not permission to publish. After Amit explicitly
 requests visual authoring, use the EXISTING private Agentic Operations Lab Site
@@ -11,6 +11,22 @@ contains compact copy for three stories and the architecture teaching mode.
 Preserve the dark enterprise console, compact tables/context panels and obvious
 SHOWCASE / MOCK, synthetic data, zero real writes and no live AWS dependency.
 No generic blank chat, marketing-only landing or duplicate story backends.
+
+Later source handoff: retain the existing desk and add same-original-packet note
+comparison. Local second overlay → strict admission/exact original match → paged
+current/incoming-only/equal/conflict cards → individual Keep current/Use incoming
+→ existing selected v1 handoff. No automatic winner or blanket application.
+
+Require exact note/reference/current comparison checks at action time. Preserve
+incoming data, carried baseline, original provider/compliance, campaign and incident
+state. Clear comparison keeps applied notes; clear desk removes everything and
+invalidates pending reads. Never delete a local note because incoming omits it.
+Show bounded self-reported provenance/omissions and honest export selection.
+Use README's three-minute comparison demo and reconciliation-incoming-sample.json.
+No new schema, recursive audit chain, durable history, storage or backend.
+
+This source roadmap does not authorize Site publication; parent owns that separately.
+Preserve the earlier continuation and review experience below.
 
 For a later separately authorized release, add prior-overlay continuation within
 the same Shift Review Desk: separate local overlay selection → validation preview

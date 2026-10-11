@@ -1,12 +1,44 @@
-# Agentic Operations Lab — Next-Shift Review Continuation / Issue33
+# Agentic Operations Lab — Shift Handoff Reconciliation / Issue35
 
 Portable **SHOWCASE / MOCK** source based on accepted main
-`b95d4c7d3469460bf1cb26a5b972cbfb5d3c924a`. Open `index.html` directly. All data,
+`e76028e1cfb74211fc45c093b454fab2068b156d`. Open `index.html` directly. All data,
 reasoning and operations are synthetic; no install, server, model or AWS is needed.
 The existing private Agentic Operations Lab Site is unchanged. This PR prepares
 source for a later explicit Work + @Sites visual-polish action, not publication.
 
-## Three-minute next-shift continuation demo
+## Three-minute handoff reconciliation demo
+
+1. **0:00–0:45 — Two reviews.** Choose `shift-review-overlay-example.json` in
+   Prior review overlay JSON, then Continue review. In **Compare another
+   operator's notes**, choose `reconciliation-incoming-sample.json`. Both share
+   the identical original packet; merely matching a fingerprint is insufficient.
+2. **0:45–1:45 — Inspect and choose.** The sample shows one CONFLICT, one LOCAL_ONLY
+   and one INCOMING_ONLY note. Compare exact identities/revisions and note text.
+   Use incoming for the conflict, Keep current for the local-only note, and Use
+   incoming for the incoming-only note. Each choice changes only that operator
+   note; absence never means delete. No bulk apply or last-writer-wins exists.
+3. **1:45–2:30 — Check scope.** Set Note difference to All available notes to see
+   the applied choices. Original outcomes/provider/compliance and carried baseline
+   remain unchanged. Export selection stays explicit; use Include all saved notes
+   if needed. Choices are a session summary, not authenticated/durable history.
+4. **2:30–3:00 — Hand off.** Download review JSON/Markdown, clear the desk and reopen
+   the downloaded overlay. The example has three notes and one untouched original
+   exception. Original evidence is identical. Clear comparison alone would retain
+   applied notes; Clear import & notes removes the whole desk.
+
+Comparison uses existing bounded v1 admission and then structural equality of the
+entire original packet, including ordered records. Different packet scope/content
+is rejected even with the same self-reported fingerprint. Note cards are paged at
+10 pairs and filterable. Unavailable/omitted incoming annotations are disclosed,
+never reconstructed. Incoming text is inert and exported Markdown stays escaped.
+
+Individual actions recheck comparison identity, original packet identity and the
+current note captured when rendered. Stale actions are refused. A later manual
+edit makes the earlier choice visibly out of date. Applying an incoming note does
+not alter the original packet, incoming overlay, carried baseline, campaign,
+incident or export selection. There is no assignment, execution, storage or sync.
+
+## Prior next-shift continuation demo
 
 1. **0:00–0:45 — Stage.** In Shift Review Desk, choose the accepted v1.7 sample
    `shift-review-overlay-example.json` using **Prior review overlay JSON**.
@@ -162,8 +194,15 @@ claim or new AWS resource is implied; Issue23 separately governs retained costs.
 
 ## Source and evidence
 
+- `reconciliation-incoming-sample.json`: synthetic counterpart exported by the
+  current desk for the comparison demo; same original packet as the v1.7 sample.
+- `reconciliation-validation.json`, `evidence/reconciliation-desktop.png` and
+  `reconciliation-overlay-example.json` / `.md`: focused Cloud proof and actual
+  downloaded reconciled outputs bound to current v1.9 source.
+
+
 - `continuation-validation.json` and `evidence/continuation-desktop.png`: current
-  source-bound focused Cloud round-trip proof.
+  historical v1.8 source-bound focused Cloud round-trip proof.
 - `continuation-overlay-example.json` / `.md`: actual next-shift downloaded outputs.
 
 

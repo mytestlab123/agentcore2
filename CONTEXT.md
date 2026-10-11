@@ -1,6 +1,32 @@
 # Current context
 
-## Active Issue33 — Next-Shift Review Continuation
+## Active Issue35 — Shift Handoff Reconciliation
+
+Owner authorized next bounded offline implementation after PR34 merge. Same saved
+Cloud session, sole writer, clean base e76028e1cfb74211fc45c093b454fab2068b156d.
+Branch review/issue35-reconciliation; backlog checked, no overlapping roadmap.
+M1 same-original-packet comparison and M2 explicit per-note choices implemented.
+Strict existing overlay admission reused; original must match structurally, not
+just self-declared fingerprint. Current/incoming-only/equal/conflict classes,
+immutable incoming/baseline, stale-choice guard and clear-comparison semantics.
+Syntax/existing state checks pass. M3 focused final Cloud comparison/download/reopen
+PASS: actual file admission, conflict/local-only/incoming-only choices, immutable
+incoming/baseline/original, stale-action refusal, same-fingerprint/different-original
+rejection, inert text and delayed-read clear safety. Three saved notes, one untouched
+exception; four original exceptions unchanged. Zero requests/errors/provider calls.
+Proof reconciliation-validation.json, actual reconciled JSON/Markdown outputs and
+inspected reconciliation screenshots. Source1834f6ed396d48d1ddbc8208f5dcb387cb79b1e1
+CI38117908570 PASS. Draft PR36; final evidence-head CI/readiness on Issue35/PR36. One draft PR; parent independent review before any new PR merge.
+PR34-specific merge approval does not authorize this new merge. No routine GO for
+implementation. No Sites/auth/provider/model/AWS/storage/backend/infra/cost/mobile/
+dependency/framework/dispatch work. Parent owns publication; Issue29 stays separate.
+
+Issue33 source COMPLETE: PR34 squash-merged e76028e1cfb74211fc45c093b454fab2068b156d
+after explicit approval and independent review of21efaf1fc910cf71ae61745956f67712cb8c7ecd;
+CI38116123984 PASS. Issue33 closed; old pending language below is historical.
+Rollback b95d4c7d3469460bf1cb26a5b972cbfb5d3c924a/v1.7 and prior receipts preserved.
+
+## Historical Issue33 — Next-Shift Review Continuation
 
 Owner-authorized next bounded MOCK outcome; sole writer in same saved Cloud session.
 Verified origin/main b95d4c7d3469460bf1cb26a5b972cbfb5d3c924a; clean branch
