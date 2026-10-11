@@ -1,6 +1,29 @@
 # Current context
 
-## Active Issue29 — Operations Campaign
+## Active Issue31 — Offline Shift Review Desk
+
+Owner-authorized M1–M5, sole writer in the same saved Codex Cloud environment.
+Verified origin/main32b36f31ab3083b1fdd0eb5a433922d6951e16e3; clean start on
+review/issue31-shift-desk. One cohesive draft PR; merge only after independent
+source review and exact-head CI pass. No new GO required for ordinary fixes.
+
+M1–M4 implemented; syntax/existing state checks pass, including 19 malformed-input
+variants, immutable original evidence, Markdown escaping and execution isolation.
+Final desktop/docs and exact-head CI pending; independent review before merge.
+
+Safe bounded untrusted synthetic packet import → evidence-only exceptions inbox
+→ in-memory operator notes → source-linked overlay exports → desktop demo/docs.
+No execution authority imports, persistence, provider calls, new framework or mobile.
+Existing Site unchanged; no publication/auth troubleshooting. Issue29 remains OPEN
+for its separate hosted E2E gate, not a dependency for Issue31 source delivery.
+
+PR30 source accepted and merged as32b36f31ab3083b1fdd0eb5a433922d6951e16e3.
+Accepted source67dc2a19f66969b5809b8a77ec5d8e169cd69b44 and CI38097144145 PASS.
+Prior main01f8676f88e8015c291857f18d9445834b99f11a is preserved rollback evidence.
+Issue29 Site publication was parent-owned; its hosted E2E remains blocked by an
+unauthenticated parent browser. Earlier review/merge-pending text below is historical.
+
+## Historical Issue29 source implementation — Operations Campaign
 
 Single saved Codex Cloud writer; clean start from verified origin/main
 01f8676f88e8015c291857f18d9445834b99f11a. Branch campaign/issue29-operations.

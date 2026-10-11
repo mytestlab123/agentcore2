@@ -1,4 +1,18 @@
-# Active Issue29 — Operations Campaign
+# Active Issue31 — Offline Shift Review Desk
+
+- [x] M1 safe bounded packet admission
+- [x] M2 evidence-derived exceptions inbox
+- [x] M3 bounded operator-only review annotations
+- [x] M4 source-linked Markdown/JSON overlay handoff
+- [ ] M5 docs / focused Cloud desktop / exact-head CI
+- [ ] Independent source acceptance and authorized merge
+
+One branch/PR. Existing private Site unchanged. Issue29 remains open only for its
+separate hosted E2E gate; PR30 source accepted/merged. Older lifecycle text historical.
+
+---
+
+# Historical Issue29 — Operations Campaign
 
 - [x] M1 current-state operator overview
 - [x] M2 exact-scope recommended queues
