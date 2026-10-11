@@ -1,18 +1,18 @@
 {
-  "release": "v1.7.0-mock",
-  "guiTitle": "Agentic Operations Lab / Shift Review Desk",
+  "release": "v1.8.0-mock",
+  "guiTitle": "Agentic Operations Lab / Next-Shift Review Continuation",
   "publication": "SOURCE ONLY \u2014 existing private Site unchanged",
   "scope": "MOCK / synthetic only; no live integration",
-  "authority": "https://github.com/mytestlab123/agentcore2/issues/31",
-  "baseCommit": "32b36f31ab3083b1fdd0eb5a433922d6951e16e3",
-  "htmlSha256": "710d46d30caaa7ce2d34d397ab2cb62bbf981c3f54d1c41f8b9605b6b3f5b482",
-  "guiSourceFingerprint": "24f9ea2ded1ac9f17db2299c50b7b4702611142cd5e7f52486fb2f04a996ce17",
+  "authority": "https://github.com/mytestlab123/agentcore2/issues/33",
+  "baseCommit": "b95d4c7d3469460bf1cb26a5b972cbfb5d3c924a",
+  "htmlSha256": "05792fc7bef051dbff57c163a0369e3f7ac1a9c249fa10d3171015aba09d899b",
+  "guiSourceFingerprint": "90170c45217607968b102973b7bde51e62ce26e141c56688d5dc37247ac83683",
   "fingerprintAlgorithm": "sha256(index.html with BUILD_FINGERPRINT replaced by __FINGERPRINT__)",
   "historicalSiteMapping": "See the unchanged Issue9 evidence and Git history; no existing Site modified.",
   "priorRelease": {
-    "release": "v1.6.0-mock",
-    "commit": "32b36f31ab3083b1fdd0eb5a433922d6951e16e3",
-    "htmlSha256": "04a8f59dea7447d0f297a408459f53771a9d416ccbbfb6ace5ca23c102a053ae",
-    "fingerprint": "05596bf271e3ea14d3aa815e7796db2af526347d8bda35930402e5719b83127b"
+    "release": "v1.7.0-mock",
+    "commit": "b95d4c7d3469460bf1cb26a5b972cbfb5d3c924a",
+    "htmlSha256": "710d46d30caaa7ce2d34d397ab2cb62bbf981c3f54d1c41f8b9605b6b3f5b482",
+    "fingerprint": "24f9ea2ded1ac9f17db2299c50b7b4702611142cd5e7f52486fb2f04a996ce17"
   }
 }

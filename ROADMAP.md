@@ -1,4 +1,17 @@
-# Active Issue31 — Offline Shift Review Desk
+# Active Issue33 — Next-Shift Review Continuation
+
+- [x] M1 bounded strict overlay admission
+- [x] M2 explicit staged note continuation
+- [x] M3 carried/edited progress and loss-aware export selection
+- [ ] M4 docs / focused Cloud round-trip proof / exact-head CI
+- [ ] Independent source acceptance and authorized merge
+
+One source branch/PR; no Site/auth work. Issue31 closed after PR32 accepted merge;
+Issue29 remains separately open. Prior status below historical.
+
+---
+
+# Historical Issue31 — Offline Shift Review Desk
 
 - [x] M1 safe bounded packet admission
 - [x] M2 evidence-derived exceptions inbox

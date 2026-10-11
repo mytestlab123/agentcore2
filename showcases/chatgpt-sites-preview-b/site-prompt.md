@@ -1,4 +1,4 @@
-# @Sites — existing private Agentic Operations Lab / Issue31 Shift Review Desk
+# @Sites — existing private Agentic Operations Lab / Issue33 Next-Shift Review Continuation
 
 This is a prepared handoff, not permission to publish. After Amit explicitly
 requests visual authoring, use the EXISTING private Agentic Operations Lab Site
@@ -11,6 +11,23 @@ contains compact copy for three stories and the architecture teaching mode.
 Preserve the dark enterprise console, compact tables/context panels and obvious
 SHOWCASE / MOCK, synthetic data, zero real writes and no live AWS dependency.
 No generic blank chat, marketing-only landing or duplicate story backends.
+
+For a later separately authorized release, add prior-overlay continuation within
+the same Shift Review Desk: separate local overlay selection → validation preview
+of available/omitted notes and declared provenance → explicit Continue review →
+carried/edited/new-note progress → loss-aware selection → current v1 overlay export.
+Use README's three-minute demo. Do not automatically load notes on staging or
+silently replace an active desk. Never restore missing notes from aggregate counts.
+
+Keep original evidence untouched. The prior-note baseline is immutable and session-
+local; progress is a comparison, not durable audit history or compliance change.
+Show saved notes excluded from export and explicit Include all saved notes action.
+New v1 JSON must reopen through the same separate overlay admission path; no
+recursive file history, new schema, storage, backend or authority restoration.
+Bounds/identity/evidence checks, async invalidation and text/Markdown safety remain.
+
+Parent owns publication; this source roadmap does not call Sites or change sharing.
+The accepted v1.7 experience below is retained.
 
 For a later separately authorized visual release, make Shift Review Desk the entry
 workspace. Explicit local original campaign JSON import → exact exception inbox →

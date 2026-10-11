@@ -1,6 +1,24 @@
 # Current context
 
-## Active Issue31 — Offline Shift Review Desk
+## Active Issue33 — Next-Shift Review Continuation
+
+Owner-authorized next bounded MOCK outcome; sole writer in same saved Cloud session.
+Verified origin/main b95d4c7d3469460bf1cb26a5b972cbfb5d3c924a; clean branch
+review/issue33-continuation. Open backlog/PRs reconciled; no competing roadmap.
+M1 strict bounded overlay admission, M2 explicit staged continuation, M3 carried/
+edited/new-note progress and excluded-note warning are implemented. Existing syntax
+and state/safety checks pass, including 14 malformed-overlay variants, immutable
+baseline/source and unchanged campaign authority. M4 docs/focused proof/CI next.
+One cohesive draft PR; parent-arranged independent review before authorized merge.
+Parent alone owns Site publication. No Sites/auth/provider/model/AWS calls, storage,
+backend, dependencies/frameworks/mobile/dispatch or new cost. Issue29 stays separate.
+
+Issue31 source COMPLETE: PR32 merged b95d4c7d3469460bf1cb26a5b972cbfb5d3c924a;
+accepted dbd5583f7ab0ad8d00b89d37dda1b123af06c5e9, CI38114863387 PASS and
+independent source acceptance recorded. Issue31 closed. Historical pending status
+below is superseded. v1.7.0 receipt and v1.6.0 rollback references preserved.
+
+## Historical Issue31 — Offline Shift Review Desk
 
 Owner-authorized M1–M5, sole writer in the same saved Codex Cloud environment.
 Verified origin/main32b36f31ab3083b1fdd0eb5a433922d6951e16e3; clean start on

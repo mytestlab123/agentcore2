@@ -91,3 +91,35 @@ const overlayMd=run('reviewOverlayMarkdown(reviewOverlay())');assert(!overlayMd.
 el('review-action').value='x'.repeat(1001);run('saveReviewNote()');assert.match(el('review-note-message').textContent,/1000/);assert.equal(run('reviewNotes.size'),1);
 run('clearReviewDesk()');assert.equal(run('reviewPacket'),null);assert.equal(run('reviewNotes.size'),0);assert.equal(run('reviewSelected.size'),0);
 console.log(JSON.stringify({shiftReviewAdmission:'PASS',rejectedMalformedVariants:reviewBadCases.length+2,originalEvidenceUnchanged:true,campaignAuthorityUnchanged:true,markdownUntrustedTextEscaped:true,operatorNotesBounded:true,reviewRealWrites:0}));
+
+// Issue33: admit an existing overlay only as notes, then produce a reopenable v1 overlay.
+const priorOverlayText=fs.readFileSync(require('path').join(__dirname,'shift-review-overlay-example.json'),'utf8');sandbox.priorOverlayText=priorOverlayText;
+assert.equal(run('parseReviewOverlay(priorOverlayText).notes.size'),2);
+const badOverlays=[
+ [p=>{p.evaluations[0].reference.targetRevision++},/targetRevision/],
+ [p=>{p.evaluations[0].reference.epoch++},/reference/],
+ [p=>{p.evaluations[0].originalResult.providerReadback='invented'},/providerReadback/],
+ [p=>{p.evaluations[0].originalDecision='REJECT'},/originalDecision/],
+ [p=>{p.evaluations[1]=p.evaluations[0]},/duplicate/],
+ [p=>{p.evaluations[0].annotationRecorded=false},/annotation/],
+ [p=>{p.evaluations[0].annotation.status='APPROVE'},/status/],
+ [p=>{p.evaluations[0].annotation.nextAction='x'.repeat(1001)},/nextAction/],
+ [p=>{p.totals.originalUntouchedUnresolvedEvaluations=0},/unselected/],
+ [p=>{p.totals.selectedUntouchedEvaluations++},/selectedUntouched/],
+ [p=>{p.outstandingNextActions[0].owner='forged'},/owner/],
+ [p=>{p.originalPacket.runs[0].results[0].realWrites=1},/realWrites/],
+ [p=>{p.evaluations[0].authority=true},/unsupported/]
+];
+for(const [mutate,error] of badOverlays){const packet=JSON.parse(priorOverlayText);mutate(packet);sandbox.badOverlayText=JSON.stringify(packet);assert.throws(()=>run('parseReviewOverlay(badOverlayText)'),error);}
+assert.throws(()=>run("parseReviewOverlay(' '.repeat(REVIEW_OVERLAY_MAX_BYTES+1))"),/4 MiB/);
+const authorityBeforeContinuation=run('JSON.stringify({datasetRevision,proposal,lastRun,journal:[...campaignJournal],selected:[...selectedIds],incident})');
+run('reviewPendingOverlay=parseReviewOverlay(priorOverlayText);renderReviewContinuation()');assert.equal(run('reviewPacket'),null);assert.equal(run('reviewNotes.size'),0);
+run('continueReviewOverlay()');assert.equal(run('reviewNotes.size'),2);assert.equal(run('reviewSelected.size'),4);assert.equal(run('reviewRows.filter(r=>reviewProgress(r.key)===\'CARRIED\').length'),2);
+const originalForContinuation=run('JSON.stringify(reviewPacket)');run('reviewFocus=[...reviewNotes.keys()][0];renderReviewEditor()');el('review-action').value='Next shift follow-up';run('saveReviewNote()');assert.equal(run('reviewProgress(reviewFocus)'),'EDITED');assert.notEqual(run('reviewNotes.get(reviewFocus).nextAction'),run('reviewBaseline.get(reviewFocus).nextAction'));
+run('reviewSelected.delete(reviewFocus);renderReviewQueue()');assert.match(el('review-export-status').textContent,/1 saved notes outside selection/);
+const subsetOverlay=run('JSON.stringify(reviewOverlay())');sandbox.subsetOverlay=subsetOverlay;assert.equal(run('parseReviewOverlay(subsetOverlay).omitted'),1);assert.equal(run('parseReviewOverlay(subsetOverlay).notes.size'),1);
+click('review-include-noted');assert.equal(run('reviewSelected.size'),4);const reopened=run('parseReviewOverlay(JSON.stringify(reviewOverlay()))');assert.equal(reopened.notes.size,2);
+assert.equal(run('JSON.stringify(reviewPacket)'),originalForContinuation);assert.equal(run('JSON.stringify({datasetRevision,proposal,lastRun,journal:[...campaignJournal],selected:[...selectedIds],incident})'),authorityBeforeContinuation);
+run('clearReviewDesk();reviewPendingOverlay=parseReviewOverlay(subsetOverlay);continueReviewOverlay()');assert.equal(run('reviewNotes.size'),1);assert.equal(run('reviewPrior.omitted'),1);assert.equal(run('reviewPacket.totals.unresolvedTargetEvaluations'),4);
+run('clearReviewDesk()');assert.equal(run('reviewBaseline.size'),0);assert.equal(run('reviewPrior'),null);assert.equal(run('reviewPendingOverlay'),null);
+console.log(JSON.stringify({reviewContinuation:'PASS',malformedOverlayVariants:badOverlays.length+1,stagedWithoutAuthority:true,priorBaselineImmutable:true,omittedNotesNotInvented:true,exportReopenable:true,originalEvidenceAndCampaignUnchanged:true}));
