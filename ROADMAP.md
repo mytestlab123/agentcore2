@@ -3,7 +3,8 @@
 - [x] M1 bounded strict overlay admission
 - [x] M2 explicit staged note continuation
 - [x] M3 carried/edited progress and loss-aware export selection
-- [ ] M4 docs / focused Cloud round-trip proof / exact-head CI
+- [x] M4 docs / focused Cloud round-trip proof / actual download receipts
+- [ ] Final evidence-head CI readback
 - [ ] Independent source acceptance and authorized merge
 
 One source branch/PR; no Site/auth work. Issue31 closed after PR32 accepted merge;

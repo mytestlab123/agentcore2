@@ -8,7 +8,15 @@ review/issue33-continuation. Open backlog/PRs reconciled; no competing roadmap.
 M1 strict bounded overlay admission, M2 explicit staged continuation, M3 carried/
 edited/new-note progress and excluded-note warning are implemented. Existing syntax
 and state/safety checks pass, including 14 malformed-overlay variants, immutable
-baseline/source and unchanged campaign authority. M4 docs/focused proof/CI next.
+baseline/source and unchanged campaign authority. M4 focused final Cloud desktop
+round trip PASS: real local file selection, staged/explicit continuation, edit and
+immutable baseline, excluded-note warning/include-noted, actual JSON/Markdown
+outputs and reopening the downloaded JSON, honest omitted-note handling, malformed/
+oversize rejection, inert text and async clear/supersession safety. Zero requests,
+browser errors, provider calls or real writes. Receipt: continuation-validation.json;
+actual outputs continuation-overlay-example.json/.md; inspected continuation PNGs.
+Implementation c25abc5f4266299b1377af8d8525c6329e973a1b CI38116009806 PASS.
+Draft PR34; final evidence-head CI/independent review recorded on Issue33/PR34.
 One cohesive draft PR; parent-arranged independent review before authorized merge.
 Parent alone owns Site publication. No Sites/auth/provider/model/AWS calls, storage,
 backend, dependencies/frameworks/mobile/dispatch or new cost. Issue29 stays separate.
