@@ -1,18 +1,18 @@
 {
-  "release": "v1.8.0-mock",
-  "guiTitle": "Agentic Operations Lab / Next-Shift Review Continuation",
+  "release": "v1.9.0-mock",
+  "guiTitle": "Agentic Operations Lab / Shift Handoff Reconciliation",
   "publication": "SOURCE ONLY \u2014 existing private Site unchanged",
   "scope": "MOCK / synthetic only; no live integration",
-  "authority": "https://github.com/mytestlab123/agentcore2/issues/33",
-  "baseCommit": "b95d4c7d3469460bf1cb26a5b972cbfb5d3c924a",
-  "htmlSha256": "05792fc7bef051dbff57c163a0369e3f7ac1a9c249fa10d3171015aba09d899b",
-  "guiSourceFingerprint": "90170c45217607968b102973b7bde51e62ce26e141c56688d5dc37247ac83683",
+  "authority": "https://github.com/mytestlab123/agentcore2/issues/35",
+  "baseCommit": "e76028e1cfb74211fc45c093b454fab2068b156d",
+  "htmlSha256": "c8dbda544ca05d1a2c71919629229310e8e41f9a1961c8b2acd451324a8e8272",
+  "guiSourceFingerprint": "75f42e716ecc949fce5e2ab203ca192948e18d73a4737d714575fb44ac41754e",
   "fingerprintAlgorithm": "sha256(index.html with BUILD_FINGERPRINT replaced by __FINGERPRINT__)",
   "historicalSiteMapping": "See the unchanged Issue9 evidence and Git history; no existing Site modified.",
   "priorRelease": {
-    "release": "v1.7.0-mock",
-    "commit": "b95d4c7d3469460bf1cb26a5b972cbfb5d3c924a",
-    "htmlSha256": "710d46d30caaa7ce2d34d397ab2cb62bbf981c3f54d1c41f8b9605b6b3f5b482",
-    "fingerprint": "24f9ea2ded1ac9f17db2299c50b7b4702611142cd5e7f52486fb2f04a996ce17"
+    "release": "v1.8.0-mock",
+    "commit": "e76028e1cfb74211fc45c093b454fab2068b156d",
+    "htmlSha256": "05792fc7bef051dbff57c163a0369e3f7ac1a9c249fa10d3171015aba09d899b",
+    "fingerprint": "90170c45217607968b102973b7bde51e62ce26e141c56688d5dc37247ac83683"
   }
 }

@@ -1,4 +1,16 @@
-# Active Issue33 — Next-Shift Review Continuation
+# Active Issue35 — Shift Handoff Reconciliation
+
+- [x] M1 strict same-source comparison and paged differences
+- [x] M2 individual note choices and stale-state safeguards
+- [ ] M3 demo / focused Cloud proof / exact-head CI
+- [ ] Parent independent source review; separate new-PR merge decision
+
+One source branch/PR; Sites unchanged by worker. Issue33 source complete/closed,
+Issue29 remains separate. Previous lifecycle text below historical.
+
+---
+
+# Historical Issue33 — Next-Shift Review Continuation
 
 - [x] M1 bounded strict overlay admission
 - [x] M2 explicit staged note continuation

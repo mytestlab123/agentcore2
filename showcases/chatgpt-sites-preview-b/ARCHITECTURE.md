@@ -90,3 +90,18 @@ a count. The old format's aggregate omitted-note count is checked for feasibilit
 and labelled self-reported/unavailable. Current export remains flat v1, derived
 from available notes and explicit selection, with an excluded-note warning. No
 nested history, new backend, storage or executor edge is introduced.
+
+## Shift Handoff Reconciliation (Issue35)
+
+Loaded immutable original + second strictly admitted overlay → full structural
+original equality → bounded exact-note comparison → explicit per-note choice →
+existing current-note Map/export. A declared fingerprint alone cannot join packets.
+Current/incoming-only/equal/conflict classifications compare available annotations;
+absence never deletes or fabricates notes. No evidence or executor edge is added.
+
+Choice closures capture the rendered comparison and current note. Apply rechecks
+those object identities and the loaded original before changing only the current
+operator annotation. Incoming data and carried baseline stay frozen. Session choice
+summary reflects whether current notes still match; it is not durable audit history.
+All file readers share invalidation on clear/supersession. Comparison clear retains
+applied notes; full desk clear drops every imported/review/comparison object.
