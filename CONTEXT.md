@@ -9,8 +9,14 @@ M1 same-original-packet comparison and M2 explicit per-note choices implemented.
 Strict existing overlay admission reused; original must match structurally, not
 just self-declared fingerprint. Current/incoming-only/equal/conflict classes,
 immutable incoming/baseline, stale-choice guard and clear-comparison semantics.
-Syntax/existing state checks pass; M3 focused Cloud download/reopen proof and docs
-in progress. One draft PR; parent independent review before any new PR merge.
+Syntax/existing state checks pass. M3 focused final Cloud comparison/download/reopen
+PASS: actual file admission, conflict/local-only/incoming-only choices, immutable
+incoming/baseline/original, stale-action refusal, same-fingerprint/different-original
+rejection, inert text and delayed-read clear safety. Three saved notes, one untouched
+exception; four original exceptions unchanged. Zero requests/errors/provider calls.
+Proof reconciliation-validation.json, actual reconciled JSON/Markdown outputs and
+inspected reconciliation screenshots. Source1834f6ed396d48d1ddbc8208f5dcb387cb79b1e1
+CI38117908570 PASS. Draft PR36; final evidence-head CI/readiness on Issue35/PR36. One draft PR; parent independent review before any new PR merge.
 PR34-specific merge approval does not authorize this new merge. No routine GO for
 implementation. No Sites/auth/provider/model/AWS/storage/backend/infra/cost/mobile/
 dependency/framework/dispatch work. Parent owns publication; Issue29 stays separate.

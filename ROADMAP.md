@@ -2,7 +2,8 @@
 
 - [x] M1 strict same-source comparison and paged differences
 - [x] M2 individual note choices and stale-state safeguards
-- [ ] M3 demo / focused Cloud proof / exact-head CI
+- [x] M3 demo / focused Cloud proof / actual downloaded overlays
+- [ ] Final evidence-head CI readback
 - [ ] Parent independent source review; separate new-PR merge decision
 
 One source branch/PR; Sites unchanged by worker. Issue33 source complete/closed,
