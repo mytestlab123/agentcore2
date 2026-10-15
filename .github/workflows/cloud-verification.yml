@@ -39,9 +39,10 @@ jobs:
       - name: Verify focused artifact guards
         run: python3 -m unittest discover -s tools/browser/tests -v
       - name: Run explicitly requested desktop E2E
-        if: contains(github.event.pull_request.labels.*.name, 'validation:major-finish') || contains(github.event.pull_request.labels.*.name, 'validation:high-risk')
+        if: contains(github.event.pull_request.labels.*.name, 'validation:major-finish') || contains(github.event.pull_request.labels.*.name, 'validation:high-risk') || contains(github.event.pull_request.labels.*.name, 'validation:defence-finish')
         env:
           SHOWCASE_ARTIFACTS: artifacts/showcase
+          SHOWCASE_JOURNEY: ${{ contains(github.event.pull_request.labels.*.name, 'validation:defence-finish') && 'defence' || '' }}
         run: npm run verify:cloud -- browser
       - name: Prove synthetic failure capture
         id: failure-proof
@@ -67,4 +68,12 @@ jobs:
             artifacts/showcase/failure.png
             artifacts/showcase/trace.zip
           if-no-files-found: ignore
+          retention-days: 7
+      - name: Retain explicitly requested Defence Factory proof
+        if: success() && contains(github.event.pull_request.labels.*.name, 'validation:defence-finish')
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: defence-synthetic-proof
+          path: artifacts/showcase/defence-*
+          if-no-files-found: error
           retention-days: 7

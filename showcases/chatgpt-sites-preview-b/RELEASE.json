@@ -1,12 +1,12 @@
 {
-  "release": "v1.9.0-mock",
-  "guiTitle": "Agentic Operations Lab / Shift Handoff Reconciliation",
+  "release": "v1.10.0-mock",
+  "guiTitle": "Agentic Operations Lab / Defence Factory intake",
   "publication": "SOURCE ONLY \u2014 existing private Site unchanged",
   "scope": "MOCK / synthetic only; no live integration",
-  "authority": "https://github.com/mytestlab123/agentcore2/issues/35",
-  "baseCommit": "e76028e1cfb74211fc45c093b454fab2068b156d",
-  "htmlSha256": "c8dbda544ca05d1a2c71919629229310e8e41f9a1961c8b2acd451324a8e8272",
-  "guiSourceFingerprint": "75f42e716ecc949fce5e2ab203ca192948e18d73a4737d714575fb44ac41754e",
+  "authority": "https://github.com/mytestlab123/agentcore2/issues/39",
+  "baseCommit": "aaf26834d59b0712c4137326a13621de8efb2d5d",
+  "htmlSha256": "265bad930edaabe42a0788955bd378457c10ae64842e3225dcd5e26e74f11406",
+  "guiSourceFingerprint": "ab85db174b3a9a362701ccac09af02a5b7ff3a99a203fc6714c59424666c99f5",
   "fingerprintAlgorithm": "sha256(index.html with BUILD_FINGERPRINT replaced by __FINGERPRINT__)",
   "historicalSiteMapping": "See the unchanged Issue9 evidence and Git history; no existing Site modified.",
   "priorRelease": {

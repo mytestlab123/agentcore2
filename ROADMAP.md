@@ -1,3 +1,12 @@
+# Defence Factory — Issue39
+
+M1 source contract accepted/merged. M2 bounded synthetic intake implemented;
+M3/M4 offline boundaries and exact proof/gates recorded in current progress docs.
+M5 acceptance separates source, hosted release, real viewer and live AWS evidence.
+Never substitute CI for an unperformed external proof. Dot implements natively.
+
+## Preserved earlier roadmap
+
 # Active Issue35 — Shift Handoff Reconciliation
 
 - [x] M1 strict same-source comparison and paged differences
