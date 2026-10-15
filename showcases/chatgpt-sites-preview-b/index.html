@@ -109,7 +109,7 @@ function intake(input,format){try{
  if(/\d{12}|arn:|AKIA[A-Z0-9]{16}|ASIA[A-Z0-9]{16}|-----BEGIN|https?:|@|secret|password|token|credential/i.test(text))bad();
  let rows;if(format==='json'){const p=parseJSON(text);keys(p,['schemaVersion','findings']);if(p.schemaVersion!=='defence-intake/1')bad();rows=p.findings;}else if(format==='csv')rows=parseCSV(text);else bad();
  if(!Array.isArray(rows)||rows.length<1||rows.length>MAX_ROWS)bad();const ids=new Set(),resources=new Set();
- const findings=rows.map(r=>{keys(r,COLUMNS);if(COLUMNS.some(k=>typeof r[k]!=='string'))bad();
+ const findings=rows.map(r=>{keys(r,COLUMNS);if(COLUMNS.some(k=>typeof r[k]!=='string'))bad();if(Object.values(r).some(v=>/\d{12}|arn:|AKIA[A-Z0-9]{16}|ASIA[A-Z0-9]{16}|-----BEGIN|https?:|@|secret|password|token|credential/i.test(v)))bad();
  if(!/^finding-[a-z][a-z0-9-]{0,47}$/.test(r.findingId)||!/^resource-[a-z][a-z0-9-]{0,47}$/.test(r.resourceAlias))bad();
  if(!['mock-a','mock-b'].includes(r.accountAlias)||!['AWS::S3::Bucket','AWS::EC2::SecurityGroup','UNKNOWN'].includes(r.resourceType)||r.region!=='ap-southeast-1')bad();
  if(!/^[a-z][a-z0-9-]{0,63}$/.test(r.controlId)||!['CRITICAL','HIGH','MEDIUM','LOW','INFORMATIONAL'].includes(r.severity)||!['COMPLIANT','NON_COMPLIANT','INSUFFICIENT_DATA','NOT_APPLICABLE','UNKNOWN'].includes(r.compliance))bad();
@@ -133,7 +133,7 @@ function digest(value){const bytes=new TextEncoder().encode(canonical(value)),le
 return Object.freeze({canonical,digest});});
 
 // END DEFENCE SCOPE MIRROR
-const RELEASE='v1.10.0-mock',BUILD_FINGERPRINT='ab85db174b3a9a362701ccac09af02a5b7ff3a99a203fc6714c59424666c99f5',BASELINE_SHA='4dca2e145032a3dcd4fba77998c86ffc42a73a7d';
+const RELEASE='v1.10.0-mock',BUILD_FINGERPRINT='1151f0498d818e1d3fd78d36b68fbadc9ddda4f32825966699fad01292276216',BASELINE_SHA='4dca2e145032a3dcd4fba77998c86ffc42a73a7d';
 const $=id=>document.getElementById(id),fmt=n=>n.toLocaleString('en-US');
 const controlDefs={
  's3-bpa':{name:'S3 Block Public Access',type:'S3',capability:'mock.s3-bpa',severity:'HIGH',description:'All four public-access protection flags must be enabled for this synthetic bucket.',before:'BlockPublicAcls: false\nIgnorePublicAcls: false\nBlockPublicPolicy: false\nRestrictPublicBuckets: false',after:'BlockPublicAcls: true\nIgnorePublicAcls: true\nBlockPublicPolicy: true\nRestrictPublicBuckets: true'},

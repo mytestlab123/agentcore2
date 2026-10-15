@@ -10,3 +10,5 @@ assert.equal(api.intake(enc([{...row,controlId:'unrecognized-control'}]),'json')
 assert.equal(api.intake(enc(Array.from({length:500},(_,i)=>({...row,findingId:'finding-a-'+i,resourceAlias:'resource-a-'+i}))), 'json').findings.length,500);
 assert.throws(()=>api.intake(enc(Array.from({length:501},(_,i)=>({...row,findingId:'finding-a-'+i,resourceAlias:'resource-a-'+i}))), 'json'));
 console.log('PASS bounded JSON/CSV equality, 500 cap, 13 rejection probes, unknown-control review-only, zero real writes');
+
+const escapedPrivate=enc([{...row,resourceAlias:'resource-a123456789012'}]).replace(/1/g,'\\u0031');assert.throws(()=>api.intake(escapedPrivate,'json'),{message:'INVALID_SYNTHETIC_INPUT'});

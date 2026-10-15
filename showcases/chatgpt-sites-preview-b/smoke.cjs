@@ -70,7 +70,7 @@ const {chromium} = require(process.argv[2] || '../../tools/browser/node_modules/
     if(process.env.SHOWCASE_FAILURE_FIXTURE === 'capture-v1')
       throw new Error('SHOWCASE_EXPECTED_FAILURE_CAPTURE_V1');
     if(process.env.SHOWCASE_JOURNEY === 'defence') {
-      await page.locator('#defence-intake summary').click();
+      await page.locator('#defence-intake > summary').click();
       const sampleWait=page.waitForEvent('download');await page.locator('#defence-sample').click();const sample=await sampleWait;const samplePath=await sample.path();
       await page.locator('#defence-file').setInputFiles({name:'defence-synthetic-sample.json',mimeType:'application/json',buffer:fs.readFileSync(samplePath)});await page.locator('#defence-status').filter({hasText:'staged'}).waitFor();
       assert.equal(await page.locator('#defence-rows tr').count(),2);await page.locator('#defence-filter').selectOption('s3-ssl-requests-only');await page.locator('#defence-load').click();
