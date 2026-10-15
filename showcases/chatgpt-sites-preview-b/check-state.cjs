@@ -10,7 +10,7 @@ for(const m of html.matchAll(/id="([^"]+)"/g))elements.set(m[1],new Element());
 elements.get('scenario').value='500';
 const root=new Element();root.dataset.theme='dark';const splitter=new Element();const nodes=[...html.matchAll(/data-node="([^"]+)"/g)].map(m=>{const e=new Element();e.dataset.node=m[1];return e;});
 let timers=[],nextTimer=0;
-const sandbox={console,Blob,URL,setTimeout:f=>{const id=++nextTimer;timers.push({id,f});return id},clearTimeout:id=>{timers=timers.filter(t=>t.id!==id)},document:{getElementById:id=>elements.get(id)||null,createElement:t=>new Element(t),documentElement:root,querySelector:s=>s==='.splitter'?splitter:null,querySelectorAll:s=>s==='[data-node]'?nodes:[],addEventListener(){}}};
+const sandbox={console,Blob,URL,TextEncoder,TextDecoder,setTimeout:f=>{const id=++nextTimer;timers.push({id,f});return id},clearTimeout:id=>{timers=timers.filter(t=>t.id!==id)},document:{getElementById:id=>elements.get(id)||null,createElement:t=>new Element(t),documentElement:root,querySelector:s=>s==='.splitter'?splitter:null,querySelectorAll:s=>s==='[data-node]'?nodes:[],addEventListener(){}}};
 vm.createContext(sandbox);const start=performance.now();vm.runInContext(html.match(/<script>([\s\S]*?)<\/script>/)[1],sandbox);const initialMs=performance.now()-start;
 const el=id=>elements.get(id),run=code=>vm.runInContext(code,sandbox),click=id=>el(id).onclick(),flush=()=>{let count=0;while(timers.length){const t=timers.shift();t.f();assert(++count<10000);}};
 assert.equal(run('new Set(findings.map(f=>f.account)).size'),58);assert.equal(run('findings.filter(f=>f.type===\'Security Group\').length'),58*180);assert.equal(run('findings.filter(f=>f.type===\'EC2\').length'),58*120);assert.equal(el('findings').children.length,25);const baseTotal=run('findings.length');assert(baseTotal>30000);
@@ -142,3 +142,29 @@ run('const oldComparison=reviewComparison;clearReviewComparison();chooseReviewCo
 assert.equal(run('JSON.stringify({datasetRevision,proposal,lastRun,journal:[...campaignJournal],selected:[...selectedIds],incident})'),comparisonAuthority);
 assert.equal(run('parseReviewOverlay(JSON.stringify(reviewOverlay())).notes.size'),3);run('clearReviewDesk()');
 console.log(JSON.stringify({noteReconciliation:'PASS',sameFingerprintDifferentOriginalRejected:true,individualChoicesOnly:true,staleNoteAndComparisonRejected:true,comparisonClearRetainsAppliedNotes:true,originalBaselineAndAuthorityUnchanged:true,reconciledOverlayReopens:true}));
+
+// Issue39 untrusted intake boundary; reuse the existing VM and governance checks.
+const intake = require('../../contracts/defence-factory/intake.cjs');
+const importRows = ['a','b'].map(x=>({findingId:`finding-demo-${x}`,accountAlias:`mock-${x}`,resourceAlias:`resource-bucket-${x}`,resourceType:'AWS::S3::Bucket',region:'ap-southeast-1',controlId:'s3-ssl-requests-only',severity:'HIGH',compliance:'NON_COMPLIANT',observedAt:'2026-10-15T00:00:00Z'}));
+const importText=JSON.stringify({schemaVersion:'defence-intake/1',findings:importRows});
+run('generate(); defenceStaged=DefenceIntake.intake('+JSON.stringify(importText)+',"json"); defenceLoad()');
+assert.equal(run('findings.length'),2);assert.equal(run('proposal'),null);assert.equal(run('lastRun'),null);assert.match(el('defence-status').textContent,/MOCK IMPORT ACTIVE/);
+run('selectCandidates(findings)');click('preview');assert.equal(run('proposal.targets.length'),2);click('reject');assert.equal(run('lastRun.simulatedWrites'),0);assert.equal(run('lastRun.realWrites'),0);
+run('defenceLoad(); selectCandidates(findings)');el('governance-scenario').value='mismatch';click('preview');click('approve');flush();assert.equal(run('lastRun.state'),'NEEDS_REVIEW');assert.equal(run('lastRun.simulatedWrites'),2);assert.equal(run('lastRun.realWrites'),0);
+const importRun=run('lastRun.id');click('approve');flush();assert.equal(run('lastRun.id'),importRun);assert.equal(run('lastRun.simulatedWrites'),2);
+run('defenceClear()');assert.equal(run('defenceActive'),null);assert.equal(run('findings.length'),baseTotal);assert.equal(run('proposal'),null);
+const inlineIntake=html.split('// BEGIN DEFENCE INTAKE MIRROR\n')[1].split('\n// END DEFENCE INTAKE MIRROR')[0];assert.equal(inlineIntake,fs.readFileSync(require('path').join(__dirname,'../../contracts/defence-factory/intake.cjs'),'utf8'));
+console.log(JSON.stringify({defenceIntake:'PASS',stagingNoAuthority:true,importedBatchRejectWrites:0,importedBatchMismatch:'NEEDS_REVIEW',realWrites:0,mirror:true}));
+
+// Issue39 batch-bound expiry/digest and selected evidence safety, no new framework.
+run('defenceStaged=DefenceIntake.intake('+JSON.stringify(importText)+',"json"); defenceLoad(); selectCandidates(findings)');el('governance-scenario').value='normal';click('preview');assert.match(run('proposal.scopeDigest'),/^[a-f0-9]{64}$/);run('proposal.expiresAt=0');click('approve');assert.equal(run('lastRun'),null);
+run('defenceLoad(); selectCandidates(findings)');click('preview');run("proposal.capability='changed'");click('approve');assert.equal(run('lastRun'),null);
+run('defenceLoad(); selectCandidates(findings)');click('preview');click('reject');const rejectedPacket=JSON.parse(run('JSON.stringify(defenceEvidence())'));assert.equal(rejectedPacket.REAL_WRITES,0);assert.equal(rejectedPacket.simulatedWrites,0);assert.equal(rejectedPacket.selected.length,2);
+run('defenceLoad(); selectCandidates(findings)');el('governance-scenario').value='mismatch';click('preview');click('approve');flush();const defencePacket=JSON.parse(run('JSON.stringify(defenceEvidence())'));assert.equal(defencePacket.outcome,'NEEDS_REVIEW');assert.equal(defencePacket.originalInput[0].record.compliance,'NON_COMPLIANT');assert.equal(defencePacket.selected[0].sourceFreshness,'NOT_VERIFIED');assert.equal(defencePacket.hostedVersion,null);assert.equal(defencePacket.REAL_WRITES,0);assert.equal(JSON.parse(JSON.stringify(defencePacket)).scopeDigest,defencePacket.scopeDigest);
+assert.throws(()=>run('lastRun.results.pop(); defenceEvidence()'),/complete|inconsistent/i);run('defenceClear()');assert.throws(()=>run('defenceEvidence()'),/complete/);
+console.log(JSON.stringify({defenceScope:'PASS',expiryAndChangedScopeRefused:true,rejectWrites:0,evidenceRoundTrip:true,incompleteExportRefused:true}));
+
+require('../../contracts/defence-factory/intake-check.cjs');
+const scopeHelper=require('../../contracts/defence-factory/scope.cjs');for(const value of [{b:2,a:1},['unicode-λ',null,true]])assert.equal(scopeHelper.digest(value),sha256(scopeHelper.canonical(value)));
+
+run('defenceStaged=DefenceIntake.intake('+JSON.stringify(JSON.stringify({schemaVersion:'defence-intake/1',findings:[{...importRows[0],controlId:'s3-bucket-public-read-prohibited'},{...importRows[1],controlId:'s3-bucket-public-write-prohibited'}]}))+',"json"); defenceLoad(); selectCandidates(findings)');assert.equal(run('selectedIds.size'),1,'Different canonical imported controls cannot share one approval');run('defenceClear()');

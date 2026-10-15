@@ -69,6 +69,24 @@ const {chromium} = require(process.argv[2] || '../../tools/browser/node_modules/
     // Test-only failure after a real synthetic page render; normal assertions stay mandatory.
     if(process.env.SHOWCASE_FAILURE_FIXTURE === 'capture-v1')
       throw new Error('SHOWCASE_EXPECTED_FAILURE_CAPTURE_V1');
+    if(process.env.SHOWCASE_JOURNEY === 'defence') {
+      await page.locator('#defence-intake > summary').click();
+      const sampleWait=page.waitForEvent('download');await page.locator('#defence-sample').click();const sample=await sampleWait;const samplePath=await sample.path();
+      await page.locator('#defence-file').setInputFiles({name:'defence-synthetic-sample.json',mimeType:'application/json',buffer:fs.readFileSync(samplePath)});await page.locator('#defence-status').filter({hasText:'staged'}).waitFor();
+      assert.equal(await page.locator('#defence-rows tr').count(),2);await page.locator('#defence-filter').selectOption('s3-ssl-requests-only');await page.locator('#defence-load').click();
+      await page.locator('#select-all').click();await page.locator('#lab-nav-governance').click();await page.locator('#governance-scenario').selectOption('mismatch');await page.locator('#lab-nav-copilot').click();
+      await page.locator('#batch-preview').click();assert.match(await text('proposal-summary'),/Scope SHA-256/);await page.locator('#approve').click();
+      await page.waitForFunction(()=>lastRun?.state==='NEEDS_REVIEW');assert.equal(await page.evaluate(()=>lastRun.realWrites),0);assert.equal(await page.evaluate(()=>lastRun.simulatedWrites),2);
+      fs.mkdirSync(artifacts,{recursive:true});await page.screenshot({path:join(artifacts,'defence-outcome.png'),fullPage:true});
+      const jsonWait=page.waitForEvent('download');await page.locator('#defence-json').click();const jsonDownload=await jsonWait;const packet=JSON.parse(fs.readFileSync(await jsonDownload.path(),'utf8'));
+      const mdWait=page.waitForEvent('download');await page.locator('#defence-markdown').click();const mdDownload=await mdWait;const md=fs.readFileSync(await mdDownload.path(),'utf8');assert(md.includes('REAL_WRITES=0'));
+      assert.equal(packet.selected.length,2);assert.equal(packet.REAL_WRITES,0);assert.equal(packet.outcome,'NEEDS_REVIEW');assert.equal(require('../../contracts/defence-factory/scope.cjs').digest(packet.frozenScope),packet.scopeDigest);assert(packet.originalInput.every(f=>f.record.compliance==='NON_COMPLIANT'));
+      await page.locator('#defence-load').click();await page.locator('#select-all').click();await page.locator('#batch-preview').click();await page.locator('#reject').click();assert.equal(await page.evaluate(()=>lastRun.simulatedWrites),0);
+      const epoch=await page.evaluate(()=>datasetRevision);await page.locator('#defence-file').setInputFiles({name:'invalid.json',mimeType:'application/json',buffer:Buffer.from('{"unexpected":"private"}')});await page.locator('#defence-status').filter({hasText:'rejected'}).waitFor();assert.equal(await page.evaluate(()=>datasetRevision),epoch);
+      assert.deepEqual(network,['local document']);assert.deepEqual(unexpected,[]);assert.deepEqual(errors,[]);
+      const receipt={status:'PASS',journey:'defence-import-group-decision-evidence',release:packet.sourceVersion,sourceFingerprint:packet.sourceFingerprint,rows:2,groupApprovals:1,rejectSimulatedWrites:0,REAL_WRITES:0,outcome:'NEEDS_REVIEW',actualJsonMarkdownDownloads:true,scopeDigestReadback:true,malformedInputUnchanged:true,localDocumentRequests:1,unexpectedRequests:0,pageErrors:0,hosted:'NOT_TESTED',realViewer:'NOT_RUN'};
+      fs.writeFileSync(join(artifacts,'defence-receipt.json'),JSON.stringify(receipt,null,2));fs.writeFileSync(join(artifacts,'defence-evidence.json'),JSON.stringify(packet,null,2));fs.writeFileSync(join(artifacts,'defence-evidence.md'),md);console.log(JSON.stringify(receipt));return;
+    }
     assert.equal(await text('total'),'49,476');
     assert.equal(await page.locator('#findings tr').count(),25);
     assert.equal(await page.getByLabel('Account filter').locator('option').count(),59);

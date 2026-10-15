@@ -1,3 +1,22 @@
+# Active Issue39 — Defence Factory native delivery
+
+Updated 2026-10-15. Dot is sole implementer using native tools, no Direct/X/Factory/AO.
+M1 merged PR40 (aaf26834). Current M2–M4 source and M5 evidence gates are in
+[defence-factory-progress](docs/defence-factory-progress.md). This new bounded
+roadmap supersedes the earlier general feature pause only for #39. PR38's script
+and Issue37 actual viewer remain separate; observations are NOT_RUN. PR38 is
+preserved, not silently merged. Source v1.10 preparation is not hosted publication;
+existing private Site metadata still matches v1.7, owner-only revision1.
+
+No AWS/provider/model calls or infrastructure in this repo. Shared intake and scope
+helpers mirror awsops#90; backend live identity currently needs its AWS connection
+reauthenticated. No real mutation authority comes from the GUI. Next: exact-head
+CI and one labelled final browser journey, source review/merge, then private Site
+release only through verified existing workflow. Hosted/private-login gate and
+real-viewer truth remain explicit.
+
+## Preserved prior context (historical where superseded above)
+
 # Current context
 
 ## Active Issue35 — Shift Handoff Reconciliation

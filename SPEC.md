@@ -1,3 +1,19 @@
+# Issue39 — current Defence Factory boundary
+
+Dot implements natively under owner directive 2026-10-15. MOCK compliance file
+intake → exact compatible group → one consumed decision → simulated per-target
+outcomes → evidence. Reuse the existing standalone executor, no frontend fork.
+256 KiB/500-row synthetic input; private fields rejected, opaque aliases only.
+Original assertions remain separate from simulated provider/compliance results.
+Source and hosted version are separate; Issue37 real-viewer observations NOT_RUN.
+No real AWS/model/provider calls, IAM, credentials, public hosting or new infra.
+Existing owner-only Site publication requires verified identity/workflow and
+accepted source; no audience expansion. See contracts/defence-factory and
+[progress/gates](docs/defence-factory-progress.md). Earlier Issue35 scope below is
+historical, not current merge authority; its accepted PR36 remains unchanged.
+
+## Preserved Issue35 scope
+
 # Issue35 — Shift Handoff Reconciliation
 
 ACTIVE; same sole saved Cloud writer, one branch review/issue35-reconciliation/PR.
