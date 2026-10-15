@@ -31,7 +31,7 @@ Controls exist in source v1.7 and v1.9. This document is not a viewer observatio
 | Backend | awsops#86 real read-only proof, awsops#90 new scope | This UI remains MOCK; #89 fixtures cannot be changed |
 
 Use the existing [private Site](https://agentic-operations-lab.amit-6719.chatgpt.site)
-only with verified permitted access. No Site call, publication, sharing/login
+only with verified permitted access. No Site publication, sharing/login
 change, browser rerun or alternative hosting occurs in this source milestone.
 
 ## Integration plan / next
@@ -46,3 +46,8 @@ blocked. Keep PR38/Issue37 observation truthful and independent.
 
 M1 changes only shared schema, invented fixture, semantics and this baseline.
 No new frontend engine/framework, AWS/model/provider calls or infrastructure.
+
+Native Sites metadata readback, 15 Oct 2026 20:19 SGT: same project active,
+version 3 source fcbfc1f5f82b0fe3e263257095861f273cbb1c67, matching the v1.7
+publication receipt. Access custom revision 1, one owner, zero groups/external
+visitors. This confirms release metadata and audience, not authenticated UI E2E.
