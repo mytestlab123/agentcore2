@@ -1,19 +1,17 @@
-# Active Issue39 — Defence Factory native delivery
+# Current Issue42 — visible loaded release
 
-Updated 2026-10-15. Dot is sole implementer using native tools, no Direct/X/Factory/AO.
-M1 merged PR40 (aaf26834). Current M2–M4 source and M5 evidence gates are in
-[defence-factory-progress](docs/defence-factory-progress.md). This new bounded
-roadmap supersedes the earlier general feature pause only for #39. PR38's script
-and Issue37 actual viewer remain separate; observations are NOT_RUN. PR38 is
-preserved, not silently merged. Source v1.10 preparation is not hosted publication;
-existing private Site metadata still matches v1.7, owner-only revision1.
+Dot implements directly. Main baseline712f0a (PR40/41) is v1.10.0-mock; its
+private publication receipt is Issue39#issuecomment-6192919422. Source and actual
+hosted fingerprint remain separate. This small header patch derives v1.10 from
+the existing RELEASE constant, preserves the MOCK badge and all workflows.
+No AWS calls, role authority, Site/auth change, new framework or deep E2E.
 
-No AWS/provider/model calls or infrastructure in this repo. Shared intake and scope
-helpers mirror awsops#90; backend live identity currently needs its AWS connection
-reauthenticated. No real mutation authority comes from the GUI. Next: exact-head
-CI and one labelled final browser journey, source review/merge, then private Site
-release only through verified existing workflow. Hosted/private-login gate and
-real-viewer truth remain explicit.
+The header patch is source-only until its own publication/readback receipt exists.
+Issue39 hosted owner-auth E2E remains ACCESS_BLOCKED; Issue37 actual viewer NOT_RUN.
+Existing PR38/card preserved. Next: exact-head normal fast checks and source review;
+then separately verify the existing private Site release/readback for Issue42.
+Backend awsops#90 now has review-only role proposal PR93; the earlier expired
+connection wording is superseded. No live permissions are inferred from the GUI.
 
 ## Preserved prior context (historical where superseded above)
 

@@ -1,12 +1,12 @@
 {
   "release": "v1.10.0-mock",
   "guiTitle": "Agentic Operations Lab / Defence Factory intake",
-  "publication": "SOURCE ONLY \u2014 existing private Site unchanged",
+  "publication": "SOURCE HEADER PATCH \u2014 hosted publication of this fingerprint not performed",
   "scope": "MOCK / synthetic only; no live integration",
-  "authority": "https://github.com/mytestlab123/agentcore2/issues/39",
-  "baseCommit": "aaf26834d59b0712c4137326a13621de8efb2d5d",
-  "htmlSha256": "1d72822d9b984da875b33be5ce1820235d4b6ce1e6f5ccbd5ed32ccff379346d",
-  "guiSourceFingerprint": "1151f0498d818e1d3fd78d36b68fbadc9ddda4f32825966699fad01292276216",
+  "authority": "https://github.com/mytestlab123/agentcore2/issues/42",
+  "baseCommit": "712f0a26098a9b1f93bc1eff2ba0652435468bd7",
+  "htmlSha256": "294b96cb2d2b7914656f67f70f9f5cd6a838027ab945ecd903e7c25bcf475ff9",
+  "guiSourceFingerprint": "9bd9735230585b9045a1cce9626f9f8f2ec84d9a3df53db521120af51947eca1",
   "fingerprintAlgorithm": "sha256(index.html with BUILD_FINGERPRINT replaced by __FINGERPRINT__)",
   "historicalSiteMapping": "See the unchanged Issue9 evidence and Git history; no existing Site modified.",
   "priorRelease": {
@@ -14,5 +14,11 @@
     "commit": "e76028e1cfb74211fc45c093b454fab2068b156d",
     "htmlSha256": "05792fc7bef051dbff57c163a0369e3f7ac1a9c249fa10d3171015aba09d899b",
     "fingerprint": "90170c45217607968b102973b7bde51e62ce26e141c56688d5dc37247ac83683"
+  },
+  "priorPublishedRelease": {
+    "release": "v1.10.0-mock",
+    "sourceCommit": "712f0a26098a9b1f93bc1eff2ba0652435468bd7",
+    "htmlSha256": "1d72822d9b984da875b33be5ce1820235d4b6ce1e6f5ccbd5ed32ccff379346d",
+    "publicationReceipt": "https://github.com/mytestlab123/agentcore2/issues/39#issuecomment-6192919422"
   }
 }
