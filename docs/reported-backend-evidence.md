@@ -58,6 +58,27 @@ published. Issue37 real-viewer acceptance remains NOT_RUN. Browser approval
 does not confer AWS authority. Next smallest useful step is M's independent
 review followed by separately scoped authenticated acquisition, not a new GUI.
 
+## Owner decision handoff review (Issue11)
+
+The receipt summary labels the decision choice and run status as reported file
+claims. `SYNTHETIC` plus `SYNTHETIC_ONLY` is classified as `SYNTHETIC_TEST`;
+other uploads remain `IMPORTED_UNVERIFIED`. `IMPORTED_ASSERTION` and origin
+`NOT_VERIFIED` remain unchanged. Host attestation is `NOT_AVAILABLE` in this
+file-only viewer, and a file cannot establish `VERIFIED_HOST_RECEIPT`.
+`OWNER_ACTION_REQUIRED` remains the gate for any real execution. The viewer
+does not measure global trusted-host availability and adds no approval or
+execution path.
+
+For Issue11 M4, the actual native-seam FakeSDK bundle pinned to producer source
+`851a5546c01e5d5b69bc398fd06cfe373640ce24` passed the existing VM check and the
+focused local Chrome receipt-upload journey. Success displayed reported
+`APPROVE_ONCE` / `NEEDS_REVIEW`; reject displayed `REJECT` / `REJECTED`.
+The browser check retained one localhost request, zero unexpected requests or
+page errors, and unchanged local MOCK state. Playwright 1.62.0 / Chrome
+146.0.7680.177. Raw browser JSON/screenshots are retained privately under
+`~/.AGENTS-temp`. This remains synthetic test proof: host attestation, hosted
+publication and live provider execution were not tested.
+
 ## Proof
 
 Use the existing fast lane: npm run verify:cloud -- fast. Its existing state
@@ -67,8 +88,9 @@ and actual GUI rendering without changing MOCK proposal/run/selection state.
 This is local source validation, not hosted/browser/provider acceptance. No new
 test suite or broad synthetic browser run was added.
 
-This source receipt records the v1.10.1 predecessor; the uncertain-attempt
-consumer correction is tracked in [PR46](https://github.com/mytestlab123/agentcore2/pull/46).
+The current source release is v1.10.3-mock. The canonical schema and reader are
+unchanged; the uncertain-attempt consumer correction remains in
+[PR46](https://github.com/mytestlab123/agentcore2/pull/46).
 
 ## Optional application E2E artifacts
 
@@ -97,8 +119,8 @@ dependency and a local browser, for example:
 Browser evidence defaults to a private subdirectory of `~/.AGENTS-temp`; no
 other browser requests are allowed by the existing loopback-only route guard.
 
-Milestone readback: build PASS; 23 contract tests + 12 Harness tests PASS;
-typecheck PASS; existing showcase state/receipt boundary check PASS; changed-file
-secret/account/private-path/endpoint scan PASS; canonical schema unchanged.
-Machine receipt: reported-backend-evidence.json. The state check uses a minimal
-DOM in Node, so actual browser/hosted/real-viewer acceptance is NOT_RUN here.
+Historical Issue39 baseline readback: build PASS; 23 contract tests + 12 Harness
+tests PASS; typecheck PASS; canonical schema unchanged. Its machine receipt is
+`reported-backend-evidence.json`. The original baseline used the Node VM/minimal
+DOM; the separate Issue11 M4 local browser evidence above does not establish
+hosted, authenticated-host or live-provider acceptance.

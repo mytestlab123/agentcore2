@@ -1,12 +1,12 @@
 {
-  "release": "v1.10.2-mock",
+  "release": "v1.10.3-mock",
   "guiTitle": "Agentic Operations Lab / reported backend receipt review",
   "publication": "SOURCE ONLY \u2014 authenticated origin/live acceptance NOT_VERIFIED; not published",
   "scope": "MOCK executor plus reported canonical receipts; no authenticated live integration",
   "authority": "https://github.com/mytestlab123/agentcore2/issues/39",
   "baseCommit": "6466ddce5e26ac29612e96f195f1946b04082a2c",
-  "htmlSha256": "30690113c1c59a9ebbe39428ebf8626224635b8553ea316a1cb643ecd4b847fa",
-  "guiSourceFingerprint": "464cd85b3739b3424b81549f2bacf786334cb9ce6181d5b1f75a87f55106f856",
+  "htmlSha256": "ea536281ed8c1f74ae75bf754e39046c37a94a4497921af1b4c1432c2f4da293",
+  "guiSourceFingerprint": "b84fba46fe20748883a3d680d13de9556376da763aae6a865884440cb27004c5",
   "fingerprintAlgorithm": "sha256(index.html with BUILD_FINGERPRINT replaced by __FINGERPRINT__)",
   "historicalSiteMapping": "See the unchanged Issue9 evidence and Git history; no existing Site modified.",
   "priorRelease": {
