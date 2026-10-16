@@ -27,7 +27,8 @@ parsing and canonical SHA-256 scope helpers are reused. No awsops checkout edits
   references and decision validity window must match that exact Batch.
 - Exactly one result for every frozen target, matching finding and resource
   alias. Missing/extra/duplicate targets or inconsistent write sums are refused.
-  REJECT/BLOCKED/NOT_RUN cannot claim successful writes; MOCK/LAB_READ actual
+  REJECT/BLOCKED/NOT_RUN require zero writes; UNKNOWN execution may retain a
+  producer's attempted-call count, but stays review-only. MOCK/LAB_READ actual
   writes must be zero. VERIFIED claims need complete successful MATCH/COMPLIANT/
   FRESH results with receipt aliases. These checks establish consistency only.
 - Display reported mode, dataset/registration revision, frozen digest/window,
@@ -64,6 +65,9 @@ trusted LAB provenance remains an assertion, scope/target/total/schema negatives
 and actual GUI rendering without changing MOCK proposal/run/selection state.
 This is local source validation, not hosted/browser/provider acceptance. No new
 test suite or broad synthetic browser run was added.
+
+This source receipt records the v1.10.1 predecessor; the uncertain-attempt
+consumer correction is tracked in its follow-up Issue39 PR.
 
 Milestone readback: build PASS; 23 contract tests + 12 Harness tests PASS;
 typecheck PASS; existing showcase state/receipt boundary check PASS; changed-file

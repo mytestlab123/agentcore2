@@ -1,21 +1,15 @@
-# Current Issue39 — reported canonical backend evidence
+# Current Issue39 — uncertain attempted-write receipts
 
-Manager goal M-CORE2-EVIDENCE-20261016-R1; existing core2 X is sole implementer
-under Issue39 comment6207040070, superseding the historical Dot-only text below.
-Base main 6466ddce5e26ac29612e96f195f1946b04082a2c. Repository-only source slice:
-existing Defence Factory GUI reviews canonical Batch/Decision/Run/Evidence files,
-validates exact frozen scope and counts, and always labels acquisition as an
-IMPORTED_ASSERTION with origin/live acceptance NOT_VERIFIED. Existing MOCK
-executor untouched; no authenticated backend transport or live proof introduced.
-Hosted version remains separate/unverified; no Site publication or viewer proof.
-See docs/reported-backend-evidence.md. Next: M independent PR review, then a
-separately scoped authenticated backend acquisition boundary if M selects it.
-Direct/Factory admission remains a separately blocked route; native M/X receipt
-and result correlation accepted. No AWS/model/provider calls in this milestone.
-Fast lane PASS: build, 23 contract + 12 Harness tests, typecheck and existing
-showcase state/receipt boundary check; changed-file leak scan PASS. Portable source
-v1.10.1-mock; authenticated origin NOT_VERIFIED, browser/hosted NOT_RUN. Evidence:
-docs/reported-backend-evidence.json. Keep this source PR unmerged for M review.
+Home-Manager goal HOME-CORE2-UNCERTAIN-20261016-R1; source-only follow-up to
+merged PR45. Preserve the existing Defence Factory GUI and the four-envelope
+canonical contract. The receipt reader now retains a producer's nonzero attempted
+count when execution is UNKNOWN, while keeping the record IMPORTED_ASSERTION and
+NEEDS_REVIEW; independent compliance/freshness remain UNKNOWN/NOT_VERIFIED.
+REJECT, NOT_RUN and BLOCKED still require zero writes; totals, scope, MOCK
+realWrites=0 and VERIFIED checks remain enforced. The MOCK executor and provider
+authority are unchanged. Portable source v1.10.2-mock; authenticated origin
+NOT_VERIFIED, browser/hosted NOT_RUN. See the current follow-up PR and
+docs/reported-backend-evidence.md. No AWS, Site, model or provider operation.
 
 # Historical Issue42 — visible loaded release
 

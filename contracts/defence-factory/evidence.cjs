@@ -51,7 +51,7 @@ function read(input,schema,scope,parseJSON){try{
  const changes={'s3-require-tls':'DENY_INSECURE_TRANSPORT','s3-block-public-access':'ENABLE_BUCKET_PUBLIC_ACCESS_BLOCK','sg-restrict-ssh':'REMOVE_EXACT_WORLD_OPEN_SSH'};
  if(b.targets.some(t=>changes[t.capabilityId]!==t.expectedChange))bad();
  if(r.results.length!==targets.size||new Set(r.results.map(x=>x.findingId)).size!==targets.size)bad();
- let real=0,simulated=0;for(const x of r.results){const t=targets.get(x.findingId);if(!t||x.resourceAlias!==t.resource.resourceAlias)bad();real+=x.realWrites;simulated+=x.simulatedWrites;if(['NOT_RUN','BLOCKED','UNKNOWN'].includes(x.execution)&&(x.realWrites||x.simulatedWrites))bad();}
+ let real=0,simulated=0;for(const x of r.results){const t=targets.get(x.findingId);if(!t||x.resourceAlias!==t.resource.resourceAlias)bad();real+=x.realWrites;simulated+=x.simulatedWrites;if(['NOT_RUN','BLOCKED'].includes(x.execution)&&(x.realWrites||x.simulatedWrites))bad();}
  if(real!==r.realWrites||simulated!==r.simulatedWrites||(['MOCK','LAB_READ'].includes(b.mode)&&real!==0)||(b.mode!=='MOCK'&&simulated!==0))bad();
  if((d.choice==='REJECT'||['NOT_RUN','REJECTED','BLOCKED'].includes(r.status))&&(real||simulated||r.results.some(x=>x.execution==='SUCCEEDED')))bad();
  if(d.choice==='REJECT'&&!['REJECTED','BLOCKED','NOT_RUN'].includes(r.status))bad();
