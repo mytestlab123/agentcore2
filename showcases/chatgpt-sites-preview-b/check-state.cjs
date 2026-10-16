@@ -212,7 +212,7 @@ run('defenceStaged=DefenceIntake.intake('+JSON.stringify(JSON.stringify({schemaV
  assert.equal(run('JSON.stringify(DEFENCE_EVIDENCE_SAMPLE)'),JSON.stringify(sample));
  const appE2EDir=process.env.CORE2_APP_E2E_DIR;
  if(appE2EDir){
-  const path=require('path'),os=require('os'),root=fs.realpathSync(appE2EDir),allowed=path.join(os.homedir(),'.AGENTS-temp')+path.sep;
+  const path=require('path'),os=require('os'),scratch=fs.realpathSync(path.join(os.homedir(),'.AGENTS-temp')),root=fs.realpathSync(appE2EDir),allowed=scratch+path.sep;
   assert(root.startsWith(allowed),'Application E2E artifacts must be under ~/.AGENTS-temp');
   const safeFile=(name,suffix,limit)=>{
    assert.equal(typeof name,'string');assert.match(name,/^[a-z0-9][a-z0-9._-]{0,127}$/);assert(name.endsWith(suffix));
@@ -241,8 +241,8 @@ run('defenceStaged=DefenceIntake.intake('+JSON.stringify(JSON.stringify({schemaV
    assert.equal(e.provenance,'SYNTHETIC');assert.equal(e.limitation,'SYNTHETIC_ONLY');
    assert(r.results.length>0);assert(r.results.every(x=>['providerReadback','compliance','freshness'].every(k=>typeof x[k]==='string')));
    const attempts=r.realWrites+r.simulatedWrites;
-   if(name==='success'){assert.equal(d.choice,'APPROVE_ONCE');assert(attempts>0);assert(r.results.some(x=>x.execution==='SUCCEEDED'));}
-   if(name==='uncertain-policy'){assert.equal(d.choice,'APPROVE_ONCE');assert(attempts>0);assert(r.results.some(x=>x.execution==='UNKNOWN'));}
+   if(name==='success'){assert.equal(d.choice,'APPROVE_ONCE');assert.equal(attempts,4);assert.equal(summary.actualAwsCalls,0);assert(r.results.some(x=>x.execution==='SUCCEEDED'));assert(r.results.every(x=>x.compliance==='UNKNOWN'&&x.freshness==='NOT_VERIFIED'));}
+   if(name==='uncertain-policy'){assert.equal(d.choice,'APPROVE_ONCE');assert.equal(attempts,4);assert.equal(summary.actualAwsCalls,0);assert(r.results.some(x=>x.execution==='UNKNOWN'));assert(r.results.every(x=>x.compliance==='UNKNOWN'&&x.freshness==='NOT_VERIFIED'));}
    if(name==='reject'){assert.equal(d.choice,'REJECT');assert.equal(attempts,0);assert(r.results.every(x=>x.execution==='NOT_RUN'));}
    // Render each generated artifact through the existing UI VM. It stays an
    // imported assertion and cannot alter the separate MOCK run state.
