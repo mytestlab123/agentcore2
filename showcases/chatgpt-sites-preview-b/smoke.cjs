@@ -97,9 +97,11 @@ if(appJourney){
         await page.locator('#backend-status').filter({hasText:'No reported receipt loaded'}).waitFor();
         await page.locator('#backend-file').setInputFiles({name:receiptName,mimeType:'application/json',buffer:receiptBytes});
         await page.locator('#backend-status').filter({hasText:'Reported receipt loaded'}).waitFor();
-        const summaryText=await page.locator('#backend-summary').innerText(),rowsText=await page.locator('#backend-rows').innerText();
+        const summaryText=(await page.locator('#backend-summary').innerText()).replace(/\s+/g,' '),rowsText=await page.locator('#backend-rows').innerText();
         assert.match(summaryText,/IMPORTED_ASSERTION/);assert.match(summaryText,/origin\/live acceptance NOT_VERIFIED/);
         assert.match(summaryText,/SYNTHETIC/);assert.match(summaryText,/SYNTHETIC_ONLY/);
+        assert.match(summaryText,/Owner review status.*SYNTHETIC_TEST/);assert(summaryText.includes(packet.decision.choice));assert(summaryText.includes(run.status));
+        assert.match(summaryText,/Host attestation.*NOT_AVAILABLE/);assert.match(summaryText,/Real execution gate.*OWNER_ACTION_REQUIRED/);
         assert.match(summaryText,/Reported mutation attempts/);assert.match(summaryText,/resource changes not confirmed/);
         assert.match(summaryText,/local viewer real writes 0/);
         assert.match(summaryText,new RegExp(`real ${run.realWrites} \/ simulated ${run.simulatedWrites}`));
@@ -109,7 +111,7 @@ if(appJourney){
         }
         assert.equal(await page.evaluate(()=>JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})),mockBefore,'Receipt import changed local MOCK state');
         const values=run.results.map(result=>({execution:result.execution,provider:result.providerReadback,compliance:result.compliance,freshness:result.freshness,reportedRealAttempts:result.realWrites,reportedSimulatedAttempts:result.simulatedWrites}));
-        results.push({case:name,values,actualAwsCalls:summary.actualAwsCalls,trust:packet.provenance,origin:packet.originAcceptance,localRealWrites:packet.localRealWrites,evidence:packet.evidence.provenance,limitation:packet.evidence.limitation});
+        results.push({case:name,reportedDecision:packet.decision.choice,reportedRunStatus:run.status,reviewStatus:'SYNTHETIC_TEST',hostAttestation:'NOT_AVAILABLE_IN_FILE_ONLY_VIEWER',realExecutionGate:'OWNER_ACTION_REQUIRED',values,actualAwsCalls:summary.actualAwsCalls,trust:packet.provenance,origin:packet.originAcceptance,localRealWrites:packet.localRealWrites,evidence:packet.evidence.provenance,limitation:packet.evidence.limitation});
         await page.screenshot({path:join(artifacts,`app-e2e-${name}.png`),fullPage:true});
       }
       await page.locator('#backend-clear').click();
