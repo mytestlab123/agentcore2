@@ -67,7 +67,7 @@ This is local source validation, not hosted/browser/provider acceptance. No new
 test suite or broad synthetic browser run was added.
 
 This source receipt records the v1.10.1 predecessor; the uncertain-attempt
-consumer correction is tracked in its follow-up Issue39 PR.
+consumer correction is tracked in [PR46](https://github.com/mytestlab123/agentcore2/pull/46).
 
 Milestone readback: build PASS; 23 contract tests + 12 Harness tests PASS;
 typecheck PASS; existing showcase state/receipt boundary check PASS; changed-file

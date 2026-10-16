@@ -8,7 +8,7 @@ NEEDS_REVIEW; independent compliance/freshness remain UNKNOWN/NOT_VERIFIED.
 REJECT, NOT_RUN and BLOCKED still require zero writes; totals, scope, MOCK
 realWrites=0 and VERIFIED checks remain enforced. The MOCK executor and provider
 authority are unchanged. Portable source v1.10.2-mock; authenticated origin
-NOT_VERIFIED, browser/hosted NOT_RUN. See the current follow-up PR and
+NOT_VERIFIED, browser/hosted NOT_RUN. See PR46 and
 docs/reported-backend-evidence.md. No AWS, Site, model or provider operation.
 
 # Historical Issue42 — visible loaded release
