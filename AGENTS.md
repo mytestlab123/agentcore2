@@ -62,7 +62,7 @@ Use this order only for cold start, recovery, materially changed governing conte
 
 ## Testing / Demo Policy
 
-- Canonical test-economy policy: `amitkarpe/dotfiles/agent/.agent/TESTING.md`.
+- Canonical test-economy policy: [dotfiles/agent/.agent/TESTING.md](https://github.com/amitkarpe/dotfiles/blob/main/agent/.agent/TESTING.md); local copy: `~/.agent/TESTING.md`.
 - Default to **zero new tests**. Run the smallest existing validation that can
   prove or disprove the change; stop once the changed behavior is proven.
 - This repository is primarily a MOCK/demo/learning lab unless an owning Issue
