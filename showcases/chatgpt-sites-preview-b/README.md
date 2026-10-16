@@ -1,10 +1,12 @@
 # Agentic Operations Lab — reported backend receipts / Issue39
 
-Current source v1.10.1-mock adds **Defence Factory · backend receipt review** to
+Current source v1.10.2-mock adds **Defence Factory · backend receipt review** to
 the existing GUI. Load the downloadable synthetic receipt example, or a sanitized
 JSON array of canonical Batch/Decision/Run/Evidence envelopes. Exact scope/count
 checks run locally; every file remains IMPORTED_ASSERTION with origin/live
 acceptance NOT_VERIFIED. No backend connection, AWS authority or real local writes.
+Uncertain execution can retain the producer's attempted-call count as UNKNOWN
+and NEEDS_REVIEW; it never becomes VERIFIED without independent evidence.
 See [receipt use and trust limits](../../docs/reported-backend-evidence.md).
 The local MOCK executor stays separate. This fingerprint is not published and
 the prior private Site/real-viewer gates are unchanged.

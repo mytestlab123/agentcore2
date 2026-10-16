@@ -186,11 +186,23 @@ run('defenceStaged=DefenceIntake.intake('+JSON.stringify(JSON.stringify({schemaV
  const lab=copy(sample);lab[0].record.mode=lab[2].record.mode='APPROVED_LAB_WRITE';lab[0].record.targets[0].resource.accountAlias='amit';binding(lab);
  lab[2].record.results[0].realWrites=lab[2].record.realWrites=lab[3].record.realWrites=1;lab[2].record.simulatedWrites=lab[2].record.results[0].simulatedWrites=0;lab[3].record.provenance='TRUSTED_PROVIDER_READ';lab[3].record.limitation='HOSTED_NOT_VERIFIED';
  const reported=read(lab);assert.equal(reported.provenance,'IMPORTED_ASSERTION');assert.equal(reported.localRealWrites,0);assert.equal(reported.originAcceptance,'NOT_VERIFIED');assert.equal(reported.run.realWrites,1);
+ // Match the awsops PR94 MOCK producer's four-envelope output: an attempted
+ // call is counted before dispatch, while the separate compliance/freshness
+ // evidence stays unresolved. The uncertain-ack case must remain review-only.
+ const producerMock=copy(sample);producerMock[2].record.status='NEEDS_REVIEW';producerMock[2].record.results[0].execution='SUCCEEDED';producerMock[2].record.results[0].compliance='UNKNOWN';producerMock[2].record.results[0].freshness='NOT_VERIFIED';
+ const producerUncertain=copy(producerMock);producerUncertain[2].record.results[0].execution='UNKNOWN';
+ for(const packet of [producerMock,producerUncertain]){const imported=read(packet);assert.equal(imported.provenance,'IMPORTED_ASSERTION');assert.equal(imported.localRealWrites,0);assert.equal(imported.originAcceptance,'NOT_VERIFIED');assert.equal(imported.run.status,'NEEDS_REVIEW');assert.equal(imported.run.realWrites,0);assert.equal(imported.run.simulatedWrites,1);assert.equal(imported.run.results[0].compliance,'UNKNOWN');assert.equal(imported.run.results[0].freshness,'NOT_VERIFIED');}
+ assert.equal(read(producerUncertain).run.results[0].execution,'UNKNOWN');
+ const rejectedAttempt=copy(producerUncertain);rejectedAttempt[1].record.choice='REJECT';rejectedAttempt[2].record.status='REJECTED';rejectedAttempt[2].record.results[0].execution='NOT_RUN';assert.throws(()=>read(rejectedAttempt),{message:'INVALID_REPORTED_EVIDENCE'});
+ for(const execution of ['NOT_RUN','BLOCKED']){const refused=copy(producerUncertain);refused[2].record.results[0].execution=execution;assert.throws(()=>read(refused),{message:'INVALID_REPORTED_EVIDENCE'});}
+ const blockedRun=copy(producerUncertain);blockedRun[2].record.status='BLOCKED';assert.throws(()=>read(blockedRun),{message:'INVALID_REPORTED_EVIDENCE'});
+ const wrongAttemptTotal=copy(producerUncertain);wrongAttemptTotal[2].record.simulatedWrites=2;assert.throws(()=>read(wrongAttemptTotal),{message:'INVALID_REPORTED_EVIDENCE'});
  const malformed=[p=>p[2].record.results.pop(),p=>p[2].record.results.push({...p[2].record.results[0],findingId:'finding-extra-a'}),p=>p[2].record.results[0].resourceAlias='resource-other-a',p=>p[2].record.simulatedWrites++,p=>p[3].record.runId='run-other-a',p=>p[0].record.scopeDigest='f'.repeat(64),p=>p[1].record.scopeDigest='f'.repeat(64),p=>p[2].record.results[0].freshness='STALE',p=>p[0].record.targets[0].resource.accountId='private',p=>p[1].record.decidedAt='2026-02-30T03:01:00Z',p=>p[1].record.choice='REJECT',p=>p[2].record.realWrites=1,p=>p.push(p[3])];
  for(const mutate of malformed){const p=copy(sample);mutate(p);assert.throws(()=>read(p),{message:'INVALID_REPORTED_EVIDENCE'});}
  assert.throws(()=>reader.read(JSON.stringify(sample).replace('"kind":"Batch"','"kind":"Batch","kind":"Batch"'),schema,scopeHelper,intake.parseJSON));
  assert.throws(()=>reader.read(new Uint8Array([0xc3,0x28]),schema,scopeHelper,intake.parseJSON));
  const before=run('JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})');
+ run('backendStage('+JSON.stringify(JSON.stringify(producerUncertain))+')');assert.match(el('backend-summary').textContent,/Reported actual 0 \/ simulated 1/);assert.match(el('backend-rows').textContent,/UNKNOWN/);assert.match(el('backend-rows').textContent,/NOT_VERIFIED/);
  run('backendStage('+JSON.stringify(JSON.stringify(lab))+')');
  assert.match(el('backend-summary').textContent,/IMPORTED_ASSERTION.*NOT_VERIFIED/);assert.match(el('backend-summary').textContent,/Reported actual 1 \/ simulated 0/);assert.match(el('backend-summary').textContent,/Hosted version.*NOT_VERIFIED/);assert.equal(el('backend-rows').children.length,1);
  assert.equal(run('JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})'),before,'Receipt viewing must not change MOCK scope or authority');
