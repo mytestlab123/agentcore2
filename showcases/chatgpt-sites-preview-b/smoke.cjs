@@ -2,8 +2,25 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const http = require('node:http');
-const {join} = require('node:path');
+const os = require('node:os');
+const path = require('node:path');
+const {join} = path;
 const {chromium} = require(process.argv[2] || '../../tools/browser/node_modules/playwright-core');
+const loadAppE2EArtifacts = require('./app-e2e-artifacts.cjs').load;
+const appJourney = process.env.SHOWCASE_JOURNEY === 'app-receipts';
+const defaultArtifacts = appJourney
+  ? join(os.homedir(),'.AGENTS-temp','manager','home-migration-20261016','core2-app-e2e-browser')
+  : join(__dirname,'../../artifacts/showcase');
+const artifacts = process.env.SHOWCASE_ARTIFACTS || defaultArtifacts;
+if(appJourney){
+  const scratchPath=path.resolve(os.homedir(),'.AGENTS-temp'),scratch=fs.realpathSync(scratchPath)+path.sep,target=path.resolve(artifacts);
+  assert(target.startsWith(scratchPath+path.sep),'Browser evidence path must be under ~/.AGENTS-temp');
+  let ancestor=target;
+  while(!fs.existsSync(ancestor))ancestor=path.dirname(ancestor);
+  assert(fs.realpathSync(ancestor)===scratch.slice(0,-1)||fs.realpathSync(ancestor).startsWith(scratch),'Browser evidence parent must resolve under ~/.AGENTS-temp');
+  fs.mkdirSync(artifacts,{recursive:true});
+  assert(fs.realpathSync(artifacts).startsWith(scratch),'Browser evidence must stay under ~/.AGENTS-temp');
+}
 
 (async () => {
   const html = fs.readFileSync(join(__dirname,'index.html'));
@@ -19,7 +36,6 @@ const {chromium} = require(process.argv[2] || '../../tools/browser/node_modules/
     server.listen(0,'127.0.0.1',resolve);
   });
   const url = `http://127.0.0.1:${server.address().port}/`;
-  const artifacts = process.env.SHOWCASE_ARTIFACTS || join(__dirname,'../../artifacts/showcase');
   let browser,context,page,tracing=false;
   const errors=[],network=[],unexpected=[];
   try {
@@ -69,6 +85,45 @@ const {chromium} = require(process.argv[2] || '../../tools/browser/node_modules/
     // Test-only failure after a real synthetic page render; normal assertions stay mandatory.
     if(process.env.SHOWCASE_FAILURE_FIXTURE === 'capture-v1')
       throw new Error('SHOWCASE_EXPECTED_FAILURE_CAPTURE_V1');
+    if(appJourney){
+      assert(process.env.CORE2_APP_E2E_DIR,'CORE2_APP_E2E_DIR is required for the app-receipts journey');
+      const {summary,cases}=loadAppE2EArtifacts(process.env.CORE2_APP_E2E_DIR);
+      await page.locator('#backend-receipts > summary').click();
+      const mockBefore=await page.evaluate(()=>JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]}));
+      const results=[];
+      for(const name of ['success','uncertain-policy','reject']){
+        const {packet,receiptName,receiptBytes}=cases.get(name),run=packet.run;
+        await page.locator('#backend-clear').click();
+        await page.locator('#backend-status').filter({hasText:'No reported receipt loaded'}).waitFor();
+        await page.locator('#backend-file').setInputFiles({name:receiptName,mimeType:'application/json',buffer:receiptBytes});
+        await page.locator('#backend-status').filter({hasText:'Reported receipt loaded'}).waitFor();
+        const summaryText=await page.locator('#backend-summary').innerText(),rowsText=await page.locator('#backend-rows').innerText();
+        assert.match(summaryText,/IMPORTED_ASSERTION/);assert.match(summaryText,/origin\/live acceptance NOT_VERIFIED/);
+        assert.match(summaryText,/SYNTHETIC/);assert.match(summaryText,/SYNTHETIC_ONLY/);
+        assert.match(summaryText,/Reported mutation attempts/);assert.match(summaryText,/resource changes not confirmed/);
+        assert.match(summaryText,/local viewer real writes 0/);
+        assert.match(summaryText,new RegExp(`real ${run.realWrites} \/ simulated ${run.simulatedWrites}`));
+        for(const result of run.results){
+          for(const key of ['execution','providerReadback','compliance','freshness'])assert(rowsText.includes(result[key]),`Browser view omitted ${key} for ${name}`);
+          assert(rowsText.includes(`${result.realWrites} / ${result.simulatedWrites}`));
+        }
+        assert.equal(await page.evaluate(()=>JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})),mockBefore,'Receipt import changed local MOCK state');
+        const values=run.results.map(result=>({execution:result.execution,provider:result.providerReadback,compliance:result.compliance,freshness:result.freshness,reportedRealAttempts:result.realWrites,reportedSimulatedAttempts:result.simulatedWrites}));
+        results.push({case:name,values,actualAwsCalls:summary.actualAwsCalls,trust:packet.provenance,origin:packet.originAcceptance,localRealWrites:packet.localRealWrites,evidence:packet.evidence.provenance,limitation:packet.evidence.limitation});
+        await page.screenshot({path:join(artifacts,`app-e2e-${name}.png`),fullPage:true});
+      }
+      await page.locator('#backend-clear').click();
+      await page.locator('#backend-status').filter({hasText:'No reported receipt loaded'}).waitFor();
+      assert.equal(await page.locator('#backend-rows tr').count(),0);
+      await page.locator('#backend-file').setInputFiles({name:'invalid-receipt.json',mimeType:'application/json',buffer:Buffer.from('{"not":"a canonical receipt"}')});
+      await page.locator('#backend-status').filter({hasText:'Receipt refused'}).waitFor();
+      assert.equal(await page.locator('#backend-rows tr').count(),0);
+      assert.equal(await page.evaluate(()=>JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})),mockBefore,'Clear/refuse changed local MOCK state');
+      assert.deepEqual(network,['local document']);assert.deepEqual(unexpected,[]);assert.deepEqual(errors,[]);
+      const receipt={status:'PASS',journey:'app-receipts',release:require('./RELEASE.json').release,browser:browser.version(),localhostDocumentRequests:network.length,unexpectedRequests:unexpected.length,pageErrors:errors.length,actualAwsCalls:summary.actualAwsCalls,clearAndInvalidRefusal:true,unchangedMockState:true,cases:results,hosted:'NOT_TESTED',liveProvider:'NOT_USED'};
+      fs.writeFileSync(join(artifacts,'app-receipts-browser-evidence.json'),JSON.stringify(receipt,null,2));
+      console.log(JSON.stringify(receipt));return;
+    }
     if(process.env.SHOWCASE_JOURNEY === 'defence') {
       await page.locator('#defence-intake > summary').click();
       const sampleWait=page.waitForEvent('download');await page.locator('#defence-sample').click();const sample=await sampleWait;const samplePath=await sample.path();

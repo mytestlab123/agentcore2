@@ -88,6 +88,15 @@ This optional input mode is not acceptance evidence until run against actual
 artifacts from the backend's deterministic fake-SDK application command. It
 does not make fake approval or provider activity live authority.
 
+The existing browser smoke also accepts `SHOWCASE_JOURNEY=app-receipts` with
+the same `CORE2_APP_E2E_DIR`. It uploads the three required receipt files via
+the existing file input, checks the reported view and unchanged MOCK state,
+then clears and refuses malformed input. Use the existing pinned Playwright
+dependency and a local browser, for example:
+`SHOWCASE_JOURNEY=app-receipts CORE2_APP_E2E_DIR=<artifact-directory> SHOWCASE_BROWSER=/usr/bin/google-chrome node showcases/chatgpt-sites-preview-b/smoke.cjs`.
+Browser evidence defaults to a private subdirectory of `~/.AGENTS-temp`; no
+other browser requests are allowed by the existing loopback-only route guard.
+
 Milestone readback: build PASS; 23 contract tests + 12 Harness tests PASS;
 typecheck PASS; existing showcase state/receipt boundary check PASS; changed-file
 secret/account/private-path/endpoint scan PASS; canonical schema unchanged.

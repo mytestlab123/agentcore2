@@ -212,38 +212,10 @@ run('defenceStaged=DefenceIntake.intake('+JSON.stringify(JSON.stringify({schemaV
  assert.equal(run('JSON.stringify(DEFENCE_EVIDENCE_SAMPLE)'),JSON.stringify(sample));
  const appE2EDir=process.env.CORE2_APP_E2E_DIR;
  if(appE2EDir){
-  const path=require('path'),os=require('os'),scratch=fs.realpathSync(path.join(os.homedir(),'.AGENTS-temp')),root=fs.realpathSync(appE2EDir),allowed=scratch+path.sep;
-  assert(root.startsWith(allowed),'Application E2E artifacts must be under ~/.AGENTS-temp');
-  const safeFile=(name,suffix,limit)=>{
-   assert.equal(typeof name,'string');assert.match(name,/^[a-z0-9][a-z0-9._-]{0,127}$/);assert(name.endsWith(suffix));
-   const file=path.join(root,name),real=fs.realpathSync(file);assert.equal(path.dirname(real),root,'Artifact file must stay inside its input directory');
-   const stat=fs.statSync(real);assert(stat.isFile());assert(stat.size<=limit,`Artifact exceeds ${limit} byte bound`);return fs.readFileSync(real);
-  };
-  const summaryBytes=safeFile('app-e2e-summary.json','.json',65536),summary=intake.parseJSON(new TextDecoder('utf-8',{fatal:true}).decode(summaryBytes));
-  assert.deepEqual(Object.keys(summary).sort(),['approval','actualAwsCalls','cases','provider','schemaVersion'].sort());
-  assert.equal(summary.schemaVersion,'awsops-canary-e2e/1');assert.equal(summary.approval,'TEST_SIMULATION');assert.equal(summary.provider,'FAKE_SDK');assert.equal(summary.actualAwsCalls,0);
-  assert(Array.isArray(summary.cases)&&summary.cases.length>=3&&summary.cases.length<=32);
-  const cases=new Map();let totalBytes=summaryBytes.length;
-  for(const item of summary.cases){
-   assert.deepEqual(Object.keys(item).sort(),['audit','name','receipt'].sort());assert.match(item.name,/^[a-z][a-z0-9-]{0,31}$/);assert(!cases.has(item.name));
-   let audit=null,packet=null,text=null;
-   if(item.audit!==null){audit=safeFile(item.audit,'.audit.json',262144);totalBytes+=audit.length;intake.parseJSON(new TextDecoder('utf-8',{fatal:true}).decode(audit));}
-   if(item.receipt!==null){const bytes=safeFile(item.receipt,'.receipt.json',262144);totalBytes+=bytes.length;text=new TextDecoder('utf-8',{fatal:true}).decode(bytes);packet=reader.read(bytes,schema,scopeHelper,intake.parseJSON);}
-   if(['success','uncertain-policy','reject'].includes(item.name))assert(packet,`Required application case ${item.name} needs a canonical receipt`);
-   cases.set(item.name,{packet,text,audit});
-  }
-  assert(totalBytes<=2097152,'Application E2E artifact set exceeds 2 MiB');
-  for(const name of ['success','uncertain-policy','reject'])assert(cases.has(name),`Missing required application case ${name}`);
+  const {summary,cases}=require('./app-e2e-artifacts.cjs').load(appE2EDir);
   const mockBefore=run('JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})'),accepted=[];
   for(const name of ['success','uncertain-policy','reject']){
-   const {packet,text}=cases.get(name),r=packet.run,d=packet.decision,e=packet.evidence;
-   assert.equal(packet.provenance,'IMPORTED_ASSERTION');assert.equal(packet.originAcceptance,'NOT_VERIFIED');assert.equal(packet.localRealWrites,0);
-   assert.equal(e.provenance,'SYNTHETIC');assert.equal(e.limitation,'SYNTHETIC_ONLY');
-   assert(r.results.length>0);assert(r.results.every(x=>['providerReadback','compliance','freshness'].every(k=>typeof x[k]==='string')));
-   const attempts=r.realWrites+r.simulatedWrites;
-   if(name==='success'){assert.equal(d.choice,'APPROVE_ONCE');assert.equal(attempts,4);assert.equal(summary.actualAwsCalls,0);assert(r.results.some(x=>x.execution==='SUCCEEDED'));assert(r.results.every(x=>x.compliance==='UNKNOWN'&&x.freshness==='NOT_VERIFIED'));}
-   if(name==='uncertain-policy'){assert.equal(d.choice,'APPROVE_ONCE');assert.equal(attempts,4);assert.equal(summary.actualAwsCalls,0);assert(r.results.some(x=>x.execution==='UNKNOWN'));assert(r.results.every(x=>x.compliance==='UNKNOWN'&&x.freshness==='NOT_VERIFIED'));}
-   if(name==='reject'){assert.equal(d.choice,'REJECT');assert.equal(attempts,0);assert(r.results.every(x=>x.execution==='NOT_RUN'));}
+   const {packet,text}=cases.get(name),r=packet.run,attempts=r.realWrites+r.simulatedWrites;
    // Render each generated artifact through the existing UI VM. It stays an
    // imported assertion and cannot alter the separate MOCK run state.
    run('backendStage('+JSON.stringify(text)+')');
