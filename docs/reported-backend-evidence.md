@@ -1,0 +1,72 @@
+# Issue39: canonical reported backend receipts
+
+Authority: [owner override](https://github.com/mytestlab123/agentcore2/issues/39#issuecomment-6207040070).
+Goal: M-CORE2-EVIDENCE-20261016-R1. Source only; no Site, model or AWS action.
+
+## Use
+
+Open the existing standalone showcase index.html and expand **Defence Factory ·
+backend receipt review**. Download its synthetic sample, then select that JSON
+file. This is a local file interaction; no server, dependencies, network or
+credentials are required. Clear removes the session's reported view only.
+The existing grouped MOCK intake/approval/execution journey remains separate.
+
+The file is a JSON array of exactly four unchanged defence-factory/1 envelopes:
+Batch, Decision, Run, Evidence (one of each, any envelope order). This is a file
+packaging convention, not a new wire schema. awsops still owns v1.schema.json;
+its bytes are unchanged. The HTML embeds that exact schema, receipt reader and
+synthetic example for portable offline operation. Existing strict JSON syntax
+parsing and canonical SHA-256 scope helpers are reused. No awsops checkout edits.
+
+## Admission and display
+
+- 256 KiB UTF-8 / 500-target ceiling, strict canonical schema and unknown-field
+  refusal; duplicate JSON keys, private shapes and malformed timestamps refused.
+- Batch digest recomputed from the whole canonical frozen Batch excluding only
+  scopeDigest; sorted unique compatible targets required. Decision/run/evidence
+  references and decision validity window must match that exact Batch.
+- Exactly one result for every frozen target, matching finding and resource
+  alias. Missing/extra/duplicate targets or inconsistent write sums are refused.
+  REJECT/BLOCKED/NOT_RUN cannot claim successful writes; MOCK/LAB_READ actual
+  writes must be zero. VERIFIED claims need complete successful MATCH/COMPLIANT/
+  FRESH results with receipt aliases. These checks establish consistency only.
+- Display reported mode, dataset/registration revision, frozen digest/window,
+  decision, run status, per-resource outcomes, separate provider/compliance/
+  freshness claims, claimed actual and simulated writes, source version/revision,
+  independently stated hosted version (or NOT_VERIFIED), evidence time/limitation.
+  MOCK MATCH/compliance values are explicitly SIMULATED. Local viewer writes=0.
+- Malformed input clears the previous receipt rather than retaining a stale
+  accepted view. File loading/clearing cancels older pending reads by generation.
+  Only inert text nodes render fields. No URL following, network, persistence,
+  approval or execution path is added. Downloaded sample is entirely synthetic.
+
+## Trust limits
+
+File-loaded/manual evidence is ALWAYS IMPORTED_ASSERTION, even when the file
+claims TRUSTED_PROVIDER_READ, VERIFIED, or an approved LAB run with actual writes.
+Such counts remain reported claims; they never increase the local MOCK executor's
+write counters or authorize provider access. Historical reported FRESH is not an
+independent freshness measurement. Source/hosted revisions remain declarations.
+
+There is no existing authenticated canonical backend acquisition origin wired
+into this standalone GUI. Therefore origin/live acceptance is NOT_VERIFIED;
+private registrations/principal bindings/provider reads are not attested here.
+The prior hosted receipt remains historical; this source fingerprint is not
+published. Issue37 real-viewer acceptance remains NOT_RUN. Browser approval
+does not confer AWS authority. Next smallest useful step is M's independent
+review followed by separately scoped authenticated acquisition, not a new GUI.
+
+## Proof
+
+Use the existing fast lane: npm run verify:cloud -- fast. Its existing state
+check now includes one focused receipt boundary section: synthetic pass, claimed
+trusted LAB provenance remains an assertion, scope/target/total/schema negatives,
+and actual GUI rendering without changing MOCK proposal/run/selection state.
+This is local source validation, not hosted/browser/provider acceptance. No new
+test suite or broad synthetic browser run was added.
+
+Milestone readback: build PASS; 23 contract tests + 12 Harness tests PASS;
+typecheck PASS; existing showcase state/receipt boundary check PASS; changed-file
+secret/account/private-path/endpoint scan PASS; canonical schema unchanged.
+Machine receipt: reported-backend-evidence.json. The state check uses a minimal
+DOM in Node, so actual browser/hosted/real-viewer acceptance is NOT_RUN here.

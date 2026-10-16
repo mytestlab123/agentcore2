@@ -1,8 +1,20 @@
-# Agentic Operations Lab — Shift Handoff Reconciliation / Issue35
+# Agentic Operations Lab — reported backend receipts / Issue39
+
+Current source v1.10.1-mock adds **Defence Factory · backend receipt review** to
+the existing GUI. Load the downloadable synthetic receipt example, or a sanitized
+JSON array of canonical Batch/Decision/Run/Evidence envelopes. Exact scope/count
+checks run locally; every file remains IMPORTED_ASSERTION with origin/live
+acceptance NOT_VERIFIED. No backend connection, AWS authority or real local writes.
+See [receipt use and trust limits](../../docs/reported-backend-evidence.md).
+The local MOCK executor stays separate. This fingerprint is not published and
+the prior private Site/real-viewer gates are unchanged.
+
+## Preserved reconciliation journey / Issue35
 
 Portable **SHOWCASE / MOCK** source based on accepted main
 `e76028e1cfb74211fc45c093b454fab2068b156d`. Open `index.html` directly. All data,
-reasoning and operations are synthetic; no install, server, model or AWS is needed.
+reasoning and operations in the local demo are synthetic; reported receipt files
+are untrusted assertions. No install, server, model or AWS is needed.
 The existing private Agentic Operations Lab Site is unchanged. This PR prepares
 source for a later explicit Work + @Sites visual-polish action, not publication.
 

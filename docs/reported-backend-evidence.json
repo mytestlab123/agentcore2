@@ -1,0 +1,32 @@
+{
+  "goal": "M-CORE2-EVIDENCE-20261016-R1",
+  "issue": "https://github.com/mytestlab123/agentcore2/issues/39",
+  "base": "6466ddce5e26ac29612e96f195f1946b04082a2c",
+  "sourceVersion": "v1.10.1-mock",
+  "sourceFingerprint": "2abf354fef076bdf83ce77204242455b3543be081d46519064e23f305f1ac809",
+  "htmlSha256": "f51a6c14d53d54c75a0268390f737fb61d25fa59085039e99eb8c23273a3c119",
+  "canonicalSchemaSha256": "819998567b2c40b90c1bae744476b050e1c8a213a99c2917068b761e89dac2e2",
+  "schemaChanged": false,
+  "validation": {
+    "command": "npm run verify:cloud -- fast",
+    "build": "PASS",
+    "contractTests": 23,
+    "harnessTests": 12,
+    "typecheck": "PASS",
+    "showcaseStateAndReceiptBoundary": "PASS \u2014 Node VM/minimal DOM, not browser proof",
+    "unknownClaimedTrustedLabProvenance": "IMPORTED_ASSERTION; NOT_VERIFIED; localRealWrites=0",
+    "scopeTargetsTotalsAndMalformedRefusal": "PASS",
+    "changedFileLeakScan": "PASS",
+    "diffCheck": "PASS"
+  },
+  "acceptance": {
+    "authenticatedOrigin": "NOT_VERIFIED",
+    "hostedSource": "NOT_PUBLISHED",
+    "realViewer": "NOT_RUN",
+    "actualBrowser": "NOT_RUN",
+    "aws": "NOT_RUN",
+    "localRealWrites": 0,
+    "modelCalls": 0
+  },
+  "next": "M independent source review; authenticated acquisition needs separate scope"
+}
