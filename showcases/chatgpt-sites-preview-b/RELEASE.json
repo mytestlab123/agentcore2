@@ -5,8 +5,8 @@
   "scope": "MOCK executor plus reported canonical receipts; no authenticated live integration",
   "authority": "https://github.com/mytestlab123/agentcore2/issues/39",
   "baseCommit": "6466ddce5e26ac29612e96f195f1946b04082a2c",
-  "htmlSha256": "5a3e95459ffa4382366c4afd5fab26ca2295b6d8b5c771ff2efca4edd15b4dad",
-  "guiSourceFingerprint": "4ec92d7564ad22a4df81a9b5f6dc7fed0d697dd15a5ca2d1d4823152fbc4f14d",
+  "htmlSha256": "e6ae98fdc325f407afe86f50e9bb5d7c0ca1d85c20b38e53c394363df1aa6858",
+  "guiSourceFingerprint": "012f371fdcaafba441aea07ae9be547fe1f163abd2c4cf1fef97af9cdcc66e75",
   "fingerprintAlgorithm": "sha256(index.html with BUILD_FINGERPRINT replaced by __FINGERPRINT__)",
   "historicalSiteMapping": "See the unchanged Issue9 evidence and Git history; no existing Site modified.",
   "priorRelease": {
