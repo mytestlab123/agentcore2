@@ -8,6 +8,19 @@ awsops owns the canonical wire contract; agentcore2 consumes a pinned mirror.
 A contract change must update both copies and their acceptance receipts together.
 No frontend, provider adapter or legacy public Finding type is copied.
 
+### Current source consumer (Issue39)
+
+evidence.cjs reads a local array of four unchanged v1 envelopes (Batch, Decision,
+Run, Evidence) using the pinned schema, shared strict JSON syntax parser and
+canonical scope digest helper. This packaging does not revise the wire contract.
+It checks exact frozen targets, linkage and independent outcomes/write totals.
+File acquisition ALWAYS remains IMPORTED_ASSERTION / NOT_VERIFIED, including
+claimed trusted LAB receipts; no authenticated backend origin is introduced.
+synthetic-receipts.json is invented MOCK evidence, not a provider receipt.
+The existing standalone GUI embeds exact source mirrors for offline use; see
+[usage and limits](../../docs/reported-backend-evidence.md). Historical M1 language
+below describes the original contract milestone, not a claim of live readiness.
+
 ## Records and trust
 
 Every envelope has exactly `schemaVersion`, `kind`, and `record`. Unknown fields

@@ -37,5 +37,6 @@ function intake(input,format){try{
  const groups=new Map();for(const f of findings){const k=f.record.controlId;groups.set(k,(groups.get(k)||0)+1);}
  return Object.freeze({schemaVersion:'defence-intake-result/1',mode:'MOCK_IMPORT',realWrites:0,liveCoverage:'UNKNOWN',catalogCandidates:CATALOG.length,findings:Object.freeze(findings),groups:Object.freeze([...groups].sort(([a],[b])=>a.localeCompare(b)).map(([controlId,count])=>Object.freeze({controlId,count}))) });
 }catch{bad();}}
-return Object.freeze({intake,CATALOG,COLUMNS,MAX_BYTES,MAX_ROWS});
+// Shared strict JSON syntax reader only; callers still enforce their own schema/privacy boundary.
+return Object.freeze({intake,parseJSON,CATALOG,COLUMNS,MAX_BYTES,MAX_ROWS});
 });

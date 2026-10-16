@@ -1,0 +1,86 @@
+[
+  {
+    "schemaVersion": "defence-factory/1",
+    "kind": "Batch",
+    "record": {
+      "batchId": "batch-demo-a",
+      "datasetId": "dataset-demo-a",
+      "registryVersion": 1,
+      "mode": "MOCK",
+      "frozenAt": "2026-10-16T03:00:00Z",
+      "expiresAt": "2026-10-16T04:00:00Z",
+      "targets": [
+        {
+          "findingId": "finding-demo-a",
+          "resource": {
+            "accountAlias": "mock-a",
+            "resourceAlias": "resource-bucket-a",
+            "resourceType": "AWS::S3::Bucket",
+            "region": "ap-southeast-1"
+          },
+          "controlId": "s3-ssl-requests-only",
+          "revision": 1,
+          "evidenceDigest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "capabilityId": "s3-require-tls",
+          "expectedChange": "DENY_INSECURE_TRANSPORT"
+        }
+      ],
+      "scopeDigest": "46eab50ed9b00d746575c1484b83ac70c460504fed49cf949b89d40dda1651af"
+    }
+  },
+  {
+    "schemaVersion": "defence-factory/1",
+    "kind": "Decision",
+    "record": {
+      "decisionId": "decision-demo-a",
+      "batchId": "batch-demo-a",
+      "scopeDigest": "46eab50ed9b00d746575c1484b83ac70c460504fed49cf949b89d40dda1651af",
+      "choice": "APPROVE_ONCE",
+      "decidedAt": "2026-10-16T03:01:00Z",
+      "expiresAt": "2026-10-16T04:00:00Z",
+      "principalBindingDigest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "receiptId": "receipt-decision-a"
+    }
+  },
+  {
+    "schemaVersion": "defence-factory/1",
+    "kind": "Run",
+    "record": {
+      "runId": "run-demo-a",
+      "batchId": "batch-demo-a",
+      "decisionId": "decision-demo-a",
+      "mode": "MOCK",
+      "status": "VERIFIED",
+      "results": [
+        {
+          "findingId": "finding-demo-a",
+          "resourceAlias": "resource-bucket-a",
+          "execution": "SUCCEEDED",
+          "providerReadback": "MATCH",
+          "compliance": "COMPLIANT",
+          "freshness": "FRESH",
+          "simulatedWrites": 1,
+          "realWrites": 0,
+          "receiptId": "receipt-demo-a"
+        }
+      ],
+      "realWrites": 0,
+      "simulatedWrites": 1
+    }
+  },
+  {
+    "schemaVersion": "defence-factory/1",
+    "kind": "Evidence",
+    "record": {
+      "evidenceId": "evidence-demo-a",
+      "runId": "run-demo-a",
+      "sourceRevision": "6466ddce5e26ac29612e96f195f1946b04082a2c",
+      "sourceVersion": "v1.10.0-mock",
+      "hostedVersion": null,
+      "recordedAt": "2026-10-16T03:02:00Z",
+      "provenance": "SYNTHETIC",
+      "realWrites": 0,
+      "limitation": "SYNTHETIC_ONLY"
+    }
+  }
+]

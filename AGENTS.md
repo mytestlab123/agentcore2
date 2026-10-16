@@ -12,8 +12,9 @@ not an enterprise production platform. **BUILD → DEMONSTRATE → IMPROVE.**
 5. No unnecessary frameworks, layers or infrastructure.
 6. Minimal meaningful tests and evidence only; reuse completed proof.
 7. Do not repeatedly request GO for routine development.
-8. DOT is the sole implementer and owns implementation, testing and safe source
-   merges when repository gates permit. No Direct, Factory, Codex X or other writer.
+8. Owner override 16 October (Issue39 comment6207040070): existing core2 Codex X
+   is the sole repository implementer; Manager coordinates. Dot is no longer a
+   writer. The current delegated goal defines scope; source PRs await M review.
 9. Optional hardening must NOT block MVP milestones.
 10. Enterprise security, scalability, multi-tenant complexity and comprehensive
     edge-case coverage are future phases.

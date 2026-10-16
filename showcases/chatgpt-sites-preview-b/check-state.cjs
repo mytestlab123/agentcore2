@@ -173,3 +173,30 @@ require('../../contracts/defence-factory/intake-check.cjs');
 const scopeHelper=require('../../contracts/defence-factory/scope.cjs');for(const value of [{b:2,a:1},['unicode-λ',null,true]])assert.equal(scopeHelper.digest(value),sha256(scopeHelper.canonical(value)));
 
 run('defenceStaged=DefenceIntake.intake('+JSON.stringify(JSON.stringify({schemaVersion:'defence-intake/1',findings:[{...importRows[0],controlId:'s3-bucket-public-read-prohibited'},{...importRows[1],controlId:'s3-bucket-public-write-prohibited'}]}))+',"json"); defenceLoad(); selectCandidates(findings)');assert.equal(run('selectedIds.size'),1,'Different canonical imported controls cannot share one approval');run('defenceClear()');
+
+// One focused receipt boundary check in the existing GUI harness; no new suite.
+{
+ const schema=require('../../contracts/defence-factory/v1.schema.json');
+ const sample=require('../../contracts/defence-factory/synthetic-receipts.json');
+ const reader=require('../../contracts/defence-factory/evidence.cjs');
+ const read=p=>reader.read(JSON.stringify(p),schema,scopeHelper,intake.parseJSON);
+ const copy=x=>JSON.parse(JSON.stringify(x));
+ const binding=p=>{const b=p[0].record;const {scopeDigest,...unsigned}=b;b.scopeDigest=scopeHelper.digest(unsigned);p[1].record.scopeDigest=b.scopeDigest;};
+ assert.equal(read(sample).originAcceptance,'NOT_VERIFIED');
+ const lab=copy(sample);lab[0].record.mode=lab[2].record.mode='APPROVED_LAB_WRITE';lab[0].record.targets[0].resource.accountAlias='amit';binding(lab);
+ lab[2].record.results[0].realWrites=lab[2].record.realWrites=lab[3].record.realWrites=1;lab[2].record.simulatedWrites=lab[2].record.results[0].simulatedWrites=0;lab[3].record.provenance='TRUSTED_PROVIDER_READ';lab[3].record.limitation='HOSTED_NOT_VERIFIED';
+ const reported=read(lab);assert.equal(reported.provenance,'IMPORTED_ASSERTION');assert.equal(reported.localRealWrites,0);assert.equal(reported.originAcceptance,'NOT_VERIFIED');assert.equal(reported.run.realWrites,1);
+ const malformed=[p=>p[2].record.results.pop(),p=>p[2].record.results.push({...p[2].record.results[0],findingId:'finding-extra-a'}),p=>p[2].record.results[0].resourceAlias='resource-other-a',p=>p[2].record.simulatedWrites++,p=>p[3].record.runId='run-other-a',p=>p[0].record.scopeDigest='f'.repeat(64),p=>p[1].record.scopeDigest='f'.repeat(64),p=>p[2].record.results[0].freshness='STALE',p=>p[0].record.targets[0].resource.accountId='private',p=>p[1].record.decidedAt='2026-02-30T03:01:00Z',p=>p[1].record.choice='REJECT',p=>p[2].record.realWrites=1,p=>p.push(p[3])];
+ for(const mutate of malformed){const p=copy(sample);mutate(p);assert.throws(()=>read(p),{message:'INVALID_REPORTED_EVIDENCE'});}
+ assert.throws(()=>reader.read(JSON.stringify(sample).replace('"kind":"Batch"','"kind":"Batch","kind":"Batch"'),schema,scopeHelper,intake.parseJSON));
+ assert.throws(()=>reader.read(new Uint8Array([0xc3,0x28]),schema,scopeHelper,intake.parseJSON));
+ const before=run('JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})');
+ run('backendStage('+JSON.stringify(JSON.stringify(lab))+')');
+ assert.match(el('backend-summary').textContent,/IMPORTED_ASSERTION.*NOT_VERIFIED/);assert.match(el('backend-summary').textContent,/Reported actual 1 \/ simulated 0/);assert.match(el('backend-summary').textContent,/Hosted version.*NOT_VERIFIED/);assert.equal(el('backend-rows').children.length,1);
+ assert.equal(run('JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})'),before,'Receipt viewing must not change MOCK scope or authority');
+ run('backendStage("{}")');assert.equal(run('backendReceipt'),null);assert.equal(el('backend-rows').children.length,0);assert.match(el('backend-status').textContent,/Receipt refused/);
+ const inline=html.split('// BEGIN DEFENCE EVIDENCE MIRROR\n')[1].split('\n// END DEFENCE EVIDENCE MIRROR')[0];assert.equal(inline,fs.readFileSync(require('path').join(__dirname,'../../contracts/defence-factory/evidence.cjs'),'utf8'));
+ assert.equal(run('JSON.stringify(DEFENCE_EVIDENCE_SCHEMA)'),JSON.stringify(schema));
+ assert.equal(run('JSON.stringify(DEFENCE_EVIDENCE_SAMPLE)'),JSON.stringify(sample));
+ console.log('PASS canonical reported receipts: scope/targets/totals/schema refusal, unknown provenance never REAL, GUI renders assertions without changing MOCK authority');
+}
