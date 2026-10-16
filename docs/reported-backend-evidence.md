@@ -70,6 +70,33 @@ test suite or broad synthetic browser run was added.
 This source receipt records the v1.10.1 predecessor; the uncertain-attempt
 consumer correction is tracked in [PR46](https://github.com/mytestlab123/agentcore2/pull/46).
 
+## Optional application E2E artifacts
+
+The existing focused VM harness accepts the backend's test-only artifact
+directory through `CORE2_APP_E2E_DIR`. The directory must be under
+`~/.AGENTS-temp` and contain `app-e2e-summary.json` plus the receipt and optional
+audit filenames listed in its manifest. Run
+`CORE2_APP_E2E_DIR=<artifact-directory> node showcases/chatgpt-sites-preview-b/check-state.cjs`.
+The harness bounds the set to 2 MiB, checks the required `success`,
+`uncertain-policy`, and `reject` cases, and sends each canonical receipt through
+the existing reader and GUI VM. It requires `TEST_SIMULATION`, `FAKE_SDK`, and
+`actualAwsCalls: 0`; synthetic evidence remains IMPORTED_ASSERTION with origin
+NOT_VERIFIED and local real writes zero. Audit sidecars are checked as bounded
+JSON test data only and are never supplied to the four-envelope reader.
+
+This optional input mode is not acceptance evidence until run against actual
+artifacts from the backend's deterministic fake-SDK application command. It
+does not make fake approval or provider activity live authority.
+
+The existing browser smoke also accepts `SHOWCASE_JOURNEY=app-receipts` with
+the same `CORE2_APP_E2E_DIR`. It uploads the three required receipt files via
+the existing file input, checks the reported view and unchanged MOCK state,
+then clears and refuses malformed input. Use the existing pinned Playwright
+dependency and a local browser, for example:
+`SHOWCASE_JOURNEY=app-receipts CORE2_APP_E2E_DIR=<artifact-directory> SHOWCASE_BROWSER=/usr/bin/google-chrome node showcases/chatgpt-sites-preview-b/smoke.cjs`.
+Browser evidence defaults to a private subdirectory of `~/.AGENTS-temp`; no
+other browser requests are allowed by the existing loopback-only route guard.
+
 Milestone readback: build PASS; 23 contract tests + 12 Harness tests PASS;
 typecheck PASS; existing showcase state/receipt boundary check PASS; changed-file
 secret/account/private-path/endpoint scan PASS; canonical schema unchanged.

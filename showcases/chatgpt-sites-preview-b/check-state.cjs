@@ -210,5 +210,23 @@ run('defenceStaged=DefenceIntake.intake('+JSON.stringify(JSON.stringify({schemaV
  const inline=html.split('// BEGIN DEFENCE EVIDENCE MIRROR\n')[1].split('\n// END DEFENCE EVIDENCE MIRROR')[0];assert.equal(inline,fs.readFileSync(require('path').join(__dirname,'../../contracts/defence-factory/evidence.cjs'),'utf8'));
  assert.equal(run('JSON.stringify(DEFENCE_EVIDENCE_SCHEMA)'),JSON.stringify(schema));
  assert.equal(run('JSON.stringify(DEFENCE_EVIDENCE_SAMPLE)'),JSON.stringify(sample));
+ const appE2EDir=process.env.CORE2_APP_E2E_DIR;
+ if(appE2EDir){
+  const {summary,cases}=require('./app-e2e-artifacts.cjs').load(appE2EDir);
+  const mockBefore=run('JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})'),accepted=[];
+  for(const name of ['success','uncertain-policy','reject']){
+   const {packet,text}=cases.get(name),r=packet.run,attempts=r.realWrites+r.simulatedWrites;
+   // Render each generated artifact through the existing UI VM. It stays an
+   // imported assertion and cannot alter the separate MOCK run state.
+   run('backendStage('+JSON.stringify(text)+')');
+   assert.equal(run('backendReceipt.provenance'),'IMPORTED_ASSERTION');assert.equal(run('backendReceipt.originAcceptance'),'NOT_VERIFIED');
+   assert.match(el('backend-summary').textContent,/Reported mutation attempts/);assert.match(el('backend-summary').textContent,/resource changes not confirmed/);
+   assert(html.includes('Reported real / simulated mutation attempts'));
+   for(const x of r.results)for(const key of ['execution','providerReadback','compliance','freshness'])assert(el('backend-rows').textContent.includes(x[key]),`GUI must retain ${key} independently`);
+   assert.equal(run('JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})'),mockBefore,'Application receipt import must not alter local MOCK authority');
+   accepted.push({case:name,execution:r.results.map(x=>x.execution),reportedMutationAttempts:attempts,actualAwsCalls:summary.actualAwsCalls,provenance:packet.provenance,originAcceptance:packet.originAcceptance,localRealWrites:packet.localRealWrites});
+  }
+  console.log(JSON.stringify({applicationE2E:'PASS',provider:summary.provider,approval:summary.approval,actualAwsCalls:summary.actualAwsCalls,cases:accepted,auditSidecars:'validated as bounded JSON only; never passed to canonical reader'}));
+ }
  console.log('PASS canonical reported receipts: scope/targets/totals/schema refusal, unknown provenance never REAL, GUI renders assertions without changing MOCK authority');
 }
