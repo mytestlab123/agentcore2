@@ -33,7 +33,8 @@ parsing and canonical SHA-256 scope helpers are reused. No awsops checkout edits
   FRESH results with receipt aliases. These checks establish consistency only.
 - Display reported mode, dataset/registration revision, frozen digest/window,
   decision, run status, per-resource outcomes, separate provider/compliance/
-  freshness claims, claimed actual and simulated writes, source version/revision,
+  freshness claims, reported real and simulated mutation attempts (resource
+  changes are not confirmed), source version/revision,
   independently stated hosted version (or NOT_VERIFIED), evidence time/limitation.
   MOCK MATCH/compliance values are explicitly SIMULATED. Local viewer writes=0.
 - Malformed input clears the previous receipt rather than retaining a stale

@@ -202,9 +202,9 @@ run('defenceStaged=DefenceIntake.intake('+JSON.stringify(JSON.stringify({schemaV
  assert.throws(()=>reader.read(JSON.stringify(sample).replace('"kind":"Batch"','"kind":"Batch","kind":"Batch"'),schema,scopeHelper,intake.parseJSON));
  assert.throws(()=>reader.read(new Uint8Array([0xc3,0x28]),schema,scopeHelper,intake.parseJSON));
  const before=run('JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})');
- run('backendStage('+JSON.stringify(JSON.stringify(producerUncertain))+')');assert.match(el('backend-summary').textContent,/Reported actual 0 \/ simulated 1/);assert.match(el('backend-rows').textContent,/UNKNOWN/);assert.match(el('backend-rows').textContent,/NOT_VERIFIED/);
+ run('backendStage('+JSON.stringify(JSON.stringify(producerUncertain))+')');assert.match(el('backend-summary').textContent,/Reported mutation attempts/);assert.match(el('backend-summary').textContent,/real 0 \/ simulated 1 \(resource changes not confirmed\)/);assert.match(el('backend-rows').textContent,/UNKNOWN/);assert.match(el('backend-rows').textContent,/NOT_VERIFIED/);
  run('backendStage('+JSON.stringify(JSON.stringify(lab))+')');
- assert.match(el('backend-summary').textContent,/IMPORTED_ASSERTION.*NOT_VERIFIED/);assert.match(el('backend-summary').textContent,/Reported actual 1 \/ simulated 0/);assert.match(el('backend-summary').textContent,/Hosted version.*NOT_VERIFIED/);assert.equal(el('backend-rows').children.length,1);
+ assert.match(el('backend-summary').textContent,/IMPORTED_ASSERTION.*NOT_VERIFIED/);assert.match(el('backend-summary').textContent,/real 1 \/ simulated 0 \(resource changes not confirmed\)/);assert.match(el('backend-summary').textContent,/Hosted version.*NOT_VERIFIED/);assert.equal(el('backend-rows').children.length,1);
  assert.equal(run('JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})'),before,'Receipt viewing must not change MOCK scope or authority');
  run('backendStage("{}")');assert.equal(run('backendReceipt'),null);assert.equal(el('backend-rows').children.length,0);assert.match(el('backend-status').textContent,/Receipt refused/);
  const inline=html.split('// BEGIN DEFENCE EVIDENCE MIRROR\n')[1].split('\n// END DEFENCE EVIDENCE MIRROR')[0];assert.equal(inline,fs.readFileSync(require('path').join(__dirname,'../../contracts/defence-factory/evidence.cjs'),'utf8'));
