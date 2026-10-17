@@ -5,8 +5,8 @@
   "scope": "MOCK executor, guided grouped SSH story, imported-provenance labels, reported canonical receipts and synthetic two-observation compliance delta; no authenticated live integration",
   "authority": "https://github.com/mytestlab123/agentcore2/issues/39",
   "baseCommit": "d261b77e01ab80b63b9d0c9be2080621662e89a1",
-  "htmlSha256": "80b50b6f6e4d18864fb44ed30066aae8ae33d5150df075a0fd7305a1cb5ff0f4",
-  "guiSourceFingerprint": "58b56faae6e54d7eb0faec6f883cf90e6b5e3607c5cb54cbb330e0ab9f31e937",
+  "htmlSha256": "579e510f2e2a39b2c09442520c5f4a45386d6bf1d5fa97b9d68dc7209b2871c1",
+  "guiSourceFingerprint": "4e54d16df17cb7101dca517080bbd514e70aa16b750e0bb8a77d93666a744da6",
   "fingerprintAlgorithm": "sha256(index.html with BUILD_FINGERPRINT replaced by __FINGERPRINT__)",
   "historicalSiteMapping": "See the unchanged Issue9 evidence and Git history; no existing Site modified.",
   "priorRelease": {

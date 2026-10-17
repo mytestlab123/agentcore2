@@ -7,6 +7,8 @@ const COLUMNS=Object.freeze(['findingId','accountAlias','resourceAlias','resourc
 const bad=()=>{throw new Error('INVALID_SYNTHETIC_INPUT');};
 const obj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
 function keys(x,allowed){if(!obj(x)||Object.keys(x).length!==allowed.length||Object.keys(x).some(k=>!allowed.includes(k)))bad();}
+const PRIVATE_INPUT=/(?:\d{12}|arn:|AKIA[A-Z0-9]{16}|ASIA[A-Z0-9]{16}|-----BEGIN|https?:|@|\bprivate\b|account[-_ ]?(?:id|number|arn)|secret|password|token|credential)/i;
+function assertSafe(value){const seen=new Set();const scan=(x,digestField=false)=>{if(typeof x==='string'){if(!(digestField&&/^[a-f0-9]{64}$/.test(x))&&PRIVATE_INPUT.test(x))bad();return;}if(!x||typeof x!=='object')return;if(seen.has(x))bad();seen.add(x);for(const [k,v]of Object.entries(x)){scan(k);scan(v,['fingerprint','pairFingerprint','deltaFingerprint'].includes(k));}seen.delete(x);};scan(value);return value;}
 function parseJSON(text){let i=0;const ws=()=>{while(/[\t\r\n ]/.test(text[i]||'x'))i++;};
  function str(){const start=i++;while(i<text.length){const c=text[i++];if(c==='"'){try{return JSON.parse(text.slice(start,i));}catch{bad();}}if(c==='\\')i++;}bad();}
  function value(depth){if(depth>8)bad();ws();const c=text[i];if(c==='"')return str();if(c==='{'){i++;const o=Object.create(null),seen=new Set();ws();if(text[i]==='}'){i++;return o;}while(i<text.length){ws();if(text[i]!=='"')bad();const k=str();if(seen.has(k)||['__proto__','constructor','prototype'].includes(k))bad();seen.add(k);ws();if(text[i++]!==':')bad();o[k]=value(depth+1);ws();const end=text[i++];if(end==='}')return o;if(end!==',')bad();}bad();}
@@ -38,5 +40,5 @@ function intake(input,format){try{
  return Object.freeze({schemaVersion:'defence-intake-result/1',mode:'MOCK_IMPORT',realWrites:0,liveCoverage:'UNKNOWN',catalogCandidates:CATALOG.length,findings:Object.freeze(findings),groups:Object.freeze([...groups].sort(([a],[b])=>a.localeCompare(b)).map(([controlId,count])=>Object.freeze({controlId,count}))) });
 }catch{bad();}}
 // Shared strict JSON syntax reader only; callers still enforce their own schema/privacy boundary.
-return Object.freeze({intake,parseJSON,CATALOG,COLUMNS,MAX_BYTES,MAX_ROWS});
+return Object.freeze({intake,parseJSON,assertSafe,CATALOG,COLUMNS,MAX_BYTES,MAX_ROWS});
 });

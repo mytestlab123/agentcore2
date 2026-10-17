@@ -14,19 +14,22 @@ const sandbox={console,Blob,URL,TextEncoder,TextDecoder,setTimeout:f=>{const id=
 vm.createContext(sandbox);const start=performance.now();vm.runInContext(html.match(/<script>([\s\S]*?)<\/script>/)[1],sandbox);const initialMs=performance.now()-start;
 const el=id=>elements.get(id),run=code=>vm.runInContext(code,sandbox),click=id=>el(id).onclick(),flush=()=>{let count=0;while(timers.length){const t=timers.shift();t.f();assert(++count<10000);}};
 assert.equal(run('RELEASE'),release.release);
-const observationApi=run('ObservationDelta'),observationDigest=run('DefenceScope.digest'),observationParser=run('DefenceIntake.parseJSON');
+const observationApi=run('ObservationDelta'),observationDigest=run('DefenceScope.digest'),observationParser=run('DefenceIntake.parseJSON'),observationPrivacy=run('DefenceIntake.assertSafe');
 const observationSample=JSON.parse(JSON.stringify(observationApi.sample(release.release,release.guiSourceFingerprint,observationDigest))),observationOriginal=JSON.stringify(observationSample);
-const observationPair=observationApi.readPair(JSON.stringify(observationSample),observationDigest,observationParser),observationDelta=observationApi.compare(observationPair,observationDigest,{release:release.release,fingerprint:release.guiSourceFingerprint});
+const observationPair=observationApi.readPair(JSON.stringify(observationSample),observationDigest,observationParser,observationPrivacy),observationDelta=observationApi.compare(observationPair,observationDigest,{release:release.release,fingerprint:release.guiSourceFingerprint},observationPrivacy);
 assert.deepEqual(JSON.parse(JSON.stringify(observationDelta.counts)),{NEW:1,RESOLVED:1,UNCHANGED:2,UNKNOWN:2});
 assert.equal(observationDelta.provenance,'IMPORTED_ASSERTION');assert.equal(observationDelta.originAcceptance,'NOT_VERIFIED');assert.equal(observationDelta.freshness,'NOT_VERIFIED');assert.equal(observationDelta.realWrites,0);assert.equal(observationDelta.hosted.status,'NOT_TESTED');
 assert.equal(observationDelta.findings.find(x=>x.key.includes('resource-b|')).classification,'RESOLVED');assert.equal(observationDelta.findings.find(x=>x.key.includes('resource-d|')).classification,'UNKNOWN');
-assert.equal(observationApi.readDelta(JSON.stringify(observationDelta),observationDigest,observationParser).deltaFingerprint,observationDelta.deltaFingerprint);
+assert.equal(observationApi.readDelta(JSON.stringify(observationDelta),observationDigest,observationParser,observationPrivacy).deltaFingerprint,observationDelta.deltaFingerprint);
 assert.equal(JSON.stringify(observationSample),observationOriginal,'Comparison must not mutate immutable input observations');
 const resealPair=p=>{for(const name of ['earlier','later']){const snapshot={...p[name]};delete snapshot.fingerprint;p[name].fingerprint=observationDigest(snapshot);}const unsigned={...p};delete unsigned.pairFingerprint;p.pairFingerprint=observationDigest(unsigned);return p;};
-for(const mutate of [p=>p.later.observedAt=p.earlier.observedAt,p=>p.later.findings.push({...p.later.findings[0]}),p=>p.later.freshness='STALE',p=>p.later.scope.region='us-east-1',p=>p.later.completeness='STALE']){const badPair=JSON.parse(observationOriginal);mutate(badPair);resealPair(badPair);assert.throws(()=>observationApi.readPair(JSON.stringify(badPair),observationDigest,observationParser),{message:'INVALID_OBSERVATION_DELTA'});}
-const tamperedPair=JSON.parse(observationOriginal);tamperedPair.later.findings[0].status='COMPLIANT';assert.throws(()=>observationApi.readPair(JSON.stringify(tamperedPair),observationDigest,observationParser),{message:'INVALID_OBSERVATION_DELTA'});
-const completeButMissing=JSON.parse(observationOriginal);completeButMissing.later.completeness='COMPLETE';resealPair(completeButMissing);const completeDelta=observationApi.compare(observationApi.readPair(JSON.stringify(completeButMissing),observationDigest,observationParser),observationDigest,{release:release.release,fingerprint:release.guiSourceFingerprint});assert.equal(completeDelta.findings.find(x=>x.key.includes('resource-d|')).classification,'UNKNOWN','Absence from even a COMPLETE later observation never resolves');
-assert.throws(()=>observationApi.readPair(observationOriginal.replace('"schemaVersion":"agentcore2.synthetic-observation-pair/1"','"schemaVersion":"agentcore2.synthetic-observation-pair/1","schemaVersion":"agentcore2.synthetic-observation-pair/1"'),observationDigest,observationParser),{message:'INVALID_OBSERVATION_DELTA'});
+const resealDelta=d=>{delete d.deltaFingerprint;d.deltaFingerprint=observationDigest(d);return d;};
+for(const mutate of [p=>p.later.observedAt=p.earlier.observedAt,p=>p.later.findings.push({...p.later.findings[0]}),p=>p.later.freshness='STALE',p=>p.later.scope.region='us-east-1',p=>p.later.completeness='STALE']){const badPair=JSON.parse(observationOriginal);mutate(badPair);resealPair(badPair);assert.throws(()=>observationApi.readPair(JSON.stringify(badPair),observationDigest,observationParser,observationPrivacy),{message:'INVALID_OBSERVATION_DELTA'});}
+const tamperedPair=JSON.parse(observationOriginal);tamperedPair.later.findings[0].status='COMPLIANT';assert.throws(()=>observationApi.readPair(JSON.stringify(tamperedPair),observationDigest,observationParser,observationPrivacy),{message:'INVALID_OBSERVATION_DELTA'});
+const completeButMissing=JSON.parse(observationOriginal);completeButMissing.later.completeness='COMPLETE';resealPair(completeButMissing);const completeDelta=observationApi.compare(observationApi.readPair(JSON.stringify(completeButMissing),observationDigest,observationParser,observationPrivacy),observationDigest,{release:release.release,fingerprint:release.guiSourceFingerprint},observationPrivacy);assert.equal(completeDelta.findings.find(x=>x.key.includes('resource-d|')).classification,'UNKNOWN','Absence from even a COMPLETE later observation never resolves');
+for(const mutate of [p=>p.later.findings[0].resourceAlias='resource-a123456789012',p=>{p.scope.controlIds=['credential-key'];for(const s of [p.earlier,p.later])for(const f of s.findings)f.controlId='credential-key';},p=>p.earlier.snapshotId='snapshot-secret-demo',p=>p.scope.scopeId='scope-private-demo',p=>p.source.release='v123456789012.0.0-mock']){const privatePair=JSON.parse(observationOriginal);mutate(privatePair);resealPair(privatePair);assert.throws(()=>observationApi.readPair(JSON.stringify(privatePair),observationDigest,observationParser,observationPrivacy),{message:'INVALID_OBSERVATION_DELTA'});}
+const privateDelta=JSON.parse(JSON.stringify(observationDelta));privateDelta.source.release='v123456789012.0.0-mock';resealDelta(privateDelta);assert.throws(()=>observationApi.readDelta(JSON.stringify(privateDelta),observationDigest,observationParser,observationPrivacy),{message:'INVALID_OBSERVATION_DELTA'});
+assert.throws(()=>observationApi.readPair(observationOriginal.replace('"schemaVersion":"agentcore2.synthetic-observation-pair/1"','"schemaVersion":"agentcore2.synthetic-observation-pair/1","schemaVersion":"agentcore2.synthetic-observation-pair/1"'),observationDigest,observationParser,observationPrivacy),{message:'INVALID_OBSERVATION_DELTA'});
 assert.equal(el('header-release').textContent,release.release.match(/^v[0-9]+\.[0-9]+/)[0]);
 assert.equal(el('header-release').hidden,false);
 assert.equal(el('header-release').attrs['aria-label'],'Loaded MOCK release '+release.release);
@@ -263,3 +266,20 @@ run('defenceStaged=DefenceIntake.intake('+JSON.stringify(JSON.stringify({schemaV
  }
  console.log('PASS canonical reported receipts: scope/targets/totals/schema refusal, unknown provenance never REAL, GUI renders assertions without changing MOCK authority');
 }
+(async()=>{
+ const defer=()=>{let resolve,reject;const promise=new Promise((yes,no)=>{resolve=yes;reject=no;});return {file:{size:1,text:()=>promise},resolve,reject};};
+ const mockBefore=run('JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})');
+ const delayedPair=defer(),staleImport=run('observationImport')(delayedPair.file),currentDeltaText=JSON.stringify(observationDelta);
+ await run('observationReopen')({size:currentDeltaText.length,text:()=>Promise.resolve(currentDeltaText)});
+ const reopenFingerprint=run('observationDelta.pair.pairFingerprint');delayedPair.reject(new Error('superseded pair read failed'));await staleImport;
+ assert.equal(run('observationDelta.pair.pairFingerprint'),reopenFingerprint,'A superseded pair failure must not clear a later accepted reopen');
+ const delayedReopen=defer(),staleReopen=run('observationReopen')(delayedReopen.file),pairText=JSON.stringify(observationSample);
+ await run('observationImport')({size:pairText.length,text:()=>Promise.resolve(pairText)});
+ const pairFingerprint=run('observationDelta.pair.pairFingerprint');delayedReopen.resolve(currentDeltaText);await staleReopen;
+ assert.equal(run('observationDelta.pair.pairFingerprint'),pairFingerprint,'A superseded reopen must not replace a later accepted pair');
+ const delayedClear=defer(),staleAfterClear=run('observationImport')(delayedClear.file);click('observation-clear');delayedClear.resolve(pairText);await staleAfterClear;
+ assert.equal(run('observationDelta'),null,'Clear must invalidate pending pair and reopen reads');
+ await run('observationImport')({size:2,text:()=>Promise.resolve('{}')});assert.match(el('observation-status').textContent,/Nothing was loaded; existing MOCK decisions\/runs were not accessed or changed/);
+ assert.equal(run('JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})'),mockBefore,'Observation race and refusal paths must leave existing MOCK decisions/runs unchanged');
+ console.log(JSON.stringify({observationImportRace:'PASS',sharedIntentGeneration:true,latestActionWins:true,clearInvalidatesPending:true,supersededFailurePreservesAcceptedPair:true,privacyScreen:'PASS',malformedMessageDoesNotImplyOriginalMutation:true,MOCKStateUnchanged:true}));
+})().catch(error=>{console.error(error);process.exitCode=1;});
