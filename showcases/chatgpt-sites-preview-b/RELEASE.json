@@ -1,12 +1,12 @@
 {
-  "release": "v1.11.0-mock",
-  "guiTitle": "Agentic Operations Lab / reported backend receipt review",
+  "release": "v1.12.0-mock",
+  "guiTitle": "Agentic Operations Lab / synthetic compliance observation delta",
   "publication": "SOURCE ONLY — authenticated origin/live acceptance NOT_VERIFIED; not published",
-  "scope": "MOCK executor, guided grouped SSH story, imported-provenance labels and reported canonical receipts; no authenticated live integration",
+  "scope": "MOCK executor, guided grouped SSH story, imported-provenance labels, reported canonical receipts and synthetic two-observation compliance delta; no authenticated live integration",
   "authority": "https://github.com/mytestlab123/agentcore2/issues/39",
-  "baseCommit": "31347ef0864ad3f9fe58a8f37580e3987cb6589d",
-  "htmlSha256": "0cf226a35d15af9c2153c3b44b470e23d5d9180f216a368cdd64cf1a847f20a3",
-  "guiSourceFingerprint": "542eb022f324914f9d0e4ac82d38894e43d1630fd616079a5c8c30f939d763b0",
+  "baseCommit": "d261b77e01ab80b63b9d0c9be2080621662e89a1",
+  "htmlSha256": "80b50b6f6e4d18864fb44ed30066aae8ae33d5150df075a0fd7305a1cb5ff0f4",
+  "guiSourceFingerprint": "58b56faae6e54d7eb0faec6f883cf90e6b5e3607c5cb54cbb330e0ab9f31e937",
   "fingerprintAlgorithm": "sha256(index.html with BUILD_FINGERPRINT replaced by __FINGERPRINT__)",
   "historicalSiteMapping": "See the unchanged Issue9 evidence and Git history; no existing Site modified.",
   "priorRelease": {

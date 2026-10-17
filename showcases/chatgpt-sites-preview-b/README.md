@@ -1,9 +1,9 @@
 # Agentic Operations Lab — reported backend receipts / Issue39
 
-Current source v1.11.0-mock carries imported-finding provenance into the main
+Current source v1.12.0-mock carries imported-finding provenance into the main
 bulk-review table and batch context, and adds a guided three-group synthetic SSH
 story alongside the existing S3 path. It also includes **Defence Factory · backend
-receipt review**. Load the downloadable synthetic receipt example, or a sanitized
+receipt review** and **compare two observations**. Load the downloadable synthetic receipt example, or a sanitized
 JSON array of canonical Batch/Decision/Run/Evidence envelopes. Exact scope/count
 checks run locally; every file remains IMPORTED_ASSERTION with origin/live
 acceptance NOT_VERIFIED. No backend connection, AWS authority or real local writes.
@@ -12,6 +12,28 @@ and NEEDS_REVIEW; it never becomes VERIFIED without independent evidence.
 See [receipt use and trust limits](../../docs/reported-backend-evidence.md).
 The local MOCK executor stays separate. This fingerprint is not published and
 the prior private Site/real-viewer gates are unchanged.
+
+## Four-minute synthetic observation-delta walkthrough · Issue17
+
+1. **0:00–1:00 — Load the pair.** Open **Defence Factory · compare two
+   observations**, download the synthetic observation pair and load that JSON.
+   Both immutable snapshots use the same bounded mock account/resource/control
+   scope, strict increasing UTC timestamps and content fingerprints.
+2. **1:00–2:30 — Read the delta.** The summary shows NEW 1, RESOLVED 1,
+   UNCHANGED 2 and UNKNOWN 2. Inspect B: explicit later COMPLIANT means a
+   resolved *observation*, not evidence of remediation. C stays UNKNOWN and D
+   is missing from partial later coverage, so neither is treated as resolved.
+   Use the group filter and exact key table to inspect each row.
+3. **2:30–4:00 — Hand off and reopen.** Download JSON and Markdown. Clear the
+   comparison, reopen the downloaded delta JSON, and confirm the counts and
+   fingerprints remain internally consistent. The report says
+   IMPORTED_ASSERTION / NOT_VERIFIED, REAL_WRITES=0 and hosted NOT_TESTED.
+
+All timestamps and statuses are fictional. Fingerprints identify content only;
+they are not signatures, freshness evidence, provider readback or approval. The
+comparison does not change an existing decision, run or finding. No AWS scan,
+remediation, Site publication or hosted viewer was used; the private hosted
+viewer remains NOT_RUN.
 
 ## Preserved reconciliation journey / Issue35
 
