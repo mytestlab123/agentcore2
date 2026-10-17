@@ -1,4 +1,19 @@
-# Current Issue39 — uncertain attempted-write receipts
+# Current Issue17 — synthetic compliance observation delta
+
+Owner-approved Manager Issue17 under Core2 Issue39/Manager13. The proven gap
+was two immutable compliance observations over time; existing campaigns compare
+runs and Shift Review compares notes over one original packet. Branch
+`feat/39-synthetic-observation-delta`, PR55, head
+54d688714001a7e5303bfe0e8649b25ef1df5d7f. Source v1.12.0-mock; fingerprint
+58b56faae6e54d7eb0faec6f883cf90e6b5e3607c5cb54cbb330e0ab9f31e937. Local Node
+VM and one focused desktop browser journey pass. Browser evidence is private at
+`~/.AGENTS-temp/manager/issue17-core2-20261018/browser-run-01/`; hosted Site and
+viewer remain NOT_TESTED / NOT_RUN. Imported observations remain
+IMPORTED_ASSERTION / NOT_VERIFIED; REAL_WRITES=0. Manager exact-head CI/review
+is the next step; do not merge locally. No AWS/provider/host/model/publication
+actions. See the Issue17 walkthrough in the showcase README.
+
+# Historical Issue39 — uncertain attempted-write receipts
 
 Home-Manager goal HOME-CORE2-UNCERTAIN-20261016-R1; source-only follow-up to
 merged PR45. Preserve the existing Defence Factory GUI and the four-envelope
