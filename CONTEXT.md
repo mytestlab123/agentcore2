@@ -3,14 +3,13 @@
 Owner-approved Manager Issue17 under Core2 Issue39/Manager13. The proven gap
 was two immutable compliance observations over time; existing campaigns compare
 runs and Shift Review compares notes over one original packet. Branch
-`feat/39-synthetic-observation-delta`, PR55, current head
-465137cc1fb46a4e848825e79cfff37aa722caeb. Source fix is in the preceding
-commit. Source v1.12.0-mock; fingerprint
+`feat/39-synthetic-observation-delta`, PR55. The source fix is commit
+e3d35d57478e27e984fdedf912d7028ab03d1e23; source v1.12.0-mock; fingerprint
 4e54d16df17cb7101dca517080bbd514e70aa16b750e0bb8a77d93666a744da6. Local Node
-VM/state and one focused desktop browser journey pass; exact-head fast/browser CI
-passed (run 39055820302). Browser evidence is private at
-`~/.AGENTS-temp/manager/issue17-core2-20261018/browser-review-fix-20261018/`;
-hosted Site and viewer remain NOT_TESTED / NOT_RUN. Imported observations remain
+VM/state and one focused desktop browser journey pass. Latest exact-head CI is
+in the private Issue17 result note; browser evidence is under
+`~/.AGENTS-temp/manager/issue17-core2-20261018/browser-review-fix-20261018/`.
+Hosted Site and viewer remain NOT_TESTED / NOT_RUN. Imported observations remain
 IMPORTED_ASSERTION / NOT_VERIFIED; REAL_WRITES=0. The same-PR HOLD corrections
 screen decoded pair/delta strings for private shapes and serialize import,
 reopen and Clear with one latest-intent generation. Full evidence is in the
