@@ -1,7 +1,8 @@
 # Agentic Operations Lab — reported backend receipts / Issue39
 
-Current source v1.10.4-mock carries imported-finding provenance into the main
-bulk-review table and batch context. It also includes **Defence Factory · backend
+Current source v1.11.0-mock carries imported-finding provenance into the main
+bulk-review table and batch context, and adds a guided three-group synthetic SSH
+story alongside the existing S3 path. It also includes **Defence Factory · backend
 receipt review**. Load the downloadable synthetic receipt example, or a sanitized
 JSON array of canonical Batch/Decision/Run/Evidence envelopes. Exact scope/count
 checks run locally; every file remains IMPORTED_ASSERTION with origin/live
@@ -182,7 +183,7 @@ by a later success. No unrelated incident or later run is attached.
 | Audience / duration | Open | Tell the story |
 | --- | --- | --- |
 | Compliance / 3–5 min | Story packs → Compliance | Load S3 finding; Explain/Investigate; inspect exact frozen policy diff; Approve Once or Reject; narrate operation, provider readback and independent compliance. |
-| SecOps / 3–5 min | Story packs → Security | HIGH internet-open SSH exposure; fixed public-SSH removal only; show Unauthorized actor or Stale proposal with zero writes; load Normal for the successful comparison. |
+| SecOps / 3–5 min | Story packs → Security | Three exact synthetic groups across LAB-01–LAB-03; freeze IDs/revisions; remove public TCP 22 only and retain unrelated ingress; one Approve Once or Reject decision covers the group. Optional stale, unauthorized, provider/compliance mismatch and final-target partial scenarios retain zero real writes. |
 | Management / ~3 min | Incident story | Synthetic ServiceNow-style intake, triage and exact proposal; human decision in Copilot; return and Update from evidence. Executive brief names problem/action/control/outcome/evidence. Reject/mismatch/missing evidence stays OPEN. |
 | Engineers / 2–3 min | Learning mode | Nine read-only architecture stages explain AI limits, registered tools, validation, approval, fixed execution, independent evidence and matching audit. Five channels are views of the same contract. |
 
@@ -192,6 +193,21 @@ in each view. Inspect in Copilot retains the same finding/proposal. Read existin
 evidence never executes. Changing context cancels authority; load again to rehearse.
 Changing inventory resets active inventory/proposal state. Retained story records cannot attach a
 new run merely because reset reused an ID. No durable-provider recovery is claimed.
+
+## Four-minute S3 + SSH walkthrough
+
+1. **0:00–1:45 — S3 story.** Open Story packs → Compliance, load the synthetic
+   finding, explain/investigate, preview the fixed TLS policy, then Approve Once
+   or Reject. Read the separate simulated provider and compliance evidence.
+2. **1:45–3:15 — Grouped SSH story.** Select Security and load. Inspect the three
+   LAB aliases and exact group IDs/revisions. The fixed diff removes only public
+   TCP 22 ingress; unrelated ingress stays. Preview and make one decision for
+   this frozen three-group set.
+3. **3:15–4:00 — Handoff.** Open Operations Campaign, select the two complete
+   story runs, download JSON and Markdown, then open Shift Review Desk and import
+   the JSON. This checks the exported source-bound packet offline. Both runs are
+   synthetic; imported review does not create authority. Hosted viewer remains
+   NOT RUN and real writes remain zero.
 
 ## One implementation
 

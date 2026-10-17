@@ -8,11 +8,13 @@ const {join} = path;
 const {chromium} = require(process.argv[2] || '../../tools/browser/node_modules/playwright-core');
 const loadAppE2EArtifacts = require('./app-e2e-artifacts.cjs').load;
 const appJourney = process.env.SHOWCASE_JOURNEY === 'app-receipts';
-const defaultArtifacts = appJourney
+const storyJourney = process.env.SHOWCASE_JOURNEY === 'stories';
+const privateJourney = appJourney || storyJourney;
+const defaultArtifacts = privateJourney
   ? join(os.homedir(),'.AGENTS-temp','manager','home-migration-20261016','core2-app-e2e-browser')
   : join(__dirname,'../../artifacts/showcase');
 const artifacts = process.env.SHOWCASE_ARTIFACTS || defaultArtifacts;
-if(appJourney){
+if(privateJourney){
   const scratchPath=path.resolve(os.homedir(),'.AGENTS-temp'),scratch=fs.realpathSync(scratchPath)+path.sep,target=path.resolve(artifacts);
   assert(target.startsWith(scratchPath+path.sep),'Browser evidence path must be under ~/.AGENTS-temp');
   let ancestor=target;
@@ -124,6 +126,60 @@ if(appJourney){
       assert.deepEqual(network,['local document']);assert.deepEqual(unexpected,[]);assert.deepEqual(errors,[]);
       const receipt={status:'PASS',journey:'app-receipts',release:require('./RELEASE.json').release,browser:browser.version(),localhostDocumentRequests:network.length,unexpectedRequests:unexpected.length,pageErrors:errors.length,actualAwsCalls:summary.actualAwsCalls,clearAndInvalidRefusal:true,unchangedMockState:true,cases:results,hosted:'NOT_TESTED',liveProvider:'NOT_USED'};
       fs.writeFileSync(join(artifacts,'app-receipts-browser-evidence.json'),JSON.stringify(receipt,null,2));
+      console.log(JSON.stringify(receipt));return;
+    }
+    if(storyJourney){
+      await page.locator('#lab-nav-stories').click();
+      await page.locator('#story-load').click();
+      await page.locator('#story-preview').click();
+      await page.locator('#story-approve').click();
+      await page.waitForFunction(()=>lastRun?.state==='VERIFIED'&&!running());
+      const s3={control:await page.evaluate(()=>lastRun.control),targets:await page.evaluate(()=>lastRun.targets.length),simulatedWrites:await page.evaluate(()=>lastRun.simulatedWrites),realWrites:await page.evaluate(()=>lastRun.realWrites)};
+      assert.deepEqual(s3,{control:'s3-ssl',targets:1,simulatedWrites:1,realWrites:0});
+      await page.locator('#story-kind').selectOption('security');
+      await page.locator('#story-scenario').selectOption('normal');
+      await page.locator('#story-load').click();
+      assert.equal(await page.locator('#story-scope-label').innerText(),'3 EXACT GROUPS · ONE DECISION');
+      assert.match(await page.locator('#story-context').innerText(),/LAB-01[\s\S]*LAB-02[\s\S]*LAB-03/);
+      const group=await page.evaluate(()=>storySession.targets.map(({id,account,revision,control})=>({id,account,revision,control})));
+      assert.deepEqual(group.map(t=>t.account),['LAB-01','LAB-02','LAB-03']);
+      assert(group.every(t=>t.control==='sg-ssh'&&Number.isInteger(t.revision)));
+      await page.locator('#story-explain').click();
+      await page.locator('#story-investigate').click();
+      await page.locator('#story-preview').click();
+      const frozen=await page.evaluate(()=>proposal.targets.map(t=>({id:t.id,account:t.account,revision:t.revision,control:t.control})));
+      assert.deepEqual(frozen,group);
+      assert.equal(await page.evaluate(()=>Object.isFrozen(proposal.targets)),true);
+      assert.match(await page.locator('#story-before').innerText(),/TCP 22 from 0\.0\.0\.0\/0/);
+      assert.match(await page.locator('#story-after').innerText(),/Unrelated rules: retained/);
+      await page.screenshot({path:join(artifacts,'grouped-ssh-story.png'),fullPage:true});
+      await page.locator('#story-approve').click();
+      await page.waitForFunction(()=>lastRun?.state==='VERIFIED'&&!running());
+      await page.locator('#story-refresh').click();
+      const ssh={control:await page.evaluate(()=>lastRun.control),decision:await page.evaluate(()=>lastRun.decision),state:await page.evaluate(()=>lastRun.state),targets:await page.evaluate(()=>lastRun.targets.length),simulatedWrites:await page.evaluate(()=>lastRun.simulatedWrites),realWrites:await page.evaluate(()=>lastRun.realWrites),provider:await page.evaluate(()=>lastRun.results.map(r=>r.providerReadback)),compliance:await page.evaluate(()=>lastRun.results.map(r=>r.complianceResult))};
+      assert.equal(ssh.control,'sg-ssh');assert.equal(ssh.decision,'APPROVE ONCE');assert.equal(ssh.state,'VERIFIED');assert.equal(ssh.targets,3);assert.equal(ssh.simulatedWrites,3);assert.equal(ssh.realWrites,0);
+      assert(ssh.provider.every(v=>v==='SIMULATED PARAMETERS MATCH'));assert(ssh.compliance.every(v=>v==='SIMULATED COMPLIANT'));
+      await page.locator('#lab-nav-campaign').click();
+      const runLabels=page.locator('#campaign-journal input[type=checkbox]');assert.equal(await runLabels.count(),2);
+      await runLabels.nth(0).check();await runLabels.nth(1).check();
+      const jsonWait=page.waitForEvent('download');await page.locator('#campaign-json').click();const jsonDownload=await jsonWait;
+      const campaign=JSON.parse(fs.readFileSync(await jsonDownload.path(),'utf8'));
+      const mdWait=page.waitForEvent('download');await page.locator('#campaign-markdown').click();const mdDownload=await mdWait;
+      const markdown=fs.readFileSync(await mdDownload.path(),'utf8');
+      assert.equal(campaign.schema,'agentcore2.synthetic-shift-handoff.v1');assert.equal(campaign.totals.runs,2);assert.equal(campaign.totals.targetEvaluations,4);assert.equal(campaign.totals.realWrites,0);
+      assert.equal(campaign.source.release,require('./RELEASE.json').release);assert.equal(campaign.source.fingerprint,require('./RELEASE.json').guiSourceFingerprint);
+      const sshRun=campaign.runs.find(r=>r.control==='sg-ssh');assert(sshRun);assert.equal(sshRun.targets.length,3);assert.equal(sshRun.simulatedWrites,3);assert.equal(sshRun.realWrites,0);
+      assert(markdown.includes('3 simulated / 0 real'));assert(markdown.includes('- realWrites: 0'));
+      const mockBefore=await page.evaluate(()=>JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]}));
+      await page.locator('#lab-nav-review').click();
+      await page.locator('#review-file').setInputFiles({name:'synthetic-campaign-handoff.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(campaign))});
+      await page.locator('#review-import-status').filter({hasText:'Accepted 4 synthetic evaluations'}).waitFor();
+      assert.match(await page.locator('#review-provenance').innerText(),/MOCK|synthetic|fingerprint/i);
+      assert.equal(await page.evaluate(()=>JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})),mockBefore,'Offline reopen changed the separate local MOCK executor state');
+      await page.screenshot({path:join(artifacts,'campaign-offline-reopen.png'),fullPage:true});
+      assert.deepEqual(network,['local document']);assert.deepEqual(unexpected,[]);assert.deepEqual(errors,[]);
+      const receipt={status:'PASS',journey:'four-minute-s3-plus-grouped-ssh',release:campaign.source.release,sourceFingerprint:campaign.source.fingerprint,browser:browser.version(),desktopViewport:[1440,1000],scenarios:[s3,ssh],frozenSgMembership:frozen,campaignJsonMarkdown:true,offlineReopen:{acceptedEvaluations:4,executorStateUnchanged:true},localDocumentRequests:1,unexpectedRequests:0,pageErrors:0,realWrites:0,hosted:'NOT_TESTED',realViewer:'NOT_RUN'};
+      fs.writeFileSync(join(artifacts,'grouped-ssh-story-evidence.json'),JSON.stringify({receipt,campaign,markdown},null,2));
       console.log(JSON.stringify(receipt));return;
     }
     if(process.env.SHOWCASE_JOURNEY === 'defence') {

@@ -55,7 +55,27 @@ click('preview');assert.match(el('evidence-empty').textContent,/Proposal pending
 assert(el('timeline').children.every(li=>li.children.length===1));
 click('reject');assert(el('evidence-empty').hidden);assert.equal(el('timeline').children.length,5);
 assert.match(el('timeline').textContent,/SKIPPED: 0 simulated writes/);
-const result={release:'v1.2.1',checks:'PASS — actual script in Node VM / minimal DOM, not browser proof',baselineSyntheticResources:baseTotal,accounts:58,maxScenarioResources:75400,pageSize:25,approve1000Writes:1000,reject1000Writes:0,partial1000Blocked:58,replayNoAdditionalWrites:true,immutableSnapshot:true,mixedCapabilitiesExcluded:true,staleTargetGuard:true,filterChangeCancels:true,commandMenu:true,modelDecisionUnchanged:true,sourceSafetyScan:'PASS',p1FilterResetCount:7,unchangedRefreshPreservesPage:true,retainedContextNamesResource:true,resourceSelectionChangesContext:true,conciseEmptyEvidence:true,fiveEvidenceLabelsRetained:true,realWrites:0,modelCalls:0,initialNodeVmMs:Math.round(initialMs),maxScenarioNodeVmMs:Math.round(maxMs),desktopVisual:'NOT VERIFIED BY VM'};
+
+// Issue16: the guided SSH story freezes one deterministic three-account group.
+click('reset');el('story-kind').value='security';el('story-scenario').value='partial';click('story-load');
+const sshIds=JSON.parse(run('JSON.stringify(storySession.targets.map(t=>t.id))')),sshAccounts=JSON.parse(run('JSON.stringify(storySession.targets.map(t=>t.account))'));
+assert.deepEqual(sshAccounts,['LAB-01','LAB-02','LAB-03']);assert.equal(run('selectedIds.size'),3);assert(run('storyBound()'));
+click('story-preview');assert.equal(run('proposal.targets.length'),3);assert(run('Object.isFrozen(proposal.targets)'));
+assert.deepEqual(run('JSON.stringify(proposal.targets.map(t=>t.id))'),JSON.stringify(sshIds));assert.match(el('story-after').textContent,/Unrelated rules: retained/);
+click('story-approve');flush();assert.equal(run('lastRun.state'),'PARTIAL');assert.equal(run('lastRun.targets.length'),3);assert.equal(run('lastRun.simulatedWrites'),2);assert.equal(run('lastRun.blocked'),1);assert.equal(run('lastRun.realWrites'),0);
+assert(run("lastRun.results.slice(0,2).every(r=>r.providerReadback==='SIMULATED PARAMETERS MATCH'&&r.complianceResult==='SIMULATED COMPLIANT')"));
+assert.equal(run("lastRun.results[2].providerReadback"),'NOT PERFORMED');assert.match(el('story-result').textContent,/NOT_VERIFIED/);
+const sshPartialWrites=run('lastRun.simulatedWrites'),sshPartialId=run('lastRun.id');run('decide(true)');flush();assert.equal(run('lastRun.id'),sshPartialId);assert.equal(run('lastRun.simulatedWrites'),sshPartialWrites);
+
+click('reset');el('story-kind').value='security';el('story-scenario').value='stale';click('story-load');click('story-preview');click('story-approve');
+assert.equal(run('proposal'),null);assert.equal(run('lastRun'),null);assert(run("governanceEvents.some(x=>x.includes('STALE proposal rejected'))"));assert.equal(run('lastRun?.realWrites||0'),0);
+click('reset');el('story-kind').value='security';el('story-scenario').value='normal';click('story-load');click('story-preview');click('story-reject');
+assert.equal(run('lastRun.decision'),'REJECT');assert.equal(run('lastRun.simulatedWrites'),0);assert.equal(run('lastRun.realWrites'),0);
+click('reset');el('story-kind').value='security';el('story-scenario').value='mismatch';click('story-load');click('story-preview');click('story-approve');flush();
+assert.equal(run('lastRun.state'),'NEEDS_REVIEW');assert.equal(run('lastRun.divergent'),3);assert.equal(run('lastRun.realWrites'),0);
+assert(run("lastRun.results.every(r=>r.providerReadback==='SIMULATED PARAMETERS MATCH'&&r.complianceResult==='SIMULATED NON_COMPLIANT (independent evaluation)')"));
+const sshStory={accounts:sshAccounts,partialWrites:sshPartialWrites,replayRefused:true,staleRefused:true,rejectWrites:0,mismatch:'NEEDS_REVIEW',realWrites:0,freshness:'NOT_VERIFIED'};
+const result={release:release.release,checks:'PASS — actual script in Node VM / minimal DOM, not browser proof',baselineSyntheticResources:baseTotal,accounts:58,maxScenarioResources:75400,pageSize:25,approve1000Writes:1000,reject1000Writes:0,partial1000Blocked:58,replayNoAdditionalWrites:true,immutableSnapshot:true,mixedCapabilitiesExcluded:true,staleTargetGuard:true,filterChangeCancels:true,commandMenu:true,modelDecisionUnchanged:true,sourceSafetyScan:'PASS',p1FilterResetCount:7,unchangedRefreshPreservesPage:true,retainedContextNamesResource:true,resourceSelectionChangesContext:true,conciseEmptyEvidence:true,fiveEvidenceLabelsRetained:true,guidedSshStory:sshStory,realWrites:0,modelCalls:0,initialNodeVmMs:Math.round(initialMs),maxScenarioNodeVmMs:Math.round(maxMs),desktopVisual:'NOT VERIFIED BY VM'};
 console.log(JSON.stringify(result,null,2));
 
 // Issue31: focused admission/overlay regression at the new untrusted-file boundary.
