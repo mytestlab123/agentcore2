@@ -79,6 +79,8 @@ Use this order only for cold start, recovery, materially changed governing conte
 
 ## Global Guidance
 
+Manager owns cross-repository Defence Factory delivery; this repo's existing Core2 X remains its sole writer. See the [canonical Manager policy](https://github.com/amitkarpe/manager/blob/main/projects/defence-factory/POLICY.md).
+
 When available, use `~/.agent/CORE.md` as the shared machine-wide operating
 contract. `~/.codex/AGENTS.md` is a Codex-specific adapter only. Agent OS is
 reusable guidance, never automatic project authority; local repository rules
