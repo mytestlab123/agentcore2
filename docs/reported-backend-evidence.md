@@ -88,7 +88,7 @@ and actual GUI rendering without changing MOCK proposal/run/selection state.
 This is local source validation, not hosted/browser/provider acceptance. No new
 test suite or broad synthetic browser run was added.
 
-The current source release is v1.10.3-mock. The canonical schema and reader are
+The current source release is v1.10.4-mock. The canonical schema and reader are
 unchanged; the uncertain-attempt consumer correction remains in
 [PR46](https://github.com/mytestlab123/agentcore2/pull/46).
 

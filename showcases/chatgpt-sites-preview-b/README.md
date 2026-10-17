@@ -1,7 +1,8 @@
 # Agentic Operations Lab — reported backend receipts / Issue39
 
-Current source v1.10.3-mock adds **Defence Factory · backend receipt review** to
-the existing GUI. Load the downloadable synthetic receipt example, or a sanitized
+Current source v1.10.4-mock carries imported-finding provenance into the main
+bulk-review table and batch context. It also includes **Defence Factory · backend
+receipt review**. Load the downloadable synthetic receipt example, or a sanitized
 JSON array of canonical Batch/Decision/Run/Evidence envelopes. Exact scope/count
 checks run locally; every file remains IMPORTED_ASSERTION with origin/live
 acceptance NOT_VERIFIED. No backend connection, AWS authority or real local writes.
