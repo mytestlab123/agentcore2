@@ -9,7 +9,8 @@ const {chromium} = require(process.argv[2] || '../../tools/browser/node_modules/
 const loadAppE2EArtifacts = require('./app-e2e-artifacts.cjs').load;
 const appJourney = process.env.SHOWCASE_JOURNEY === 'app-receipts';
 const storyJourney = process.env.SHOWCASE_JOURNEY === 'stories';
-const privateJourney = appJourney || storyJourney;
+const observationJourney = process.env.SHOWCASE_JOURNEY === 'observations';
+const privateJourney = appJourney || storyJourney || observationJourney;
 const defaultArtifacts = privateJourney
   ? join(os.homedir(),'.AGENTS-temp','manager','home-migration-20261016','core2-app-e2e-browser')
   : join(__dirname,'../../artifacts/showcase');
@@ -84,6 +85,32 @@ if(privateJourney){
     assert.equal(response.status(),200);
     assert.equal(await page.title(),'Agentic Operations Lab · MOCK Showcase');
     assert.equal(await page.locator('.badge').innerText(),'SHOWCASE / MOCK');
+    if(observationJourney){
+      await page.locator('#observation-delta > summary').click();
+      const mockBefore=await page.evaluate(()=>JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]}));
+      const pair=await downloadJson('Download synthetic observation pair');
+      await page.locator('#observation-file').setInputFiles({name:'synthetic-observation-pair.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(pair))});
+      await page.locator('#observation-status').filter({hasText:'Pair accepted for local comparison'}).waitFor();
+      const countsText=(await page.locator('#observation-counts').innerText()).replace(/\s+/g,' '),detailsText=await page.locator('#observation-provenance').innerText(),rowsText=await page.locator('#observation-rows').innerText();
+      for(const [name,count] of Object.entries({NEW:1,RESOLVED:1,UNCHANGED:2,UNKNOWN:2}))assert.match(countsText,new RegExp(`${name}\\s+${count}`));
+      assert.match(detailsText,/IMPORTED_ASSERTION/);assert.match(detailsText,/NOT_VERIFIED/);assert.match(detailsText,/NOT_TESTED/);assert.match(rowsText,/resource-b/);assert.match(rowsText,/RESOLVED/);assert.match(rowsText,/resource-d/);assert.match(rowsText,/UNKNOWN/);
+      const delta=await downloadJson('Download delta JSON');
+      assert.equal(delta.schemaVersion,'agentcore2.observation-delta/1');assert.equal(delta.provenance,'IMPORTED_ASSERTION');assert.equal(delta.originAcceptance,'NOT_VERIFIED');assert.equal(delta.realWrites,0);assert.equal(delta.hosted.status,'NOT_TESTED');
+      const markdownWaiting=page.waitForEvent('download',{timeout:10000});await page.getByRole('button',{name:'Download delta Markdown',exact:true}).click();const markdownPath=await (await markdownWaiting).path();assert.match(fs.readFileSync(markdownPath,'utf8'),/RESOLVED is an observation only/);assert.match(fs.readFileSync(markdownPath,'utf8'),/REAL_WRITES=0/);
+      await page.screenshot({path:join(artifacts,'synthetic-observation-delta.png'),fullPage:true});
+      await page.locator('#observation-clear').click();
+      await page.locator('#observation-reopen-file').setInputFiles({name:'synthetic-observation-delta.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(delta))});
+      await page.locator('#observation-reopen-status').filter({hasText:'Reopened delta is still IMPORTED_ASSERTION'}).waitFor();
+      assert.match(await page.locator('#observation-counts').innerText(),/NEW[\s\S]*RESOLVED[\s\S]*UNCHANGED[\s\S]*UNKNOWN/);
+      await page.locator('#observation-clear').click();
+      await page.locator('#observation-file').setInputFiles({name:'malformed-observation-pair.json',mimeType:'application/json',buffer:Buffer.from('{"schemaVersion":"unknown"}')});
+      await page.locator('#observation-status').filter({hasText:'Pair refused'}).waitFor();
+      assert.equal(await page.locator('#observation-rows tr').count(),0);
+      assert.equal(await page.evaluate(()=>JSON.stringify({proposal,lastRun,datasetRevision,selected:[...selectedIds]})),mockBefore,'Observation comparison changed existing MOCK authority');
+      assert.deepEqual(network,['local document']);assert.deepEqual(unexpected,[]);assert.deepEqual(errors,[]);
+      const receipt={status:'PASS',journey:'synthetic-observation-delta',release:require('./RELEASE.json').release,sourceFingerprint:require('./RELEASE.json').guiSourceFingerprint,browser:browser.version(),localhostDocumentRequests:network.length,unexpectedRequests:unexpected.length,pageErrors:errors.length,counts:delta.counts,earlierFingerprint:delta.pair.earlier.fingerprint,laterFingerprint:delta.pair.later.fingerprint,pairFingerprint:delta.pair.pairFingerprint,offlineReopen:true,malformedRefusal:true,unchangedMockState:true,REAL_WRITES:0,hosted:'NOT_TESTED',liveViewer:'NOT_RUN'};
+      fs.writeFileSync(join(artifacts,'observation-delta-browser-evidence.json'),JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt));return;
+    }
     // Test-only failure after a real synthetic page render; normal assertions stay mandatory.
     if(process.env.SHOWCASE_FAILURE_FIXTURE === 'capture-v1')
       throw new Error('SHOWCASE_EXPECTED_FAILURE_CAPTURE_V1');
