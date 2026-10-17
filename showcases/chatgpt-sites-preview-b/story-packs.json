@@ -1,5 +1,5 @@
 {
-  "sourceHtmlSha256": "51f5471080cdf9c8d7b3af4be856717d348135da8533266c77e8148566f0c63b",
+  "sourceHtmlSha256": "0cf226a35d15af9c2153c3b44b470e23d5d9180f216a368cdd64cf1a847f20a3",
   "mode": "SYNTHETIC MOCK / copy snapshot, not a runtime",
   "stories": {
     "compliance": {
@@ -15,15 +15,15 @@
       ]
     },
     "security": {
-      "title": "Security · contain internet-open SSH",
+      "title": "Security · contain internet-open SSH across three groups",
       "control": "sg-ssh",
-      "premise": "A fictional application security group exposes TCP 22 to the internet. The network specialist explains a HIGH-severity path; the registered tool may remove only the public SSH rule, preserving unrelated ingress.",
+      "premise": "Three fictional application security groups across LAB-01–LAB-03 allow internet-open TCP 22. The network specialist proposes the fixed public SSH rule removal for those exact groups; unrelated ingress remains.",
       "cues": [
-        "0:00 · Identify the exact group, HIGH exposure and attack surface. This is synthetic SecOps context, not a live scan.",
-        "0:40 · Explain / Investigate: the specialist chooses mock.sg-ssh; it cannot run arbitrary APIs or remove unrelated rules.",
-        "1:20 · Preview the exact group and fixed ingress diff. Human approval cannot enlarge this scope or grant target authorization.",
-        "2:00 · Demonstrate unauthorized actor: an attempted Approve Once yields DENIED and zero writes. Or show stale snapshot refusal.",
-        "3:00 · Load a normal story and compare verified evidence. Provider readback and independent compliance remain separate."
+        "0:00 · Name the three synthetic account aliases and exact group IDs/revisions. This is a fixture, not a live scan.",
+        "0:40 · Explain / Investigate: mock.sg-ssh removes only public TCP 22 rules; other ingress remains.",
+        "1:20 · Preview all three exact targets and the fixed diff. One decision covers only this frozen group.",
+        "2:00 · Approve Once or Reject. Stale and unauthorized scenarios refuse the group; optional partial blocks the last target before write.",
+        "3:00 · Read each recorded outcome. Provider readback and independent compliance are separate simulated evidence; real writes remain zero."
       ]
     }
   },
