@@ -9,8 +9,9 @@ runs and Shift Review compares notes over one original packet. Branch
 VM and one focused desktop browser journey pass. Browser evidence is private at
 `~/.AGENTS-temp/manager/issue17-core2-20261018/browser-run-01/`; hosted Site and
 viewer remain NOT_TESTED / NOT_RUN. Imported observations remain
-IMPORTED_ASSERTION / NOT_VERIFIED; REAL_WRITES=0. Manager exact-head CI/review
-is the next step; do not merge locally. No AWS/provider/host/model/publication
+IMPORTED_ASSERTION / NOT_VERIFIED; REAL_WRITES=0. Exact-head fast/browser CI
+passed on `62a0b3696fe41a2e22fac9d060619fb8f582f2e2`. Manager review/eligible
+merge is next; do not merge locally. No AWS/provider/host/model/publication
 actions. See the Issue17 walkthrough in the showcase README.
 
 # Historical Issue39 — uncertain attempted-write receipts
