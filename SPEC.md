@@ -15,7 +15,8 @@ not an enterprise production platform. **BUILD → DEMONSTRATE → IMPROVE.**
 8. Owner override 16 October (Issue39 comment6207040070): Manager owns
    cross-repository technical delivery; existing Core2 X is the sole repository
    implementer. Dot is no longer a writer. The current delegated goal defines
-   scope; source PRs await M review.
+   scope; Manager owns technical acceptance and continues ready milestones.
+   G independently reviews and may merge eligible PRs.
 9. Optional hardening must NOT block MVP milestones.
 10. Enterprise security, scalability, multi-tenant complexity and comprehensive
     edge-case coverage are future phases.
