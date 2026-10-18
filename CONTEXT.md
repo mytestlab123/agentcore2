@@ -1,22 +1,26 @@
-# Current Issue17 — synthetic compliance observation delta
+# Current Issue42 — private Cloudflare source package
 
-Owner-approved Manager Issue17 under Core2 Issue39/Manager13. The proven gap
-was two immutable compliance observations over time; existing campaigns compare
-runs and Shift Review compares notes over one original packet. Branch
-`feat/39-synthetic-observation-delta`, PR55. The source fix is commit
-e3d35d57478e27e984fdedf912d7028ab03d1e23; source v1.12.0-mock; fingerprint
-4e54d16df17cb7101dca517080bbd514e70aa16b750e0bb8a77d93666a744da6. Local Node
-VM/state and one focused desktop browser journey pass. Latest exact-head CI is
-in the private Issue17 result note; browser evidence is under
-`~/.AGENTS-temp/manager/issue17-core2-20261018/browser-review-fix-20261018/`.
-Hosted Site and viewer remain NOT_TESTED / NOT_RUN. Imported observations remain
-IMPORTED_ASSERTION / NOT_VERIFIED; REAL_WRITES=0. The same-PR HOLD corrections
-screen decoded pair/delta strings for private shapes and serialize import,
-reopen and Clear with one latest-intent generation. Full evidence is in the
-private Issue17 result note under `~/.AGENTS-temp/manager/issue17-core2-20261018/`.
-Manager review/eligible merge is next; do not merge locally. No AWS/provider/
-host/model/publication actions.
-See the Issue17 walkthrough in the showcase README.
+Owner-authorized Issue42 source-only release preparation on Core2. Current
+source is v1.12.0-mock at main `dc9b41101b6a6554f242df24c484504fed70057e`.
+Prepare one Workers Static Assets package from only the accepted standalone
+`showcases/chatgpt-sites-preview-b/index.html`; output goes to ignored
+`.wrangler/issue42-static-assets/` with a sibling source-package receipt.
+`wrangler.jsonc` sets `workers_dev:false`, `preview_urls:false` and no route,
+custom domain or account ID. Worker name is proposed, not owner-verified.
+
+Issue42 remains source-only until Manager verifies the exact owner account and
+existing Wrangler identity, Worker target/name, private Access policy and
+hostname. No Cloudflare, DNS, Site, AWS, provider, host or publication action is
+authorized by this package PR. No token reads, auth changes, package install or
+new tests. Result and package hash are recorded in
+`~/.AGENTS-temp/manager/issue42-core2-cloudflare/result.md`.
+
+## Completed Issue17 — synthetic compliance observation delta
+
+Manager accepted PR55 head `ddea39cb9dc933c6971cfacde2dbf33b735a0fca`, squash-
+merged as `dc9b41101b6a6554f242df24c484504fed70057e`, and closed Issue17 as a
+source outcome. Hosted Site and private viewer remain NOT_RUN. Full result is in
+`~/.AGENTS-temp/manager/issue17-core2-20261018/result.md`.
 
 # Historical Issue39 — uncertain attempted-write receipts
 

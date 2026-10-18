@@ -1,5 +1,36 @@
 # Agentic Operations Lab — reported backend receipts / Issue39
 
+## Issue42 Cloudflare source package — NOT DEPLOYED
+
+Issue42 prepares a private-by-default Workers Static Assets package from the
+accepted standalone `index.html`. It adds no runtime code, services, bindings or
+new UI. Run `npm run package:cloudflare-release` to verify the release constant,
+GUI fingerprint and HTML SHA against `RELEASE.json`, then stage only `index.html`
+in the ignored `.wrangler/issue42-static-assets/` directory. The generated source
+receipt is a sibling file and is outside the served asset directory. It records
+the exact Worker config hash; the asset allowlist and package manifest hash bind
+the one-file set. No repository-root
+`assets/` or `dist/` directory is used.
+
+`wrangler.jsonc` is an unrouted staging configuration: `workers_dev` and
+`preview_urls` are false, with no account ID, route or custom domain. The
+proposed Worker name `agentic-operations-lab` is not owner-verified. A generated
+source package receipt is not a deployment receipt; current status remains
+`SOURCE_PACKAGE_ONLY_NOT_DEPLOYED`. The app remains browser-local MOCK with no
+AWS/backend/model/secrets/bindings.
+
+Do not deploy until Manager confirms the exact owner Cloudflare account name/ID
+and the existing Wrangler identity matches that account, the exact Worker
+target/name, and the private Access policy and hostname. Set the verified
+`account_id` only after review. Verify Access before adding any route or custom
+domain; keep workers.dev and preview URLs disabled. This repository has no
+deployment command or credentials. No account ID, hostname, token or other
+private binding belongs in GitHub. See Cloudflare's [Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/),
+[`workers.dev` routing](https://developers.cloudflare.com/workers/configuration/routing/workers-dev/),
+and [Preview URLs](https://developers.cloudflare.com/workers/previews/custom-domains/)
+docs. Manager acceptance and the verified owner environment remain required for
+any Cloudflare/DNS write or hosted claim.
+
 Current source v1.12.0-mock carries imported-finding provenance into the main
 bulk-review table and batch context, and adds a guided three-group synthetic SSH
 story alongside the existing S3 path. It also includes **Defence Factory · backend
