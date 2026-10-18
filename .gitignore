@@ -9,6 +9,7 @@ node_modules/
 __pycache__/
 .pytest_cache/
 .terraform/
+/.wrangler/
 .AGENTS-temp/
 tmp/
 
