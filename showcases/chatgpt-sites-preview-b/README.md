@@ -1,35 +1,76 @@
 # Agentic Operations Lab — reported backend receipts / Issue39
 
-## Issue42 Cloudflare source package — NOT DEPLOYED
+## Issue42 Cloudflare Worker release — NOT DEPLOYED
 
-Issue42 prepares a private-by-default Workers Static Assets package from the
-accepted standalone `index.html`. It adds no runtime code, services, bindings or
-new UI. Run `npm run package:cloudflare-release` to verify the release constant,
-GUI fingerprint and HTML SHA against `RELEASE.json`, then stage only `index.html`
-in the ignored `.wrangler/issue42-static-assets/` directory. The generated source
-receipt is a sibling file and is outside the served asset directory. It records
-the exact Worker config hash; the asset allowlist and package manifest hash bind
-the one-file set. No repository-root
-`assets/` or `dist/` directory is used.
+Owner authorization selects one dedicated Worker, `agentic-operations-lab`, in
+the personal `dev1` account, with owner-only Access. This defines the approved
+scope; it does not prove which account an active session is authenticated to,
+that the proposed name is still unused, or that an Access policy is configured.
+Provider identity and exact target readbacks are separate release evidence.
 
-`wrangler.jsonc` is an unrouted staging configuration: `workers_dev` and
-`preview_urls` are false, with no account ID, route or custom domain. The
-proposed Worker name `agentic-operations-lab` is not owner-verified. A generated
-source package receipt is not a deployment receipt; current status remains
-`SOURCE_PACKAGE_ONLY_NOT_DEPLOYED`. The app remains browser-local MOCK with no
-AWS/backend/model/secrets/bindings.
+The accepted source package remains bound to Core2 `7c97d69fe31d5ae312f9c0922006422a5c3ee08a`
+and SHA-256 `f1121283673b2070cdb3801c6950b61d9bd6eee56fbae7a8ee2d44e2724e6f1b`.
+It serves exactly one allowlisted file, `index.html`; it adds no runtime
+services, bindings or new UI. The package command checks the release constant,
+GUI fingerprint and HTML SHA against `RELEASE.json`. Its source receipt is not a
+deployment receipt. Current status remains `SOURCE_PACKAGE_ONLY_NOT_DEPLOYED`.
+The app remains browser-local MOCK with no AWS/backend/model access or secrets.
 
-Do not deploy until Manager confirms the exact owner Cloudflare account name/ID
-and the existing Wrangler identity matches that account, the exact Worker
-target/name, and the private Access policy and hostname. Set the verified
-`account_id` only after review. Verify Access before adding any route or custom
-domain; keep workers.dev and preview URLs disabled. This repository has no
-deployment command or credentials. No account ID, hostname, token or other
-private binding belongs in GitHub. See Cloudflare's [Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/),
-[`workers.dev` routing](https://developers.cloudflare.com/workers/configuration/routing/workers-dev/),
-and [Preview URLs](https://developers.cloudflare.com/workers/previews/custom-domains/)
-docs. Manager acceptance and the verified owner environment remain required for
-any Cloudflare/DNS write or hosted claim.
+### Private release sequence
+
+1. Reuse the reviewed package receipt and inspect the staged asset list; require
+   exactly `index.html`. Do not upload environment files, credentials, generated
+   evidence or other assets. No CI credential is needed unless a separate CI
+   deployment is explicitly adopted.
+2. Using a separately verified safe interactive identity, confirm the session's
+   account is the authorized personal `dev1` account. Read the current Worker
+   inventory and verify `agentic-operations-lab` is absent. If it exists or the
+   account/identity does not match, stop without overwriting anything. Preserve
+   every other Worker.
+3. Create only the new Worker with an unconditional deny handler that returns
+   HTTP 403 and contains no demo content, bindings, secrets, cron, routes or
+   custom domain. Keep `workers_dev:false` and `preview_urls:false`. Record the
+   returned immutable Worker/version IDs and source hash privately; these IDs
+   do not exist until the provider returns them. Read back the code/version and
+   both routing flags before continuing.
+4. Attach Cloudflare's **Worker-level Access** to this Worker only, targeting
+   its exact provider `worker_id`. Use an Allow policy with an Include rule for
+   the authenticated owner's exact verified email selector. Do not use an email
+   domain, Everyone, Bypass, or an account-wide `all_workers` destination.
+   This requires an identity with Access Apps and Policies Write permission;
+   do not widen an existing token. Read back the application destination and
+   policy, confirm it names only this Worker and that the selector matches the
+   separately verified owner identity. A missing permission or failed
+   readback leaves the Worker unrouted and deny-only.
+5. Only after Access is attached and its readback is correct, upload the one
+   reviewed `index.html` package. Keep `workers_dev` and previews disabled until
+   the new Worker and Access policy have both been re-read. Then, if needed for
+   the owner-only review, enable only this Worker's `workers.dev` route; keep
+   preview URLs disabled. Do not add a custom domain, zone route, DNS record or
+   account-wide Access policy.
+6. Check the exact endpoint anonymously and require an Access challenge/deny
+   with no application content. Separately, the owner interactively signs in
+   and confirms the expected app/version. Never place credentials or secret
+   values in command arguments, logs, evidence, or GitHub.
+
+Current Cloudflare reference: [Worker-level Access](https://developers.cloudflare.com/workers/configuration/cloudflare-access/)
+covers all domains and previews for one Worker; its API destination is `worker`
+with that Worker's ID. [Access policies](https://developers.cloudflare.com/cloudflare-one/access-controls/policies/)
+require an Include rule and distinguish the Allow action from Bypass. [Worker
+routing](https://developers.cloudflare.com/workers/configuration/routing/workers-dev/)
+documents per-Worker `workers.dev` availability. The source config keeps both
+`workers_dev` and `preview_urls` false until those checks pass.
+
+### Rollback
+
+If any Access or content check fails, first disable only this Worker's
+`workers.dev` route and previews. Return this dedicated Worker to the immutable
+deny-only version recorded during placeholder creation, read back that version
+and the disabled route flags, then confirm an anonymous request cannot return
+application content. Record actual provider version IDs privately; before
+creation there is no deny-version ID to cite as proof. Never delete or modify
+another Worker, change DNS, or widen Access during rollback. A generated source
+receipt or planned version identifier is not deployment or rollback evidence.
 
 Current source v1.12.0-mock carries imported-finding provenance into the main
 bulk-review table and batch context, and adds a guided three-group synthetic SSH
