@@ -8,12 +8,22 @@ scope; it does not prove which account an active session is authenticated to,
 that the proposed name is still unused, or that an Access policy is configured.
 Provider identity and exact target readbacks are separate release evidence.
 
-The accepted source package remains bound to Core2 `7c97d69fe31d5ae312f9c0922006422a5c3ee08a`
-and SHA-256 `f1121283673b2070cdb3801c6950b61d9bd6eee56fbae7a8ee2d44e2724e6f1b`.
-It serves exactly one allowlisted file, `index.html`; it adds no runtime
+The accepted static-assets source package remains bound to Core2
+`7c97d69fe31d5ae312f9c0922006422a5c3ee08a` and SHA-256
+`f1121283673b2070cdb3801c6950b61d9bd6eee56fbae7a8ee2d44e2724e6f1b`. It
+contains exactly one allowlisted file, `index.html`; it adds no runtime
 services, bindings or new UI. The package command checks the release constant,
 GUI fingerprint and HTML SHA against `RELEASE.json`. Its source receipt is not a
 deployment receipt. Current status remains `SOURCE_PACKAGE_ONLY_NOT_DEPLOYED`.
+
+For the approved dedicated Worker, the same command also packages a small
+module-version fallback under `.wrangler/issue42-module-version/`: the unchanged
+HTML is a `text/plain` module and `ops/issue42-cloudflare-worker.mjs` serves it
+only at `/` and `/index.html`. The request uses Cloudflare's documented Worker
+version API and contains no asset-session JWT, bindings or credentials. Its
+receipt pins both module hashes and the request hash. Creating a version does
+not deploy it; routing and preview flags remain disabled pending exact-head
+Manager review and the separate owner-only release gates.
 The app remains browser-local MOCK with no AWS/backend/model access or secrets.
 
 ### Private release sequence
@@ -42,11 +52,16 @@ The app remains browser-local MOCK with no AWS/backend/model access or secrets.
    policy, confirm it names only this Worker and that the selector matches the
    separately verified owner identity. A missing permission or failed
    readback leaves the Worker unrouted and deny-only.
-5. Only after Access is attached and its readback is correct, upload the one
-   reviewed `index.html` package. Keep `workers_dev` and previews disabled until
-   the new Worker and Access policy have both been re-read. Then, if needed for
-   the owner-only review, enable only this Worker's `workers.dev` route; keep
-   preview URLs disabled. Do not add a custom domain, zone route, DNS record or
+5. The accepted static-assets package is the preferred upload when its supported
+   asset-session transport is available. The bounded fallback is the packaged
+   JSON body for `POST /accounts/{account_id}/workers/workers/{worker_id}/versions`:
+   it creates an immutable version from `worker.mjs` plus the exact `index.html`
+   as a `text/plain` module, without an asset JWT. Use it only after exact-head
+   Manager review and verified Worker-level Access readback. Read back the
+   returned version and hashes; this endpoint creates a version but does not
+   deploy it. Keep `workers_dev` and previews disabled while the version is
+   reviewed. Any later deployment and owner-only route enablement are separate
+   release steps; do not add a custom domain, zone route, DNS record or
    account-wide Access policy.
 6. Check the exact endpoint anonymously and require an Access challenge/deny
    with no application content. Separately, the owner interactively signs in
@@ -60,6 +75,9 @@ require an Include rule and distinguish the Allow action from Bypass. [Worker
 routing](https://developers.cloudflare.com/workers/configuration/routing/workers-dev/)
 documents per-Worker `workers.dev` availability. The source config keeps both
 `workers_dev` and `preview_urls` false until those checks pass.
+[Worker version uploads](https://developers.cloudflare.com/workers/platform/infrastructure-as-code/)
+document module-based versions and the separate deployment step; Cloudflare's
+Workers API schema accepts `text/plain` modules.
 
 ### Rollback
 
