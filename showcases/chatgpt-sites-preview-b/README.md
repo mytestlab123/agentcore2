@@ -1,32 +1,60 @@
 # Agentic Operations Lab — reported backend receipts / Issue39
 
-## Issue42 Cloudflare Worker release — NOT DEPLOYED
+## Issue42 Cloudflare Worker release — public demo
 
-Owner authorization selects one dedicated Worker, `agentic-operations-lab`, in
-the personal `dev1` account, with owner-only Access. This defines the approved
-scope; it does not prove which account an active session is authenticated to,
-that the proposed name is still unused, or that an Access policy is configured.
-Provider identity and exact target readbacks are separate release evidence.
+The owner authorized this synthetic MOCK demo to be fully public without an
+email gate. The owner reports accessing the earlier private release; the
+anonymous HTTP checks independently verified the current public response.
 
-The accepted static-assets source package remains bound to Core2
-`7c97d69fe31d5ae312f9c0922006422a5c3ee08a` and SHA-256
-`f1121283673b2070cdb3801c6950b61d9bd6eee56fbae7a8ee2d44e2724e6f1b`. It
-contains exactly one allowlisted file, `index.html`; it adds no runtime
-services, bindings or new UI. The package command checks the release constant,
-GUI fingerprint and HTML SHA against `RELEASE.json`. Its source receipt is not a
-deployment receipt. Current status remains `SOURCE_PACKAGE_ONLY_NOT_DEPLOYED`.
+Current project targets and non-sensitive GitHub Actions variables:
 
-For the approved dedicated Worker, the same command also packages a small
-module-version fallback under `.wrangler/issue42-module-version/`: the unchanged
-HTML is a `text/plain` module and `ops/issue42-cloudflare-worker.mjs` serves it
-only at `/` and `/index.html`. The request uses Cloudflare's documented Worker
-version API and contains no asset-session JWT, bindings or credentials. Its
-receipt pins both module hashes and the request hash. Creating a version does
-not deploy it; routing and preview flags remain disabled pending exact-head
-Manager review and the separate owner-only release gates.
-The app remains browser-local MOCK with no AWS/backend/model access or secrets.
+| Variable | Value |
+| --- | --- |
+| `CLOUDFLARE_ACCOUNT_ID` | `7b5b3463a1c5453f4805289b5f42c110` |
+| `CLOUDFLARE_ZONE_ID` | `c7fa361e205bc82159405b27b4ff3fce` |
+| `CLOUDFLARE_WORKER_NAME` | `agentic-operations-lab` |
+| `CLOUDFLARE_CUSTOM_DOMAIN` | `agentic-ops.amitk.life` |
 
-### Private release sequence
+The Worker is available at https://agentic-ops.amitk.life and at the alias
+https://agentic-operations-lab.amitkarpe.workers.dev. The custom hostname was
+already bound to this Worker; this configuration task did not change Cloudflare
+resources, DNS or deployment. The current deployed version is
+`2d2d7f5a-024c-47ab-a559-8d2f70c27cbe`, at 100% in deployment
+`bbd79008-2558-4267-b181-19403ace04b0`; the reviewed HTML is 250437 bytes with
+SHA-256 `579e510f2e2a39b2c09442520c5f4a45386d6bf1d5fa97b9d68dc7209b2871c1`.
+Previews are disabled. The app remains browser-local MOCK with no AWS/backend/
+model access, runtime bindings or secrets; it does not perform real writes.
+
+This repository currently has no Cloudflare deployment workflow. The four
+Actions variables are non-sensitive project configuration, not deployment
+credentials. `CLOUDFLARE_API_TOKEN` is `NOT_REQUIRED` and is not stored as a
+GitHub variable or secret while no Cloudflare deployment workflow exists. The
+current manual release used the separately verified connected OAuth session;
+never export that OAuth credential into GitHub Actions.
+
+Metadata-only checks show variable/secret names and update timestamps, not
+values:
+
+```sh
+gh variable list --repo mytestlab123/agentcore2 --json name,updatedAt
+gh secret list --repo mytestlab123/agentcore2 --json name,updatedAt
+```
+
+The accepted source is merged Core2
+`ef8b106415803f85698623a92a31e5643511787e`. The package command checks the
+release constant, GUI fingerprint and HTML SHA against `RELEASE.json`. The
+allowlisted static package contains only `index.html`; the module-version
+fallback packages the unchanged HTML with `ops/issue42-cloudflare-worker.mjs`,
+which serves only `/` and `/index.html`. Its immutable deployed version has
+exactly these two modules and no bindings or URLs. Source configuration keeps
+private staging defaults; the deployed release was separately authorized for
+public workers.dev and the existing custom hostname, with previews disabled.
+
+### Historical private staging sequence
+
+The following records the earlier private staging/default procedure. It is
+historical reference, not the current audience setting; current public access
+was separately authorized for this demo only.
 
 1. Reuse the reviewed package receipt and inspect the staged asset list; require
    exactly `index.html`. Do not upload environment files, credentials, generated
@@ -74,12 +102,14 @@ with that Worker's ID. [Access policies](https://developers.cloudflare.com/cloud
 require an Include rule and distinguish the Allow action from Bypass. [Worker
 routing](https://developers.cloudflare.com/workers/configuration/routing/workers-dev/)
 documents per-Worker `workers.dev` availability. The source config keeps both
-`workers_dev` and `preview_urls` false until those checks pass.
+`workers_dev` and `preview_urls` false as private staging defaults; the current
+provider deployment has workers.dev enabled and previews disabled by owner
+authorization.
 [Worker version uploads](https://developers.cloudflare.com/workers/platform/infrastructure-as-code/)
 document module-based versions and the separate deployment step; Cloudflare's
 Workers API schema accepts `text/plain` modules.
 
-### Rollback
+### Historical private staging rollback
 
 If any Access or content check fails, first disable only this Worker's
 `workers.dev` route and previews. Return this dedicated Worker to the immutable
