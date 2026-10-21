@@ -17,9 +17,12 @@ publication evidence. Issue37 remains OPEN for an actual observed viewer test;
 the owner's reported basic Test1 is not that result. PR38 and its original
 viewer card remain OPEN, DRAFT, and unmerged.
 
-Next: G reviews the exact head of this documentation PR. The existing
-owner-private Site readback for Issue42 and actual observed viewer test for
-Issue37 remain separate gates; do not reopen completed source work.
+Next: Resume from the existing Issue42 shutdown checkpoint. This documentation
+update accepts neither the owner-private Site readback for Issue42 nor the
+actual observed viewer test for Issue37; both gates remain open. Do not reopen
+completed source work.
+
+https://github.com/mytestlab123/agentcore2/issues/42#issuecomment-6264753757
 
 ---
 
