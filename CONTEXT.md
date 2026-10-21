@@ -1,3 +1,30 @@
+# Current recovery index — 21 Oct 2026
+
+Accepted Core2 main baseline: `4d12512a536345fd4dac5fd4b9d8bb240a9df227`,
+source `v1.12.0-mock`. PR59 is merged and documents public, non-secret GitHub
+Actions configuration. The synthetic MOCK Worker was previously verified
+public at:
+
+https://agentic-ops.amitk.life
+
+That public Worker is separate from the OWNER-PRIVATE ChatGPT Site. This index
+does not claim a fresh provider observation, current private-Site version or
+header, publication, AWS action, or real-viewer result. MOCK evidence remains
+distinct from REAL evidence; real writes remain zero.
+
+Issue42 remains OPEN for private-Site hosted header/version readback and matching
+publication evidence. Issue37 remains OPEN for an actual observed viewer test;
+the owner's reported basic Test1 is not that result. PR38 and its original
+viewer card remain OPEN, DRAFT, and unmerged.
+
+Next: G reviews the exact head of this documentation PR. The existing
+owner-private Site readback for Issue42 and actual observed viewer test for
+Issue37 remain separate gates; do not reopen completed source work.
+
+---
+
+## Historical / superseded context (preserved below)
+
 # Current Issue42 — private Cloudflare source package
 
 Owner-authorized Issue42 source-only release preparation on Core2. Current
