@@ -70,12 +70,12 @@ cloud environment or attached connection.
 Use the selected cloud product's supported GitHub integration when available.
 Claude Code cloud documents built-in GitHub tools and REST `gh api` through its
 repository proxy, but GraphQL-backed `gh issue` and `gh pr` commands may be
-rejected; use supported REST calls or the product's GitHub interface where
-available, and do not assume every `gh` command works. Local plugins and auth
-are not inherited by cloud sessions. Repository `enabledPlugins` does not
-install plugins there; use only integrations explicitly exposed or enabled by
-the cloud product. Do not copy `~/.config/gh`, Codex/Claude auth, `.cf.env`, or
-any other home environment file. The repository requires Node `>=20`; its existing
+rejected; use built-in GitHub tools or supported REST `gh api` calls, and do not
+assume every `gh` command works. Local plugins and auth are not inherited by
+cloud sessions. Repository `enabledPlugins` does not install plugins there;
+verify the required connector is actually exposed in the cloud session before
+relying on it. Do not copy `~/.config/gh`, Codex/Claude auth, `.cf.env`, or any
+other home environment file. The repository requires Node `>=20`; its existing
 CI pins Node `24.19.0` and uses the committed npm lockfile. Python 3 is used by
 the existing offline harness. For a docs-only change, use `git diff --check`.
 For an approved source change, install dependencies only when absent, then run
@@ -84,14 +84,19 @@ or package proof for documentation-only changes.
 
 `npm run package:cloudflare-release` is the repository-owned offline package
 path; it validates the release metadata and is not a deployment command. The
-accepted source pin is in `showcases/chatgpt-sites-preview-b/RELEASE.json`
-(`v1.12.0-mock`, source commit `d261b77e01ab80b63b9d0c9be2080621662e89a1`,
-HTML SHA-256 and GUI fingerprint). A source/package pin does not prove what is
-currently hosted. The previously verified public synthetic Worker is separate
-from the OWNER-PRIVATE ChatGPT Site and from the real-viewer gate. Rollback is a
-separate release action: first verify the exact dedicated Worker and its prior
-immutable version from the existing Issue42 record; never infer a rollback
-target from source metadata or apply Worker evidence to the private Site.
+release metadata in `showcases/chatgpt-sites-preview-b/RELEASE.json` records
+`v1.12.0-mock` and `baseCommit` `d261b77e01ab80b63b9d0c9be2080621662e89a1`
+as the v1.11 baseline, plus the HTML SHA-256 and GUI fingerprint. This is not
+the current source HEAD: the handoff started from accepted Core2 `main`
+`6e6e9eff85c0241698d9928ec23178f2050aa4a8` (see `CONTEXT.md`). A continuing
+writer must record the exact current `origin/main` separately; do not treat
+the package baseline as current source provenance. A source/package pin does
+not prove what is currently hosted. The previously verified public synthetic
+Worker is separate from the OWNER-PRIVATE ChatGPT Site and from the real-viewer
+gate. Rollback is a separate release action: first verify the exact dedicated
+Worker and its prior immutable version from the existing Issue42 record; never
+infer a rollback target from source metadata or apply Worker evidence to the
+private Site.
 
 This repository has no Cloudflare deployment workflow. Existing Actions
 variable names `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_ZONE_ID`,
@@ -113,10 +118,12 @@ connection.
 **Copyable source-only task for an admitted cloud writer:**
 
 > Attach `mytestlab123/agentcore2` in the native cloud VM after Manager
-> confirms the single-writer handoff. Read Manager Issue19 and the current
-> Issues #39, #42, and #37; verify current clean `main` and the release pin in
-> `RELEASE.json`. Make a source change only for a concrete unmet source
-> acceptance criterion transferred by Manager. Preserve the existing three
+> confirms the single-writer handoff. Use Issue19's transferred acceptance
+> criteria as authoritative. Treat Issues #39, #42, and #37 as supporting
+> historical evidence once their transfer is accepted and they are closed;
+> do not reopen completed source work. Verify current clean `main` and the
+> release pin in `RELEASE.json`. Make a source change only for a concrete unmet
+> source acceptance criterion transferred by Manager. Preserve the existing three
 > synthetic MOCK stories, zero-real-writes and imported-provenance boundaries.
 > Do not perform AWS, Cloudflare, Site, credential, authentication, deployment,
 > or viewer actions. Run the smallest existing check for the source delta. If
