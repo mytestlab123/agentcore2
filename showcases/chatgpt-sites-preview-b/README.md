@@ -63,11 +63,19 @@ current `origin/main`; do not depend on Home paths, local worktrees, browser
 profiles, or copied authentication state. The selected product supplies its own
 session lifetime and subscription; this project makes no persistence or cost
 claim. The transferred issue list and dispositions stay in Manager Issue19.
+Cloud account/subscription entitlement and availability are **NOT VERIFIED**;
+vendor capability documentation does not prove this repository has a usable
+cloud environment or attached connection.
 
-Use the selected cloud product's supported GitHub integration when available;
-otherwise use `gh` only if it is already installed and authenticated in that
-cloud session. Do not copy `~/.config/gh`, Codex/Claude auth, `.cf.env`, or any
-other home environment file. The repository requires Node `>=20`; its existing
+Use the selected cloud product's supported GitHub integration when available.
+Claude Code cloud documents built-in GitHub tools and REST `gh api` through its
+repository proxy, but GraphQL-backed `gh issue` and `gh pr` commands may be
+rejected; use supported REST calls or the product's GitHub interface where
+available, and do not assume every `gh` command works. Local plugins and auth
+are not inherited by cloud sessions. Repository `enabledPlugins` does not
+install plugins there; use only integrations explicitly exposed or enabled by
+the cloud product. Do not copy `~/.config/gh`, Codex/Claude auth, `.cf.env`, or
+any other home environment file. The repository requires Node `>=20`; its existing
 CI pins Node `24.19.0` and uses the committed npm lockfile. Python 3 is used by
 the existing offline harness. For a docs-only change, use `git diff --check`.
 For an approved source change, install dependencies only when absent, then run
@@ -95,7 +103,12 @@ source-only work. For a separately authorized future provider task, prefer a
 supported Cloudflare app/plugin exposed by that native session; if unavailable,
 use only the already reviewed owner-authorized release route. Do not install a
 global CLI or export local OAuth credentials. The draft AWS OIDC path in PR8 is
-separate and does not authorize Cloudflare access.
+separate and does not authorize Cloudflare access. Codex Cloud documents native
+AWS OIDC only when a trusted connection is attached and its issuer, audience,
+subject trust, and resource permissions are configured. No such connection or
+cloud account setup is verified by this runbook; do not infer AWS access from a
+repository workflow or enable OIDC without a separately approved, verified
+connection.
 
 **Copyable source-only task for an admitted cloud writer:**
 
