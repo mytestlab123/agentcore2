@@ -1,6 +1,6 @@
 # Current recovery index — 29 Oct 2026
 
-Accepted Core2 main baseline: `6e6e9eff85c0241698d9928ec23178f2050aa4a8`,
+Accepted Core2 main baseline: `b189deb5455a7c79746c9e81c96bcd4bac663b6f`,
 source `v1.12.0-mock`. PR59 is merged and documents public, non-secret GitHub
 Actions configuration. The synthetic MOCK Worker was previously verified
 public at:
@@ -17,10 +17,11 @@ publication evidence. Issue37 remains OPEN for an actual observed viewer test;
 the owner's reported basic Test1 is not that result. PR38 and its original
 viewer card remain OPEN, DRAFT, and unmerged.
 
-Next: Resume from the existing Issue42 shutdown checkpoint. This documentation
-update accepts neither the owner-private Site readback for Issue42 nor the
-actual observed viewer test for Issue37; both gates remain open. Do not reopen
-completed source work.
+Next: Follow Manager Issue19 for transfer closure and writer-release status. Do
+not begin cloud work until Manager records release and admits one repository-
+bound successor there. The owner-private Site readback for Issue42 and actual
+observed viewer test for Issue37 remain separate acceptance gates; this routing
+correction accepts neither. Do not reopen completed source work.
 
 https://github.com/mytestlab123/agentcore2/issues/42#issuecomment-6264753757
 
@@ -29,6 +30,15 @@ Manager Issue19 is the cross-repository migration index and transferred-backlog
 record:
 
 https://github.com/amitkarpe/manager/issues/19
+
+Home Core2 X remains the sole writer until Manager records release in Issue19.
+Manager may then admit one identified repository-bound cloud successor; there
+must be no concurrent Home/cloud writes or duplicate writer lane. Preserve the
+Home session/history for recovery. Admission grants only approved repository
+and source scope, not cloud-product auth or AWS, account, credential, provider,
+IAM, secret, or audience authority. Manager controls transfer closure for Core2
+Issue39 and AWSOPS Issue90; after closure they are historical product-acceptance
+evidence, not separate active writer authority. Do not close those records here.
 
 ---
 

@@ -12,11 +12,14 @@ not an enterprise production platform. **BUILD → DEMONSTRATE → IMPROVE.**
 5. No unnecessary frameworks, layers or infrastructure.
 6. Minimal meaningful tests and evidence only; reuse completed proof.
 7. Do not repeatedly request GO for routine development.
-8. Owner override 16 October (Issue39 comment6207040070): Manager owns
-   cross-repository technical delivery; existing Core2 X is the sole repository
-   implementer. Dot is no longer a writer. The current delegated goal defines
-   scope; Manager owns technical acceptance and continues ready milestones.
-   G independently reviews and may merge eligible PRs.
+8. Manager owns cross-repository technical delivery and technical acceptance.
+   Home Core2 X remains the sole writer until Manager records its release in
+   Issue19; only then may Manager admit one identified repository-bound cloud
+   successor. Never allow concurrent Home/cloud writes or duplicate writer
+   lanes. Preserve Home session/history for recovery. Admission conveys only
+   approved repository/source scope, not cloud-product auth or AWS, account,
+   credential, provider, IAM, secret, or audience authority. G independently
+   reviews and may merge eligible PRs.
 9. Optional hardening must NOT block MVP milestones.
 10. Enterprise security, scalability, multi-tenant complexity and comprehensive
     edge-case coverage are future phases.
@@ -35,9 +38,12 @@ This policy supersedes conflicting older workflow preferences, not these boundar
 Repository-only work and safe source merges need no repeated GO; source acceptance
 never authorizes AWS installation, remediation or publication to a new audience.
 
-# Issue39 — current Defence Factory boundary
+# Issue39 — Defence Factory product acceptance boundary
 
-Existing core2 X implements under the 2026-10-16 owner override. MOCK compliance file
+Implementation and writer admission are governed by Manager Issue19. Core2 Issue39
+and AWSOPS Issue90 remain product-acceptance records until Manager completes their
+transfer closure; after closure, these records are historical acceptance evidence,
+not active writer authority. MOCK compliance file
 intake → exact compatible group → one consumed decision → simulated per-target
 outcomes → evidence. Reuse the existing standalone executor, no frontend fork.
 256 KiB/500-row synthetic input; private fields rejected, opaque aliases only.

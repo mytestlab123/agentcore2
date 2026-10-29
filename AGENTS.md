@@ -12,9 +12,14 @@ not an enterprise production platform. **BUILD → DEMONSTRATE → IMPROVE.**
 5. No unnecessary frameworks, layers or infrastructure.
 6. Minimal meaningful tests and evidence only; reuse completed proof.
 7. Do not repeatedly request GO for routine development.
-8. Owner override 16 October (Issue39 comment6207040070): existing core2 Codex X
-   is the sole repository implementer; Manager coordinates. Dot is no longer a
-   writer. The current delegated goal defines scope; source PRs await M review.
+8. Writer transition is governed by Manager Issue19. Home Core2 X remains the
+   sole writer until Manager records its release there; only then may Manager
+   admit one identified repository-bound cloud successor. Never allow concurrent
+   Home/cloud writes or a duplicate writer lane. Preserve the Home session/history
+   for recovery. Admission conveys only approved repository/source scope, not
+   cloud-product auth or AWS, account, credential, provider, IAM, secret, or
+   audience authority. Manager owns technical acceptance; G independently
+   reviews and may merge eligible PRs.
 9. Optional hardening must NOT block MVP milestones.
 10. Enterprise security, scalability, multi-tenant complexity and comprehensive
     edge-case coverage are future phases.
@@ -36,7 +41,7 @@ never authorizes AWS installation, remediation or publication to a new audience.
 
 ## Bootstrap / Recovery Order
 
-Use this order only for cold start, recovery, materially changed governing context, or stale/incomplete/contradictory state. The active Defence Factory scope is Issue #39; use its latest owner directive.
+Use this order only for cold start, recovery, materially changed governing context, or stale/incomplete/contradictory state. The active migration and writer-routing record is Manager Issue19; use its latest owner directive. Core2 Issue39 and AWSOPS Issue90 remain product-acceptance records through Manager's transfer closure; after closure, treat them as historical acceptance evidence, not separate active writer authority.
 
 1. `AGENTS.md`
 2. `CONTEXT.md`
@@ -79,7 +84,7 @@ Use this order only for cold start, recovery, materially changed governing conte
 
 ## Global Guidance
 
-Manager owns cross-repository Defence Factory delivery; this repo's existing Core2 X remains its sole writer. See the [canonical Manager policy](https://github.com/amitkarpe/manager/blob/main/projects/defence-factory/POLICY.md).
+Manager owns cross-repository Defence Factory delivery. Issue19 governs release of the Home writer and admission of one repository-bound cloud successor. See the [canonical Manager policy](https://github.com/amitkarpe/manager/blob/main/projects/defence-factory/POLICY.md) and [Manager Issue19](https://github.com/amitkarpe/manager/issues/19) for current routing status.
 
 When available, use `~/.agent/CORE.md` as the shared machine-wide operating
 contract. `~/.codex/AGENTS.md` is a Codex-specific adapter only. Agent OS is
