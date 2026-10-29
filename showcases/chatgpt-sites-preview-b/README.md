@@ -50,6 +50,66 @@ exactly these two modules and no bindings or URLs. Source configuration keeps
 private staging defaults; the deployed release was separately authorized for
 public workers.dev and the existing custom hostname, with previews disabled.
 
+### Cloud-session handoff — Manager Issue19 (source-only)
+
+Manager Issue19 is the canonical cross-repository migration index:
+
+https://github.com/amitkarpe/manager/issues/19
+
+This runbook is the Core2 release handoff. Continue in a native Codex Cloud or
+Claude Code cloud VM attached to this repository only after Manager confirms
+the Home writer is quiescent and the VM is the sole writer. Start from a clean,
+current `origin/main`; do not depend on Home paths, local worktrees, browser
+profiles, or copied authentication state. The selected product supplies its own
+session lifetime and subscription; this project makes no persistence or cost
+claim. The transferred issue list and dispositions stay in Manager Issue19.
+
+Use the selected cloud product's supported GitHub integration when available;
+otherwise use `gh` only if it is already installed and authenticated in that
+cloud session. Do not copy `~/.config/gh`, Codex/Claude auth, `.cf.env`, or any
+other home environment file. The repository requires Node `>=20`; its existing
+CI pins Node `24.19.0` and uses the committed npm lockfile. Python 3 is used by
+the existing offline harness. For a docs-only change, use `git diff --check`.
+For an approved source change, install dependencies only when absent, then run
+the existing `npm run verify:cloud -- fast`; do not repeat the browser journey
+or package proof for documentation-only changes.
+
+`npm run package:cloudflare-release` is the repository-owned offline package
+path; it validates the release metadata and is not a deployment command. The
+accepted source pin is in `showcases/chatgpt-sites-preview-b/RELEASE.json`
+(`v1.12.0-mock`, source commit `d261b77e01ab80b63b9d0c9be2080621662e89a1`,
+HTML SHA-256 and GUI fingerprint). A source/package pin does not prove what is
+currently hosted. The previously verified public synthetic Worker is separate
+from the OWNER-PRIVATE ChatGPT Site and from the real-viewer gate. Rollback is a
+separate release action: first verify the exact dedicated Worker and its prior
+immutable version from the existing Issue42 record; never infer a rollback
+target from source metadata or apply Worker evidence to the private Site.
+
+This repository has no Cloudflare deployment workflow. Existing Actions
+variable names `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_ZONE_ID`,
+`CLOUDFLARE_WORKER_NAME`, and `CLOUDFLARE_CUSTOM_DOMAIN` are manual operator
+metadata, not consumers of a Cloudflare workflow. `CLOUDFLARE_API_TOKEN` is not
+required while no such workflow exists. Actions variables/secrets do not
+configure a cloud-session environment. Do not add or copy credentials for
+source-only work. For a separately authorized future provider task, prefer a
+supported Cloudflare app/plugin exposed by that native session; if unavailable,
+use only the already reviewed owner-authorized release route. Do not install a
+global CLI or export local OAuth credentials. The draft AWS OIDC path in PR8 is
+separate and does not authorize Cloudflare access.
+
+**Copyable source-only task for an admitted cloud writer:**
+
+> Attach `mytestlab123/agentcore2` in the native cloud VM after Manager
+> confirms the single-writer handoff. Read Manager Issue19 and the current
+> Issues #39, #42, and #37; verify current clean `main` and the release pin in
+> `RELEASE.json`. Make a source change only for a concrete unmet source
+> acceptance criterion transferred by Manager. Preserve the existing three
+> synthetic MOCK stories, zero-real-writes and imported-provenance boundaries.
+> Do not perform AWS, Cloudflare, Site, credential, authentication, deployment,
+> or viewer actions. Run the smallest existing check for the source delta. If
+> only hosted/private-Site or real-viewer evidence remains, make no source
+> change and report that exact owner gate.
+
 ### Historical private staging sequence
 
 The following records the earlier private staging/default procedure. It is
