@@ -12,13 +12,14 @@ does not claim a fresh provider observation, current private-Site version or
 header, publication, AWS action, or real-viewer result. MOCK evidence remains
 distinct from REAL evidence; real writes remain zero.
 
-Issue42 remains OPEN for private-Site hosted header/version readback and matching
-publication evidence. Issue37 remains OPEN for an actual observed viewer test;
-the owner's reported basic Test1 is not that result. PR38 and its original
-viewer card remain OPEN, DRAFT, and unmerged.
+Issues #42 and #37 are CLOSED as transferred to Manager Issue19; private-Site
+hosted header/version readback and matching publication evidence, and an actual
+observed viewer test, remain pending acceptance in Issue19. The owner's reported
+basic Test1 is not viewer acceptance. PR38 is CLOSED UNMERGED; its original
+viewer card and branch are preserved. Issue19 is the sole active successor.
 
-Next: Follow Manager Issue19 for transfer closure and writer-release status. Do
-not begin cloud work until Manager records release and admits one repository-
+Next: Follow Manager Issue19 for remaining acceptance and writer-release status.
+Do not begin cloud work until Manager records release and admits one repository-
 bound successor there. The owner-private Site readback for Issue42 and actual
 observed viewer test for Issue37 remain separate acceptance gates; this routing
 correction accepts neither. Do not reopen completed source work.
