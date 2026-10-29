@@ -1,6 +1,6 @@
-# Current recovery index — 21 Oct 2026
+# Current recovery index — 29 Oct 2026
 
-Accepted Core2 main baseline: `4d12512a536345fd4dac5fd4b9d8bb240a9df227`,
+Accepted Core2 main baseline: `6e6e9eff85c0241698d9928ec23178f2050aa4a8`,
 source `v1.12.0-mock`. PR59 is merged and documents public, non-secret GitHub
 Actions configuration. The synthetic MOCK Worker was previously verified
 public at:
@@ -23,6 +23,12 @@ actual observed viewer test for Issue37; both gates remain open. Do not reopen
 completed source work.
 
 https://github.com/mytestlab123/agentcore2/issues/42#issuecomment-6264753757
+
+Core2 cloud-session guidance is in `showcases/chatgpt-sites-preview-b/README.md`.
+Manager Issue19 is the cross-repository migration index and transferred-backlog
+record:
+
+https://github.com/amitkarpe/manager/issues/19
 
 ---
 
