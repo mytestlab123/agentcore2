@@ -50,7 +50,9 @@ Use this order only for cold start, recovery, materially changed governing conte
 
 ## Rules
 
-- Follow KISS: one problem, one happy path, one command, one proof, one result.
+- **First principle: KISS-FIRST** (Amit core, section 0): the smallest working solution with the tools
+  that already exist. Before adding anything, ask: can we remove this? Can we do it with less?
+  In this repo: one problem, one happy path, one command, one proof, one result.
 - Preserve existing work. Do not revert unrelated changes or use destructive
   Git commands without explicit approval.
 - Keep durable code, decisions, and reports in Git. Do not put secrets,
